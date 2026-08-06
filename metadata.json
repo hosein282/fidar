@@ -1,0 +1,6 @@
+{
+  "name": "Biesss Digital - Bilingual PHP & MySQL Web Studio",
+  "description": "High-performance bilingual (Persian/English) corporate & digital agency website inspired by biesss.com, with SEO suite, project estimator, CMS admin, and exportable PHP/MySQL codebase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
