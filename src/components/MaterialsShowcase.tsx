@@ -228,6 +228,10 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                   <img
                     src={mat.imgUrl}
                     alt={mat.nameEn}
+                    width={900}
+                    height={1200}
+                    loading="lazy"
+                    decoding="async"
                     className="max-h-[65vh] w-auto object-contain drop-shadow-2xl"
                   />
                 </div>
@@ -270,6 +274,10 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             <img
               src={current.imgUrl}
               alt={current.nameEn}
+              width={900}
+              height={1200}
+              loading="lazy"
+              decoding="async"
               className="max-h-full max-w-full object-contain transition-all duration-500 drop-shadow-xl"
             />
           </div>

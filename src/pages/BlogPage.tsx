@@ -185,6 +185,10 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                   <img 
                     src={activePost.coverImage} 
                     alt={isFa ? activePost.title?.fa : activePost.title?.en} 
+                    width={1200}
+                    height={800}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -249,6 +253,10 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                         <img 
                           src={relPost.coverImage} 
                           alt="Related" 
+                          width={96}
+                          height={96}
+                          loading="lazy"
+                          decoding="async"
                           className="w-24 h-24 rounded-xl object-cover shrink-0 group-hover:scale-105 transition"
                         />
                         <div className="space-y-2 flex-1">
@@ -342,6 +350,10 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                       <img 
                         src={filteredPosts[0].coverImage} 
                         alt="Featured" 
+                        width={1200}
+                        height={800}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
                       <span className="absolute top-4 right-4 bg-[#006063] text-white text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
@@ -404,6 +416,10 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                               <img 
                                 src={post.coverImage} 
                                 alt={titleStr} 
+                                width={1200}
+                                height={800}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                               />
                               <span className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider">

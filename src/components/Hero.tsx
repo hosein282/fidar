@@ -54,6 +54,10 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
                 : "https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=2370&h=3500&q=50&fm=png"
             }
             alt="Biesse Machine Model"
+            width={613}
+            height={906}
+            loading="eager"
+            decoding="async"
             className="max-h-[80%] max-w-[80%] object-contain relative z-10 transition-all duration-700 ease-out transform hover:scale-105"
           />
         </div>

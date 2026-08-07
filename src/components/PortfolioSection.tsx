@@ -73,6 +73,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ lang, projec
                   <img
                     src={project.image}
                     alt={isFa ? project.title.fa : project.title.en}
+                    width={1200}
+                    height={800}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/95 text-blue-900 text-[11px] font-mono font-bold shadow-sm border border-slate-200">
@@ -146,7 +150,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ lang, projec
             </div>
 
             <div className="rounded-xl overflow-hidden h-56 bg-slate-100 border border-slate-200">
-              <img src={selectedProject.image} alt="Project Banner" className="w-full h-full object-cover" />
+              <img src={selectedProject.image} alt="Project Banner" width={1200} height={800} loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
 
             {/* Metrics */}

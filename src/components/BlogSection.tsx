@@ -76,6 +76,10 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                     <img
                       src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'}
                       alt={titleStr}
+                      width={1200}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -203,7 +207,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                 </div>
 
                 <div className="rounded-2xl overflow-hidden h-64 sm:h-80 bg-slate-100 border border-slate-200 shadow-sm">
-                  <img src={selectedPost.coverImage} alt="Article Cover" className="w-full h-full object-cover" />
+                  <img src={selectedPost.coverImage} alt="Article Cover" width={1200} height={800} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
 
                 <div className="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">
