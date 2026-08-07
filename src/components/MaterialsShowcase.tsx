@@ -28,7 +28,7 @@ const MATERIALS: MaterialData[] = [
     descFa: 'ما ماشین‌آلاتی برای ساده‌سازی فرآیند تولید برای مشتریانی که با چوب در صنعت مبلمان و در و پنجره فعالیت می‌کنند، تولید می‌کنیم.',
     btnEn: 'Discover Biesse Machinery Wood',
     btnFa: 'کشف ماشین‌آلات چوب بیئس',
-    imgUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4xaFSmR4Rsf74wc8FZrC4O/a2b72e95b0e08666c4a75341be56b1cb/WOOD-singolo-2.png?w=613&h=906&q=50&fm=png'
+    imgUrl: '/assets/images/WOOD-singolo-2.png'
   },
   {
     id: 'glass',
@@ -39,7 +39,7 @@ const MATERIALS: MaterialData[] = [
     descFa: 'ما ماشین‌آلات پیشرفته برای فراوری و برش شیشه در صنایع معماری، طراحی داخلی و ساخت خودرو تولید می‌کنیم.',
     btnEn: 'Discover Biesse Machinery Glass',
     btnFa: 'کشف ماشین‌آلات شیشه بیئس',
-    imgUrl: 'https://images.ctfassets.net/bdj0rlksezwc/1Zf5PLBjCtV8N3qa37DSXW/823afea9546810ed75f7aeaf71abced3/test-GLASS-icon-2.png?w=755&h=1114&q=50&fm=png'
+    imgUrl: '/assets/images/test-GLASS-icon-2.png'
   },
   {
     id: 'stone',
@@ -50,7 +50,7 @@ const MATERIALS: MaterialData[] = [
     descFa: 'تکنولوژی برش و پردازش سنگ بیئس، حداکثر انعطاف‌پذیری و دقت فوق‌العاده را برای سنگ‌های طبیعی و مصنوعی فراهم می‌سازد.',
     btnEn: 'Discover Biesse Machinery Stone',
     btnFa: 'کشف ماشین‌آلات سنگ بیئس',
-    imgUrl: 'https://images.ctfassets.net/bdj0rlksezwc/5cReCtVRkYfgs8oEjG07DX/dcf3d34fffd150803f95d51a5d1c9d33/STONE_singolo-2.png?w=2370&h=3500&q=50&fm=png'
+    imgUrl: '/assets/images/STONE_singolo-2.png'
   },
   {
     id: 'materia',
@@ -61,7 +61,7 @@ const MATERIALS: MaterialData[] = [
     descFa: 'راهکارهای هوشمند برای پردازش متریال‌های پیشرفته، پلاستیک‌ها و کامپوزیت‌های با فناوری بالا.',
     btnEn: 'Discover Biesse Materia',
     btnFa: 'کشف متریال‌های پیشرفته بیئس',
-    imgUrl: 'https://images.ctfassets.net/bdj0rlksezwc/6pjxB7QmujUujmiFNbmR7H/8f6522b3bd6acfd961940efc1f559891/MATERIA-singolo-2.png?w=2370&h=3500&q=50&fm=png'
+    imgUrl: '/assets/images/MATERIA-singolo-2.png'
   },
   {
     id: 'metal',
@@ -173,7 +173,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             <div className="flex items-end mb-8 w-full relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                style={{ fillRule: 'evenodd', clipRule: 'evenodd', strokeJoin: 'round', strokeMiterlimit: 2 }}
+                style={{ fillRule: 'evenodd' as const, clipRule: 'evenodd' as const, strokeLinejoin: 'round' as const, strokeMiterlimit: 2 }}
                 viewBox="0 0 308 123"
                 className="mb-[1px] h-20 xl:h-24 2xl:h-28 [&_path]:!fill-slate-900"
               >

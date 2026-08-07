@@ -17,7 +17,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
         className="relative bg-cover bg-no-repeat bg-fixed bg-center"
         style={{
           backgroundImage:
-            'url("https://images.ctfassets.net/bdj0rlksezwc/4Q0Jk77ESs6av66irZR7bp/f63a9ea14a8a3a1ec8691054209470fa/Rectangle_86.png")',
+            'url("/assets/images/Rectangle_86.png")',
           backgroundAttachment: 'fixed'
         }}
       >

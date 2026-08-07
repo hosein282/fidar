@@ -1,8 +1,13 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Language, BlogPost, SEOMetaConfig } from '../types';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import { AdminPanel } from '../components/AdminPanel';
+import { PhpExporter } from '../components/PhpExporter';
 import { sanitizeBlogPost } from '../utils/sanitize';
 import { 
   Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight, 
@@ -12,28 +17,33 @@ import {
 interface BlogPageProps {
   posts: BlogPost[];
   seoConfig: SEOMetaConfig;
-  onOpenAdmin: () => void;
-  onOpenExporter: () => void;
+  onOpenAdmin?: () => void;
+  onOpenExporter?: () => void;
+  lang?: Language;
+  postId?: string;
 }
 
-export const BlogPage: React.FC<BlogPageProps> = ({
+const BlogPageComponent: React.FC<BlogPageProps> = ({
   posts,
   seoConfig,
-  onOpenAdmin,
-  onOpenExporter,
+  onOpenAdmin = () => {},
+  onOpenExporter = () => {},
+  lang = 'fa',
+  postId,
 }) => {
-  const { lang: urlLang, id: postId } = useParams<{ lang?: string; id?: string }>();
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const currentLang: Language = (urlLang === 'en' || urlLang === 'fa') ? urlLang : 'fa';
+  const currentLang: Language = (lang === 'en' || lang === 'fa') ? lang : 'fa';
   const isFa = currentLang === 'fa';
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [showSchemaModal, setShowSchemaModal] = useState(false);
+  const [activeModal, setActiveModal] = useState<'admin' | 'exporter' | null>(null);
+  const [pagePosts, setPagePosts] = useState(posts);
 
-  const safePosts = (Array.isArray(posts) ? posts : []).map(sanitizeBlogPost);
+  const safePosts = (Array.isArray(pagePosts) ? pagePosts : []).map(sanitizeBlogPost);
 
   // Sync HTML lang and dir attribute
   useEffect(() => {
@@ -42,14 +52,28 @@ export const BlogPage: React.FC<BlogPageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentLang, postId]);
 
+  useEffect(() => {
+    setPagePosts(posts);
+  }, [posts]);
+
   const activePost = postId ? safePosts.find(p => p.id === postId) : null;
 
   const handleLanguageSwitch = (newLang: Language) => {
     if (postId) {
-      navigate(`/${newLang}/blog/${postId}`);
+      router.push(`/${newLang}/blog/${postId}`);
     } else {
-      navigate(`/${newLang}/blog`);
+      router.push(`/${newLang}/blog`);
     }
+  };
+
+  const handleOpenAdmin = () => {
+    setActiveModal('admin');
+    onOpenAdmin?.();
+  };
+
+  const handleOpenExporter = () => {
+    setActiveModal('exporter');
+    onOpenExporter?.();
   };
 
   // Filter posts
@@ -85,8 +109,8 @@ export const BlogPage: React.FC<BlogPageProps> = ({
         <Header
           lang={currentLang}
           onLanguageChange={handleLanguageSwitch}
-          onOpenAdmin={onOpenAdmin}
-          onOpenExporter={onOpenExporter}
+          onOpenAdmin={handleOpenAdmin}
+          onOpenExporter={handleOpenExporter}
           seoConfig={seoConfig}
         />
 
@@ -99,11 +123,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({
               
               {/* Breadcrumb Navigation */}
               <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 mb-8 overflow-x-auto whitespace-nowrap">
-                <Link to={`/${currentLang}`} className="hover:text-[#006063] transition">
+                <Link href={`/${currentLang}`} className="hover:text-[#006063] transition">
                   {isFa ? 'صفحه اصلی' : 'Home'}
                 </Link>
                 <span>/</span>
-                <Link to={`/${currentLang}/blog`} className="hover:text-[#006063] transition">
+                <Link href={`/${currentLang}/blog`} className="hover:text-[#006063] transition">
                   {isFa ? 'اخبار و مقالات' : 'News & Articles'}
                 </Link>
                 <span>/</span>
@@ -114,7 +138,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
 
               {/* Back to Blog List Button */}
               <button
-                onClick={() => navigate(`/${currentLang}/blog`)}
+                onClick={() => router.push(`/${currentLang}/blog`)}
                 className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-300 hover:border-[#006063] hover:text-[#006063] text-xs sm:text-sm font-bold shadow-sm transition"
               >
                 <ArrowIcon className="w-4 h-4" />
@@ -219,7 +243,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
                     .map(relPost => (
                       <div 
                         key={relPost.id}
-                        onClick={() => navigate(`/${currentLang}/blog/${relPost.id}`)}
+                        onClick={() => router.push(`/${currentLang}/blog/${relPost.id}`)}
                         className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer flex gap-4 group"
                       >
                         <img 
@@ -311,7 +335,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
                 {/* Featured First Post Card */}
                 {filteredPosts.length > 0 && selectedCategory === 'all' && !searchQuery && (
                   <div 
-                    onClick={() => navigate(`/${currentLang}/blog/${filteredPosts[0].id}`)}
+                    onClick={() => router.push(`/${currentLang}/blog/${filteredPosts[0].id}`)}
                     className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 cursor-pointer group hover:border-[#006063] transition duration-300"
                   >
                     <div className="lg:col-span-7 h-64 sm:h-80 lg:h-auto overflow-hidden relative">
@@ -372,7 +396,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({
                       return (
                         <article
                           key={post.id}
-                          onClick={() => navigate(`/${currentLang}/blog/${post.id}`)}
+                          onClick={() => router.push(`/${currentLang}/blog/${post.id}`)}
                           className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl hover:border-[#006063] transition duration-300 flex flex-col justify-between cursor-pointer group"
                         >
                           <div>
@@ -460,9 +484,39 @@ export const BlogPage: React.FC<BlogPageProps> = ({
       {/* Footer */}
       <Footer
         lang={currentLang}
-        onOpenExporter={onOpenExporter}
-        onOpenAdmin={onOpenAdmin}
+        onOpenExporter={handleOpenExporter}
+        onOpenAdmin={handleOpenAdmin}
       />
+
+      {activeModal && (
+        <div className="fixed inset-0 z-[220] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-6xl max-h-[90vh] overflow-auto rounded-3xl bg-white p-2 sm:p-4 shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setActiveModal(null)}
+              className="absolute left-4 top-4 z-10 rounded-full bg-slate-100 p-2 text-slate-600 transition hover:bg-slate-200 hover:text-slate-900"
+              aria-label="Close"
+            >
+              ×
+            </button>
+            {activeModal === 'admin' ? (
+              <AdminPanel
+                lang={currentLang}
+                onClose={() => setActiveModal(null)}
+                seoConfig={seoConfig}
+                onUpdateSeo={() => {}}
+                posts={pagePosts}
+                onUpdatePosts={setPagePosts}
+              />
+            ) : (
+              <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+export default BlogPageComponent;
+export { BlogPageComponent as BlogPage };

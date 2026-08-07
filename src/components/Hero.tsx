@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <img
             src={
               activeMaterial === 'wood'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/4xaFSmR4Rsf74wc8FZrC4O/a2b72e95b0e08666c4a75341be56b1cb/WOOD-singolo-2.png?w=613&h=906&q=50&fm=png"
+                ? "/assets/images/WOOD-singolo-2.png?w=613&h=906&q=50&fm=png"
                 : activeMaterial === 'glass'
                 ? "https://images.ctfassets.net/bdj0rlksezwc/1Zf5PLBjCtV8N3qa37DSXW/823afea9546810ed75f7aeaf71abced3/test-GLASS-icon-2.png?w=755&h=1114&q=50&fm=png"
                 : activeMaterial === 'stone'

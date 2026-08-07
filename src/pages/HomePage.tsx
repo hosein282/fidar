@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../types';
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
@@ -10,37 +12,56 @@ import { LocationsSection } from '../components/LocationsSection';
 import { SustainabilitySection } from '../components/SustainabilitySection';
 import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
+import { AdminPanel } from '../components/AdminPanel';
+import { PhpExporter } from '../components/PhpExporter';
 
 interface HomePageProps {
   services: ServiceItem[];
   portfolio: PortfolioProject[];
   posts: BlogPost[];
   seoConfig: SEOMetaConfig;
-  onOpenAdmin: () => void;
-  onOpenExporter: () => void;
+  onOpenAdmin?: () => void;
+  onOpenExporter?: () => void;
+  lang?: Language;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({
+const HomePageComponent: React.FC<HomePageProps> = ({
   services,
   portfolio,
   posts,
   seoConfig,
-  onOpenAdmin,
-  onOpenExporter,
+  onOpenAdmin = () => {},
+  onOpenExporter = () => {},
+  lang = 'fa',
 }) => {
-  const { lang: urlLang } = useParams<{ lang?: string }>();
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const currentLang: Language = (urlLang === 'en' || urlLang === 'fa') ? urlLang : 'fa';
+  const currentLang: Language = (lang === 'en' || lang === 'fa') ? lang : 'fa';
   const isFa = currentLang === 'fa';
+  const [activeModal, setActiveModal] = useState<'admin' | 'exporter' | null>(null);
+  const [pagePosts, setPagePosts] = useState(posts);
 
   useEffect(() => {
     document.documentElement.setAttribute('dir', isFa ? 'rtl' : 'ltr');
     document.documentElement.setAttribute('lang', currentLang);
   }, [currentLang, isFa]);
 
+  useEffect(() => {
+    setPagePosts(posts);
+  }, [posts]);
+
   const handleLanguageSwitch = (newLang: Language) => {
-    navigate(`/${newLang}`);
+    router.push(`/${newLang}`);
+  };
+
+  const handleOpenAdmin = () => {
+    setActiveModal('admin');
+    onOpenAdmin?.();
+  };
+
+  const handleOpenExporter = () => {
+    setActiveModal('exporter');
+    onOpenExporter?.();
   };
 
   return (
@@ -50,8 +71,8 @@ export const HomePage: React.FC<HomePageProps> = ({
       <Header
         lang={currentLang}
         onLanguageChange={handleLanguageSwitch}
-        onOpenAdmin={onOpenAdmin}
-        onOpenExporter={onOpenExporter}
+        onOpenAdmin={handleOpenAdmin}
+        onOpenExporter={handleOpenExporter}
         seoConfig={seoConfig}
       />
 
@@ -60,7 +81,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* 2. Biesse Hero Banner & Video */}
         <Hero
           lang={currentLang}
-          onOpenExporter={onOpenExporter}
+          onOpenExporter={handleOpenExporter}
         />
 
         {/* 3. About Section */}
@@ -76,7 +97,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* 5. What's Next / Biesse News Carousel */}
         <BlogSection
           lang={currentLang}
-          posts={posts}
+          posts={pagePosts}
         />
 
         {/* 6. Global Locations & Branches */}
@@ -98,10 +119,40 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 9. Biesse Footer */}
       <Footer
         lang={currentLang}
-        onOpenExporter={onOpenExporter}
-        onOpenAdmin={onOpenAdmin}
+        onOpenExporter={handleOpenExporter}
+        onOpenAdmin={handleOpenAdmin}
       />
+
+      {activeModal && (
+        <div className="fixed inset-0 z-[220] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-6xl max-h-[90vh] overflow-auto rounded-3xl bg-white p-2 sm:p-4 shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setActiveModal(null)}
+              className="absolute left-4 top-4 z-10 rounded-full bg-slate-100 p-2 text-slate-600 transition hover:bg-slate-200 hover:text-slate-900"
+              aria-label="Close"
+            >
+              ×
+            </button>
+            {activeModal === 'admin' ? (
+              <AdminPanel
+                lang={currentLang}
+                onClose={() => setActiveModal(null)}
+                seoConfig={seoConfig}
+                onUpdateSeo={() => {}}
+                posts={pagePosts}
+                onUpdatePosts={setPagePosts}
+              />
+            ) : (
+              <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+            )}
+          </div>
+        </div>
+      )}
 
     </div>
   );
 };
+
+export default HomePageComponent;
+export { HomePageComponent as HomePage };
