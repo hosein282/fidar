@@ -34,7 +34,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
             style={{
-              backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/7z1ounD96FpGSL6bNv3MLD/6c60ee36a4a5d60088884b6f06346c90/AdobeStock_675117344_Preview-transformed_out.jpeg?w=2000&h=1336&q=50&fm=jpg")'
+              backgroundImage: 'url("/assets/images/Rectangle_86.png")'
             }}
           />
 

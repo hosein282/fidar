@@ -744,6 +744,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         <img
                           src={post.coverImage}
                           alt={post.title.fa}
+                          width={64}
+                          height={64}
+                          loading="lazy"
+                          decoding="async"
                           className="w-16 h-16 rounded-lg object-cover border border-slate-200 shrink-0"
                         />
                         <div className="space-y-1">

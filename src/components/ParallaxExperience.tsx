@@ -93,6 +93,10 @@ export const ParallaxExperience: React.FC<ParallaxExperienceProps> = ({ lang }) 
           <img
             src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=2000&q=80"
             alt="Parallax Background"
+            width={1600}
+            height={900}
+            loading="eager"
+            decoding="async"
             className="w-full h-full object-cover filter blur-sm scale-110"
           />
         </motion.div>
@@ -196,6 +200,10 @@ export const ParallaxExperience: React.FC<ParallaxExperienceProps> = ({ lang }) 
               <img
                 src={theme.bgImage}
                 alt={theme.title}
+                width={1600}
+                height={900}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover filter brightness-75 contrast-125"
               />
               <div className={`absolute inset-0 bg-gradient-to-br ${theme.bgColor} mix-blend-multiply`} />

@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Language, BlogPost } from '../types';
 import { ChevronLeft, ChevronRight, X, Code2, Calendar, Clock, Eye, ArrowLeft, ArrowRight } from 'lucide-react';
 import { sanitizeBlogPost } from '../utils/sanitize';
@@ -10,7 +13,7 @@ interface BlogSectionProps {
 }
 
 export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [showSchemaModal, setShowSchemaModal] = useState<boolean>(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -40,7 +43,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           </h2>
 
           <Link
-            to={`/${lang}/blog`}
+            href={`/${lang}/blog`}
             className="px-6 py-2.5 rounded-lg border border-white/80 text-white hover:bg-white hover:text-[#005254] transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
           >
             <span>{isFa ? 'مشاهده همه اخبار و مقالات' : 'See all news & articles'}</span>
@@ -65,7 +68,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
               return (
                 <article
                   key={post.id}
-                  onClick={() => navigate(`/${lang}/blog/${post.id}`)}
+                  onClick={() => router.push(`/${lang}/blog/${post.id}`)}
                   className="w-[280px] sm:w-[320px] flex-shrink-0 snap-start flex flex-col items-center group cursor-pointer text-center"
                 >
                   {/* Card Image with Biesse rounded-3xl corners */}
@@ -73,6 +76,10 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                     <img
                       src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'}
                       alt={titleStr}
+                      width={1200}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -200,7 +207,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                 </div>
 
                 <div className="rounded-2xl overflow-hidden h-64 sm:h-80 bg-slate-100 border border-slate-200 shadow-sm">
-                  <img src={selectedPost.coverImage} alt="Article Cover" className="w-full h-full object-cover" />
+                  <img src={selectedPost.coverImage} alt="Article Cover" width={1200} height={800} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
 
                 <div className="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">

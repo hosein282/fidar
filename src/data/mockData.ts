@@ -443,6 +443,7 @@ export const INITIAL_SEO_META: SEOMetaConfig = {
     fa: ['طراحی سایت biesss', 'سایت PHP و MySQL', 'طراحی سایت دوزبانه', 'سئوی تخصصی گوگل', 'کد PHP آماده سایت شرکتی'],
     en: ['biesss style website', 'PHP MySQL web dev', 'Bilingual website development', 'Enterprise SEO agency', 'PHP source code generator']
   },
+  
   ogImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
   canonicalUrl: 'https://biesss.example.com',
   twitterHandle: '@BiesssDigital',

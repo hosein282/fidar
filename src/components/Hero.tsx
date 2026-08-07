@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <img
             src={
               activeMaterial === 'wood'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/4xaFSmR4Rsf74wc8FZrC4O/a2b72e95b0e08666c4a75341be56b1cb/WOOD-singolo-2.png?w=613&h=906&q=50&fm=png"
+                ? "/assets/images/WOOD-singolo-2.png?w=613&h=906&q=50&fm=png"
                 : activeMaterial === 'glass'
                 ? "https://images.ctfassets.net/bdj0rlksezwc/1Zf5PLBjCtV8N3qa37DSXW/823afea9546810ed75f7aeaf71abced3/test-GLASS-icon-2.png?w=755&h=1114&q=50&fm=png"
                 : activeMaterial === 'stone'
@@ -54,6 +54,10 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
                 : "https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=2370&h=3500&q=50&fm=png"
             }
             alt="Biesse Machine Model"
+            width={613}
+            height={906}
+            loading="eager"
+            decoding="async"
             className="max-h-[80%] max-w-[80%] object-contain relative z-10 transition-all duration-700 ease-out transform hover:scale-105"
           />
         </div>
