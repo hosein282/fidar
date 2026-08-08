@@ -35,10 +35,18 @@ declare namespace __next_route_internal_types__ {
     | `/`
     | `/BlogPage`
     | `/HomePage`
+    | `/api/ai/seo-generate`
+    | `/api/ai/translate`
+    | `/api/articles`
+    | `/api/blog`
+    | `/api/contact`
+    | `/api/messages`
+    | `/api/news`
   type DynamicRoutes<T extends string = string> = 
     | `/${SafeSlug<T>}`
     | `/${SafeSlug<T>}/blog`
     | `/${SafeSlug<T>}/blog/${SafeSlug<T>}`
+    | `/api/blog/${SafeSlug<T>}`
 
   type RouteImpl<T> = 
     | StaticRoutes
