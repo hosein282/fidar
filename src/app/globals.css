@@ -18,7 +18,38 @@
   font-family: 'IRANSansX', 'Vazirmatn', sans-serif;
 }
 
-  :root {
-    --currentColor: #006063;
-    
-  }
+/* ========================================================
+   Design Tokens - CSS Variables
+   All colors are defined here for consistent theming
+   ======================================================== */
+@theme {
+  /* Brand Colors */
+  --color-primary: #006063;
+  --color-primary-dark: #005254;
+  --color-primary-darker: #00383a;
+  --color-surface: #e6e6e6;
+  --color-ink: #231f20;
+
+  /* Material Colors */
+  --color-wood: #d79030;
+  --color-glass: #4ac3e0;
+  --color-stone: #f0523d;
+  --color-materia: #8282d6;
+  --color-metal: #65554a;
+}
+
+:root {
+  /* Brand Colors */
+  --color-primary: #FF7F27;
+  --color-primary-dark: #2a3470;
+  --color-primary-darker: #00383a;
+  --color-surface: #e6e6e6;
+  --color-ink: #231f20;
+
+  /* Material Colors */
+  --color-wood: #d79030;
+  --color-glass: #4ac3e0;
+  --color-stone: #f0523d;
+  --color-materia: #8282d6;
+  --color-metal: #65554a;
+}

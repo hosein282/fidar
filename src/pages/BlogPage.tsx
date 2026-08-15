@@ -103,7 +103,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-[#e6e6e6] text-slate-900 font-sans selection:bg-[#006063] selection:text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white flex flex-col justify-between">
       <div>
         {/* Main Header */}
         <Header
@@ -123,11 +123,11 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
               
               {/* Breadcrumb Navigation */}
               <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 mb-8 overflow-x-auto whitespace-nowrap">
-                <Link href={`/${currentLang}`} className="hover:text-[#006063] transition">
+                <Link href={`/${currentLang}`} className="hover:text-primary transition">
                   {isFa ? 'صفحه اصلی' : 'Home'}
                 </Link>
                 <span>/</span>
-                <Link href={`/${currentLang}/blog`} className="hover:text-[#006063] transition">
+                <Link href={`/${currentLang}/blog`} className="hover:text-primary transition">
                   {isFa ? 'اخبار و مقالات' : 'News & Articles'}
                 </Link>
                 <span>/</span>
@@ -139,7 +139,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
               {/* Back to Blog List Button */}
               <button
                 onClick={() => router.push(`/${currentLang}/blog`)}
-                className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-300 hover:border-[#006063] hover:text-[#006063] text-xs sm:text-sm font-bold shadow-sm transition"
+                className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-300 hover:border-primary hover:text-primary text-xs sm:text-sm font-bold shadow-sm transition"
               >
                 <ArrowIcon className="w-4 h-4" />
                 <span>{isFa ? 'بازگشت به فهرست اخبار و مقالات' : 'Back to News List'}</span>
@@ -151,7 +151,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                 {/* Meta Header */}
                 <div className="space-y-4 border-b border-slate-100 pb-6">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                    <span className="text-[#006063] font-bold px-3 py-1 bg-teal-50 rounded-full border border-teal-200">
+                    <span className="text-primary font-bold px-3 py-1 bg-teal-50 rounded-full border border-teal-200">
                       {isFa ? activePost.category?.fa : activePost.category?.en}
                     </span>
                     <span>•</span>
@@ -200,7 +200,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
                 {/* Keywords Tags */}
                 <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center gap-2">
-                  <Tag className="w-4 h-4 text-[#006063]" />
+                  <Tag className="w-4 h-4 text-primary" />
                   <span className="text-xs font-bold text-slate-500">{isFa ? 'برچسب‌ها:' : 'Keywords:'}</span>
                   {(isFa ? activePost.seoKeywords?.fa : activePost.seoKeywords?.en)?.map((kw, idx) => (
                     <span key={idx} className="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs rounded-lg transition font-mono">
@@ -212,7 +212,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                 {/* Footer Controls: Author & Schema Modal */}
                 <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#006063] text-white flex items-center justify-center font-bold text-sm">
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
                       {(isFa ? activePost.author?.fa : activePost.author?.en)?.charAt(0) || 'B'}
                     </div>
                     <div>
@@ -223,20 +223,20 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     </div>
                   </div>
 
-                  <button
+                  {/* <button
                     onClick={() => setShowSchemaModal(true)}
-                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-[#006063] hover:text-white text-[#006063] border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition"
+                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-primary hover:text-white text-primary border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition"
                   >
                     <Code2 className="w-4 h-4" />
                     <span>{isFa ? 'مشاهده اسکیما JSON-LD سئو' : 'View Schema.org JSON-LD'}</span>
-                  </button>
+                  </button> */}
                 </div>
 
               </article>
 
               {/* Related Posts Section */}
               <div className="mt-16 space-y-6">
-                <h3 className="text-2xl font-bold text-slate-900 border-r-4 border-[#006063] pr-3">
+                <h3 className="text-2xl font-bold text-slate-900 border-r-4 border-primary pr-3">
                   {isFa ? 'سایر اخبار و مقالات مرتبط' : 'Related News & Articles'}
                 </h3>
 
@@ -260,10 +260,10 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                           className="w-24 h-24 rounded-xl object-cover shrink-0 group-hover:scale-105 transition"
                         />
                         <div className="space-y-2 flex-1">
-                          <span className="text-[10px] uppercase font-bold text-[#006063] tracking-widest block">
+                          <span className="text-[10px] uppercase font-bold text-primary tracking-widest block">
                             {isFa ? relPost.category?.fa : relPost.category?.en}
                           </span>
-                          <h4 className="font-bold text-slate-900 text-sm line-clamp-2 group-hover:text-[#006063] transition">
+                          <h4 className="font-bold text-slate-900 text-sm line-clamp-2 group-hover:text-primary transition">
                             {isFa ? relPost.title?.fa : relPost.title?.en}
                           </h4>
                           <span className="text-xs text-slate-400 block font-mono">
@@ -281,17 +281,17 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
             <div className="space-y-12">
               
               {/* Blog Top Banner Hero */}
-              <div className="bg-[#005254] text-white py-16 sm:py-24 px-4 sm:px-8 relative overflow-hidden">
+              <div className="bg-primary-dark text-white py-16 sm:py-24 px-4 sm:px-8 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto space-y-6 relative z-10 text-center sm:text-right">
                   
                   {/* Badge */}
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-mono font-bold border border-white/20">
                     <Newspaper className="w-3.5 h-3.5 text-teal-300" />
-                    <span>{isFa ? 'پرتال اخبار و مقالات بیئس' : 'Biesse News & Articles Hub'}</span>
+                    <span>{isFa ? 'پرتال اخبار و مقالات فیدار بندار' : 'Fidar Bondar News & Articles Hub'}</span>
                   </div>
 
-                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-                    {isFa ? 'اخبار، دستاوردها و مقالات تخصصی بیئس' : 'Biesse News, Events & Technical Insights'}
+                  <h1 className={`text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight ${isFa ? 'text-right' : 'text-left'}`}>
+                    {isFa ? 'اخبار، دستاوردها و مقالات تخصصی فیدار بندار' : 'Fidar Bondar News, Events & Technical Insights'}
                   </h1>
 
                   <p className="text-teal-100/90 text-sm sm:text-lg max-w-3xl font-light leading-relaxed">
@@ -324,14 +324,14 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                 
                 {/* Category Filter Pills */}
                 <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                  <Filter className="w-4 h-4 text-[#006063] shrink-0" />
+                  <Filter className="w-4 h-4 text-primary shrink-0" />
                   {categories.map(cat => (
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
                       className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all ${
                         selectedCategory === cat.id
-                          ? 'bg-[#006063] text-white shadow-md'
+                          ? 'bg-primary text-white shadow-md'
                           : 'bg-white hover:bg-slate-200 text-slate-700 border border-slate-300'
                       }`}
                     >
@@ -344,7 +344,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                 {filteredPosts.length > 0 && selectedCategory === 'all' && !searchQuery && (
                   <div 
                     onClick={() => router.push(`/${currentLang}/blog/${filteredPosts[0].id}`)}
-                    className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 cursor-pointer group hover:border-[#006063] transition duration-300"
+                    className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 cursor-pointer group hover:border-primary transition duration-300"
                   >
                     <div className="lg:col-span-7 h-64 sm:h-80 lg:h-auto overflow-hidden relative">
                       <img 
@@ -356,16 +356,16 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                         decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
-                      <span className="absolute top-4 right-4 bg-[#006063] text-white text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                      <span className="absolute top-4 right-4 bg-primary text-white text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
                         {isFa ? 'ویژه / Featured' : 'Featured'}
                       </span>
                     </div>
                     <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-4">
                       <div className="space-y-3">
-                        <span className="text-xs font-mono font-bold text-[#006063] tracking-widest uppercase block">
+                        <span className="text-xs font-mono font-bold text-primary tracking-widest uppercase block">
                           {isFa ? filteredPosts[0].category?.fa : filteredPosts[0].category?.en}
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-[#006063] transition leading-snug">
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-primary transition leading-snug">
                           {isFa ? filteredPosts[0].title?.fa : filteredPosts[0].title?.en}
                         </h2>
                         <p className="text-slate-600 text-sm sm:text-base line-clamp-3 font-light leading-relaxed">
@@ -378,7 +378,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                           <Calendar className="w-3.5 h-3.5" />
                           {filteredPosts[0].date}
                         </span>
-                        <span className="flex items-center gap-1 text-[#006063] font-bold group-hover:underline">
+                        <span className="flex items-center gap-1 text-primary font-bold group-hover:underline">
                           <span>{isFa ? 'مطالعه کامل' : 'Read Article'}</span>
                           <ArrowIcon className="w-4 h-4" />
                         </span>
@@ -409,7 +409,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                         <article
                           key={post.id}
                           onClick={() => router.push(`/${currentLang}/blog/${post.id}`)}
-                          className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl hover:border-[#006063] transition duration-300 flex flex-col justify-between cursor-pointer group"
+                          className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-md hover:shadow-xl hover:border-primary transition duration-300 flex flex-col justify-between cursor-pointer group"
                         >
                           <div>
                             <div className="h-52 overflow-hidden bg-slate-100 relative">
@@ -428,7 +428,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                             </div>
 
                             <div className="p-6 space-y-3">
-                              <h3 className="text-lg font-bold text-slate-900 leading-snug line-clamp-2 group-hover:text-[#006063] transition">
+                              <h3 className="text-lg font-bold text-slate-900 leading-snug line-clamp-2 group-hover:text-primary transition">
                                 {titleStr}
                               </h3>
                               <p className="text-slate-600 text-xs sm:text-sm line-clamp-3 font-light leading-relaxed">
@@ -442,7 +442,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                               <Calendar className="w-3.5 h-3.5 text-slate-400" />
                               {post.date}
                             </span>
-                            <span className="flex items-center gap-1 text-[#006063] font-bold group-hover:translate-x-1 transition-transform">
+                            <span className="flex items-center gap-1 text-primary font-bold group-hover:translate-x-1 transition-transform">
                               <span>{isFa ? 'مطالعه' : 'Read'}</span>
                               <ArrowIcon className="w-3.5 h-3.5" />
                             </span>
@@ -472,7 +472,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
               <X className="w-5 h-5" />
             </button>
             
-            <div className="flex items-center gap-2 text-[#006063] font-bold text-lg">
+            <div className="flex items-center gap-2 text-primary font-bold text-lg">
               <Code2 className="w-5 h-5" />
               <span>{isFa ? 'کدهای JSON-LD Schema مقاله' : 'Generated Schema.org JSON-LD'}</span>
             </div>

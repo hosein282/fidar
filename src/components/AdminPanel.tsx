@@ -80,8 +80,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       excerpt: { fa: '', en: '' },
       content: { fa: '', en: '' },
       author: {
-        fa: type === 'news' ? 'روابط عمومی بیئس' : 'تیم فنی بیئس',
-        en: type === 'news' ? 'Biesse Press Team' : 'Biesss Engineering'
+        fa: type === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
+        en: type === 'news' ? 'Fidar Bondar Press Team' : 'Biesss Engineering'
       },
       date: new Date().toISOString().split('T')[0],
       readTime: type === 'news' ? '3 min' : '5 min',
@@ -135,8 +135,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         en: editingPost.content?.en?.trim() || editingPost.excerpt?.en?.trim() || ''
       },
       author: editingPost.author || {
-        fa: targetType === 'news' ? 'روابط عمومی بیئس' : 'تیم فنی بیئس',
-        en: targetType === 'news' ? 'Biesse Press Team' : 'Biesss Engineering'
+        fa: targetType === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
+        en: targetType === 'news' ? 'Fidar Bondar Press Team' : 'Biesss Engineering'
       },
       date: editingPost.date || new Date().toISOString().split('T')[0],
       readTime: editingPost.readTime || '5 min',
@@ -762,7 +762,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                             <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-bold">
                               {post.category?.fa || (isFa ? 'عمومی' : 'General')}
                             </span>
-                            <span className="text-[11px] text-slate-400 font-mono">{post.date}</span>
+                            <span className="text-[11px] text-slate-400 font-mono">  {typeof post.date === 'string' ? post.date : new Date(post.date).toLocaleDateString()}</span>
                           </div>
                           
                           <h4 className="text-sm font-bold text-slate-900">

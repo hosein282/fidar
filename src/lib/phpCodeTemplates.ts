@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS \`articles\` (
   \`excerpt_en\` TEXT,
   \`content_fa\` LONGTEXT,
   \`content_en\` LONGTEXT,
-  \`author_fa\` VARCHAR(100) DEFAULT 'تیم فنی بیئس',
+  \`author_fa\` VARCHAR(100) DEFAULT 'تیم فنی فیدار بندار',
   \`author_en\` VARCHAR(100) DEFAULT 'Biesss Engineering',
   \`cover_image\` VARCHAR(500),
   \`read_time\` VARCHAR(50) DEFAULT '5 min',
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS \`news\` (
   \`excerpt_en\` TEXT,
   \`content_fa\` LONGTEXT,
   \`content_en\` LONGTEXT,
-  \`author_fa\` VARCHAR(100) DEFAULT 'روابط عمومی بیئس',
-  \`author_en\` VARCHAR(100) DEFAULT 'Biesse Press Team',
+  \`author_fa\` VARCHAR(100) DEFAULT 'روابط عمومی فیدار بندار',
+  \`author_en\` VARCHAR(100) DEFAULT 'Fidar Bondar Press Team',
   \`cover_image\` VARCHAR(500),
   \`read_time\` VARCHAR(50) DEFAULT '3 min',
   \`category_fa\` VARCHAR(100) DEFAULT 'اخبار و اطلاعیه‌ها',
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS \`posts\` (
   \`excerpt_en\` TEXT,
   \`content_fa\` LONGTEXT NOT NULL,
   \`content_en\` LONGTEXT NOT NULL,
-  \`author_fa\` VARCHAR(100) DEFAULT 'بیئس دیجیتال',
+  \`author_fa\` VARCHAR(100) DEFAULT 'فیدار سازه بندار',
   \`author_en\` VARCHAR(100) DEFAULT 'Biesss Digital',
   \`cover_image\` VARCHAR(500),
   \`read_time\` VARCHAR(50) DEFAULT '5 min',
@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS \`seo_settings\` (
 -- Seed Sample SEO Settings
 INSERT INTO \`seo_settings\` (\`site_title_fa\`, \`site_title_en\`, \`meta_desc_fa\`, \`meta_desc_en\`, \`canonical_url\`, \`og_image\`, \`twitter_handle\`)
 VALUES (
-  'گروه دیجیتال بیس | توسعه وب PHP دوزبانه و سئو',
+  'گروه دیجیتالفیدار بندار| توسعه وب PHP دوزبانه و سئو',
   'Biesss Digital | Custom Bilingual PHP & MySQL Web Studio',
   'توسعه سیستم‌های وب اختصاصی با PHP 8 و MySQL، سئوی پیشرفته و معماری دوزبانه.',
   'Enterprise bilingual PHP 8 & MySQL web development studio with technical SEO.',
@@ -251,7 +251,7 @@ require_once __DIR__ . '/config.php';
 $db = getDBConnection();
 $seoStmt = $db->query("SELECT * FROM seo_settings LIMIT 1");
 $seo = $seoStmt->fetch() ?: [
-    'site_title_fa' => 'بیئس دیجیتال',
+    'site_title_fa' => 'فیدار سازه بندار',
     'site_title_en' => 'Biesss Digital',
     'meta_desc_fa'  => 'توسعه وب تخصصی PHP و MySQL',
     'meta_desc_en'  => 'Bilingual PHP & MySQL Engineering',
@@ -385,7 +385,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$name, $email, $phone, $company, $service, $budget, $message, $formLang]);
             
             $response['success'] = true;
-            $response['message'] = ($formLang === 'fa') ? 'پیام شما با موفقیت ثبت شد. تیم بیس دیجیتال به‌زودی با شما تماس خواهد گرفت.' : 'Your message has been submitted successfully.';
+            $response['message'] = ($formLang === 'fa') ? 'پیام شما با موفقیت ثبت شد. تیمفیدار بنداردیجیتال به‌زودی با شما تماس خواهد گرفت.' : 'Your message has been submitted successfully.';
         } catch (PDOException $e) {
             $response['message'] = 'Database error: ' . htmlspecialchars($e->getMessage());
         }
@@ -478,7 +478,7 @@ if (isset($_GET['logout'])) {
 <html lang="fa" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
-    <title>پنل مدیریت بیس دیجیتال (Biesss PHP CMS)</title>
+    <title>پنل مدیریتفیدار بنداردیجیتال (Biesss PHP CMS)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
     <style>body { font-family: 'Vazirmatn', sans-serif; }</style>
@@ -667,7 +667,7 @@ try {
 
         case 'seo':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $site_title_fa = sanitizeInput($input['site_title_fa'] ?? $input['siteTitle']['fa'] ?? 'بیئس دیجیتال');
+                $site_title_fa = sanitizeInput($input['site_title_fa'] ?? $input['siteTitle']['fa'] ?? 'فیدار سازه بندار');
                 $site_title_en = sanitizeInput($input['site_title_en'] ?? $input['siteTitle']['en'] ?? 'Biesss Digital');
                 $stmt = $db->prepare("UPDATE seo_settings SET site_title_fa = ?, site_title_en = ? WHERE id = 1");
                 $stmt->execute([$site_title_fa, $site_title_en]);
@@ -739,7 +739,7 @@ try {
       language: 'php',
       code: indexPhp,
       description: {
-        fa: 'صفحه اصلی وب‌سایت با خواندن دیتای MySQL، تگ‌های سئو چندزبانه و هدر بیئس',
+        fa: 'صفحه اصلی وب‌سایت با خواندن دیتای MySQL، تگ‌های سئو چندزبانه و هدر فیدار بندار',
         en: 'Main homepage script fetching MySQL data, injecting bilingual hreflang SEO meta, and biesss layout'
       }
     },

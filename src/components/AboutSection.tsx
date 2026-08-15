@@ -11,19 +11,20 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   return (
-    <section id="about" className="relative w-full">
+    <section id="about" className="relative w-full h-max">
       {/* Parallax Fixed Background Wrapper */}
       <div
         className="relative bg-cover bg-no-repeat bg-fixed bg-center"
         style={{
           backgroundImage:
-            'url("/assets/images/Rectangle_86.png")',
-          backgroundAttachment: 'fixed'
+            'url("/assets/images/scroll-bg.webp")',
+          backgroundAttachment: 'fixed',
+          backgroundPositionX: '0'
         }}
       >
         {/* Top Sticky Teal Gradient Overlay */}
-        <div className="absolute h-full w-full pointer-events-none z-10">
-          <div className="sticky top-0 mt-[-1px] z-20 overflow-hidden h-[10vh] lg:h-[22vh] bg-gradient-to-b from-[#005254] via-[#005254] via-[40%] lg:via-[25%] to-transparent" />
+        <div className="absolute h-full w-full pointer-events-none z-40">
+          <div className="sticky top-0 mt-[-1px] z-20 overflow-hidden h-[10vh] lg:h-[22vh] bg-gradient-to-b from-primary-dark via-primary-dark via-[40%] lg:via-[25%] to-transparent" />
         </div>
 
         <div className="flex flex-col overflow-hidden  relative z-20">
@@ -40,7 +41,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 1185 561"
-              className={`hidden md:block w-full h-auto text-[#005254] transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
+              className={`hidden md:block w-full h-auto text-primary-dark transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
                 }`}
             >
               <path
@@ -56,7 +57,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 390 353"
-              className={`md:hidden w-full h-auto text-[#005254] transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
+              className={`md:hidden w-full h-auto -mt-4 text-primary-dark transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
                 }`}
             >
               <path
@@ -69,10 +70,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
 
             {/* Statement Text overlay */}
             <div
-              className={`absolute top-0 left-0 z-10 flex h-full p-6 sm:p-10 lg:p-16 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
+              className={`absolute top-0 left-0 z-10 flex h-full  sm:p-10 lg:p-16 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
                 }`}
             >
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light lg:w-[75%] leading-relaxed 2xl:leading-snug text-[#e6e6e6]">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light max-w-[85%] px-10 lg:w-[75%] leading-relaxed 2xl:leading-snug text-surface">
                 {isFa
                   ? 'ما فرآیندهای تولید را ساده می‌کنیم تا پتانسیل هر متریال را ارتقا دهیم'
                   : 'We simplify production processes to enhance the potential of each material'}
@@ -83,13 +84,13 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
           {/* =========================================================
               2. About Biesse Card Block with Neutral SVG Backdrop
              ========================================================= */}
-          <div className="relative w-full mt-16 lg:mt-36 lg:w-[90%] md:mx-auto">
+          <div className="relative w-full mt-16 lg:mt-36 lg:w-[100%] md:mx-auto">
             {/* Desktop Backdrop SVG */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 1142 557"
-              className={`hidden md:block absolute top-0 ${isFa ? '-left-30' : '-left-0'} w-screen h-full text-[#e6e6e6] transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
+              className={`hidden md:block absolute top-0 ${isFa ? 'left-0' : '-right-8'} w-dvw h-2vh text-surface transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
                 }`}
             >
               <path
@@ -103,7 +104,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 390 493"
-              className={`md:hidden absolute top-0 left-0 w-full h-full text-[#e6e6e6] transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
+              className={`md:hidden absolute top-0  w-full   text-surface transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
                 }`}
             >
               <path
@@ -113,29 +114,29 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
             </svg>
 
             <div className={`flex h-fit relative text-slate-900 ${isFa ? 'flex-row dir-rtl' : 'flex-row dir-ltr'}`}>
-              <div className="hidden md:flex flex-col w-[45%]">
+              <div className="hidden md:flex flex-col w-[40%] ">
                 <div className="mt-[100%]" />
-                <div className={`flex-[1_0_auto] bg-[#e6e6e6] ${isFa ? 'ml-[-1px]' : 'mr-[-1px]'}`} />
+                <div className={`flex-[1_0_auto]  ${isFa ? '-ml-px' : '-mr-px'}`} />
               </div>
 
-              <div className="w-full md:w-[55%] xl:w-[60%] mt-[25%] sm:mt-[30%] md:mt-12 xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none">
-                <h3 className="flex-shrink-0 text-3xl sm:text-4xl xl:text-5xl font-extrabold text-[#005254]">
-                  {isFa ? 'درباره بیئس' : 'About Biesse'}
+              <div className={`${isFa ? 'xl:ml-[8%] md:mr-8' : 'ml-[30%]'} lg:w-8/10 w-full md:w-[55%] xl:w-[60%] mr-24 mt-[15%] sm:mt-[15%] md:mt-[1%] xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none`}>
+                <h3 className="shrink-0 text-3xl sm:text-4xl xl:text-5xl font-extrabold text-primary-dark">
+                  {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Bondar'}
                 </h3>
 
-                <div className="mt-4 xl:mt-10 text-base sm:text-lg xl:text-2xl font-light text-slate-800 leading-relaxed">
+                <div className="mt-4 xl:mt-8 text-base text-sm sm:text-sm xl:text-2xl  font-light text-slate-800 leading-relaxed text-justify">
                   {isFa
-                    ? 'ما یک شرکت بین‌المللی هستیم که خطوط تولید، ماشین‌آلات و قطعات را برای تبدیل مواد اولیه به محصولات نهایی تولید می‌کنیم.'
+                    ? 'شرکت فیدار سازه بندار  با همت جمعی از مدیران و مهندسین با تجربه در زمینه تجهیزات و ماشین آلات بندری و انتقال مواد و با هدف ارتقاء سطح دانش تعمیرات و نگهداری تجهیزات در کشور و انجام صحیح آن و تکیه بر دانش بروز و تواناییهای بالای مدیران و متخصصان خود و تجارب ارزنده ایشان در زمینه ساخت، نصب، تعمیرات و نگهداری گام در  این عرصه نهاده است .'
                     : 'We are an international company, manufacturing lines, machines and components for transforming materials into products'}
                 </div>
 
-                <div className="flex-shrink-0 mt-8 xl:mt-12">
+                <div className="shrink-0 mt-8 xl:mt-12">
                   <a href="#contact">
                     <button
-                      className="inline-flex items-center gap-3 rounded-lg transition-all whitespace-nowrap bg-[#005254] text-white hover:bg-black px-8 py-3.5 sm:px-10 sm:h-14 sm:text-lg font-medium hover:rounded-[30px] shadow-lg cursor-pointer"
+                      className="inline-flex items-center gap-3 rounded-lg transition-all whitespace-nowrap bg-primary-dark text-white hover:bg-black px-8 py-3.5 sm:px-10 sm:h-14 sm:text-lg font-medium hover:rounded-[30px] shadow-lg cursor-pointer"
                       type="button"
                     >
-                      <span>{isFa ? 'کشف بیئس' : 'Discover Biesse'}</span>
+                      <span>{isFa ? 'کشف فیدار بندار' : 'Discover Fidar Bondar'}</span>
                       <ArrowIcon className="w-5 h-5" />
                     </button>
                   </a>

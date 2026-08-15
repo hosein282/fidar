@@ -14,7 +14,7 @@ export const INITIAL_SERVICES: ServiceItem[] = [
       en: 'Custom web platforms built with modern PHP 8, robust MVC architecture, high-performance MySQL databases & fast response times.'
     },
     fullDesc: {
-      fa: 'تیم فنی بیس (Biesss Digital) پلتفرم‌های PHP اختصاصی و بدون وابستگی سنگین ارائه می‌دهد. کدهای تمیز، لایه‌های امنیتی در برابر SQL Injection و XSS، سیستم‌های کشینگ Redis/Memcached و ساختار مقیاس‌پذیر برای ترافیک‌های سنگین.',
+      fa: 'تیم فنیفیدار بندار(Biesss Digital) پلتفرم‌های PHP اختصاصی و بدون وابستگی سنگین ارائه می‌دهد. کدهای تمیز، لایه‌های امنیتی در برابر SQL Injection و XSS، سیستم‌های کشینگ Redis/Memcached و ساختار مقیاس‌پذیر برای ترافیک‌های سنگین.',
       en: 'Biesss Digital constructs high-availability PHP web applications without monolithic overhead. Clean code standards, robust defense against SQLi/XSS, optimized MySQL indexing, and scalable architecture.'
     },
     features: {
@@ -143,7 +143,7 @@ export const INITIAL_PORTFOLIO: PortfolioProject[] = [
   {
     id: 'biesss-corporate',
     title: {
-      fa: 'پلتفرم سازمانی بیئس دیجیتال',
+      fa: 'پلتفرم سازمانی فیدار سازه بندار',
       en: 'Biesss Digital Enterprise Hub'
     },
     client: {
@@ -292,7 +292,7 @@ To guide search engines and avoid duplicate content issues, inject regional alte
 By updating the HTML root attribute dynamically (\`<html dir="rtl" lang="fa">\` for Persian and \`<html dir="ltr" lang="en">\` for English), font families and layout grids adapt instantly.`
     },
     author: {
-      fa: 'تیم فنی بیس دیجیتال',
+      fa: 'تیم فنیفیدار بنداردیجیتال',
       en: 'Biesss Engineering Team'
     },
     date: '2026-07-28',
@@ -303,7 +303,7 @@ By updating the HTML root attribute dynamically (\`<html dir="rtl" lang="fa">\` 
     },
     coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
     seoTitle: {
-      fa: 'راهنمای ساخت سایت دوزبانه PHP و MySQL | بیس دیجیتال',
+      fa: 'راهنمای ساخت سایت دوزبانه PHP و MySQL |فیدار بنداردیجیتال',
       en: 'Building Bilingual PHP & MySQL Web Apps Guide | Biesss'
     },
     seoDescription: {
@@ -311,7 +311,7 @@ By updating the HTML root attribute dynamically (\`<html dir="rtl" lang="fa">\` 
       en: 'Complete developer guide for building high-performance bilingual PHP & MySQL websites with technical SEO.'
     },
     seoKeywords: {
-      fa: ['سایت دوزبانه PHP', 'دیتابیس MySQL چندزبانه', 'سئو سایت چندزبانه', 'طراحی سایت بیئس'],
+      fa: ['سایت دوزبانه PHP', 'دیتابیس MySQL چندزبانه', 'سئو سایت چندزبانه', 'طراحی سایت فیدار بندار'],
       en: ['Bilingual PHP website', 'MySQL multi-language schema', 'Technical SEO hreflang', 'Biesss digital group']
     },
     views: 1420
@@ -348,7 +348,7 @@ By updating the HTML root attribute dynamically (\`<html dir="rtl" lang="fa">\` 
 4. **Rich Social Snippets:** Ingesting Open Graph and Twitter card tags directly into the view layout.`
     },
     author: {
-      fa: 'واحد سئوی بیئس',
+      fa: 'واحد سئوی فیدار بندار',
       en: 'Biesss SEO Specialists'
     },
     date: '2026-07-20',
@@ -379,28 +379,28 @@ export const INITIAL_NEWS: BlogPost[] = [
     id: 'news-1',
     postType: 'news',
     slug: {
-      fa: 'رونمایی-بیئس-از-نسل-جدید-موتورهای-دیجیتال',
-      en: 'biesse-unveils-new-generation-digital-engine'
+      fa: 'رونمایی-فیدار بندار-از-نسل-جدید-موتورهای-دیجیتال',
+      en: 'Fidar Bondar-unveils-new-generation-digital-engine'
     },
     title: {
-      fa: 'رونمایی گروه بیئس از نسل جدید سیستم مدیریت محتوای PHP 8 و پردازش چندزبانه',
-      en: 'Biesse Group Unveils Next-Generation PHP 8 & Multilingual Digital Platform'
+      fa: 'رونمایی گروه فیدار بندار از نسل جدید سیستم مدیریت محتوای PHP 8 و پردازش چندزبانه',
+      en: 'Fidar Bondar Group Unveils Next-Generation PHP 8 & Multilingual Digital Platform'
     },
     excerpt: {
-      fa: 'گروه صنعتی و دیجیتال بیئس از جدیدترین فناوری هماهنگ‌سازی دیتابیس MySQL و موتور وب‌سایت‌های بین‌المللی رونمایی کرد.',
-      en: 'Biesse Group launches state-of-the-art PHP 8 web architecture integrated with real-time MySQL database synchronization.'
+      fa: 'گروه صنعتی و دیجیتال فیدار بندار از جدیدترین فناوری هماهنگ‌سازی دیتابیس MySQL و موتور وب‌سایت‌های بین‌المللی رونمایی کرد.',
+      en: 'Fidar Bondar Group launches state-of-the-art PHP 8 web architecture integrated with real-time MySQL database synchronization.'
     },
     content: {
-      fa: `گروه بیئس به عنوان یکی از پیشگامان صنعت و فناوری دیجیتال، از نسخه جدید پلتفرم دیجیتال خود رونمایی کرد. این پلتفرم با تکیه بر هسته PHP 8 و دیتابیس بهینه‌شده MySQL، سرعت بارگذاری صفحات را تا ۶۰٪ افزایش داده است.
+      fa: `گروه فیدار بندار به عنوان یکی از پیشگامان صنعت و فناوری دیجیتال، از نسخه جدید پلتفرم دیجیتال خود رونمایی کرد. این پلتفرم با تکیه بر هسته PHP 8 و دیتابیس بهینه‌شده MySQL، سرعت بارگذاری صفحات را تا ۶۰٪ افزایش داده است.
 
 همچنین قابلیت مدیریت اخبار و مقالات به صورت جداگانه در دیتابیس، امکان اطلاع‌رسانی دقیق و به‌روزرسانی محتوایی سریع را برای مدیران فراهم کرده است.`,
-      en: `Biesse Group, a global leader in industrial technology and digital solutions, announces its updated enterprise web suite. Built on PHP 8 and MySQL, the system reduces latency by 60%.
+      en: `Fidar Bondar Group, a global leader in industrial technology and digital solutions, announces its updated enterprise web suite. Built on PHP 8 and MySQL, the system reduces latency by 60%.
 
 The new architecture includes dedicated database schemas for press releases, news, and technical articles.`
     },
     author: {
-      fa: 'روابط عمومی بیئس',
-      en: 'Biesse Press Office'
+      fa: 'روابط عمومی فیدار بندار',
+      en: 'Fidar Bondar Press Office'
     },
     date: '2026-08-01',
     readTime: '3 min read',
@@ -410,16 +410,16 @@ The new architecture includes dedicated database schemas for press releases, new
     },
     coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
     seoTitle: {
-      fa: 'اخبار رسمی گروه بیئس | رونمایی از پلتفرم جدید PHP',
-      en: 'Biesse Group Official News | PHP Platform Launch'
+      fa: 'اخبار رسمی گروه فیدار بندار | رونمایی از پلتفرم جدید PHP',
+      en: 'Fidar Bondar Group Official News | PHP Platform Launch'
     },
     seoDescription: {
-      fa: 'جدیدترین اخبار و اطلاعیه‌های رسمی گروه صنعتی و دیجیتال بیئس درباره تکنولوژی‌های وب و دیتابیس.',
-      en: 'Official news and press releases from Biesse Group regarding web technology and database innovations.'
+      fa: 'جدیدترین اخبار و اطلاعیه‌های رسمی گروه صنعتی و دیجیتال فیدار بندار درباره تکنولوژی‌های وب و دیتابیس.',
+      en: 'Official news and press releases from Fidar Bondar Group regarding web technology and database innovations.'
     },
     seoKeywords: {
-      fa: ['اخبار بیئس', 'تکنولوژی PHP 8', 'اطلاعیه دیتابیس', 'بیئس دیجیتال'],
-      en: ['Biesse news', 'PHP 8 technology', 'Database announcement', 'Biesse Digital']
+      fa: ['اخبار فیدار بندار', 'تکنولوژی PHP 8', 'اطلاعیه دیتابیس', 'فیدار سازه بندار'],
+      en: ['Fidar Bondar news', 'PHP 8 technology', 'Database announcement', 'Fidar Bondar Digital']
     },
     views: 2150
   }
@@ -432,7 +432,7 @@ export const INITIAL_BLOG_POSTS: BlogPost[] = [
 
 export const INITIAL_SEO_META: SEOMetaConfig = {
   siteTitle: {
-    fa: 'گروه دیجیتال بیس | طراحی سایت PHP دوزبانه و سئوی تخصصی (مشابه Biesss.com)',
+    fa: 'گروه دیجیتالفیدار بندار| طراحی سایت PHP دوزبانه و سئوی تخصصی (مشابه Biesss.com)',
     en: 'Biesss Digital | Custom Bilingual PHP & MySQL Web Engineering & SEO'
   },
   metaDescription: {

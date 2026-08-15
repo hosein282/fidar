@@ -12,15 +12,15 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
   const [activeMaterial, setActiveMaterial] = useState<'wood' | 'glass' | 'stone' | 'materia' | 'metal'>('wood');
 
   const materials = [
-    { id: 'wood', title: { fa: 'چوب (Wood)', en: 'Wood' }, color: '#d79030', sub: 'PHP 8 Engine & Core Logic' },
-    { id: 'glass', title: { fa: 'شیشه (Glass)', en: 'Glass' }, color: '#4ac3e0', sub: 'MySQL PDO Database' },
-    { id: 'stone', title: { fa: 'سنگ (Stone)', en: 'Stone' }, color: '#f0523d', sub: 'Google SEO & Hreflang' },
-    { id: 'materia', title: { fa: 'متریال (Materia)', en: 'Materia' }, color: '#8282d6', sub: 'CMS Control Panel' },
-    { id: 'metal', title: { fa: 'فلز (Metal)', en: 'Metal' }, color: '#65554a', sub: 'High Security & Anti-SQLi' },
+    { id: 'wood', title: { fa: 'چوب (Wood)', en: 'Wood' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic' },
+    { id: 'glass', title: { fa: 'شیشه (Glass)', en: 'Glass' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database' },
+    { id: 'stone', title: { fa: 'سنگ (Stone)', en: 'Stone' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang' },
+    { id: 'materia', title: { fa: 'متریال (Materia)', en: 'Materia' }, color: 'var(--color-materia)', sub: 'CMS Control Panel' },
+    { id: 'metal', title: { fa: 'فلز (Metal)', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi' },
   ];
 
   return (
-    <section className="relative w-full min-h-[90vh] lg:min-h-screen bg-[#e6e6e6] text-white overflow-hidden flex flex-col justify-between">
+    <section className="relative w-full min-h-[90vh] lg:min-h-screen bg-surface text-white overflow-hidden flex flex-col justify-between">
       
       {/* Hero Background Video & Media Container */}
       <div className="absolute inset-0 z-0 flex flex-col lg:flex-row">
@@ -53,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
                 ? "https://images.ctfassets.net/bdj0rlksezwc/6pjxB7QmujUujmiFNbmR7H/8f6522b3bd6acfd961940efc1f559891/MATERIA-singolo-2.png?w=2370&h=3500&q=50&fm=png"
                 : "https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=2370&h=3500&q=50&fm=png"
             }
-            alt="Biesse Machine Model"
+            alt="Fidar Bondar Machine Model"
             width={613}
             height={906}
             loading="eager"
@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         
         {/* Overlapping Typography */}
         <div className="space-y-6 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#006063]/80 border border-teal-300/30 text-white text-xs font-mono">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/80 border border-teal-300/30 text-white text-xs font-mono">
             <Sparkles className="w-3.5 h-3.5 text-teal-300" />
             <span>{isFa ? 'صنعت دیجیتال و توسعه وب‌سایت دوزبانه' : 'Industrial Digital Solutions & Dual Web Systems'}</span>
           </div>
@@ -77,11 +77,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-white drop-shadow-md">
             {isFa ? (
               <>
-                خطوط تولید، دستگاه‌ها و کامپوننت‌ها برای پردازش <span className="underline decoration-[#006063] font-bold">صنعتی و دیجیتال</span>
+                خطوط تولید، دستگاه‌ها و کامپوننت‌ها برای پردازش <span className="underline decoration-primary font-bold">صنعتی و دیجیتال</span>
               </>
             ) : (
               <>
-                Lines, machines and components for machining <span className="underline decoration-[#006063] font-bold">digital systems</span>
+                Lines, machines and components for machining <span className="underline decoration-primary font-bold">digital systems</span>
               </>
             )}
           </h1>
@@ -97,7 +97,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <div className="pt-4 flex flex-wrap gap-4">
             <button
               onClick={onOpenExporter}
-              className="px-8 py-3.5 rounded-lg bg-[#006063] hover:bg-black text-white font-bold text-sm transition shadow-lg flex items-center gap-2 hover:rounded-[30px]"
+              className="px-8 py-3.5 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm transition shadow-lg flex items-center gap-2 hover:rounded-[30px]"
             >
               <span>{isFa ? 'دریافت کدهای PHP و MySQL' : 'Export PHP & MySQL Source'}</span>
             </button>
@@ -115,7 +115,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         <div className="pt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
           
           {/* Material Interactive Pills */}
-          <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto max-w-full pb-2 no-scrollbar">
+          <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto max-w-full pb-2 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {materials.map((mat) => {
               const isActive = activeMaterial === mat.id;
               return (
@@ -143,8 +143,8 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
             href="#about"
             className="flex items-center gap-2 text-white/80 hover:text-white text-xs font-bold transition animate-bounce"
           >
-            <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span>
-            <ArrowDown className="w-5 h-5 text-[#006063]" />
+            {/* <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span> */}
+            <ArrowDown className="w-5 h-5 text-primary" />
           </a>
 
         </div>

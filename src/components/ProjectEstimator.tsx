@@ -75,7 +75,7 @@ export const ProjectEstimator: React.FC<ProjectEstimatorProps> = ({ lang }) => {
       if (data.success) {
         setSubmitStatus({
           success: true,
-          message: isFa ? 'استعلام قیمت شما با موفقیت ثبت شد. کارشناسان بیس به‌زودی با شما تماس می‌گیرند.' : 'Quote inquiry submitted successfully! Our engineering team will contact you shortly.'
+          message: isFa ? 'استعلام قیمت شما با موفقیت ثبت شد. کارشناسانفیدار بنداربه‌زودی با شما تماس می‌گیرند.' : 'Quote inquiry submitted successfully! Our engineering team will contact you shortly.'
         });
         setFormData({ name: '', email: '', phone: '', company: '', message: '' });
       } else {

@@ -14,6 +14,7 @@ import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
 import { AdminPanel } from '../components/AdminPanel';
 import { PhpExporter } from '../components/PhpExporter';
+import OurConsumers from '../components/OurConsumers';
 
 interface HomePageProps {
   services: ServiceItem[];
@@ -65,9 +66,9 @@ const HomePageComponent: React.FC<HomePageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#e6e6e6] text-slate-900 font-sans selection:bg-[#006063] selection:text-white">
+    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white">
       
-      {/* 1. Sticky Biesse Header */}
+      {/* 1. Sticky Fidar Bondar Header */}
       <Header
         lang={currentLang}
         onLanguageChange={handleLanguageSwitch}
@@ -78,7 +79,7 @@ const HomePageComponent: React.FC<HomePageProps> = ({
 
       {/* Main Flow */}
       <main>
-        {/* 2. Biesse Hero Banner & Video */}
+        {/* 2. Fidar Bondar Hero Banner & Video */}
         <Hero
           lang={currentLang}
           onOpenExporter={handleOpenExporter}
@@ -89,12 +90,15 @@ const HomePageComponent: React.FC<HomePageProps> = ({
           lang={currentLang}
         />
 
+        {/* 4.OurCustomers */}
+        <OurConsumers lang={currentLang}/>
+
         {/* 4. Materials Showcase (Wood, Glass, Stone, Materia, Metal) */}
         <MaterialsShowcase
           lang={currentLang}
         />
 
-        {/* 5. What's Next / Biesse News Carousel */}
+        {/* 5. What's Next / Fidar Bondar News Carousel */}
         <BlogSection
           lang={currentLang}
           posts={pagePosts}
@@ -116,7 +120,7 @@ const HomePageComponent: React.FC<HomePageProps> = ({
         />
       </main>
 
-      {/* 9. Biesse Footer */}
+      {/* 9. Fidar Bondar Footer */}
       <Footer
         lang={currentLang}
         onOpenExporter={handleOpenExporter}

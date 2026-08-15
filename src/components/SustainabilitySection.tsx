@@ -11,10 +11,10 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   return (
-    <section id="sustainability" className="relative w-full bg-[#e6e6e6] text-slate-900 py-12 sm:py-20 px-4 sm:px-8">
+    <section id="sustainability" className="relative w-full bg-surface text-slate-900 py-12 sm:py-20 px-4 sm:px-8">
       
       {/* SVG ClipPath Definition for Biesse Signature Card Geometry */}
-      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
+      <svg className="absolute w-0 h-0 pointer-events-none " aria-hidden="true">
         <defs>
           <clipPath id="biesse-brand-card-clip" clipPathUnits="objectBoundingBox">
             <path d="M 0.04,0 L 0.88,0 L 1,0.18 L 1,0.92 Q 1,1 0.96,1 L 0.12,1 L 0,0.82 L 0,0.08 Q 0,0 0.04,0 Z" />
@@ -34,12 +34,12 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
             style={{
-              backgroundImage: 'url("/assets/images/Rectangle_86.png")'
+              backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/7z1ounD96FpGSL6bNv3MLD/6c60ee36a4a5d60088884b6f06346c90/AdobeStock_675117344_Preview-transformed_out.jpeg?w=2000&h=1336&q=50&fm=jpg")'
             }}
           />
 
           {/* Dark Green Gradient Tint Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-[#00383a]/75 to-black/70 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-primary-darker/75 to-black/70 z-10" />
 
           {/* Card Content */}
           <div className="relative z-20 max-w-4xl mx-auto space-y-6 sm:space-y-8 text-white">
@@ -74,8 +74,8 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
       {/* Services & Training Programs Section */}
       <div className="mt-16 sm:mt-24 py-16 px-6 sm:px-12 max-w-[1320px] mx-auto text-center space-y-8 border-t border-gray-300">
-        <h2 className="text-3xl sm:text-5xl font-light text-[#006063]">
-          {isFa ? 'خدمات اختصاصی و برنامه‌های آموزشی بیئس را کشف کنید!' : 'Discover our tailored services and training programs!'}
+        <h2 className="text-3xl sm:text-5xl font-light text-primary">
+          {isFa ? 'خدمات اختصاصی و برنامه‌های آموزشی فیدار بندار را کشف کنید!' : 'Discover our tailored services and training programs!'}
         </h2>
 
         <p className="text-slate-700 text-base sm:text-xl font-light max-w-4xl mx-auto leading-relaxed">
@@ -89,7 +89,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
         <div className="pt-2">
           <a
             href="#contact"
-            className="inline-flex items-center gap-3 px-10 py-4 rounded-lg bg-[#006063] hover:bg-black text-white font-bold text-sm sm:text-base transition-all shadow-md hover:rounded-[30px]"
+            className="inline-flex items-center gap-3 px-10 py-4 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm sm:text-base transition-all shadow-md hover:rounded-[30px]"
           >
             <span>{isFa ? 'دسترسی به خدمات و برنامه‌های آموزشی' : 'Access our services and training programs.'}</span>
             <ArrowIcon className="w-4 h-4" />
@@ -103,7 +103,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
           {isFa ? 'پروژه‌های تحقیق و توسعه اروپا' : 'European Research & Innovation Projects'}
         </span>
 
-        <h3 className="text-2xl sm:text-4xl font-light text-[#006063]">
+        <h3 className="text-2xl sm:text-4xl font-light text-primary">
           Co.T.A.N.E.C. - {isFa ? 'پروژه فناوری‌های زیستی و مواد ترموست' : 'Operation carried out through European funds'}
         </h3>
 
@@ -120,7 +120,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
             href="https://assets.ctfassets.net/bdj0rlksezwc/3s8enF8NaXeKs16zk0FtNj/99b5a108d83672c49c5a17201c3cc842/biesse_poster.pdf"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-slate-900 hover:bg-[#006063] text-white font-bold text-xs sm:text-sm transition shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-slate-900 hover:bg-primary text-white font-bold text-xs sm:text-sm transition shadow-sm"
           >
             <span>{isFa ? 'کسب اطلاعات بیشتر و پوستر رسمی' : 'Discover more'}</span>
             <ExternalLink className="w-3.5 h-3.5" />

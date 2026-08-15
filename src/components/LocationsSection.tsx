@@ -13,32 +13,32 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ lang }) => {
 
   const branches = {
     EMEA: [
-      { name: 'Biesse Headquarters', city: 'Pesaro, Italy' },
+      { name: 'Fidar Bondar Headquarters', city: 'Pesaro, Italy' },
       { name: 'HSD Spindle Technology', city: 'Gradara, Italy' },
-      { name: 'Biesse in France', city: 'Lyon, France' },
-      { name: 'Biesse in Germany', city: 'Nersingen, Germany' },
-      { name: 'Biesse in Middle East', city: 'Dubai, United Arab Emirates' },
-      { name: 'Biesse in Spain', city: 'Barcelona, Spain' },
-      { name: 'Biesse in United Kingdom', city: 'Daventry, United Kingdom' },
-      { name: 'Biesse in Turkey', city: 'Istanbul, Turkey' },
+      { name: 'Fidar Bondar in France', city: 'Lyon, France' },
+      { name: 'Fidar Bondar in Germany', city: 'Nersingen, Germany' },
+      { name: 'Fidar Bondar in Middle East', city: 'Dubai, United Arab Emirates' },
+      { name: 'Fidar Bondar in Spain', city: 'Barcelona, Spain' },
+      { name: 'Fidar Bondar in United Kingdom', city: 'Daventry, United Kingdom' },
+      { name: 'Fidar Bondar in Turkey', city: 'Istanbul, Turkey' },
     ],
     AMER: [
-      { name: 'Biesse America Headquarters', city: 'Charlotte, NC, USA' },
-      { name: 'Biesse Canada', city: 'Montreal, Canada' },
-      { name: 'Biesse Brasil', city: 'Curitiba, Brazil' },
-      { name: 'Biesse Mexico', city: 'Mexico City, Mexico' },
+      { name: 'Fidar Bondar America Headquarters', city: 'Charlotte, NC, USA' },
+      { name: 'Fidar Bondar Canada', city: 'Montreal, Canada' },
+      { name: 'Fidar Bondar Brasil', city: 'Curitiba, Brazil' },
+      { name: 'Fidar Bondar Mexico', city: 'Mexico City, Mexico' },
     ],
     APAC: [
-      { name: 'Biesse Asia Pacific', city: 'Singapore' },
-      { name: 'Biesse China', city: 'Shanghai, China' },
-      { name: 'Biesse India', city: 'Bangalore, India' },
-      { name: 'Biesse Australia', city: 'Sydney, Australia' },
-      { name: 'Biesse Japan', city: 'Tokyo, Japan' },
+      { name: 'Fidar Bondar Asia Pacific', city: 'Singapore' },
+      { name: 'Fidar Bondar China', city: 'Shanghai, China' },
+      { name: 'Fidar Bondar India', city: 'Bangalore, India' },
+      { name: 'Fidar Bondar Australia', city: 'Sydney, Australia' },
+      { name: 'Fidar Bondar Japan', city: 'Tokyo, Japan' },
     ]
   };
 
   return (
-    <section id="locations" className="relative w-full bg-[#006063] py-20 sm:py-32 text-white">
+    <section id="locations" className="relative w-full bg-primary py-20 sm:py-32 text-white">
       <div className="max-w-[1440px] mx-auto px-6 sm:px-12 space-y-12">
         
         {/* Headlines */}
@@ -65,7 +65,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ lang }) => {
                   onClick={() => setActiveRegion(reg)}
                   className={`pb-2 transition-all relative ${
                     activeRegion === reg
-                      ? 'text-white border-b-2 border-[#006063]'
+                      ? 'text-white border-b-2 border-primary'
                       : 'text-gray-500 hover:text-gray-300'
                   }`}
                 >
@@ -79,7 +79,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ lang }) => {
               {branches[activeRegion].map((b, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-[#006063] transition flex items-center justify-between group cursor-pointer"
+                  className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-primary transition flex items-center justify-between group cursor-pointer"
                 >
                   <div>
                     <div className="font-bold text-sm sm:text-base text-white group-hover:text-teal-300 uppercase">
@@ -109,10 +109,10 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ lang }) => {
 
           {/* Right Global Network Map Graphic */}
           <div className="lg:col-span-7 bg-slate-900 rounded-2xl p-6 border border-slate-800 flex flex-col justify-center items-center text-center relative overflow-hidden min-h-[300px]">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#006063]/30 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent" />
             <Globe2 className="w-32 h-32 text-teal-400/40 mb-4 animate-pulse" />
             <span className="text-2xl font-bold text-white mb-2">
-              {isFa ? 'شبکه جهانی پشتیبانی بیئس' : 'Biesse Global Service Network'}
+              {isFa ? 'شبکه جهانی پشتیبانی فیدار بندار' : 'Fidar Bondar Global Service Network'}
             </span>
             <p className="text-xs text-slate-400 max-w-md leading-relaxed">
               {isFa ? (

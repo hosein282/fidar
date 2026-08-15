@@ -1,5 +1,5 @@
 import { BlogPost, ContactMessage, BilingualText } from '@/src/types';
-import { query } from './db';
+import { closePool, query } from './db';
 
 // ========================================================
 // MySQL Data Store
@@ -124,6 +124,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   const rows = await query<PostRow[]>(
     'SELECT * FROM posts ORDER BY created_at DESC, date DESC'
   );
+  closePool();
   return rows.map(rowToBlogPost);
 }
 

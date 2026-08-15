@@ -40,7 +40,7 @@ export function sanitizeBlogPost(item: any): BlogPost {
       title: { fa: 'بدون عنوان', en: 'Untitled' },
       excerpt: { fa: '', en: '' },
       content: { fa: '', en: '' },
-      author: { fa: 'تیم بیئس', en: 'Biesse Team' },
+      author: { fa: 'تیم فیدار بندار', en: 'Fidar Bondar Team' },
       date: new Date().toISOString().split('T')[0],
       readTime: '5 min',
       category: { fa: 'مقالات تخصصی', en: 'Technical Articles' },
@@ -80,8 +80,8 @@ export function sanitizeBlogPost(item: any): BlogPost {
     content: { fa: String(contentFa), en: String(contentEn) },
     author: parseBilingual(
       item.author,
-      postType === 'news' ? 'روابط عمومی بیئس' : 'تیم فنی بیئس',
-      postType === 'news' ? 'Biesse Press' : 'Biesss Engineering'
+      postType === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
+      postType === 'news' ? 'Fidar Bondar Press' : 'Biesss Engineering'
     ),
     date: String(item.date || item.created_at || new Date().toISOString().split('T')[0]),
     readTime: String(item.readTime || item.read_time || (postType === 'news' ? '3 min' : '5 min')),
