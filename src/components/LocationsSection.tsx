@@ -44,7 +44,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ lang }) => {
         {/* Headlines */}
         <div className="space-y-4">
           <h2 className="text-4xl sm:text-6xl lg:text-8xl font-light leading-tight">
-            {isFa ? 'اصالت ایتالیایی، وسعت بین‌المللی.' : 'Italian origins, international vocation.'}
+            {isFa ? 'اصالت ایرانی وسعت بین‌المللی.' : 'Iranian origins, international vocation.'}
           </h2>
           <h3 className="text-2xl sm:text-4xl font-normal text-teal-100">
             {isFa ? 'دفاتر و شعب ما در سراسر جهان' : 'Our locations'}

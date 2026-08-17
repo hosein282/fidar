@@ -84,14 +84,14 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="absolute right-14 top-1/2 -translate-y-1/2 pointer-events-none opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 translate-x-2 transition-all duration-200 bg-slate-900 text-white text-xs font-bold py-1.5 px-3 rounded-xl shadow-2xl whitespace-nowrap border border-slate-700">
             {isFa ? 'مدیریت دیتابیس / CMS' : 'CMS Admin'}
           </span>
-          <button
+          {/* <button
             type="button"
             onClick={onOpenAdmin}
             className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black hover:bg-primary text-white border border-white/20 shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer active:scale-95"
             aria-label="CMS Admin"
           >
             <Share2 className="w-5 h-5 stroke-[2]" />
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -208,13 +208,13 @@ export const Header: React.FC<HeaderProps> = ({
             </a>
 
             {/* CMS Admin Login Icon */}
-            <button
+            {/* <button
               onClick={onOpenAdmin}
               className="w-9 h-9 rounded-full bg-white border border-gray-300 flex items-center justify-center text-slate-800 hover:text-primary hover:border-primary transition shadow-sm"
               title={isFa ? 'ورود به پنل مدیریت دیتابیس' : 'Admin Login'}
             >
               <User className="w-4 h-4" />
-            </button>
+            </button> */}
 
             {/* Mobile Menu Trigger */}
             <button
@@ -274,13 +274,13 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{isFa ? 'دانلود سورس کد PHP و MySQL' : 'Export PHP & MySQL'}</span>
               </button>
 
-              <button
+              {/* <button
                 onClick={() => { setMobileMenuOpen(false); onOpenAdmin(); }}
                 className="w-full py-2.5 rounded-lg text-xs font-bold bg-primary text-white flex items-center justify-center gap-2"
               >
                 <LayoutDashboard className="w-4 h-4 text-white" />
                 <span>{isFa ? 'ورود به پنل مدیریت محتوای دیتابیس' : 'CMS Database Admin'}</span>
-              </button>
+              </button> */}
 
             </div>
           </div>

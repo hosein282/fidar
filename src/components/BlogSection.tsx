@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Language, BlogPost } from '../types';
 import { ChevronLeft, ChevronRight, X, Code2, Calendar, Clock, Eye, ArrowLeft, ArrowRight } from 'lucide-react';
 import { sanitizeBlogPost } from '../utils/sanitize';
+import { format } from 'date-fns-jalali';
+import { format as fr } from 'date-fns';
 
 interface BlogSectionProps {
   lang: Language;
@@ -64,15 +66,16 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
               const titleStr = (isFa ? post.title?.fa : post.title?.en) || post.title?.fa || 'بدون عنوان';
               const catStr = (isFa ? post.category?.fa : post.category?.en) || (post.postType === 'news' ? 'CUSTOMER STORY' : 'EVENTS');
               const dateStr =  post.date || '03/25/2025';
+              
 
               return (
                 <article
                   key={post.id}
                   onClick={() => router.push(`/${lang}/blog/${post.id}`)}
-                  className="w-70 sm:w-[320px] shrink-0 snap-start flex flex-col items-center group cursor-pointer text-center"
+                  className="w-70 sm:w-[320px] shrink-0 snap-start flex flex-col items-center  cursor-pointer text-center" 
                 >
                   {/* Card Image with Fidar Bondar rounded-3xl corners */}
-                  <div className="w-full h-75 sm:h-[340px] rounded-[32px] overflow-hidden bg-emerald-950/40 shadow-xl border border-white/10 relative">
+                  <div className="w-full h-75 sm:h-[340px] rounded-[32px] overflow-hidden group bg-emerald-950/40 shadow-xl border border-white/10 relative">
                     <img
                       src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'}
                       alt={titleStr}
@@ -92,13 +95,13 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug mt-3 line-clamp-2 px-2 group-hover:underline decoration-white/60">
+                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug mt-3 line-clamp-2 px-2 hover:underline decoration-white/60">
                     {titleStr}
                   </h3>
 
                   {/* Date */}
-                  <p className="text-white/80 font-mono text-xs mt-2">
-                    {dateStr}
+                  <p className={`${isFa ?  "":"font-mono"} text-white/80 text-xs mt-2`}>
+                    {isFa ?  format(Date.parse(dateStr), 'dd MMMM yyyy') : fr(Date.parse(dateStr), 'MMMM d, yyyy') }
                   </p>
                 </article>
               );

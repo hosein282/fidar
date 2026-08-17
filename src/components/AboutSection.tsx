@@ -33,7 +33,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               1. Statement Block with Custom Teal SVG Backdrop
              ========================================================= */}
           <div
-            className={`relative w-[92%] sm:w-[90%] 3xl:w-[80%] my-8 ${isFa ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
+            className={`relative w-[92%] mb-40 sm:w-[90%] 3xl:w-[80%] my-8 ${isFa ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
               }`}
           >
             {/* Desktop SVG */}

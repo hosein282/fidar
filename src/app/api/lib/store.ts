@@ -124,7 +124,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
   const rows = await query<PostRow[]>(
     'SELECT * FROM posts ORDER BY created_at DESC, date DESC'
   );
-  closePool();
+  // closePool();
   return rows.map(rowToBlogPost);
 }
 

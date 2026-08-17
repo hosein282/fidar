@@ -1,7 +1,7 @@
+"use client"
 import { FunctionComponent, useEffect, useRef } from "react";
 import { Language } from "../types";
 import Image from 'next/image';
-
 interface AboutSectionProps {
     lang: Language;
 }
@@ -59,35 +59,33 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
         const leftArrow = document.getElementById('leftIcon');
 
         if (isFa) {
-            rightArrow?.classList.add('opacity-0');
+            rightArrow?.classList.add('hidden');
         } else {
-            leftArrow?.classList.add('opacity-0');
+            leftArrow?.classList.add('hidden');
         }
 
         scrollContainerRef.current?.addEventListener('scroll', (scroll) => {
             if (scrollContainerRef.current?.scrollLeft === 0) {
                 if (isFa) {
-                    rightArrow?.classList.add('hideen');
+                    rightArrow?.classList.add('hidden');
                 } else {
-                    leftArrow?.classList.add('hideen');
+                    leftArrow?.classList.add('hidden');
                 }
             } else {
                 if (isFa) {
-                    rightArrow?.classList.remove('hideen');
+                    rightArrow?.classList.remove('hidden');
                 } else {
-                    leftArrow?.classList.remove('hideen');
+                    leftArrow?.classList.remove('hidden');
                 }
 
             }
-            console.log("LEFT: ", scrollContainerRef.current?.scrollLeft);
         });
     }
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
-            console.log("first", isFa)
             const scrollAmount = isFa
-                ? (direction === 'left' ? -200 : 200)
+                ? (direction === 'left' ? 200 : -200)
                 : (direction === 'left' ? -200 : 200);
             scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
@@ -108,18 +106,18 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-8 ${isFa? "flex-row-reverse" : ""} overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-2 transition-all w-screen overflow-visible relative`}>
+                    className={`flex gap-8 ${isFa? "flex-row-reverse" : ""} ${isFa? "pl-32" : "pr-32"}  overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-screen overflow-visible relative`}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
-                            className="pointer-events-auto w-full h-[55vh]"
+                            className="pointer-events-auto "
                             style={{
 
                                 // opacity: 1,
                                 zIndex: industries.length - index,
                                 // transform: 'translateX(calc(0% + 0px)) translateY(0px) scale(1) translateZ(0px)',
                             }}                        >
-                            <div className="relative rounded-xl overflow-hidden   group h-full w-80 lg:aspect-auto lg:h-136">
+                            <div className="relative rounded-2xl overflow-hidden aspect-3/4   group h-full w-80 lg:aspect-auto lg:h-136">
                                 {/* Gradient Overlay */}
                                 <div className="absolute z-10  h-full w-full bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)]"></div>
 
@@ -139,16 +137,15 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                 </div>
 
                                 {/* Image */}
-                                <div className="relative w-full h-full object-cover">
-                                    <img
+                                <div className="relative w-full h-full top-0">
+                                    <Image
                                         src={industry.imageUrl}
                                         alt={industry.alt}
-                                        width="100%"
-                                        height="100%"
-
+                                        width={400}
+                                        height={400}
                                         loading="lazy"
                                         decoding="async"
-                                        className="max-h-[65vh] w-auto object-contain drop-shadow-2xl"
+                                        className="max-h-[65vh] w-auto  drop-shadow-2xl"
                                     />
                                 </div>
 

@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
   ];
 
   return (
-    <section className="relative w-full min-h-[90vh] lg:min-h-screen bg-surface text-white overflow-hidden flex flex-col justify-between">
+    <section className="relative w-full  min-h-[90vh] lg:min-h-vh bg-surface text-white overflow-hidden flex flex-col justify-between">
       
       {/* Hero Background Video & Media Container */}
       <div className="absolute inset-0 z-0 flex flex-col lg:flex-row">

@@ -9,10 +9,13 @@ import { Footer } from '../components/Footer';
 import { AdminPanel } from '../components/AdminPanel';
 import { PhpExporter } from '../components/PhpExporter';
 import { sanitizeBlogPost } from '../utils/sanitize';
-import { 
-  Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight, 
+import { format as fr } from 'date-fns';
+
+import {
+  Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight,
   Tag, Filter, ChevronRight, X, Share2, Sparkles, BookOpen, Newspaper, Trophy
 } from 'lucide-react';
+import { format } from 'date-fns-jalali';
 
 interface BlogPageProps {
   posts: BlogPost[];
@@ -26,8 +29,8 @@ interface BlogPageProps {
 const BlogPageComponent: React.FC<BlogPageProps> = ({
   posts,
   seoConfig,
-  onOpenAdmin = () => {},
-  onOpenExporter = () => {},
+  onOpenAdmin = () => { },
+  onOpenExporter = () => { },
   lang = 'fa',
   postId,
 }) => {
@@ -81,8 +84,8 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
     const title = (isFa ? post.title?.fa : post.title?.en) || '';
     const excerpt = (isFa ? post.excerpt?.fa : post.excerpt?.en) || '';
     const category = (isFa ? post.category?.fa : post.category?.en) || '';
-    
-    const matchesSearch = 
+
+    const matchesSearch =
       title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
       category.toLowerCase().includes(searchQuery.toLowerCase());
@@ -116,11 +119,11 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
         {/* Page Main Content */}
         <main className="pb-24">
-          
+
           {/* Active Post Single View */}
           {activePost ? (
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
-              
+
               {/* Breadcrumb Navigation */}
               <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 mb-8 overflow-x-auto whitespace-nowrap">
                 <Link href={`/${currentLang}`} className="hover:text-primary transition">
@@ -147,7 +150,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
               {/* Main Article Container */}
               <article className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-8">
-                
+
                 {/* Meta Header */}
                 <div className="space-y-4 border-b border-slate-100 pb-6">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
@@ -157,7 +160,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     <span>•</span>
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                      {activePost.date}
+                      {isFa ? format(Date.parse(activePost.date), 'dd MMMM yyyy') : fr(Date.parse(activePost.date), 'MMMM d, yyyy')}
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
@@ -182,9 +185,9 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
                 {/* Article Cover Image */}
                 <div className="rounded-2xl overflow-hidden h-72 sm:h-96 lg:h-[440px] bg-slate-100 border border-slate-200 shadow-inner">
-                  <img 
-                    src={activePost.coverImage} 
-                    alt={isFa ? activePost.title?.fa : activePost.title?.en} 
+                  <img
+                    src={activePost.coverImage}
+                    alt={isFa ? activePost.title?.fa : activePost.title?.en}
                     width={1200}
                     height={800}
                     loading="lazy"
@@ -245,14 +248,14 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     .filter(p => p.id !== activePost.id)
                     .slice(0, 2)
                     .map(relPost => (
-                      <div 
+                      <div
                         key={relPost.id}
                         onClick={() => router.push(`/${currentLang}/blog/${relPost.id}`)}
                         className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer flex gap-4 group"
                       >
-                        <img 
-                          src={relPost.coverImage} 
-                          alt="Related" 
+                        <img
+                          src={relPost.coverImage}
+                          alt="Related"
                           width={96}
                           height={96}
                           loading="lazy"
@@ -267,7 +270,8 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                             {isFa ? relPost.title?.fa : relPost.title?.en}
                           </h4>
                           <span className="text-xs text-slate-400 block font-mono">
-                            {relPost.date}
+                                                {isFa ?  format(Date.parse(relPost.date), 'dd MMMM yyyy') : fr(Date.parse(relPost.date), 'MMMM d, yyyy') }
+                            
                           </span>
                         </div>
                       </div>
@@ -279,11 +283,11 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
           ) : (
             /* Blog List / News Directory View */
             <div className="space-y-12">
-              
+
               {/* Blog Top Banner Hero */}
               <div className="bg-primary-dark text-white py-16 sm:py-24 px-4 sm:px-8 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto space-y-6 relative z-10 text-center sm:text-right">
-                  
+
                   {/* Badge */}
                   <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-mono font-bold border border-white/20">
                     <Newspaper className="w-3.5 h-3.5 text-teal-300" />
@@ -321,7 +325,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
               {/* Main Directory Area */}
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                
+
                 {/* Category Filter Pills */}
                 <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
                   <Filter className="w-4 h-4 text-primary shrink-0" />
@@ -329,11 +333,10 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     <button
                       key={cat.id}
                       onClick={() => setSelectedCategory(cat.id)}
-                      className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all ${
-                        selectedCategory === cat.id
+                      className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all ${selectedCategory === cat.id
                           ? 'bg-primary text-white shadow-md'
                           : 'bg-white hover:bg-slate-200 text-slate-700 border border-slate-300'
-                      }`}
+                        }`}
                     >
                       {isFa ? cat.nameFa : cat.nameEn}
                     </button>
@@ -342,14 +345,14 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
                 {/* Featured First Post Card */}
                 {filteredPosts.length > 0 && selectedCategory === 'all' && !searchQuery && (
-                  <div 
+                  <div
                     onClick={() => router.push(`/${currentLang}/blog/${filteredPosts[0].id}`)}
                     className="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 cursor-pointer group hover:border-primary transition duration-300"
                   >
                     <div className="lg:col-span-7 h-64 sm:h-80 lg:h-auto overflow-hidden relative">
-                      <img 
-                        src={filteredPosts[0].coverImage} 
-                        alt="Featured" 
+                      <img
+                        src={filteredPosts[0].coverImage}
+                        alt="Featured"
                         width={1200}
                         height={800}
                         loading="lazy"
@@ -413,9 +416,9 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                         >
                           <div>
                             <div className="h-52 overflow-hidden bg-slate-100 relative">
-                              <img 
-                                src={post.coverImage} 
-                                alt={titleStr} 
+                              <img
+                                src={post.coverImage}
+                                alt={titleStr}
                                 width={1200}
                                 height={800}
                                 loading="lazy"
@@ -471,27 +474,27 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
             >
               <X className="w-5 h-5" />
             </button>
-            
+
             <div className="flex items-center gap-2 text-primary font-bold text-lg">
               <Code2 className="w-5 h-5" />
               <span>{isFa ? 'کدهای JSON-LD Schema مقاله' : 'Generated Schema.org JSON-LD'}</span>
             </div>
 
             <pre className="p-4 rounded-xl bg-slate-900 text-emerald-400 font-mono text-xs overflow-x-auto dir-ltr text-left">
-{JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": isFa ? activePost.seoTitle?.fa : activePost.seoTitle?.en,
-  "description": isFa ? activePost.seoDescription?.fa : activePost.seoDescription?.en,
-  "author": {
-    "@type": "Organization",
-    "name": isFa ? activePost.author?.fa : activePost.author?.en
-  },
-  "datePublished": activePost.date,
-  "image": activePost.coverImage,
-  "inLanguage": [currentLang],
-  "keywords": (isFa ? activePost.seoKeywords?.fa : activePost.seoKeywords?.en)?.join(", ")
-}, null, 2)}
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "headline": isFa ? activePost.seoTitle?.fa : activePost.seoTitle?.en,
+                "description": isFa ? activePost.seoDescription?.fa : activePost.seoDescription?.en,
+                "author": {
+                  "@type": "Organization",
+                  "name": isFa ? activePost.author?.fa : activePost.author?.en
+                },
+                "datePublished": activePost.date,
+                "image": activePost.coverImage,
+                "inLanguage": [currentLang],
+                "keywords": (isFa ? activePost.seoKeywords?.fa : activePost.seoKeywords?.en)?.join(", ")
+              }, null, 2)}
             </pre>
           </div>
         </div>
@@ -520,7 +523,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                 lang={currentLang}
                 onClose={() => setActiveModal(null)}
                 seoConfig={seoConfig}
-                onUpdateSeo={() => {}}
+                onUpdateSeo={() => { }}
                 posts={pagePosts}
                 onUpdatePosts={setPagePosts}
               />

@@ -9,6 +9,7 @@ interface AdminPanelProps {
   onUpdateSeo: (seo: SEOMetaConfig) => void;
   posts: BlogPost[];
   onUpdatePosts: (posts: BlogPost[]) => void;
+  isStandalone?: boolean;
 }
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({
@@ -17,7 +18,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   seoConfig,
   onUpdateSeo,
   posts,
-  onUpdatePosts
+  onUpdatePosts,
+  isStandalone = false
 }) => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -294,15 +296,17 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white border border-slate-200 rounded-2xl max-w-5xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto space-y-6 shadow-2xl text-slate-900">
+    <div className={isStandalone ? "min-h-screen bg-surface" : "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"}>
+      <div className={isStandalone ? "bg-white min-h-screen max-w-7xl mx-auto px-6 sm:px-10 py-8 space-y-8 text-slate-900" : "bg-white border border-slate-200 rounded-2xl max-w-5xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto space-y-6 shadow-2xl text-slate-900"}>
         
+        {!isStandalone && (
         <button
           onClick={onClose}
           className="absolute top-4 left-4 p-2 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900"
         >
           <X className="w-5 h-5" />
         </button>
+        )}
 
         {!isLoggedIn ? (
           /* Password Login Form */
@@ -574,21 +578,39 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </div>
 
                     {/* Full Content */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {isFa ? 'متن کامل خبر یا مقاله (فارسی) *' : 'Full Article Content (Persian) *'}
-                      </label>
-                      <textarea
-                        rows={4}
-                        required
-                        value={editingPost.content?.fa || ''}
-                        onChange={(e) => setEditingPost({
-                          ...editingPost,
-                          content: { ...editingPost.content, fa: e.target.value, en: editingPost.content?.en || '' }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm focus:outline-none focus:border-blue-600"
-                        placeholder={isFa ? 'محتوای کامل خبر و تحلیل‌های مربوطه...' : 'Full content...'}
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'متن کامل خبر یا مقاله (فارسی) *' : 'Full Article Content (Persian) *'}
+                        </label>
+                        <textarea
+                          rows={4}
+                          required
+                          value={editingPost.content?.fa || ''}
+                          onChange={(e) => setEditingPost({
+                            ...editingPost,
+                            content: { ...editingPost.content, fa: e.target.value, en: editingPost.content?.en || '' }
+                          })}
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm focus:outline-none focus:border-blue-600"
+                          placeholder={isFa ? 'محتوای کامل خبر و تحلیل‌های مربوطه...' : 'Full content...'}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'متن کامل خبر یا مقاله (انگلیسی)' : 'Full Article Content (English)'}
+                        </label>
+                        <textarea
+                          rows={4}
+                          value={editingPost.content?.en || ''}
+                          onChange={(e) => setEditingPost({
+                            ...editingPost,
+                            content: { fa: editingPost.content?.fa || '', en: e.target.value }
+                          })}
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm focus:outline-none focus:border-blue-600 dir-ltr"
+                          placeholder={isFa ? 'محتوای کامل خبر به زبان انگلیسی...' : 'Full content in English...'}
+                        />
+                      </div>
                     </div>
 
                     {/* Category & Cover Image */}
