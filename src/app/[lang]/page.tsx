@@ -4,17 +4,25 @@ import { HomePage } from '@/src/pages/HomePage';
 import { INITIAL_SERVICES, INITIAL_PORTFOLIO, INITIAL_SEO_META } from '@/src/data/mockData';
 import { Language, BlogPost } from '@/src/types';
 import { buildCanonicalMetadata } from '@/src/lib/seo';
-import { getAllPosts } from '../api/lib/store';
+import { getPublishedPosts } from '../api/lib/store';
 
 interface PageProps {
   params: Promise<{ lang: string }>;
 }
 
+// ISR: Revalidate every 5 minutes — reduces DB load while keeping content fresh
+export const revalidate = 300;
+
+// SSG: Pre-render both locales at build time for instant TTFB and optimal SEO
+export function generateStaticParams() {
+  return [{ lang: 'fa' }, { lang: 'en' }];
+}
+
 async function getData() {
   let posts: BlogPost[] = [];
   try {
-    // Fetch posts from MySQL database
-    posts = await getAllPosts();
+    // Fetch ONLY published posts from MySQL database
+    posts = await getPublishedPosts();
   } catch (error) {
     // Fallback to empty array if DB is not available
     console.error('Failed to fetch posts from database:', error);

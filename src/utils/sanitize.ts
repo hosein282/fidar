@@ -1,4 +1,4 @@
-import { BlogPost, BilingualText } from '../types';
+import { BlogPost, BilingualText, PostStatus } from '../types';
 
 function parseBilingual(val: any, defaultFa = '', defaultEn = ''): BilingualText {
   if (!val) {
@@ -36,6 +36,7 @@ export function sanitizeBlogPost(item: any): BlogPost {
     return {
       id: `post-${Math.random().toString(36).substring(2, 9)}`,
       postType: 'article',
+      status: 'published',
       slug: { fa: 'post', en: 'post' },
       title: { fa: 'بدون عنوان', en: 'Untitled' },
       excerpt: { fa: '', en: '' },
@@ -68,12 +69,16 @@ export function sanitizeBlogPost(item: any): BlogPost {
   const rawPostType = item.postType || item.post_type || (String(item.id || '').startsWith('news-') ? 'news' : 'article');
   const postType = rawPostType === 'news' ? 'news' : 'article';
 
+  const rawStatus = item.status || item.post_status || 'published';
+  const status: PostStatus = rawStatus === 'draft' || rawStatus === 'unpublished' ? rawStatus : 'published';
+
   const defaultCatFa = postType === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی';
   const defaultCatEn = postType === 'news' ? 'News & Announcements' : 'Technical Articles';
 
   return {
     id: String(item.id || item.post_id || `post-${Date.now()}`),
     postType,
+    status,
     slug: { fa: String(slugFa), en: String(slugEn) },
     title: { fa: String(titleFa), en: String(titleEn) },
     excerpt: { fa: String(excerptFa), en: String(excerptEn) },

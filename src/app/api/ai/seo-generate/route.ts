@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,15 +13,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.DEEPSEEK_API_KEY ||"sk-0be2a05b07654ee4ace29d3d343cc0f6";
     if (!apiKey) {
       return NextResponse.json(
-        { success: false, error: 'GEMINI_API_KEY is not configured.' },
+        { success: false, error: 'DEEPSEEK_API_KEY is not configured.' },
         { status: 500 }
       );
     }
-
-    const ai = new GoogleGenAI({ apiKey });
 
     const prompt = lang === 'fa'
       ? `You are an expert SEO specialist. Generate SEO metadata for the following topic in Persian (Farsi).
@@ -48,12 +45,36 @@ Return a JSON object with exactly these fields:
 
 Return ONLY valid JSON, no markdown, no commentary.`;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
-      contents: prompt,
+    // استفاده از DeepSeek API
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat', // مدل رایگان
+        messages: [
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        temperature: 0.7,
+        max_tokens: 500,
+      }),
     });
 
-    const rawText = response.text?.trim() || '';
+    if (!response.ok) {
+      const errorData = await response.json();
+      return NextResponse.json(
+        { success: false, error: `DeepSeek API error: ${errorData.error?.message || 'Unknown error'}` },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json();
+    const rawText = data.choices?.[0]?.message?.content?.trim() || '';
 
     // Extract JSON from the response (handle markdown code fences if present)
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
@@ -86,8 +107,9 @@ Return ONLY valid JSON, no markdown, no commentary.`;
       keywords,
     });
   } catch (error) {
+    console.error('Error:', error);
     return NextResponse.json(
-      { success: false, error: 'SEO generation service error.' },
+      { success: false, error: error instanceof Error ? error.message : 'Internal server error' },
       { status: 500 }
     );
   }

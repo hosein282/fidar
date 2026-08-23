@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Language, BlogPost, SEOMetaConfig } from '../types';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { AdminPanel } from '../components/AdminPanel';
-import { PhpExporter } from '../components/PhpExporter';
 import { sanitizeBlogPost } from '../utils/sanitize';
 import { format as fr } from 'date-fns';
+
+// Lazy-load heavy admin/exporter components — they only load when the modal opens
+const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
+const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
 
 import {
   Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight,
@@ -519,16 +521,20 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
               ×
             </button>
             {activeModal === 'admin' ? (
-              <AdminPanel
-                lang={currentLang}
-                onClose={() => setActiveModal(null)}
-                seoConfig={seoConfig}
-                onUpdateSeo={() => { }}
-                posts={pagePosts}
-                onUpdatePosts={setPagePosts}
-              />
+              <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Admin Panel...</div>}>
+                <AdminPanel
+                  lang={currentLang}
+                  onClose={() => setActiveModal(null)}
+                  seoConfig={seoConfig}
+                  onUpdateSeo={() => { }}
+                  posts={pagePosts}
+                  onUpdatePosts={setPagePosts}
+                />
+              </Suspense>
             ) : (
-              <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+              <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Exporter...</div>}>
+                <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+              </Suspense>
             )}
           </div>
         </div>

@@ -1,9 +1,9 @@
-import { BlogPost, ContactMessage, BilingualText } from '@/src/types';
+import { BlogPost, ContactMessage, BilingualText, PostStatus } from '@/src/types';
 import { closePool, query } from './db';
 
 // ========================================================
 // MySQL Data Store
-// All functions interact with the `biesss_db` database.
+// All functions interact with the `fidar_db` database.
 // ========================================================
 
 /**
@@ -23,6 +23,7 @@ function toMySqlDateTime(isoDate: string): string {
 interface PostRow {
   id: string;
   post_type: 'article' | 'news';
+  status: PostStatus;
   slug_fa: string;
   slug_en: string;
   title_fa: string;
@@ -64,6 +65,7 @@ function rowToBlogPost(row: PostRow): BlogPost {
   return {
     id: row.id,
     postType: row.post_type,
+    status: row.status || 'published',
     slug,
     title,
     excerpt,
@@ -93,6 +95,7 @@ function blogPostToRow(post: BlogPost) {
   return [
     post.id,
     post.postType || 'article',
+    post.status || 'published',
     post.slug?.fa || post.title.fa.toLowerCase().replace(/\s+/g, '-'),
     post.slug?.en || post.title.en.toLowerCase().replace(/\s+/g, '-'),
     post.title.fa,
@@ -120,11 +123,23 @@ function blogPostToRow(post: BlogPost) {
 
 // --- Blog Posts CRUD ---
 
+/**
+ * Get ALL posts (including drafts & unpublished) — for admin panel
+ */
 export async function getAllPosts(): Promise<BlogPost[]> {
   const rows = await query<PostRow[]>(
     'SELECT * FROM posts ORDER BY created_at DESC, date DESC'
   );
-  // closePool();
+  return rows.map(rowToBlogPost);
+}
+
+/**
+ * Get ONLY published posts — for public-facing pages
+ */
+export async function getPublishedPosts(): Promise<BlogPost[]> {
+  const rows = await query<PostRow[]>(
+    "SELECT * FROM posts WHERE status = 'published' ORDER BY created_at DESC, date DESC"
+  );
   return rows.map(rowToBlogPost);
 }
 
@@ -135,7 +150,7 @@ export async function getPostById(id: string): Promise<BlogPost | undefined> {
 
 export async function getPostsByType(type: 'article' | 'news'): Promise<BlogPost[]> {
   const rows = await query<PostRow[]>(
-    'SELECT * FROM posts WHERE post_type = ? ORDER BY created_at DESC, date DESC',
+    "SELECT * FROM posts WHERE post_type = ? AND status = 'published' ORDER BY created_at DESC, date DESC",
     [type]
   );
   return rows.map(rowToBlogPost);
@@ -145,15 +160,16 @@ export async function addPost(post: BlogPost): Promise<BlogPost[]> {
   const params = blogPostToRow(post);
   await query(
     `INSERT INTO posts (
-      id, post_type, slug_fa, slug_en, title_fa, title_en,
+      id, post_type, status, slug_fa, slug_en, title_fa, title_en,
       excerpt_fa, excerpt_en, content_fa, content_en,
       author_fa, author_en, date, read_time,
       category_fa, category_en, cover_image,
       seo_title_fa, seo_title_en, seo_desc_fa, seo_desc_en,
       seo_keywords_fa, seo_keywords_en, views
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       post_type = VALUES(post_type),
+      status = VALUES(status),
       slug_fa = VALUES(slug_fa),
       slug_en = VALUES(slug_en),
       title_fa = VALUES(title_fa),

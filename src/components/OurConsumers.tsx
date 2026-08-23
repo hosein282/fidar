@@ -30,16 +30,16 @@ const industries = [
         description: 'Technologies for companies involved in the design, development, manufacture, repair and modification of motor vehicles',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/239ptN8rRogEflGCu4V30d/dd5ccb394a3c51c61cd7340d5518312f/clayton-cardinalli-hkJNx0EDbjE-unsplash.jpg',
         alt: 'Automotive',
-        width: 6000,
-        height: 4000,
+        width: 400,
+        height: 600,
     },
     {
         title: 'Aerospace',
         description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/7AtmYfzL77F98TCcLoY29l/9643b18994bbdf30b0f34d9b32552189/luka-slapnicar-yqeXLR81Uj0-unsplash.jpg',
         alt: 'Aerospace',
-        width: 6000,
-        height: 4000,
+        width: 400,
+        height: 600,
     },
 ];
 
@@ -50,19 +50,44 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(()=>{
+
+    const initScrollBtn = () => {
+        const rightArrow = document.getElementById('rightIcon');
+        const leftArrow = document.getElementById('leftIcon');
+
+        if (window.innerWidth < (scrollContainerRef.current?.scrollWidth ?? 0)) {
+
+            if (isFa) {
+                rightArrow?.classList.add('hidden');
+                leftArrow?.classList.remove('hidden');
+            } else {
+                rightArrow?.classList.remove('hidden');
+                leftArrow?.classList.add('hidden');
+            }
+        } else {
+            rightArrow?.classList.add('hidden');
+            leftArrow?.classList.add('hidden');
+
+        }
+    }
+
+    useEffect(() => {
         handleScroll();
-    })
+        window.onresize = function (event) {
+            initScrollBtn();
+        };
+        return () => {
+            scrollContainerRef.current?.removeEventListener('scroll', () => { });
+        }
+
+    }, [])
 
     const handleScroll = () => {
         const rightArrow = document.getElementById('rightIcon');
         const leftArrow = document.getElementById('leftIcon');
 
-        if (isFa) {
-            rightArrow?.classList.add('hidden');
-        } else {
-            leftArrow?.classList.add('hidden');
-        }
+        initScrollBtn();
+
 
         scrollContainerRef.current?.addEventListener('scroll', (scroll) => {
             if (scrollContainerRef.current?.scrollLeft === 0) {
@@ -85,11 +110,12 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
             const scrollAmount = isFa
-                ? (direction === 'left' ? 200 : -200)
+                ? (direction === 'left' ? -200 : 200)
                 : (direction === 'left' ? -200 : 200);
             scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
     };
+
     return (
         <div className="w-full relative">
             <div className="bg-neutral border-t w-full overflow-hidden flex flex-col items-start justify-center px-8 py-10 lg:px-20 lg:py-10">
@@ -106,13 +132,13 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-8 ${isFa? "flex-row-reverse" : ""} ${isFa? "pl-32" : "pr-32"}  overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-screen overflow-visible relative`}>
+                    className={`flex gap-18 ${isFa ? "" : ""} ${isFa ? "pl-32" : "pr-32"}  overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-screen overflow-visible relative`}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
+
                             className="pointer-events-auto "
                             style={{
-
                                 // opacity: 1,
                                 zIndex: industries.length - index,
                                 // transform: 'translateX(calc(0% + 0px)) translateY(0px) scale(1) translateZ(0px)',
@@ -141,11 +167,11 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                     <Image
                                         src={industry.imageUrl}
                                         alt={industry.alt}
-                                        width={400}
-                                        height={400}
+                                        width={800}
+                                        height={800}
                                         loading="lazy"
                                         decoding="async"
-                                        className="max-h-[65vh] w-auto  drop-shadow-2xl"
+                                        className="max-h-[65vh] w-full h-full object-cover  drop-shadow-2xl"
                                     />
                                 </div>
 

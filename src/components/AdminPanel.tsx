@@ -77,6 +77,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setEditingPost({
       id: `${type}-${Date.now()}`,
       postType: type,
+      status: 'draft',
       title: { fa: '', en: '' },
       slug: { fa: '', en: '' },
       excerpt: { fa: '', en: '' },
@@ -120,6 +121,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const finalPost: BlogPost = {
       id: editingPost.id || `${targetType}-${Date.now()}`,
       postType: targetType,
+      status: editingPost.status || 'draft',
       title: {
         fa: editingPost.title.fa.trim(),
         en: editingPost.title?.en?.trim() || editingPost.title.fa.trim()
@@ -485,25 +487,46 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     </div>
 
                     {/* Content Type Selector */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {isFa ? 'نوع محتوا و جدول ذخیره‌سازی در MySQL *' : 'Content Type & MySQL Table *'}
-                      </label>
-                      <select
-                        value={editingPost.postType || 'article'}
-                        onChange={(e) => setEditingPost({
-                          ...editingPost,
-                          postType: e.target.value as 'article' | 'news',
-                          category: {
-                            fa: e.target.value === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی',
-                            en: e.target.value === 'news' ? 'News & Announcements' : 'Technical Articles'
-                          }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:border-blue-600"
-                      >
-                        <option value="article">{isFa ? '📚 مقاله تخصصی (ذخیره در جدول articles)' : '📚 Article (Table: articles)'}</option>
-                        <option value="news">{isFa ? '📰 خبر / اطلاعیه شرکت (ذخیره در جدول news)' : '📰 News (Table: news)'}</option>
-                      </select>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'نوع محتوا و جدول ذخیره‌سازی در MySQL *' : 'Content Type & MySQL Table *'}
+                        </label>
+                        <select
+                          value={editingPost.postType || 'article'}
+                          onChange={(e) => setEditingPost({
+                            ...editingPost,
+                            postType: e.target.value as 'article' | 'news',
+                            category: {
+                              fa: e.target.value === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی',
+                              en: e.target.value === 'news' ? 'News & Announcements' : 'Technical Articles'
+                            }
+                          })}
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:border-blue-600"
+                        >
+                          <option value="article">{isFa ? '📚 مقاله تخصصی (ذخیره در جدول articles)' : '📚 Article (Table: articles)'}</option>
+                          <option value="news">{isFa ? '📰 خبر / اطلاعیه شرکت (ذخیره در جدول news)' : '📰 News (Table: news)'}</option>
+                        </select>
+                      </div>
+
+                      {/* Publication Status Selector */}
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'وضعیت انتشار *' : 'Publication Status *'}
+                        </label>
+                        <select
+                          value={editingPost.status || 'draft'}
+                          onChange={(e) => setEditingPost({
+                            ...editingPost,
+                            status: e.target.value as 'published' | 'draft' | 'unpublished'
+                          })}
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:border-blue-600"
+                        >
+                          <option value="published">{isFa ? '✅ منتشر شده (نمایش در سایت)' : '✅ Published (Visible on site)'}</option>
+                          <option value="draft">{isFa ? '📝 پیش‌نویس (ذخیره بدون نمایش)' : '📝 Draft (Saved but hidden)'}</option>
+                          <option value="unpublished">{isFa ? '🚫 عدم انتشار (مخفی از سایت)' : '🚫 Unpublished (Hidden from site)'}</option>
+                        </select>
+                      </div>
                     </div>
 
                     {/* Basic Article Info */}
@@ -780,6 +803,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                                 : 'bg-blue-100 text-blue-800 border border-blue-200'
                             }`}>
                               {post.postType === 'news' ? (isFa ? '📰 خبر (news)' : '📰 News') : (isFa ? '📚 مقاله (articles)' : '📚 Article')}
+                            </span>
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                              post.status === 'published'
+                                ? 'bg-green-100 text-green-800 border border-green-200'
+                                : post.status === 'draft'
+                                ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                                : 'bg-red-100 text-red-800 border border-red-200'
+                            }`}>
+                              {post.status === 'published'
+                                ? (isFa ? '✅ منتشر شده' : '✅ Published')
+                                : post.status === 'draft'
+                                ? (isFa ? '📝 پیش‌نویس' : '📝 Draft')
+                                : (isFa ? '🚫 عدم انتشار' : '🚫 Unpublished')}
                             </span>
                             <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-bold">
                               {post.category?.fa || (isFa ? 'عمومی' : 'General')}

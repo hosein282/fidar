@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../types';
 import { Header } from '../components/Header';
@@ -12,9 +12,11 @@ import { LocationsSection } from '../components/LocationsSection';
 import { SustainabilitySection } from '../components/SustainabilitySection';
 import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
-import { AdminPanel } from '../components/AdminPanel';
-import { PhpExporter } from '../components/PhpExporter';
 import OurConsumers from '../components/OurConsumers';
+
+// Lazy-load heavy admin/exporter components — they only load when the modal opens
+const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
+const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
 
 interface HomePageProps {
   services: ServiceItem[];
@@ -139,16 +141,20 @@ const HomePageComponent: React.FC<HomePageProps> = ({
               ×
             </button>
             {activeModal === 'admin' ? (
-              <AdminPanel
-                lang={currentLang}
-                onClose={() => setActiveModal(null)}
-                seoConfig={seoConfig}
-                onUpdateSeo={() => {}}
-                posts={pagePosts}
-                onUpdatePosts={setPagePosts}
-              />
+              <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Admin Panel...</div>}>
+                <AdminPanel
+                  lang={currentLang}
+                  onClose={() => setActiveModal(null)}
+                  seoConfig={seoConfig}
+                  onUpdateSeo={() => {}}
+                  posts={pagePosts}
+                  onUpdatePosts={setPagePosts}
+                />
+              </Suspense>
             ) : (
-              <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+              <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Exporter...</div>}>
+                <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+              </Suspense>
             )}
           </div>
         </div>
