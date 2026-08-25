@@ -213,8 +213,12 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                   <img src={selectedPost.coverImage} alt="Article Cover" width={1200} height={800} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
 
-                <div className="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                  {isFa ? selectedPost.content.fa : selectedPost.content.en}
+                <div className="article-content prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: isFa ? selectedPost.content.fa : selectedPost.content.en,
+                    }}
+                  />
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">

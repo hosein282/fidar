@@ -139,6 +139,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           </div>
 
           {/* Bounce Scroll Down Indicator */}
+
           <a
             href="#about"
             className="flex items-center gap-2 text-white/80 hover:text-white text-xs font-bold transition animate-bounce"

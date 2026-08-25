@@ -127,7 +127,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
 
               {/* Breadcrumb Navigation */}
-              <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 mb-8 overflow-x-auto whitespace-nowrap">
+              <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 mb-8 overflow-x-auto overflow-y-clip whitespace-nowrap">
                 <Link href={`/${currentLang}`} className="hover:text-primary transition">
                   {isFa ? 'صفحه اصلی' : 'Home'}
                 </Link>
@@ -198,9 +198,13 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                   />
                 </div>
 
-                {/* Main Article Text */}
-                <div className="prose max-w-none text-slate-800 text-base sm:text-lg leading-relaxed whitespace-pre-line font-normal space-y-4">
-                  {isFa ? activePost.content?.fa : activePost.content?.en}
+                {/* Main Article Text — rendered from saved HTML */}
+                <div className="article-content prose max-w-none text-slate-800 text-base sm:text-lg leading-relaxed font-normal">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: isFa ? activePost.content?.fa || '' : activePost.content?.en || '',
+                    }}
+                  />
                 </div>
 
                 {/* Keywords Tags */}

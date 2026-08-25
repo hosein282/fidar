@@ -105,3 +105,48 @@ export function sanitizePosts(rawPosts: any): BlogPost[] {
   if (!Array.isArray(rawPosts)) return [];
   return rawPosts.map(sanitizeBlogPost);
 }
+
+/**
+ * Basic HTML sanitizer — removes executable / dangerous content before the
+ * HTML is rendered with dangerouslySetInnerHTML. Keeps formatting tags,
+ * links, images, lists, tables, blockquote, code, etc.
+ *
+ * Strips: comments, <script>/<style>/<iframe>/<object>/<embed>/<form>/<meta>/
+ * <link>/<input>/<button>, event-handler attributes (onclick, onerror, ...)
+ * and `javascript:` URLs on href/src.
+ */
+export function sanitizeHtml(raw: string | null | undefined): string {
+  if (!raw) return '';
+  let out = String(raw);
+
+  // HTML comments
+  out = out.replace(/<!--[\s\S]*?-->/g, '');
+
+  // Dangerous elements (block + their content)
+  out = out.replace(
+    /<\s*(script|style|iframe|object|embed|meta|link|form|input|button|textarea)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,
+    ''
+  );
+  // Self-closing / unclosed dangerous elements
+  out = out.replace(
+    /<\s*(script|style|iframe|object|embed|meta|link|form|input|button|textarea)\b[^>]*\/?>/gi,
+    ''
+  );
+
+  // Event-handler attributes: on*="..."
+  out = out.replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+
+  // javascript: / data:text/html URLs on href/src/action
+  out = out.replace(
+    /\s+(href|src|action|formaction|xlink:href)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi,
+    (m, attr: string, value: string) => {
+      const v = value.replace(/^["']|["']$/g, '').trim().toLowerCase();
+      if (v.startsWith('javascript:') || v.startsWith('data:text/html')) {
+        return ` ${attr}=""`;
+      }
+      return m;
+    }
+  );
+
+  return out.trim();
+}

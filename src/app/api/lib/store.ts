@@ -1,263 +1,289 @@
 import { BlogPost, ContactMessage, BilingualText, PostStatus } from '@/src/types';
-import { closePool, query } from './db';
+import { sanitizeHtml } from '@/src/utils/sanitize';
+import { prisma } from './prisma';
 
 // ========================================================
-// MySQL Data Store
-// All functions interact with the `fidar_db` database.
+// Prisma Data Store
+// All functions interact with the `fidar_db` database
+// through the Prisma ORM (see prisma/schema.prisma).
 // ========================================================
 
-/**
- * Convert ISO 8601 date string (e.g. 2026-08-08T09:06:51.967Z)
- * to MySQL DATETIME format (e.g. 2026-08-08 09:06:51)
- */
-function toMySqlDateTime(isoDate: string): string {
-  const d = new Date(isoDate);
-  if (isNaN(d.getTime())) {
-    return new Date().toISOString().slice(0, 19).replace('T', ' ');
+type PostType = 'article' | 'news';
+type MessageLang = 'fa' | 'en';
+type MessageStatus = 'new' | 'contacted' | 'resolved';
+
+// --- Date helpers ---
+
+function isoNow(iso?: string): string {
+  const d = iso ? new Date(iso) : new Date();
+  return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+}
+
+function dateToIso(date: Date | string): string {
+  if (date instanceof Date) {
+    return date.toISOString().split('T')[0];
   }
-  return d.toISOString().slice(0, 19).replace('T', ' ');
+  return String(date).split('T')[0];
 }
 
 // --- Row to BlogPost mappers ---
 
-interface PostRow {
+interface PostRowShape {
   id: string;
-  post_type: 'article' | 'news';
+  postType: PostType;
   status: PostStatus;
-  slug_fa: string;
-  slug_en: string;
-  title_fa: string;
-  title_en: string;
-  excerpt_fa: string;
-  excerpt_en: string;
-  content_fa: string;
-  content_en: string;
-  author_fa: string;
-  author_en: string;
-  date: string;
-  read_time: string;
-  category_fa: string;
-  category_en: string;
-  cover_image: string;
-  seo_title_fa: string;
-  seo_title_en: string;
-  seo_desc_fa: string;
-  seo_desc_en: string;
-  seo_keywords_fa: string;
-  seo_keywords_en: string;
+  slugFa: string;
+  slugEn: string;
+  titleFa: string;
+  titleEn: string;
+  excerptFa: string | null;
+  excerptEn: string | null;
+  contentFa: string | null;
+  contentEn: string | null;
+  authorFa: string | null;
+  authorEn: string | null;
+  date: Date;
+  readTime: string | null;
+  categoryFa: string | null;
+  categoryEn: string | null;
+  coverImage: string | null;
+  seoTitleFa: string | null;
+  seoTitleEn: string | null;
+  seoDescFa: string | null;
+  seoDescEn: string | null;
+  seoKeywordsFa: string | null;
+  seoKeywordsEn: string | null;
   views: number;
-  created_at?: string;
 }
 
 function parseKeywords(raw: string | null): { fa: string[]; en: string[] } {
-  const split = (s: string | null) => (s ? s.split(',').map(x => x.trim()).filter(Boolean) : []);
+  const split = (s: string | null) =>
+    s ? s.split(',').map(x => x.trim()).filter(Boolean) : [];
   return { fa: split(raw), en: split(raw) };
 }
 
-function rowToBlogPost(row: PostRow): BlogPost {
-  const slug: BilingualText = { fa: row.slug_fa, en: row.slug_en };
-  const title: BilingualText = { fa: row.title_fa, en: row.title_en };
-  const excerpt: BilingualText = { fa: row.excerpt_fa || '', en: row.excerpt_en || '' };
-  const content: BilingualText = { fa: row.content_fa || '', en: row.content_en || '' };
-  const author: BilingualText = { fa: row.author_fa, en: row.author_en };
-  const category: BilingualText = { fa: row.category_fa, en: row.category_en };
+function rowToBlogPost(row: PostRowShape): BlogPost {
+  const slug: BilingualText = { fa: row.slugFa, en: row.slugEn };
+  const title: BilingualText = { fa: row.titleFa, en: row.titleEn };
+  const excerpt: BilingualText = {
+    fa: sanitizeHtml(row.excerptFa || ''),
+    en: sanitizeHtml(row.excerptEn || ''),
+  };
+  const content: BilingualText = {
+    fa: sanitizeHtml(row.contentFa || ''),
+    en: sanitizeHtml(row.contentEn || ''),
+  };
+  const author: BilingualText = {
+    fa: row.authorFa || 'تیم فنی فیدار',
+    en: row.authorEn || 'Biesss Engineering',
+  };
+  const category: BilingualText = {
+    fa: row.categoryFa || 'مقالات تخصصی',
+    en: row.categoryEn || 'Technical Articles',
+  };
 
   return {
     id: row.id,
-    postType: row.post_type,
+    postType: row.postType,
     status: row.status || 'published',
     slug,
     title,
     excerpt,
     content,
     author,
-    date: row.date,
-    readTime: row.read_time,
+    date: dateToIso(row.date),
+    readTime: row.readTime || '5 min',
     category,
-    coverImage: row.cover_image,
+    coverImage: row.coverImage || '',
     seoTitle: {
-      fa: row.seo_title_fa || title.fa,
-      en: row.seo_title_en || title.en,
+      fa: row.seoTitleFa || title.fa,
+      en: row.seoTitleEn || title.en,
     },
     seoDescription: {
-      fa: row.seo_desc_fa || excerpt.fa,
-      en: row.seo_desc_en || excerpt.en,
+      fa: row.seoDescFa || excerpt.fa,
+      en: row.seoDescEn || excerpt.en,
     },
     seoKeywords: {
-      fa: parseKeywords(row.seo_keywords_fa).fa,
-      en: parseKeywords(row.seo_keywords_en).en,
+      fa: parseKeywords(row.seoKeywordsFa).fa,
+      en: parseKeywords(row.seoKeywordsEn).en,
     },
-    views: typeof row.views === 'number' ? row.views : parseInt(String(row.views || '0'), 10) || 0,
+    views: typeof row.views === 'number' ? row.views : 0,
   };
 }
 
-function blogPostToRow(post: BlogPost) {
-  return [
-    post.id,
-    post.postType || 'article',
-    post.status || 'published',
-    post.slug?.fa || post.title.fa.toLowerCase().replace(/\s+/g, '-'),
-    post.slug?.en || post.title.en.toLowerCase().replace(/\s+/g, '-'),
-    post.title.fa,
-    post.title.en || post.title.fa,
-    post.excerpt?.fa || '',
-    post.excerpt?.en || '',
-    post.content?.fa || '',
-    post.content?.en || '',
-    post.author?.fa || 'تیم فنی فیدار',
-    post.author?.en || 'Biesss Engineering',
-    post.date || new Date().toISOString().split('T')[0],
-    post.readTime || '5 min',
-    post.category?.fa || 'مقالات تخصصی',
-    post.category?.en || 'Technical Articles',
-    post.coverImage || '',
-    post.seoTitle?.fa || '',
-    post.seoTitle?.en || '',
-    post.seoDescription?.fa || '',
-    post.seoDescription?.en || '',
-    post.seoKeywords?.fa?.join(', ') || '',
-    post.seoKeywords?.en?.join(', ') || '',
-    post.views || 0,
-  ];
+function blogPostToData(post: BlogPost) {
+  const postType: PostType = post.postType || 'article';
+  const status: PostStatus = post.status || 'published';
+
+  const slugFa =
+    post.slug?.fa || post.title.fa.toLowerCase().replace(/\\s+/g, '-');
+  const slugEn =
+    post.slug?.en || post.title.en.toLowerCase().replace(/\\s+/g, '-');
+
+  return {
+    postType,
+    status,
+    slugFa,
+    slugEn,
+    titleFa: post.title.fa,
+    titleEn: post.title.en || post.title.fa,
+    excerptFa: post.excerpt?.fa || '',
+    excerptEn: post.excerpt?.en || '',
+    contentFa: post.content?.fa || '',
+    contentEn: post.content?.en || '',
+    authorFa: post.author?.fa || 'تیم فنی فیدار',
+    authorEn: post.author?.en || 'Biesss Engineering',
+    date: post.date || new Date().toISOString().split('T')[0],
+    readTime: post.readTime || '5 min',
+    categoryFa:
+      post.category?.fa || (postType === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی'),
+    categoryEn:
+      post.category?.en || (postType === 'news' ? 'News & Announcements' : 'Technical Articles'),
+    coverImage: post.coverImage || '',
+    seoTitleFa: post.seoTitle?.fa || '',
+    seoTitleEn: post.seoTitle?.en || '',
+    seoDescFa: post.seoDescription?.fa || '',
+    seoDescEn: post.seoDescription?.en || '',
+    seoKeywordsFa: post.seoKeywords?.fa?.join(', ') || '',
+    seoKeywordsEn: post.seoKeywords?.en?.join(', ') || '',
+    views: post.views || 0,
+  };
 }
 
 // --- Blog Posts CRUD ---
 
-/**
- * Get ALL posts (including drafts & unpublished) — for admin panel
- */
 export async function getAllPosts(): Promise<BlogPost[]> {
-  const rows = await query<PostRow[]>(
-    'SELECT * FROM posts ORDER BY created_at DESC, date DESC'
-  );
+  const rows = await prisma.post.findMany({
+    orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
+  });
   return rows.map(rowToBlogPost);
 }
 
-/**
- * Get ONLY published posts — for public-facing pages
- */
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-  const rows = await query<PostRow[]>(
-    "SELECT * FROM posts WHERE status = 'published' ORDER BY created_at DESC, date DESC"
-  );
+  const rows = await prisma.post.findMany({
+    where: { status: 'published' },
+    orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
+  });
   return rows.map(rowToBlogPost);
 }
 
 export async function getPostById(id: string): Promise<BlogPost | undefined> {
-  const rows = await query<PostRow[]>('SELECT * FROM posts WHERE id = ? LIMIT 1', [id]);
-  return rows.length > 0 ? rowToBlogPost(rows[0]) : undefined;
+  const row = await prisma.post.findUnique({ where: { id } });
+  return row ? rowToBlogPost(row) : undefined;
 }
 
-export async function getPostsByType(type: 'article' | 'news'): Promise<BlogPost[]> {
-  const rows = await query<PostRow[]>(
-    "SELECT * FROM posts WHERE post_type = ? AND status = 'published' ORDER BY created_at DESC, date DESC",
-    [type]
-  );
+export async function getPostsByType(type: PostType): Promise<BlogPost[]> {
+  const rows = await prisma.post.findMany({
+    where: { postType: type, status: 'published' },
+    orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
+  });
   return rows.map(rowToBlogPost);
 }
 
 export async function addPost(post: BlogPost): Promise<BlogPost[]> {
-  const params = blogPostToRow(post);
-  await query(
-    `INSERT INTO posts (
-      id, post_type, status, slug_fa, slug_en, title_fa, title_en,
-      excerpt_fa, excerpt_en, content_fa, content_en,
-      author_fa, author_en, date, read_time,
-      category_fa, category_en, cover_image,
-      seo_title_fa, seo_title_en, seo_desc_fa, seo_desc_en,
-      seo_keywords_fa, seo_keywords_en, views
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON DUPLICATE KEY UPDATE
-      post_type = VALUES(post_type),
-      status = VALUES(status),
-      slug_fa = VALUES(slug_fa),
-      slug_en = VALUES(slug_en),
-      title_fa = VALUES(title_fa),
-      title_en = VALUES(title_en),
-      excerpt_fa = VALUES(excerpt_fa),
-      excerpt_en = VALUES(excerpt_en),
-      content_fa = VALUES(content_fa),
-      content_en = VALUES(content_en),
-      author_fa = VALUES(author_fa),
-      author_en = VALUES(author_en),
-      date = VALUES(date),
-      read_time = VALUES(read_time),
-      category_fa = VALUES(category_fa),
-      category_en = VALUES(category_en),
-      cover_image = VALUES(cover_image),
-      seo_title_fa = VALUES(seo_title_fa),
-      seo_title_en = VALUES(seo_title_en),
-      seo_desc_fa = VALUES(seo_desc_fa),
-      seo_desc_en = VALUES(seo_desc_en),
-      seo_keywords_fa = VALUES(seo_keywords_fa),
-      seo_keywords_en = VALUES(seo_keywords_en),
-      views = VALUES(views)`,
-    params
-  );
+  const data = blogPostToData(post);
+
+  const payload = {
+    postType: data.postType,
+    status: data.status,
+    slugFa: data.slugFa,
+    slugEn: data.slugEn,
+    titleFa: data.titleFa,
+    titleEn: data.titleEn,
+    excerptFa: data.excerptFa,
+    excerptEn: data.excerptEn,
+    contentFa: data.contentFa,
+    contentEn: data.contentEn,
+    authorFa: data.authorFa,
+    authorEn: data.authorEn,
+    date: new Date(data.date),
+    readTime: data.readTime,
+    categoryFa: data.categoryFa,
+    categoryEn: data.categoryEn,
+    coverImage: data.coverImage,
+    seoTitleFa: data.seoTitleFa,
+    seoTitleEn: data.seoTitleEn,
+    seoDescFa: data.seoDescFa,
+    seoDescEn: data.seoDescEn,
+    seoKeywordsFa: data.seoKeywordsFa,
+    seoKeywordsEn: data.seoKeywordsEn,
+    views: data.views,
+  };
+
+  await prisma.post.upsert({
+    where: { id: post.id },
+    update: payload,
+    create: { ...payload, id: post.id },
+  });
+
   return getAllPosts();
 }
 
 export async function deletePost(id: string): Promise<BlogPost[]> {
-  await query('DELETE FROM posts WHERE id = ?', [id]);
+  await prisma.post.deleteMany({ where: { id } });
   return getAllPosts();
 }
 
 // --- Contact Messages ---
 
-interface MessageRow {
+interface MessageRowShape {
   id: string;
   name: string;
   email: string;
   phone: string;
   company: string | null;
-  service: string;
+  service: string | null;
   budget: string | null;
   message: string;
-  lang: 'fa' | 'en';
-  status: 'new' | 'contacted' | 'resolved';
-  created_at: string;
+  lang: MessageLang;
+  status: MessageStatus;
+  createdAt: Date;
 }
 
-function rowToContactMessage(row: MessageRow): ContactMessage {
+function rowToContactMessage(row: MessageRowShape): ContactMessage {
   return {
     id: row.id,
     name: row.name,
     email: row.email,
     phone: row.phone,
     company: row.company || undefined,
-    service: row.service,
+    service: row.service || '',
     budget: row.budget || '',
     message: row.message,
     lang: row.lang,
-    createdAt: row.created_at,
+    createdAt: isoNow(row.createdAt.toISOString()),
     status: row.status,
   };
 }
 
 export async function addMessage(message: ContactMessage): Promise<ContactMessage[]> {
-  await query(
-    `INSERT INTO contact_messages (id, name, email, phone, company, service, budget, message, lang, status, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [
-      message.id,
-      message.name,
-      message.email,
-      message.phone,
-      message.company || null,
-      message.service,
-      message.budget || '',
-      message.message,
-      message.lang,
-      message.status,
-      toMySqlDateTime(message.createdAt), // Fix: Convert ISO datetime to MySQL DATETIME format
-    ]
-  );
+  await prisma.contactMessage.create({
+    data: {
+      id: message.id || `msg-${Date.now()}`,
+      name: message.name,
+      email: message.email,
+      phone: message.phone,
+      company: message.company || null,
+      service: message.service || null,
+      budget: message.budget || null,
+      message: message.message,
+      lang: message.lang === 'en' ? 'en' : 'fa',
+      status: message.status || 'new',
+      createdAt: new Date(isoNow(message.createdAt)),
+    },
+  });
   return getAllMessages();
 }
 
 export async function getAllMessages(): Promise<ContactMessage[]> {
-  const rows = await query<MessageRow[]>(
-    'SELECT * FROM contact_messages ORDER BY created_at DESC'
-  );
+  const rows = await prisma.contactMessage.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
   return rows.map(rowToContactMessage);
+}
+
+
+export async function deleteMessage(id: string): Promise<ContactMessage[]> {
+  await prisma.contactMessage.deleteMany({ where: { id } });
+  return getAllMessages();
 }

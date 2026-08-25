@@ -69,3 +69,138 @@
   --color-materia: #8282d6;
   --color-metal: #65554a;
 }
+
+/* ========================================================
+   Article HTML content (rendered from the admin HTML editor)
+   ======================================================== */
+.article-content {
+  white-space: normal;
+  line-height: 1.8;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5 {
+  font-weight: 800;
+  margin: 1.2em 0 0.5em;
+  line-height: 1.3;
+  color: inherit;
+}
+.article-content h1 { font-size: 2em; }
+.article-content h2 { font-size: 1.6em; }
+.article-content h3 { font-size: 1.3em; }
+.article-content h4 { font-size: 1.1em; }
+.article-content h5 { font-size: 1em; }
+
+.article-content p {
+  margin: 0.9em 0;
+  color: inherit;
+}
+
+.article-content a {
+  color: #005f86;
+  text-decoration: underline;
+}
+.article-content a:hover {
+  color: #003d5c;
+}
+
+.article-content ul,
+.article-content ol {
+  margin: 0.8em 0;
+  padding-left: 1.6em;
+}
+.article-content ul { list-style: disc; }
+.article-content ol { list-style: decimal; }
+.article-content li { margin: 0.25em 0; }
+
+.article-content blockquote {
+  margin: 1em 0;
+  padding: 0.8em 1.1em;
+  border-left: 4px solid #006063;
+  background: rgba(0, 96, 99, 0.06);
+  font-style: italic;
+  color: #334155;
+}
+
+.article-content pre {
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #e2e8f0;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.875em;
+}
+.article-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  background: rgba(15, 23, 42, 0.08);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.875em;
+}
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 1em auto;
+}
+
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+.article-content th,
+.article-content td {
+  border: 1px solid #cbd5e1;
+  padding: 0.5em 0.75em;
+  text-align: start;
+}
+.article-content th {
+  background: #f1f5f9;
+  font-weight: 700;
+}
+
+.article-content hr {
+  border: 0;
+  border-top: 1px solid #cbd5e1;
+  margin: 1.5em 0;
+}
+
+.article-content .alignleft { float: left; margin-right: 1em; }
+.article-content .alignright { float: right; margin-left: 1em; }
+.article-content .aligncenter { display: block; margin: 1em auto; }
+
+/* Placeholder shown in the empty HTML editor */
+.article-editor[contenteditable='true']:empty::before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+/* Keep the editor contained so wide content can't break the page layout */
+.article-editor {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.article-editor img,
+.article-content img {
+  max-width: 100%;
+  height: auto;
+}
+.article-editor table,
+.article-content table {
+  max-width: 100%;
+  table-layout: fixed;
+  word-break: break-word;
+}
