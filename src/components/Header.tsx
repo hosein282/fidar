@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
       } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
         // Scrolling DOWN -> hide header
         setHeaderVisible(false);
-      } else if (currentScrollY < lastScrollY) {
+      } else if (currentScrollY +60 < lastScrollY) {
         // Scrolling UP -> show header immediately
         setHeaderVisible(true);
       }

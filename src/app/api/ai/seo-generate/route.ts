@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.DEEPSEEK_API_KEY ||"sk-0be2a05b07654ee4ace29d3d343cc0f6";
+    const apiKey = process.env.DEEPSEEK_API_KEY ;
     if (!apiKey) {
       return NextResponse.json(
         { success: false, error: 'DEEPSEEK_API_KEY is not configured.' },
