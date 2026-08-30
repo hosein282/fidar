@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin, onOpenExporte
         {/* Quick Nav Links Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs text-slate-400">
           <div>
-            <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'دستگاه‌ها و کدهای PHP' : 'Machines & Code'}</h4>
+            <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'دستگاه‌ها' : 'Machines & Code'}</h4>
             <ul className="space-y-2">
               <li><a href="#materials" className="hover:text-white transition">{isFa ? 'خطوط تولید چوب (Wood)' : 'Wood Processing'}</a></li>
               <li><a href="#materials" className="hover:text-white transition">{isFa ? 'دستگاه‌های شیشه (Glass)' : 'Glass Processing'}</a></li>

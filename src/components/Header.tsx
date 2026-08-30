@@ -199,13 +199,13 @@ export const Header: React.FC<HeaderProps> = ({
             </button> */}
 
             {/* Store/Branch Locator Icon */}
-            <a
+            {/* <a
               href="#locations"
               className="w-9 h-9 rounded-full bg-white border border-gray-300 flex items-center justify-center text-slate-800 hover:text-primary hover:border-primary transition shadow-sm"
               title={isFa ? 'شعب و نمایندگی‌ها' : 'Branches'}
             >
               <MapPin className="w-4 h-4" />
-            </a>
+            </a> */}
 
             {/* CMS Admin Login Icon */}
             {/* <button
