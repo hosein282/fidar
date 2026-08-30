@@ -48,7 +48,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             href={`/${lang}/blog`}
             className="px-6 py-2.5 rounded-lg border border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
           >
-            <span>{isFa ? 'مشاهده همه اخبار و مقالات' : 'See all news & articles'}</span>
+            <span>{isFa ? 'مشاهده همه' : 'See all news & articles'}</span>
             <ArrowIcon className="w-4 h-4" />
           </Link>
         </div>
