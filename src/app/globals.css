@@ -40,7 +40,7 @@
    ======================================================== */
 @theme {
   /* Brand Colors */
-  --color-primary: #006063;
+  --color-primary: #2a3470;
   --color-primary-dark: #005254;
   --color-primary-darker: #00383a;
   --color-surface: #e6e6e6;
@@ -119,7 +119,7 @@
 .article-content blockquote {
   margin: 1em 0;
   padding: 0.8em 1.1em;
-  border-left: 4px solid #006063;
+  border-left: 4px solid #2a3470;
   background: rgba(0, 96, 99, 0.06);
   font-style: italic;
   color: #334155;
