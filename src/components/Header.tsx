@@ -170,7 +170,7 @@ export const Header: React.FC<HeaderProps> = ({
               {isFa ? 'خطوط تولید' : 'Lines'}
             </a>
             <a href="#services" className="hover:text-primary transition hover:underline">
-              {isFa ? 'دستگاه‌ها و کدهای PHP' : 'Machines'}
+              {isFa ? 'دستگاه‌ها' : 'Machines'}
             </a>
             <a href="#portfolio" className="hover:text-primary transition hover:underline">
               {isFa ? 'کامپوننت‌ها و دیتابیس' : 'Components'}
@@ -247,7 +247,7 @@ export const Header: React.FC<HeaderProps> = ({
                 {isFa ? 'خطوط تولید (Lines)' : 'Lines'}
               </a>
               <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'دستگاه‌ها و کدهای PHP (Machines)' : 'Machines'}
+                {isFa ? 'دستگاه‌ها  (Machines)' : 'Machines'}
               </a>
               <a href="#portfolio" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'کامپوننت‌ها و دیتابیس (Components)' : 'Components'}
