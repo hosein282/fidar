@@ -118,7 +118,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
 
     return (
         <div className="w-full relative">
-            <div className="bg-neutral border-t w-full overflow-hidden flex flex-col items-start justify-center px-8 py-10 lg:px-20 lg:py-10">
+            <div className="bg-neutral  w-full overflow-hidden flex flex-col items-start justify-center px-8 py-10 lg:px-20 lg:py-10">
                 {/* Header */}
                 <div className="flex flex-col w-full justify-between items-start md:items-center my-8  gap-6 transition-all md:flex-row">
                     <h2 className="text-4xl 2xl:text-6xl font-medium md:font-bold text-primary">

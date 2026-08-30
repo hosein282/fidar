@@ -147,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Main Logo & Navigation Bar */}
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-10 py-3.5 flex items-center justify-between gap-6">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-10 py-2 flex items-center justify-between gap-6">
 
           {/* Fidar Bondar Brand SVG Logo */}
           <Link href={`/${lang}`} className="flex items-center gap-3 shrink-0">

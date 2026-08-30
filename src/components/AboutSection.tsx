@@ -86,18 +86,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
              ========================================================= */}
           <div className="relative w-full mt-16 lg:mt-36 lg:w-[100%] md:mx-auto">
             {/* Desktop Backdrop SVG */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 1142 557"
-              className={`hidden md:block absolute top-0 ${isFa ? 'left-0' : '-right-8'} w-dvw h-2vh text-surface transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
-                }`}
-            >
-              <path
-                fill="currentColor"
-                d="M489.362 7.83A40.002 40.002 0 0 1 513.133 0H1102c22.09 0 40 17.909 40 40v612H0V419.87a99.999 99.999 0 0 1 40.573-80.426L489.362 7.83Z"
-              />
-            </svg>
+            
 
             {/* Mobile Backdrop SVG */}
             <svg
@@ -119,12 +108,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div className={`flex-[1_0_auto]  ${isFa ? '-ml-px' : '-mr-px'}`} />
               </div>
 
-              <div className={`${isFa ? 'xl:ml-[8%] md:mr-8' : 'ml-[30%]'} lg:w-8/10 w-full md:w-[55%] xl:w-[60%] mr-24 mt-[15%] sm:mt-[15%] md:mt-[1%] xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none`}>
+              <div className={`${isFa ? 'xl:ml-[8%] md:mr-8' : 'ml-[20%]'} lg:w-8/10 w-full md:w-[55%] xl:w-[60%] mr-24 mt-[15%] sm:mt-[15%] md:mt-[1%] xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none`}>
                 <h3 className="shrink-0 text-3xl sm:text-4xl xl:text-5xl font-extrabold text-primary-dark">
                   {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Bondar'}
                 </h3>
 
-                <div className="mt-4 xl:mt-8 text-base text-sm sm:text-sm xl:text-2xl  font-light text-slate-800 leading-relaxed text-justify">
+                <div className="mt-4 xl:mt-8 text-base text-sm sm:text-sm xl:text-2xl  font-light text-slate-800 leading-relaxed  ">
                   {isFa
                     ? 'شرکت فیدار سازه بندار  با همت جمعی از مدیران و مهندسین با تجربه در زمینه تجهیزات و ماشین آلات بندری و انتقال مواد و با هدف ارتقاء سطح دانش تعمیرات و نگهداری تجهیزات در کشور و انجام صحیح آن و تکیه بر دانش بروز و تواناییهای بالای مدیران و متخصصان خود و تجارب ارزنده ایشان در زمینه ساخت، نصب، تعمیرات و نگهداری گام در  این عرصه نهاده است .'
                     : 'We are an international company, manufacturing lines, machines and components for transforming materials into products'}
