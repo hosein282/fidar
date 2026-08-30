@@ -123,12 +123,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
             </div>
 
-            <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
+            {/* <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
               <span className="font-bold text-primary block">{isFa ? 'تضمین کیفیت کدهای PHP:' : 'Quality & Security Guarantee:'}</span>
               <p>
                 {isFa ? 'تمامی سورس‌کدهای PHP ارائه شده دارای مستندات کامل، کئوری‌های ایمن PDO و سازگاری ۱۰۰٪ با موتورهای جستجوی گوگل هستند.' : 'All generated PHP scripts include full documentation, PDO parameterization, and search engine compliance.'}
               </p>
-            </div>
+            </div> */}
 
           </div>
 
