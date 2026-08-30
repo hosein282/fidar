@@ -35,7 +35,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
       if (data.success) {
         setStatus({
           success: true,
-          message: isFa ? 'پیام شما ثبت شد. کارشناسان بیئس دیجیتال به زودی با شما ارتباط خواهند گرفت.' : 'Your message has been received! Our engineering team will get back to you.'
+          message: isFa ? 'پیام شما ثبت شد. کارشناسان فیدار سازه بندار به زودی با شما ارتباط خواهند گرفت.' : 'Your message has been received! Our engineering team will get back to you.'
         });
         setFormData({ name: '', email: '', phone: '', service: 'tous-web-php', message: '' });
       } else {
@@ -60,15 +60,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-blue-600 text-xs font-bold uppercase tracking-widest block mb-3">
-            {isFa ? 'ارتباط با کارشناسان بیس' : 'Get In Touch'}
+          <span className="text-primary text-xs font-bold uppercase tracking-widest block mb-3">
+            {isFa ? 'ارتباط با کارشناسان فیدار سازه بندار' : 'Get In Touch'}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-            {isFa ? 'مشاوره رایگان طراحی سایت PHP و سئو' : 'Request Consultation & Technical Audit'}
+          <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+            {isFa ? 'با مشاوران و متخصصان ما در ارتباط باشید' : 'Request Consultation & Technical Audit'}
           </h2>
           <p className="text-slate-500 text-base sm:text-lg">
             {isFa 
-              ? 'جهت مشاوره تخصصی درباره کدهای آماده، دیتابیس MySQL و سئوی گوگل با تیم ما تماس بگیرید.'
+              ? 'برای ما پیام بگذارید تا مشاوران ما در اطرع وقت با شما تماس بگیرند'
               : 'Our engineering specialists are ready to analyze your web requirements and deliver customized solutions.'}
           </p>
         </div>
@@ -80,42 +80,42 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
             
             <div className="p-6 sm:p-8 rounded-xl bg-white border border-slate-200 shadow-sm space-y-6">
               <h3 className="text-xl font-bold text-slate-900 mb-2">
-                {isFa ? 'اطلاعات تماس گروه بیئس دیجیتال:' : 'Biesss Digital Contact Details:'}
+                {isFa ? 'اطلاعات تماس گروه فیدار سازه بندار:' : 'Biesss Digital Contact Details:'}
               </h3>
 
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-slate-100 text-blue-900 border border-slate-200 shrink-0">
+                  <div className="p-3 rounded-lg bg-slate-100 text-primary border border-slate-200 shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'ایمیل پشتیبانی:' : 'Support Email:'}</span>
-                    <a href="mailto:info@biesss.com" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono">
-                      info@biesss.com
+                    <a href="mailto:info@fidarbondar.com" className="text-sm font-semibold text-primary text-black font-mono">
+                      info@fidarbondar.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-slate-100 text-blue-900 border border-slate-200 shrink-0">
+                  <div className="p-3 rounded-lg bg-slate-100 text-primary border border-slate-200 shrink-0">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'تلفن مشاوره مستقیم:' : 'Direct Phone Line:'}</span>
-                    <a href="tel:+982188888888" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono">
-                      +98 (21) 8888-8888
+                    <a href="tel:02166129310" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono">
+                      02166129310
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-slate-100 text-blue-900 border border-slate-200 shrink-0">
+                  <div className="p-3 rounded-lg bg-slate-100 text-primary border border-slate-200 shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'دفتر مرکزی:' : 'HQ Address:'}</span>
                     <span className="text-sm font-semibold text-slate-900">
-                      {isFa ? 'تهران، خیابان ولیعصر، برج فناوری بیئس' : 'Tech Tower, Valiasr St, Tehran'}
+                      {isFa ? 'تهران، خیابان اسکندری، پلاک 432 ساختمان پردیس' : 'No. 432, Pardis Building, Eskandari Street, Tehran, Iran'}
                     </span>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
             </div>
 
             <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
-              <span className="font-bold text-blue-900 block">{isFa ? 'تضمین کیفیت کدهای PHP:' : 'Quality & Security Guarantee:'}</span>
+              <span className="font-bold text-primary block">{isFa ? 'تضمین کیفیت کدهای PHP:' : 'Quality & Security Guarantee:'}</span>
               <p>
                 {isFa ? 'تمامی سورس‌کدهای PHP ارائه شده دارای مستندات کامل، کئوری‌های ایمن PDO و سازگاری ۱۰۰٪ با موتورهای جستجوی گوگل هستند.' : 'All generated PHP scripts include full documentation, PDO parameterization, and search engine compliance.'}
               </p>
@@ -137,7 +137,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
             <form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-xl bg-white border border-slate-200 shadow-sm space-y-5">
               
               <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-blue-600" />
+                <MessageSquare className="w-5 h-5 text-primary" />
                 <span>{isFa ? 'فرم ارسال پیام مستند:' : 'Send Your Direct Message:'}</span>
               </h3>
 
@@ -228,7 +228,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3.5 rounded-lg bg-blue-900 hover:bg-blue-800 text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-sm disabled:opacity-50"
+                className="w-full py-3.5 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-sm disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
                 <span>{submitting ? (isFa ? 'در حال ارسال...' : 'Sending...') : (isFa ? 'ارسال درخواست مشاوره' : 'Send Message')}</span>

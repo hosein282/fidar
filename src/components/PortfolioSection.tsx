@@ -176,7 +176,7 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ lang, projec
 
               <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-200 space-y-2">
                 <h4 className="text-sm font-bold text-blue-900">
-                  {isFa ? 'راهکار بیس دیجیتال (PHP/MySQL):' : 'Biesss Solution:'}
+                  {isFa ? 'راهکارفیدار بنداردیجیتال (PHP/MySQL):' : 'Biesss Solution:'}
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
                   {isFa ? selectedProject.solution.fa : selectedProject.solution.en}

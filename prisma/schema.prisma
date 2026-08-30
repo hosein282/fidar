@@ -1,0 +1,103 @@
+// ========================================================
+// FIDAR — Prisma Schema (MySQL)
+// Mirrors database/schema.sql (fidar_db database)
+// Charset: utf8mb4 / Collation: utf8mb4_unicode_ci
+// ========================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  
+}
+
+model Post {
+  id              String    @id @db.VarChar(100)
+  postType        PostType  @default(article) @map("post_type")
+  status          PostStatus @default(published)
+  slugFa          String    @map("slug_fa") @db.VarChar(255)
+  slugEn          String    @map("slug_en") @db.VarChar(255)
+  titleFa         String    @map("title_fa") @db.VarChar(255)
+  titleEn         String    @map("title_en") @db.VarChar(255)
+  excerptFa       String?   @map("excerpt_fa") @db.Text
+  excerptEn       String?   @map("excerpt_en") @db.Text
+  contentFa       String?   @map("content_fa") @db.LongText
+  contentEn       String?   @map("content_en") @db.LongText
+  authorFa        String?   @default("تیم فنی فیدار بندار") @map("author_fa") @db.VarChar(100)
+  authorEn        String?   @default("Biesss Engineering") @map("author_en") @db.VarChar(100)
+  date            DateTime  @db.Date
+  readTime        String?   @default("5 min") @map("read_time") @db.VarChar(50)
+  categoryFa      String?   @default("مقالات تخصصی") @map("category_fa") @db.VarChar(100)
+  categoryEn      String?   @default("Technical Articles") @map("category_en") @db.VarChar(100)
+  coverImage      String?   @map("cover_image") @db.VarChar(500)
+  seoTitleFa      String?   @map("seo_title_fa") @db.VarChar(255)
+  seoTitleEn      String?   @map("seo_title_en") @db.VarChar(255)
+  seoDescFa       String?   @map("seo_desc_fa") @db.Text
+  seoDescEn       String?   @map("seo_desc_en") @db.Text
+  seoKeywordsFa   String?   @map("seo_keywords_fa") @db.VarChar(500)
+  seoKeywordsEn   String?   @map("seo_keywords_en") @db.VarChar(500)
+  views           Int       @default(0)
+  createdAt       DateTime  @default(now()) @map("created_at") @db.DateTime(0)
+
+  @@index([slugFa], map: "idx_slug_fa")
+  @@index([slugEn], map: "idx_slug_en")
+  @@index([postType], map: "idx_post_type")
+  @@map("posts")
+}
+
+model ContactMessage {
+  id        String               @id @db.VarChar(100)
+  name      String               @db.VarChar(100)
+  email     String               @db.VarChar(150)
+  phone     String               @db.VarChar(30)
+  company   String?              @db.VarChar(150)
+  service   String?              @db.VarChar(100)
+  budget    String?              @db.VarChar(100)
+  message   String               @db.Text
+  lang      Language             @default(fa)
+  status    MessageStatus        @default(new)
+  createdAt DateTime             @default(now()) @map("created_at") @db.DateTime(0)
+
+  @@map("contact_messages")
+}
+
+model SeoSettings {
+  id              Int      @id @default(autoincrement())
+  siteTitleFa     String   @map("site_title_fa") @db.VarChar(255)
+  siteTitleEn     String   @map("site_title_en") @db.VarChar(255)
+  metaDescFa      String   @map("meta_desc_fa") @db.Text
+  metaDescEn      String   @map("meta_desc_en") @db.Text
+  keywordsFa      String?  @map("keywords_fa") @db.VarChar(500)
+  keywordsEn      String?  @map("keywords_en") @db.VarChar(500)
+  ogImage         String?  @map("og_image") @db.VarChar(500)
+  canonicalUrl    String   @map("canonical_url") @db.VarChar(255)
+  twitterHandle   String?  @map("twitter_handle") @db.VarChar(100)
+  indexingEnabled Boolean  @default(true) @map("indexing_enabled") @db.TinyInt
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.DateTime(0)
+
+  @@map("seo_settings")
+}
+
+enum PostType {
+  article
+  news
+}
+
+enum PostStatus {
+  published
+  draft
+  unpublished
+}
+
+enum Language {
+  fa
+  en
+}
+
+enum MessageStatus {
+  new
+  contacted
+  resolved
+}

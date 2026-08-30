@@ -1,4 +1,4 @@
-import { BlogPost, BilingualText } from '../types';
+import { BlogPost, BilingualText, PostStatus } from '../types';
 
 function parseBilingual(val: any, defaultFa = '', defaultEn = ''): BilingualText {
   if (!val) {
@@ -36,11 +36,12 @@ export function sanitizeBlogPost(item: any): BlogPost {
     return {
       id: `post-${Math.random().toString(36).substring(2, 9)}`,
       postType: 'article',
+      status: 'published',
       slug: { fa: 'post', en: 'post' },
       title: { fa: 'بدون عنوان', en: 'Untitled' },
       excerpt: { fa: '', en: '' },
       content: { fa: '', en: '' },
-      author: { fa: 'تیم بیئس', en: 'Biesse Team' },
+      author: { fa: 'تیم فیدار بندار', en: 'Fidar Bondar Team' },
       date: new Date().toISOString().split('T')[0],
       readTime: '5 min',
       category: { fa: 'مقالات تخصصی', en: 'Technical Articles' },
@@ -68,20 +69,24 @@ export function sanitizeBlogPost(item: any): BlogPost {
   const rawPostType = item.postType || item.post_type || (String(item.id || '').startsWith('news-') ? 'news' : 'article');
   const postType = rawPostType === 'news' ? 'news' : 'article';
 
+  const rawStatus = item.status || item.post_status || 'published';
+  const status: PostStatus = rawStatus === 'draft' || rawStatus === 'unpublished' ? rawStatus : 'published';
+
   const defaultCatFa = postType === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی';
   const defaultCatEn = postType === 'news' ? 'News & Announcements' : 'Technical Articles';
 
   return {
     id: String(item.id || item.post_id || `post-${Date.now()}`),
     postType,
+    status,
     slug: { fa: String(slugFa), en: String(slugEn) },
     title: { fa: String(titleFa), en: String(titleEn) },
     excerpt: { fa: String(excerptFa), en: String(excerptEn) },
     content: { fa: String(contentFa), en: String(contentEn) },
     author: parseBilingual(
       item.author,
-      postType === 'news' ? 'روابط عمومی بیئس' : 'تیم فنی بیئس',
-      postType === 'news' ? 'Biesse Press' : 'Biesss Engineering'
+      postType === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
+      postType === 'news' ? 'Fidar Bondar Press' : 'Biesss Engineering'
     ),
     date: String(item.date || item.created_at || new Date().toISOString().split('T')[0]),
     readTime: String(item.readTime || item.read_time || (postType === 'news' ? '3 min' : '5 min')),
@@ -99,4 +104,49 @@ export function sanitizeBlogPost(item: any): BlogPost {
 export function sanitizePosts(rawPosts: any): BlogPost[] {
   if (!Array.isArray(rawPosts)) return [];
   return rawPosts.map(sanitizeBlogPost);
+}
+
+/**
+ * Basic HTML sanitizer — removes executable / dangerous content before the
+ * HTML is rendered with dangerouslySetInnerHTML. Keeps formatting tags,
+ * links, images, lists, tables, blockquote, code, etc.
+ *
+ * Strips: comments, <script>/<style>/<iframe>/<object>/<embed>/<form>/<meta>/
+ * <link>/<input>/<button>, event-handler attributes (onclick, onerror, ...)
+ * and `javascript:` URLs on href/src.
+ */
+export function sanitizeHtml(raw: string | null | undefined): string {
+  if (!raw) return '';
+  let out = String(raw);
+
+  // HTML comments
+  out = out.replace(/<!--[\s\S]*?-->/g, '');
+
+  // Dangerous elements (block + their content)
+  out = out.replace(
+    /<\s*(script|style|iframe|object|embed|meta|link|form|input|button|textarea)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi,
+    ''
+  );
+  // Self-closing / unclosed dangerous elements
+  out = out.replace(
+    /<\s*(script|style|iframe|object|embed|meta|link|form|input|button|textarea)\b[^>]*\/?>/gi,
+    ''
+  );
+
+  // Event-handler attributes: on*="..."
+  out = out.replace(/\s+on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, '');
+
+  // javascript: / data:text/html URLs on href/src/action
+  out = out.replace(
+    /\s+(href|src|action|formaction|xlink:href)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi,
+    (m, attr: string, value: string) => {
+      const v = value.replace(/^["']|["']$/g, '').trim().toLowerCase();
+      if (v.startsWith('javascript:') || v.startsWith('data:text/html')) {
+        return ` ${attr}=""`;
+      }
+      return m;
+    }
+  );
+
+  return out.trim();
 }

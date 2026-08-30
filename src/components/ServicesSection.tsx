@@ -29,7 +29,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ lang, services
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-blue-600 text-xs font-bold uppercase tracking-widest mb-3 block">
-            {isFa ? 'خدمات کلیدی بیس دیجیتال' : 'Biesss Core Capabilities'}
+            {isFa ? 'خدمات کلیدیفیدار بنداردیجیتال' : 'Biesss Core Capabilities'}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
             {isFa ? 'خدمات توسعه وب PHP، دیتابیس MySQL و سئو' : 'Bilingual PHP, MySQL & SEO Engineering'}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../types';
 import { Header } from '../components/Header';
@@ -12,8 +12,11 @@ import { LocationsSection } from '../components/LocationsSection';
 import { SustainabilitySection } from '../components/SustainabilitySection';
 import { ContactSection } from '../components/ContactSection';
 import { Footer } from '../components/Footer';
-import { AdminPanel } from '../components/AdminPanel';
-import { PhpExporter } from '../components/PhpExporter';
+import OurConsumers from '../components/OurConsumers';
+
+// Lazy-load heavy admin/exporter components — they only load when the modal opens
+const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
+const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
 
 interface HomePageProps {
   services: ServiceItem[];
@@ -65,9 +68,9 @@ const HomePageComponent: React.FC<HomePageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#e6e6e6] text-slate-900 font-sans selection:bg-[#006063] selection:text-white">
+    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white">
       
-      {/* 1. Sticky Biesse Header */}
+      {/* 1. Sticky Fidar Bondar Header */}
       <Header
         lang={currentLang}
         onLanguageChange={handleLanguageSwitch}
@@ -78,7 +81,7 @@ const HomePageComponent: React.FC<HomePageProps> = ({
 
       {/* Main Flow */}
       <main>
-        {/* 2. Biesse Hero Banner & Video */}
+        {/* 2. Fidar Bondar Hero Banner & Video */}
         <Hero
           lang={currentLang}
           onOpenExporter={handleOpenExporter}
@@ -89,12 +92,15 @@ const HomePageComponent: React.FC<HomePageProps> = ({
           lang={currentLang}
         />
 
+        {/* 4.OurCustomers */}
+        <OurConsumers lang={currentLang}/>
+
         {/* 4. Materials Showcase (Wood, Glass, Stone, Materia, Metal) */}
         <MaterialsShowcase
           lang={currentLang}
         />
 
-        {/* 5. What's Next / Biesse News Carousel */}
+        {/* 5. What's Next / Fidar Bondar News Carousel */}
         <BlogSection
           lang={currentLang}
           posts={pagePosts}
@@ -116,7 +122,7 @@ const HomePageComponent: React.FC<HomePageProps> = ({
         />
       </main>
 
-      {/* 9. Biesse Footer */}
+      {/* 9. Fidar Bondar Footer */}
       <Footer
         lang={currentLang}
         onOpenExporter={handleOpenExporter}
@@ -135,16 +141,20 @@ const HomePageComponent: React.FC<HomePageProps> = ({
               ×
             </button>
             {activeModal === 'admin' ? (
-              <AdminPanel
-                lang={currentLang}
-                onClose={() => setActiveModal(null)}
-                seoConfig={seoConfig}
-                onUpdateSeo={() => {}}
-                posts={pagePosts}
-                onUpdatePosts={setPagePosts}
-              />
+              <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Admin Panel...</div>}>
+                <AdminPanel
+                  lang={currentLang}
+                  onClose={() => setActiveModal(null)}
+                  seoConfig={seoConfig}
+                  onUpdateSeo={() => {}}
+                  posts={pagePosts}
+                  onUpdatePosts={setPagePosts}
+                />
+              </Suspense>
             ) : (
-              <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+              <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Exporter...</div>}>
+                <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
+              </Suspense>
             )}
           </div>
         </div>

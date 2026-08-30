@@ -36,9 +36,9 @@ export const SupportNewsletterSection: React.FC<SupportNewsletterSectionProps> =
 
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg">
               {isFa ? (
-                'محصولات جدید، رویدادها، اخبار دیتابیس و برنامه‌نویسی PHP: در خبرنامه رسمی بیئس عضو شوید و از جدیدترین تحولات مطلع گردید.'
+                'محصولات جدید، رویدادها، اخبار دیتابیس و برنامه‌نویسی PHP: در خبرنامه رسمی فیدار بندار عضو شوید و از جدیدترین تحولات مطلع گردید.'
               ) : (
-                'New products, events, news: Subscribe to our newsletter and stay up to date with news from the world of Biesse.'
+                'New products, events, news: Subscribe to our newsletter and stay up to date with news from the world of Fidar Bondar.'
               )}
             </p>
           </div>
@@ -46,7 +46,7 @@ export const SupportNewsletterSection: React.FC<SupportNewsletterSectionProps> =
           {subscribed ? (
             <div className="p-4 rounded-xl bg-teal-900/50 border border-teal-500 text-teal-200 text-xs font-bold flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-teal-400" />
-              <span>{isFa ? 'عضویت شما در خبرنامه بیئس با موفقیت ثبت شد.' : 'Subscribed successfully! Thank you.'}</span>
+              <span>{isFa ? 'عضویت شما در خبرنامه فیدار بندار با موفقیت ثبت شد.' : 'Subscribed successfully! Thank you.'}</span>
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="flex gap-2">
@@ -56,11 +56,11 @@ export const SupportNewsletterSection: React.FC<SupportNewsletterSectionProps> =
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
                 placeholder={isFa ? 'ایمیل خود را وارد کنید...' : 'Enter your email...'}
-                className="flex-1 px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs sm:text-sm focus:outline-none focus:border-[#006063]"
+                className="flex-1 px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs sm:text-sm focus:outline-none focus:border-primary"
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-lg bg-white text-[#006063] hover:bg-[#006063] hover:text-white font-bold text-xs sm:text-sm transition shadow-md hover:rounded-[30px]"
+                className="px-6 py-3 rounded-lg bg-white text-primary hover:bg-primary hover:text-white font-bold text-xs sm:text-sm transition shadow-md hover:rounded-[30px]"
               >
                 {isFa ? 'عضویت' : 'Subscribe'}
               </button>
@@ -75,7 +75,7 @@ export const SupportNewsletterSection: React.FC<SupportNewsletterSectionProps> =
               {isFa ? 'نیاز به پشتیبانی دارید؟' : 'Need help?'}
             </h3>
 
-            <div className="h-0.5 w-full bg-[#006063]" />
+            <div className="h-0.5 w-full bg-primary" />
 
             <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg">
               {isFa ? (
@@ -89,7 +89,7 @@ export const SupportNewsletterSection: React.FC<SupportNewsletterSectionProps> =
           <div>
             <a
               href="#contact"
-              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-lg bg-[#006063] hover:bg-white hover:text-[#006063] text-white font-bold text-xs sm:text-sm transition shadow-md hover:rounded-[30px]"
+              className="inline-flex items-center gap-3 px-8 py-3.5 rounded-lg bg-primary hover:bg-white hover:text-primary text-white font-bold text-xs sm:text-sm transition shadow-md hover:rounded-[30px]"
             >
               <span>{isFa ? 'درخواست پشتیبانی و مشاوره' : 'Request support'}</span>
               <ArrowIcon className="w-4 h-4" />

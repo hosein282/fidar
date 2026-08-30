@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Language, BlogPost } from '../types';
 import { ChevronLeft, ChevronRight, X, Code2, Calendar, Clock, Eye, ArrowLeft, ArrowRight } from 'lucide-react';
 import { sanitizeBlogPost } from '../utils/sanitize';
+import { format } from 'date-fns-jalali';
+import { format as fr } from 'date-fns';
 
 interface BlogSectionProps {
   lang: Language;
@@ -26,25 +28,25 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = isFa
-        ? (direction === 'left' ? 340 : -340)
+        ? (direction === 'left' ? -340 : 340)
         : (direction === 'left' ? -340 : 340);
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="blog" className="py-20 bg-[#005254] text-white relative overflow-hidden">
+    <section id="blog" className="py-20 bg-primary-dark text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Top Header: Title + "See all" Button */}
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
-            {isFa ? 'رویدادها و اخبار بعدی (What\'s Next)' : 'What\'s Next'}
+            {isFa ? 'مقالات، رویدادها و اخبار' : 'What\'s Next'}
           </h2>
 
           <Link
             href={`/${lang}/blog`}
-            className="px-6 py-2.5 rounded-lg border border-white/80 text-white hover:bg-white hover:text-[#005254] transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
+            className="px-6 py-2.5 rounded-lg border border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
           >
             <span>{isFa ? 'مشاهده همه اخبار و مقالات' : 'See all news & articles'}</span>
             <ArrowIcon className="w-4 h-4" />
@@ -63,16 +65,17 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             {safePosts.map((post) => {
               const titleStr = (isFa ? post.title?.fa : post.title?.en) || post.title?.fa || 'بدون عنوان';
               const catStr = (isFa ? post.category?.fa : post.category?.en) || (post.postType === 'news' ? 'CUSTOMER STORY' : 'EVENTS');
-              const dateStr = post.date || '03/25/2025';
+              const dateStr =  post.date || '03/25/2025';
+              
 
               return (
                 <article
                   key={post.id}
                   onClick={() => router.push(`/${lang}/blog/${post.id}`)}
-                  className="w-[280px] sm:w-[320px] flex-shrink-0 snap-start flex flex-col items-center group cursor-pointer text-center"
+                  className="w-70 sm:w-[320px] shrink-0 snap-start flex flex-col items-center  cursor-pointer text-center" 
                 >
-                  {/* Card Image with Biesse rounded-3xl corners */}
-                  <div className="w-full h-[300px] sm:h-[340px] rounded-[32px] overflow-hidden bg-emerald-950/40 shadow-xl border border-white/10 relative">
+                  {/* Card Image with Fidar Bondar rounded-3xl corners */}
+                  <div className="w-full h-75 sm:h-[340px] rounded-[32px] overflow-hidden group bg-emerald-950/40 shadow-xl border border-white/10 relative">
                     <img
                       src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'}
                       alt={titleStr}
@@ -80,25 +83,25 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                       height={800}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
                   </div>
 
                   {/* Outlined Pill Tag under Image */}
                   <div className="mt-5">
-                    <span className="inline-block px-5 py-1.5 rounded-full border border-white/70 text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase hover:bg-white hover:text-[#005254] transition-colors">
+                    <span className="inline-block px-5 py-1.5 rounded-full border border-white/70 text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase hover:bg-white hover:text-primary-dark transition-colors">
                       {catStr}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug mt-3 line-clamp-2 px-2 group-hover:underline decoration-white/60">
+                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug mt-3 line-clamp-2 px-2 hover:underline decoration-white/60">
                     {titleStr}
                   </h3>
 
                   {/* Date */}
-                  <p className="text-white/80 font-mono text-xs mt-2">
-                    {dateStr}
+                  <p className={`${isFa ?  "":"font-mono"} text-white/80 text-xs mt-2`}>
+                    {isFa ?  format(Date.parse(dateStr), 'dd MMMM yyyy') : fr(Date.parse(dateStr), 'MMMM d, yyyy') }
                   </p>
                 </article>
               );
@@ -108,7 +111,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           {/* Floating Circle Arrow Nav Buttons */}
           <button
             onClick={() => scroll('left')}
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-[#005254] flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
             aria-label="Previous"
           >
             <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
@@ -116,7 +119,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
           <button
             onClick={() => scroll('right')}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-[#005254] flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
             aria-label="Next"
           >
             <ChevronRight className="w-6 h-6 stroke-[2.5]" />
@@ -141,7 +144,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             {showSchemaModal ? (
               /* JSON-LD Schema Viewer */
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-[#005254] font-bold text-lg">
+                <div className="flex items-center gap-2 text-primary-dark font-bold text-lg">
                   <Code2 className="w-5 h-5" />
                   <span>{isFa ? 'کدهای JSON-LD Schema مقاله برای موتورهای جستجو:' : 'Generated Schema.org JSON-LD for Search Engines:'}</span>
                 </div>
@@ -182,7 +185,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                 
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 text-xs text-slate-500">
-                    <span className="text-[#005254] font-bold px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
+                    <span className="text-primary-dark font-bold px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
                       {isFa ? selectedPost.category.fa : selectedPost.category.en}
                     </span>
                     <span>•</span>
@@ -210,8 +213,12 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                   <img src={selectedPost.coverImage} alt="Article Cover" width={1200} height={800} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                 </div>
 
-                <div className="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                  {isFa ? selectedPost.content.fa : selectedPost.content.en}
+                <div className="article-content prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: isFa ? selectedPost.content.fa : selectedPost.content.en,
+                    }}
+                  />
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
@@ -221,9 +228,9 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
                   <button
                     onClick={() => setShowSchemaModal(true)}
-                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#005254] border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition"
+                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-primary-dark border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition"
                   >
-                    <Code2 className="w-4 h-4 text-[#005254]" />
+                    <Code2 className="w-4 h-4 text-primary-dark" />
                     <span>{isFa ? 'مشاهده اسکیما سئو' : 'View Schema.org'}</span>
                   </button>
                 </div>

@@ -35,9 +35,12 @@ export interface PortfolioProject {
 
 export type PostType = 'article' | 'news';
 
+export type PostStatus = 'published' | 'draft' | 'unpublished';
+
 export interface BlogPost {
   id: string;
   postType?: PostType;
+  status?: PostStatus;
   slug: BilingualText;
   title: BilingualText;
   excerpt: BilingualText;

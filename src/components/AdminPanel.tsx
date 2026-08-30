@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Language, ContactMessage, SEOMetaConfig, BlogPost } from '../types';
-import { LayoutDashboard, Lock, Key, Mail, Sparkles, Wand2, Database, RefreshCw, X, Check, Globe, FileText, Plus, Edit, Trash2, Save, Search } from 'lucide-react';
+import { LayoutDashboard, Lock, Key, Mail, Sparkles, Wand2, Database, RefreshCw, X, Check, Globe, FileText, Plus, Edit, Trash2, Save, Search, UploadIcon } from 'lucide-react';
+import { format } from 'date-fns-jalali';
+import { HtmlEditor } from './HtmlEditor';
 
 interface AdminPanelProps {
   lang: Language;
@@ -9,7 +11,9 @@ interface AdminPanelProps {
   onUpdateSeo: (seo: SEOMetaConfig) => void;
   posts: BlogPost[];
   onUpdatePosts: (posts: BlogPost[]) => void;
+  isStandalone?: boolean;
 }
+
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({
   lang,
@@ -17,7 +21,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   seoConfig,
   onUpdateSeo,
   posts,
-  onUpdatePosts
+  onUpdatePosts,
+  isStandalone = false
 }) => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,6 +38,15 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [isSavingArticle, setIsSavingArticle] = useState(false);
   const [articleSuccessMsg, setArticleSuccessMsg] = useState('');
   const [articleErrorMsg, setArticleErrorMsg] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [active, setActive] = useState<Record<string, boolean>>({});
+
+  const btnClass = (key: string) =>
+    `p-1.5 rounded-md border transition-colors cursor-pointer ${active[key]
+      ? 'bg-blue-100 text-blue-700 border-blue-300'
+      : 'bg-white text-slate-600 border-slate-200 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-300'
+    }`;
+
 
   // AI Assistant state
   const [aiInput, setAiInput] = useState('');
@@ -44,6 +58,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [seoTopic, setSeoTopic] = useState('');
   const [aiSeoResult, setAiSeoResult] = useState<{ title: string; desc: string; keywords: string[] } | null>(null);
   const [generatingSeo, setGeneratingSeo] = useState(false);
+
+  const coverImageRef = useRef<HTMLImageElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
 
   const isFa = lang === 'fa';
 
@@ -71,17 +89,57 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     }
   };
 
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    // Reset the input so the same file can be re-picked later.
+    e.target.value = '';
+    setIsUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.url) {
+        // Persist the new URL into the post state so it is actually saved.
+        setEditingPost((p) => (p ? { ...p, coverImage: data.url } : p));
+      } else {
+        console.error('Upload failed:', data.error);
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const clearCoverImage = () => {
+    setEditingPost((p) => (p ? { ...p, coverImage: '' } : p));
+  };
+
+  // Prepend the cover image as an <img> into the Persian article content so the
+  // cover photo also appears inline in the article text.
+  const insertCoverIntoArticle = () => {
+    const url = editingPost?.coverImage?.trim();
+    if (!url) return;
+    const tag = `<img src="${url}" alt="${editingPost?.title?.fa || ''}" class="article-cover-image" />\n`;
+    setEditingPost((p) =>
+      p ? { ...p, content: { fa: tag + (p.content?.fa || ''), en: p.content?.en || '' } } : p
+    );
+  };
+
   const handleCreateNewPost = (type: 'article' | 'news' = 'article') => {
     setEditingPost({
       id: `${type}-${Date.now()}`,
       postType: type,
+      status: 'draft',
       title: { fa: '', en: '' },
       slug: { fa: '', en: '' },
       excerpt: { fa: '', en: '' },
       content: { fa: '', en: '' },
       author: {
-        fa: type === 'news' ? 'روابط عمومی بیئس' : 'تیم فنی بیئس',
-        en: type === 'news' ? 'Biesse Press Team' : 'Biesss Engineering'
+        fa: type === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
+        en: type === 'news' ? 'Fidar Bondar Press Team' : 'Biesss Engineering'
       },
       date: new Date().toISOString().split('T')[0],
       readTime: type === 'news' ? '3 min' : '5 min',
@@ -118,6 +176,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     const finalPost: BlogPost = {
       id: editingPost.id || `${targetType}-${Date.now()}`,
       postType: targetType,
+      status: editingPost.status || 'draft',
       title: {
         fa: editingPost.title.fa.trim(),
         en: editingPost.title?.en?.trim() || editingPost.title.fa.trim()
@@ -135,8 +194,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         en: editingPost.content?.en?.trim() || editingPost.excerpt?.en?.trim() || ''
       },
       author: editingPost.author || {
-        fa: targetType === 'news' ? 'روابط عمومی بیئس' : 'تیم فنی بیئس',
-        en: targetType === 'news' ? 'Biesse Press Team' : 'Biesss Engineering'
+        fa: targetType === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
+        en: targetType === 'news' ? 'Fidar Bondar Press Team' : 'Biesss Engineering'
       },
       date: editingPost.date || new Date().toISOString().split('T')[0],
       readTime: editingPost.readTime || '5 min',
@@ -222,6 +281,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     }
   };
 
+  const handleDeleteMessage = async (id: string) => {
+    if (!window.confirm(isFa ? 'آیا از حذف این پیام از دیتابیس اطمینان دارید؟' : 'Are you sure you want to delete this message?')) return;
+    setLoadingMessages(true);
+    try {
+      const res = await fetch(`/api/messages/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success && Array.isArray(data.messages)) {
+        setMessages(data.messages);
+      }
+    } catch {
+      setLoadingMessages(false);
+    }
+  };
+
   const handleAutoSeoForArticle = async () => {
     if (!editingPost?.title?.fa) return;
     setGeneratingSeo(true);
@@ -294,15 +367,17 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white border border-slate-200 rounded-2xl max-w-5xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto space-y-6 shadow-2xl text-slate-900">
-        
-        <button
-          onClick={onClose}
-          className="absolute top-4 left-4 p-2 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <div className={isStandalone ? "min-h-screen bg-surface" : "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"}>
+      <div className={isStandalone ? "bg-white min-h-screen max-w-7xl mx-auto px-6 sm:px-10 py-8 space-y-8 text-slate-900" : "bg-white border border-slate-200 rounded-2xl max-w-5xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto space-y-6 shadow-2xl text-slate-900"}>
+
+        {!isStandalone && (
+          <button
+            onClick={onClose}
+            className="absolute top-4 left-4 p-2 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-900"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
 
         {!isLoggedIn ? (
           /* Password Login Form */
@@ -351,7 +426,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         ) : (
           /* Logged In CMS Panel */
           <div className="space-y-6">
-            
+
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-200 pb-4">
               <div className="flex items-center gap-3">
@@ -380,9 +455,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <div className="flex border-b border-slate-200 gap-4 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('articles')}
-                className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${
-                  activeTab === 'articles' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
-                }`}
+                className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${activeTab === 'articles' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
+                  }`}
               >
                 <FileText className="w-4 h-4" />
                 <span>{isFa ? `مدیریت اخبار و مقالات (${posts.length})` : `Articles & News (${posts.length})`}</span>
@@ -390,9 +464,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               <button
                 onClick={() => setActiveTab('messages')}
-                className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${
-                  activeTab === 'messages' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
-                }`}
+                className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${activeTab === 'messages' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
+                  }`}
               >
                 <Mail className="w-4 h-4" />
                 <span>{isFa ? `پیام‌های دریافتی (${messages.length})` : `Inquiries (${messages.length})`}</span>
@@ -400,9 +473,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
               <button
                 onClick={() => setActiveTab('ai-assistant')}
-                className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${
-                  activeTab === 'ai-assistant' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
-                }`}
+                className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${activeTab === 'ai-assistant' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
+                  }`}
               >
                 <Sparkles className="w-4 h-4 text-blue-600" />
                 <span>{isFa ? 'دستیار سئوی Gemini AI' : 'Gemini AI Assistant'}</span>
@@ -414,7 +486,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             {/* ========================================================= */}
             {activeTab === 'articles' && (
               <div className="space-y-6">
-                
+
                 {articleSuccessMsg && (
                   <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-medium flex items-center gap-2">
                     <Check className="w-5 h-5 text-emerald-600" />
@@ -464,11 +536,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         <Edit className="w-4 h-4 text-blue-600" />
                         <span>
                           {editingPost.id && !editingPost.id.startsWith('article-') && !editingPost.id.startsWith('news-')
-                            ? (isFa ? 'ویرایش محتوا و سئو' : 'Edit Post & SEO') 
-                            : (isFa 
-                                ? `افزودن ${editingPost.postType === 'news' ? 'خبر' : 'مقاله'} جدید` 
-                                : `New ${editingPost.postType === 'news' ? 'News' : 'Article'}`
-                              )}
+                            ? (isFa ? 'ویرایش محتوا و سئو' : 'Edit Post & SEO')
+                            : (isFa
+                              ? `افزودن ${editingPost.postType === 'news' ? 'خبر' : 'مقاله'} جدید`
+                              : `New ${editingPost.postType === 'news' ? 'News' : 'Article'}`
+                            )}
                         </span>
                       </h4>
                       <button
@@ -480,26 +552,131 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       </button>
                     </div>
 
+                    {/* Cover Image Select */}
+                    <>
+                      <div>
+                        <div className="relative inline-block">
+                          <img
+                            src={editingPost.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=120&q=80'}
+                            alt={editingPost.title?.fa}
+                            ref={coverImageRef}
+                            width={480}
+                            height={320}
+                            loading="lazy"
+                            decoding="async"
+                            className="max-w-65 aspect-[1.5] rounded-lg object-contain border border-slate-200 shrink-0"
+                          />
+                          {editingPost.coverImage && (
+                            <button
+                              type="button"
+                              title={isFa ? 'حذف تصویر شاخص' : 'Remove cover image'}
+                              aria-label={isFa ? 'حذف تصویر شاخص' : 'Remove cover image'}
+                              onClick={clearCoverImage}
+                              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center shadow-md transition"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+                        </div>
+                        <p className="mt-1 text-[10px] text-amber-600">
+                          {isFa
+                            ? 'راهنما: فرمت‌های مجاز JPG ، PNG ، WebP ، GIF و SVG — حجم حداکثر ۲ مگابایت — نسبت پیشنهادی تصویر شاخص ۳:۲'
+                            : 'Hint: allowed JPG, PNG, WebP, GIF & SVG — max 2 MB — suggested cover ratio 3:2'}
+                        </p>
+                       
+
+                        <div className="flex items-center gap-2 flex-wrap">
+                           <label className="block text-xs font-bold text-slate-700 mt-3 mb-1">
+                          {isFa ? 'تصویر شاخص (URL)' : 'Cover Image URL'}
+                        </label>
+                          {/* Upload */}
+                          <button
+                            type="button"
+                            name="Upload"
+                            title={lang === 'fa' ? 'آپلود تصویر' : 'Upload Image'}
+                            disabled={isUploading}
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => fileInputRef.current?.click()}
+                            className={`${btnClass('fake-upload')} ${isUploading ? 'opacity-60 cursor-wait' : ''}`}
+                          >
+                            <UploadIcon className="w-4 h-4" />
+                          </button>
+
+                          {/* Insert cover into article */}
+                          {/* <button
+                            type="button"
+                            title={isFa ? 'افزودن لینک تصویر شاخص به ابتدای متن مقاله' : 'Insert cover image into the article top'}
+                            disabled={!editingPost.coverImage}
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={insertCoverIntoArticle}
+                            className="px-2 py-1.5 rounded-md border border-slate-200 text-xs text-slate-600 hover:text-blue-700 hover:border-blue-300 bg-white transition"
+                          >
+                            {isFa ? '➕ درج تصویر در متن مقاله' : 'Insert in article'}
+                          </button> */}
+                        </div>
+
+
+                        {/* {editingPost.coverImage && (
+                          <p className="mt-1.5 text-[10px] text-slate-400 font-mono break-all dir-ltr text-left">
+                            {editingPost.coverImage}
+                          </p>
+                        )} */}
+
+
+                        <div>
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleUploadImage}
+                          />
+                        </div>
+                      </div>
+
+                    </>
+
                     {/* Content Type Selector */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {isFa ? 'نوع محتوا و جدول ذخیره‌سازی در MySQL *' : 'Content Type & MySQL Table *'}
-                      </label>
-                      <select
-                        value={editingPost.postType || 'article'}
-                        onChange={(e) => setEditingPost({
-                          ...editingPost,
-                          postType: e.target.value as 'article' | 'news',
-                          category: {
-                            fa: e.target.value === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی',
-                            en: e.target.value === 'news' ? 'News & Announcements' : 'Technical Articles'
-                          }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:border-blue-600"
-                      >
-                        <option value="article">{isFa ? '📚 مقاله تخصصی (ذخیره در جدول articles)' : '📚 Article (Table: articles)'}</option>
-                        <option value="news">{isFa ? '📰 خبر / اطلاعیه شرکت (ذخیره در جدول news)' : '📰 News (Table: news)'}</option>
-                      </select>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'نوع محتوا و جدول ذخیره‌سازی در MySQL *' : 'Content Type & MySQL Table *'}
+                        </label>
+                        <select
+                          value={editingPost.postType || 'article'}
+                          onChange={(e) => setEditingPost({
+                            ...editingPost,
+                            postType: e.target.value as 'article' | 'news',
+                            category: {
+                              fa: e.target.value === 'news' ? 'اخبار و اطلاعیه‌ها' : 'مقالات تخصصی',
+                              en: e.target.value === 'news' ? 'News & Announcements' : 'Technical Articles'
+                            }
+                          })}
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:border-blue-600"
+                        >
+                          <option value="article">{isFa ? '📚 مقاله تخصصی (ذخیره در جدول articles)' : '📚 Article (Table: articles)'}</option>
+                          <option value="news">{isFa ? '📰 خبر / اطلاعیه شرکت (ذخیره در جدول news)' : '📰 News (Table: news)'}</option>
+                        </select>
+                      </div>
+
+                      {/* Publication Status Selector */}
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'وضعیت انتشار *' : 'Publication Status *'}
+                        </label>
+                        <select
+                          value={editingPost.status || 'draft'}
+                          onChange={(e) => setEditingPost({
+                            ...editingPost,
+                            status: e.target.value as 'published' | 'draft' | 'unpublished'
+                          })}
+                          className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-sm font-bold focus:outline-none focus:border-blue-600"
+                        >
+                          <option value="published">{isFa ? '✅ منتشر شده (نمایش در سایت)' : '✅ Published (Visible on site)'}</option>
+                          <option value="draft">{isFa ? '📝 پیش‌نویس (ذخیره بدون نمایش)' : '📝 Draft (Saved but hidden)'}</option>
+                          <option value="unpublished">{isFa ? '🚫 عدم انتشار (مخفی از سایت)' : '🚫 Unpublished (Hidden from site)'}</option>
+                        </select>
+                      </div>
                     </div>
 
                     {/* Basic Article Info */}
@@ -573,22 +750,38 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       </div>
                     </div>
 
-                    {/* Full Content */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        {isFa ? 'متن کامل خبر یا مقاله (فارسی) *' : 'Full Article Content (Persian) *'}
-                      </label>
-                      <textarea
-                        rows={4}
-                        required
-                        value={editingPost.content?.fa || ''}
-                        onChange={(e) => setEditingPost({
-                          ...editingPost,
-                          content: { ...editingPost.content, fa: e.target.value, en: editingPost.content?.en || '' }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs sm:text-sm focus:outline-none focus:border-blue-600"
-                        placeholder={isFa ? 'محتوای کامل خبر و تحلیل‌های مربوطه...' : 'Full content...'}
-                      />
+                    {/* Full Content — Wordpress-style HTML Editor (Visual + HTML tabs) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'متن کامل خبر یا مقاله (فارسی) *' : 'Full Article Content (Persian) *'}
+                        </label>
+                        <HtmlEditor
+                          value={editingPost.content?.fa || ''}
+                          onChange={(html) => setEditingPost({
+                            ...editingPost,
+                            content: { fa: html, en: editingPost.content?.en || '' }
+                          })}
+                          lang="fa"
+                          placeholder={isFa ? 'محتوای کامل خبر و تحلیل‌های مربوطه را اینجا بنویسید یا تگ‌های HTML را وارد کنید...' : 'Full content...'}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1">
+                          {isFa ? 'متن کامل خبر یا مقاله (انگلیسی)' : 'Full Article Content (English)'}
+                        </label>
+                        <HtmlEditor
+                          value={editingPost.content?.en || ''}
+                          onChange={(html) => setEditingPost({
+                            ...editingPost,
+                            content: { fa: editingPost.content?.fa || '', en: html }
+                          })}
+                          lang="en"
+                          dir="ltr"
+                          placeholder={isFa ? 'محتوای کامل خبر به زبان انگلیسی...' : 'Full content in English...'}
+                        />
+                      </div>
                     </div>
 
                     {/* Category & Cover Image */}
@@ -609,18 +802,6 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-1">
-                          {isFa ? 'تصویر شاخص (URL)' : 'Cover Image URL'}
-                        </label>
-                        <input
-                          type="text"
-                          value={editingPost.coverImage || ''}
-                          onChange={(e) => setEditingPost({ ...editingPost, coverImage: e.target.value })}
-                          className="w-full px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600 dir-ltr"
-                          placeholder="https://images.unsplash.com/..."
-                        />
-                      </div>
 
                       <div>
                         <label className="block text-xs font-bold text-slate-700 mb-1">
@@ -722,7 +903,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       >
                         {isFa ? 'انصراف' : 'Cancel'}
                       </button>
-                      
+
                       <button
                         type="submit"
                         disabled={isSavingArticle}
@@ -739,7 +920,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <div className="space-y-3">
                   {posts.map((post) => (
                     <div key={post.id} className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      
+
                       <div className="flex items-start gap-4">
                         <img
                           src={post.coverImage}
@@ -752,23 +933,34 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                         />
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                              post.postType === 'news'
-                                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                                : 'bg-blue-100 text-blue-800 border border-blue-200'
-                            }`}>
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${post.postType === 'news'
+                              ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                              : 'bg-blue-100 text-blue-800 border border-blue-200'
+                              }`}>
                               {post.postType === 'news' ? (isFa ? '📰 خبر (news)' : '📰 News') : (isFa ? '📚 مقاله (articles)' : '📚 Article')}
+                            </span>
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${post.status === 'published'
+                              ? 'bg-green-100 text-green-800 border border-green-200'
+                              : post.status === 'draft'
+                                ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                                : 'bg-red-100 text-red-800 border border-red-200'
+                              }`}>
+                              {post.status === 'published'
+                                ? (isFa ? '✅ منتشر شده' : '✅ Published')
+                                : post.status === 'draft'
+                                  ? (isFa ? '📝 پیش‌نویس' : '📝 Draft')
+                                  : (isFa ? '🚫 عدم انتشار' : '🚫 Unpublished')}
                             </span>
                             <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-bold">
                               {post.category?.fa || (isFa ? 'عمومی' : 'General')}
                             </span>
-                            <span className="text-[11px] text-slate-400 font-mono">{post.date}</span>
+                            <span className="text-[11px] text-slate-400 font-mono">  {typeof post.date === 'string' ? format(post.date, 'dd MMMM yyyy') : new Date(post.date).toLocaleDateString()}</span>
                           </div>
-                          
+
                           <h4 className="text-sm font-bold text-slate-900">
                             {post.title.fa}
                           </h4>
-                          
+
                           <p className="text-xs text-slate-500 line-clamp-1">
                             {post.excerpt.fa}
                           </p>
@@ -830,14 +1022,30 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       <div key={msg.id} className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm space-y-2">
                         <div className="flex items-center justify-between flex-wrap gap-2">
                           <span className="font-bold text-slate-900 text-sm">{msg.name} ({msg.company || 'شخصی'})</span>
-                          <span className="text-xs text-slate-400">{new Date(msg.createdAt).toLocaleString()}</span>
+                          <div>
+                            <span className="text-xs text-slate-400">{
+                              format(Date.parse(msg.createdAt), 'dd MMMM yyyy -  HH:mm')}
+                            </span>
+
+                          </div>
                         </div>
                         <div className="text-xs text-blue-600 font-mono font-semibold">
                           {msg.email} | {msg.phone} | {msg.service}
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line bg-slate-50 p-3 rounded-lg border border-slate-200">
-                          {msg.message}
-                        </p>
+                        <div className="flex flex-1 flex-row justify-between items-center gap-2">
+
+                          <p className="w-full text-clip text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            {msg.message}
+                          </p>
+
+                          <button
+                            onClick={() => handleDeleteMessage(msg.id)}
+                            className="h-full p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-xs font-bold"
+                            title={isFa ? 'حذف از دیتابیس' : 'Delete'}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -848,7 +1056,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             {/* Gemini AI Assistant Tab */}
             {activeTab === 'ai-assistant' && (
               <div className="space-y-8">
-                
+
                 {/* AI Translation Box */}
                 <div className="p-5 rounded-xl bg-white border border-slate-200 shadow-sm space-y-4">
                   <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
