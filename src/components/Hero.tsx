@@ -48,10 +48,10 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
                 : activeMaterial === 'glass'
                 ? "https://images.ctfassets.net/bdj0rlksezwc/1Zf5PLBjCtV8N3qa37DSXW/823afea9546810ed75f7aeaf71abced3/test-GLASS-icon-2.png?w=755&h=1114&q=50&fm=png"
                 : activeMaterial === 'stone'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/5cReCtVRkYfgs8oEjG07DX/dcf3d34fffd150803f95d51a5d1c9d33/STONE_singolo-2.png?w=800&h=1200&q=50&fm=png"
+                ? "https://images.ctfassets.net/bdj0rlksezwc/5cReCtVRkYfgs8oEjG07DX/dcf3d34fffd150803f95d51a5d1c9d33/STONE_singolo-2.png?w=400&h=1200&q=50&fm=png"
                 : activeMaterial === 'materia'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/6pjxB7QmujUujmiFNbmR7H/8f6522b3bd6acfd961940efc1f559891/MATERIA-singolo-2.png?w=800&h=1200&q=50&fm=png"
-                : "https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=800&h=1200&q=50&fm=png"
+                ? "https://images.ctfassets.net/bdj0rlksezwc/6pjxB7QmujUujmiFNbmR7H/8f6522b3bd6acfd961940efc1f559891/MATERIA-singolo-2.png?w=400&h=1200&q=50&fm=png"
+                : "https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=400&h=1200&q=50&fm=png"
             }
             alt="Fidar Bondar Machine Model"
             width={613}

@@ -72,7 +72,7 @@ const MATERIALS: MaterialData[] = [
     descFa: 'سیستم‌های پیشرفته متال‌ورکینگ صنعتی، طراحی‌شده برای برش و تراش سنگین فلزات با دقت میکرونی.',
     btnEn: 'Discover Fidar Bondar Metal',
     btnFa: 'کشف ماشین‌آلات فلز فیدار بندار',
-    imgUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=2370&h=3500&q=50&fm=png'
+    imgUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=400&h=1200&q=50&fm=png'
   }
 ];
 
