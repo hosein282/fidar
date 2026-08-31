@@ -84,6 +84,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
   // Scroll listener to activate tabs based on scroll position in 500vh container
   useEffect(() => {
     const handleScroll = () => {
+      
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const totalScrollableHeight = rect.height - window.innerHeight;
@@ -100,6 +101,9 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Mobile/tablet (< lg): the tabs drive which material is shown in the
+  // full-screen panel directly (no scroll-detection needed).
+
   const handleTabClick = (index: number) => {
     setActiveIndex(index);
     if (!containerRef.current) return;
@@ -114,9 +118,83 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   return (
-    <div id="materials" ref={containerRef} className="relative z-30 h-[500vh] bg-black">
-      {/* Sticky Desktop & Mobile View Container */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+    <div id="materials">
+      {/* =========================================================
+          MOBILE / TABLET VIEW — full-screen animated panel.
+          Same look/animations as the original — but instead of
+          scroll-jacking, the tabs switch the material directly.
+         ========================================================= */}
+      <div className="lg:hidden relative z-30 h-screen w-full">
+        <div
+          className="w-full h-full relative flex flex-col justify-between items-center pt-6 pb-10 px-6 select-none text-slate-900 transition-colors duration-500"
+          style={{ backgroundColor: current.color }}
+        >
+          {/* Top Tabs Row */}
+          <div className="w-full flex justify-between items-center z-10 px-1 gap-1.5 overflow-x-auto pb-4 mt-12 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {MATERIALS.map((mat, idx) => {
+              const isActive = activeIndex === idx;
+              return (
+                <button
+                  key={mat.id}
+                  onClick={() => setActiveIndex(idx)}
+                  className={`shrink-0 transition-all duration-300 flex-1 text-sm font-bold py-2 px-3 rounded-full cursor-pointer text-center whitespace-nowrap ${
+                    isActive
+                      ? 'bg-slate-900 text-white shadow-lg scale-105'
+                      : 'bg-black/10 text-slate-900 hover:bg-black/20'
+                  }`}
+                  type="button"
+                >
+                  {isFa ? mat.nameFa : mat.nameEn}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Image Box */}
+          <div className="w-full flex justify-center items-center my-4 h-[35vh] relative">
+            <img
+              key={`img-${current.id}`}
+              src={current.imgUrl}
+              alt={current.nameEn}
+              width={900}
+              height={1200}
+              loading="eager"
+              decoding="async"
+              className="max-h-full max-w-full object-contain transition-all duration-500 drop-shadow-xl material-in"
+            />
+          </div>
+
+          {/* Text & Button */}
+          <div key={`txt-${current.id}`} className="w-full text-center space-y-4 max-w-md mx-auto material-in">
+            <h3 className="text-2xl font-extrabold text-slate-900">
+              {isFa ? current.nameFa : current.nameEn}
+            </h3>
+
+            <p className="text-sm font-normal text-slate-800 leading-relaxed px-2">
+              {isFa ? current.descFa : current.descEn}
+            </p>
+
+            <div className="pt-2">
+              <a href="#contact">
+                <button
+                  className="rounded-xl transition-all duration-300 w-full bg-slate-900 text-white py-3.5 px-6 font-bold mb-2 text-sm shadow-xl active:scale-95 flex items-center justify-center gap-2"
+                  type="button"
+                >
+                  <span>{isFa ? current.btnFa : current.btnEn}</span>
+                  <ArrowIcon className="w-4 h-4" />
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================
+          DESKTOP VIEW — scroll-driven / scroll-jacking (lg+)
+         ========================================================= */}
+      <div ref={containerRef} className="relative z-30 h-[500vh] bg-black hidden lg:block">
+        {/* Sticky Desktop View Container */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
         
         {/* =========================================================
             DESKTOP VIEW (lg:flex)
@@ -240,74 +318,8 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
           </div>
         </div>
 
-
-        {/* =========================================================
-            MOBILE VIEW (lg:hidden)
-           ========================================================= */}
-        <div
-          className="w-full h-full relative flex flex-col justify-between items-center pt-6 pb-12 px-6 lg:hidden transition-colors duration-500 select-none text-slate-900 overflow-y-auto"
-          style={{ backgroundColor: current.color }}
-        >
-          {/* Top Tabs Row */}
-          <div className="w-full flex justify-between items-center z-10 px-2 gap-1 overflow-x-auto pb-4 mt-16">
-            {MATERIALS.map((mat, idx) => {
-              const isActive = activeIndex === idx;
-              return (
-                <button
-                  key={mat.id}
-                  onClick={() => handleTabClick(idx)}
-                  className={`truncate transition-all duration-300 flex-1 text-sm font-bold py-2 px-3 rounded-full cursor-pointer text-center ${
-                    isActive
-                      ? 'bg-slate-900 text-white shadow-lg'
-                      : 'bg-black/10 text-slate-900 hover:bg-black/20'
-                  }`}
-                  type="button"
-                >
-                  {isFa ? mat.nameFa : mat.nameEn}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Image Box */}
-          <div className="w-full flex justify-center items-center my-4 h-[35vh] relative">
-            <img
-              src={current.imgUrl}
-              alt={current.nameEn}
-              width={900}
-              height={1200}
-              loading="lazy"
-              decoding="async"
-              className="max-h-full max-w-full object-contain transition-all duration-500 drop-shadow-xl"
-            />
-          </div>
-
-          {/* Text & Button */}
-          <div className="w-full text-center space-y-4 max-w-md mx-auto">
-            <h3 className="text-2xl font-extrabold text-slate-900">
-              {isFa ? current.nameFa : current.nameEn}
-            </h3>
-
-            <p className="text-sm font-normal text-slate-800 leading-relaxed px-2">
-              {isFa ? current.descFa : current.descEn}
-            </p>
-
-            <div className="pt-2">
-              <a href="#contact">
-                <button
-                  className="rounded-xl transition-all duration-300 w-full bg-slate-900 text-white py-3.5 px-6 font-bold mb-8 text-sm shadow-xl active:scale-95 flex items-center justify-center gap-2"
-                  type="button"
-                >
-                  <span>{isFa ? current.btnFa : current.btnEn}</span>
-                  <ArrowIcon className="w-4 h-4" />
-                </button>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
       </div>
+    </div>
     </div>
   );
 };
