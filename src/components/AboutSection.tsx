@@ -86,7 +86,18 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
              ========================================================= */}
           <div className="relative w-full mt-16 lg:mt-36 lg:w-[100%] md:mx-auto">
             {/* Desktop Backdrop SVG */}
-            
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 1142 557"
+              className={`hidden md:block absolute top-0 ${isFa ? 'left-0' : '-right-8'} w-dvw h- text-surface transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
+                }`}
+            >
+              <path
+                fill="currentColor"
+                d="M489.362 7.83A40.002 40.002 0 0 1 513.133 0H1102c22.09 0 40 17.909 40 40v612H0V419.87a99.999 99.999 0 0 1 40.573-80.426L489.362 7.83Z"
+              />
+            </svg>
 
             {/* Mobile Backdrop SVG */}
             <svg

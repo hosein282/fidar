@@ -388,7 +388,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
             <div>
               <h3 className="text-2xl font-bold text-slate-900">
-                {isFa ? 'ورود به پنل مدیریت دیتابیس PHP' : 'CMS Administration Login'}
+                {isFa ? 'ورود به پنل مدیریت دیتابیس ' : 'CMS Administration Login'}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
                 {isFa ? 'جهت مدیریت اخبار، مقالات دیتابیس، پیام‌ها و تنظیمات سئوی گوگل' : 'Access database news, articles, inquiries & SEO configurations.'}
@@ -471,14 +471,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <span>{isFa ? `پیام‌های دریافتی (${messages.length})` : `Inquiries (${messages.length})`}</span>
               </button>
 
-              <button
+              {/* <button
                 onClick={() => setActiveTab('ai-assistant')}
                 className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${activeTab === 'ai-assistant' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
                   }`}
               >
                 <Sparkles className="w-4 h-4 text-blue-600" />
                 <span>{isFa ? 'دستیار سئوی Gemini AI' : 'Gemini AI Assistant'}</span>
-              </button>
+              </button> */}
             </div>
 
             {/* ========================================================= */}

@@ -219,7 +219,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-white border border-gray-300 text-slate-800 hover:text-primary"
+              className="lg:hidden p-2 rounded-full bg-white border border-gray-300 text-slate-800 hover:text-primary"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

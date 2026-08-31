@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
   ];
 
   return (
-    <section className="relative w-full  min-h-[110vh] lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
+    <section className="relative w-full  min-h-[110vh] lg:min-h-[90vh] lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
 
       {/* Hero Background Video & Media Container */}
       <div className="absolute inset-0 z-0 flex flex-col lg:flex-row  ">
@@ -68,7 +68,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         </div>
 
         {/* Right Side Material Model Image */}
-        <div className="relative h-full lg:h-lvh rounded-b-4xl w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
+        <div className="relative h-full lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
 
           <div key={materials.find(m => m.id === activeMaterial)?.title.fa} className={`slidex flex absolute top-8 ${isFa ? "right-8" : "left-8"}  lg:top-[50%] z-100`}>
             <h1 className=" text-5xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
@@ -101,7 +101,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
             loading="eager"
             decoding="async"
-            className="md:h-dvh h-lvh sm:w-full object-cover relative z-10 slow-zoom   "
+            className="md:h-dvh h-full sm:w-full object-cover relative z-10 slow-zoom   "
           />
           </div>
          
