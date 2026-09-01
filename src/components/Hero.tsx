@@ -100,7 +100,6 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
             height={906}
 
             loading="eager"
-            decoding="async"
             className="md:h-dvh h-full sm:w-full object-cover relative z-10 slow-zoom   "
           />
           </div>
