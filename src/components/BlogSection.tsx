@@ -8,6 +8,8 @@ import { ChevronLeft, ChevronRight, X, Code2, Calendar, Clock, Eye, ArrowLeft, A
 import { sanitizeBlogPost } from '../utils/sanitize';
 import { format } from 'date-fns-jalali';
 import { format as fr } from 'date-fns';
+import Image from 'next/image';
+
 
 interface BlogSectionProps {
   lang: Language;
@@ -35,27 +37,21 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
   };
 
   return (
-    <section id="blog" className="py-20 bg-primary-dark text-white relative overflow-hidden">
+    <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Top Header: Title + "See all" Button */}
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
             {isFa ? 'مقالات، رویدادها و اخبار' : 'What\'s Next'}
           </h2>
 
-          <Link
-            href={`/${lang}/blog`}
-            className="px-6 py-2.5 rounded-lg border border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
-          >
-            <span>{isFa ? 'مشاهده همه' : 'See all news & articles'}</span>
-            <ArrowIcon className="w-4 h-4" />
-          </Link>
+
         </div>
 
         {/* Carousel Wrapper */}
         <div className="relative group">
-          
+
           {/* Scroll Container */}
           <div
             ref={scrollContainerRef}
@@ -65,22 +61,24 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             {safePosts.map((post) => {
               const titleStr = (isFa ? post.title?.fa : post.title?.en) || post.title?.fa || 'بدون عنوان';
               const catStr = (isFa ? post.category?.fa : post.category?.en) || (post.postType === 'news' ? 'CUSTOMER STORY' : 'EVENTS');
-              const dateStr =  post.date || '03/25/2025';
-              
+              const dateStr = post.date || '03/25/2025';
+
 
               return (
                 <article
                   key={post.id}
                   onClick={() => router.push(`/${lang}/blog/${post.id}`)}
-                  className="w-70 sm:w-[320px] shrink-0 snap-start flex flex-col items-center  cursor-pointer text-center" 
+                  className="w-70 sm:w-[320px] shrink-0 snap-start flex flex-col items-center  cursor-pointer text-center"
                 >
                   {/* Card Image with Fidar Bondar rounded-3xl corners */}
                   <div className="w-full h-75 sm:h-[340px] rounded-[32px] overflow-hidden group bg-emerald-950/40 shadow-xl border border-white/10 relative">
-                    <img
-                      src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'}
+                    <Image
+                      src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80' } 
                       alt={titleStr}
-                      width={1200}
-                      height={800}
+                      onError={(e) => console.error(e)}
+                      overrideSrc="/assets/images/slides/METAL_Image_shape_A1.jpg"
+                      width={600}
+                      height={600}
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
@@ -100,8 +98,8 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                   </h3>
 
                   {/* Date */}
-                  <p className={`${isFa ?  "":"font-mono"} text-white/80 text-xs mt-2`}>
-                    {isFa ?  format(Date.parse(dateStr), 'dd MMMM yyyy') : fr(Date.parse(dateStr), 'MMMM d, yyyy') }
+                  <p className={`${isFa ? "" : "font-mono"} text-white/80 text-xs mt-2`}>
+                    {isFa ? format(Date.parse(dateStr), 'dd MMMM yyyy') : fr(Date.parse(dateStr), 'MMMM d, yyyy')}
                   </p>
                 </article>
               );
@@ -133,7 +131,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
       {selectedPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fade-in text-slate-900">
           <div className="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl dir-rtl">
-            
+
             <button
               onClick={() => { setSelectedPost(null); setShowSchemaModal(false); }}
               className="absolute top-5 left-5 p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-900 transition"
@@ -150,26 +148,26 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                 </div>
 
                 <p className="text-xs text-slate-500">
-                  {isFa 
+                  {isFa
                     ? 'این ساختار استاندارد به گوگل کمک می‌کند مقاله شما را به عنوان Rich Snippet نمایش دهد.'
                     : 'Search engines ingest this JSON-LD structure to render rich search results.'}
                 </p>
 
                 <pre className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400 font-mono text-xs overflow-x-auto dir-ltr text-left">
-{JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": isFa ? selectedPost.seoTitle.fa : selectedPost.seoTitle.en,
-  "description": isFa ? selectedPost.seoDescription.fa : selectedPost.seoDescription.en,
-  "author": {
-    "@type": "Organization",
-    "name": isFa ? selectedPost.author.fa : selectedPost.author.en
-  },
-  "datePublished": selectedPost.date,
-  "image": selectedPost.coverImage,
-  "inLanguage": [isFa ? "fa" : "en"],
-  "keywords": (isFa ? selectedPost.seoKeywords.fa : selectedPost.seoKeywords.en).join(", ")
-}, null, 2)}
+                  {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": isFa ? selectedPost.seoTitle.fa : selectedPost.seoTitle.en,
+                    "description": isFa ? selectedPost.seoDescription.fa : selectedPost.seoDescription.en,
+                    "author": {
+                      "@type": "Organization",
+                      "name": isFa ? selectedPost.author.fa : selectedPost.author.en
+                    },
+                    "datePublished": selectedPost.date,
+                    "image": selectedPost.coverImage,
+                    "inLanguage": [isFa ? "fa" : "en"],
+                    "keywords": (isFa ? selectedPost.seoKeywords.fa : selectedPost.seoKeywords.en).join(", ")
+                  }, null, 2)}
                 </pre>
 
                 <button
@@ -182,7 +180,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             ) : (
               /* Full Article Reader */
               <div className="space-y-6">
-                
+
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 text-xs text-slate-500">
                     <span className="text-primary-dark font-bold px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
@@ -241,6 +239,17 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           </div>
         </div>
       )}
+
+      <div className='flex items-center justify-center'>
+        <Link
+          href={`/${lang}/blog`}
+          className="px-6 py-2.5 text-center rounded-lg border border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
+        >
+          <span>{isFa ? 'مشاهده همه مقالات و اخبار' : 'See all news & articles'}</span>
+          <ArrowIcon className="w-4 h-4" />
+        </Link>
+      </div>
+
 
     </section>
   );

@@ -11,10 +11,10 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   return (
-    <section id="sustainability" className="relative w-full bg-surface text-slate-900 py-12 sm:py-20 px-4 sm:px-8">
+    <section id="sustainability" className="relative w-full bg-surface text-slate-900  lg:py-12 lg:px-8">
       
       {/* SVG ClipPath Definition for Biesse Signature Card Geometry */}
-      <svg className="absolute w-0 h-0 pointer-events-none " aria-hidden="true">
+      <svg className="hidden lg:block absolute w-0 h-0 pointer-events-none " aria-hidden="true">
         <defs>
           <clipPath id="biesse-brand-card-clip" clipPathUnits="objectBoundingBox">
             <path d="M 0.04,0 L 0.88,0 L 1,0.18 L 1,0.92 Q 1,1 0.96,1 L 0.12,1 L 0,0.82 L 0,0.08 Q 0,0 0.04,0 Z" />
