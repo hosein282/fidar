@@ -75,7 +75,6 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                     <Image
                       src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80' } 
                       alt={titleStr}
-                      onError={(e) => console.error(e)}
                       overrideSrc="/assets/images/slides/METAL_Image_shape_A1.jpg"
                       width={600}
                       height={600}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Language } from '../types';
 import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2, MoveRight, MoveLeft } from 'lucide-react';
-
+import Image from "next/image"
 interface HeroProps {
   lang: Language;
   onOpenExporter: () => void;
@@ -28,15 +28,18 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
     return () => clearInterval(timer);
   }, [activeMaterial]);
 
-  const materials: { id: MaterialId; title: { fa: string; en: string }; color: string; sub: string }[] = [
-    { id: 'wood', title: { fa: 'چوب', en: 'Wood' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic' },
-    { id: 'glass', title: { fa: 'شیشه', en: 'Glass' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database' },
-    { id: 'stone', title: { fa: 'سنگ', en: 'Stone' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang' },
-    { id: 'materia', title: { fa: 'متریال', en: 'Materia' }, color: 'var(--color-materia)', sub: 'CMS Control Panel' },
-    { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi' },
+  const materials: { id: MaterialId; title: { fa: string; en: string }; color: string; sub: string, img: string }[] = [
+    { id: 'wood', title: { fa: 'چوب', en: 'Wood' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic', img: '/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp' },
+    { id: 'glass', title: { fa: 'شیشه', en: 'Glass' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database', img: '/assets/images/slides/Vetro_A_0_bassa.webp' },
+    { id: 'stone', title: { fa: 'سنگ', en: 'Stone' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang', img: '/assets/images/slides/Pietra_designB0-rossoverona.webp' },
+    { id: 'materia', title: { fa: 'متریال', en: 'Materia' }, color: 'var(--color-materia)', sub: 'CMS Control Panel', img: '/assets/images/slides/polimeri_formaA_02-viola-lr.webp' },
+    { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
   ];
 
+const active = materials.find(m => m.id === activeMaterial);
+
   return (
+    
     <section className="relative w-full  min-h-[110vh] lg:min-h-[90vh] lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
 
       {/* Hero Background Video & Media Container */}
@@ -70,41 +73,30 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         {/* Right Side Material Model Image */}
         <div className="relative h-full lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
 
-          <div key={materials.find(m => m.id === activeMaterial)?.title.fa} className={`slidex flex absolute top-8 ${isFa ? "right-8" : "left-8"}  lg:top-[50%] z-100`}>
+          <div key={active?.title.fa} className={`slidex flex absolute top-8 ${isFa ? "right-8" : "left-8"}  lg:top-[50%] z-100`}>
             <h1 className=" text-5xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
-                materials.find(m => m.id === activeMaterial)?.title.fa
+                active?.title.fa
                 :
-                materials.find(m => m.id === activeMaterial)?.title.en
+                active?.title.en
               }
             </h1>
             <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
           </div>
           <div className="relative  inset-0 bg-gradient-to-b  from-black/60 via-transparent to-black/80 z-10">
-          
-           <img
-            key={activeMaterial}
-            src={
-              activeMaterial === 'wood'
-                ? "/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp"
-                : activeMaterial === 'glass'
-                  ? "/assets/images/slides/Vetro_A_0_bassa.webp"
-                  : activeMaterial === 'stone'
-                    ? "/assets/images/slides/Pietra_designB0-rossoverona.webp"
-                    : activeMaterial === 'materia'
-                      ? "/assets/images/slides/polimeri_formaA_02-viola-lr.webp"
-                      : "/assets/images/slides/METAL_Image_shape_A1.jpg"
-            }
-            alt="Fidar Bondar Machine Model"
-            width={613}
-            height={906}
 
-            loading="eager"
-            decoding="async"
-            className="md:h-dvh h-full sm:w-full object-cover relative z-10 slow-zoom   "
-          />
+            <Image
+              key={activeMaterial}
+              src={active?.img || materials[0].img}
+              alt="Fidar Bondar Machine Model"
+              width={613}
+              height={906}
+              priority={true}
+              decoding="async"
+              className="md:h-dvh h-full sm:w-full object-cover relative z-10 slow-zoom   "
+            />
           </div>
-         
+
 
         </div>
 
@@ -169,8 +161,8 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
                   key={mat.id}
                   onClick={() => setActiveMaterial(mat.id)}
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${isActive
-                      ? 'bg-white text-black shadow-lg scale-105'
-                      : 'bg-black/50 text-white hover:bg-black/80 border border-white/20'
+                    ? 'bg-white text-black shadow-lg scale-105'
+                    : 'bg-black/50 text-white hover:bg-black/80 border border-white/20'
                     }`}
                 >
                   <span
