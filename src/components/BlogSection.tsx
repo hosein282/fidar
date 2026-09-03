@@ -55,7 +55,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           {/* Scroll Container */}
           <div
             ref={scrollContainerRef}
-            className="flex gap-6 sm:gap-8 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8 pt-2 transition-all"
+            className="flex w-screen  gap-6 sm:gap-8 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8 pt-2 transition-all"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {safePosts.map((post) => {

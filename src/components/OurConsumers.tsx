@@ -110,8 +110,8 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
             const scrollAmount = isFa
-                ? (direction === 'left' ? -200 : 200)
-                : (direction === 'left' ? -200 : 200);
+                ? (direction === 'left' ? -400 : 400)
+                : (direction === 'left' ? -400 : 400);
             scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
     };
