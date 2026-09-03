@@ -263,9 +263,9 @@ export const INITIAL_ARTICLES: BlogPost[] = [
 ### ۲. سئو و تگ‌های hreflang گوگل
 برای اینکه گوگل صفحات فارسی و انگلیسی شما را به عنوان محتوای تکراری (Duplicate Content) در نظر نگیرد، باید تگ‌های زیر در بخش \`<head>\` قرار گیرند:
 \`\`\`html
-<link rel="alternate" hreflang="fa" href="https://example.com/fa/page" />
-<link rel="alternate" hreflang="en" href="https://example.com/en/page" />
-<link rel="canonical" href="https://example.com/fa/page" />
+<link rel="alternate" hreflang="fa" href="https://fidarbondar.com/fa/page" />
+<link rel="alternate" hreflang="en" href="https://fidarbondar.com/en/page" />
+<link rel="canonical" href="https://fidarbondar.com/fa/page" />
 \`\`\`
 
 ### ۳. مدیریت راست‌چین (RTL) و چپ‌چین (LTR)
@@ -283,9 +283,9 @@ This approach ensures zero SQL joins overhead and simplifies CRUD operations in 
 ### 2. Technical SEO & Hreflang Tagging
 To guide search engines and avoid duplicate content issues, inject regional alternate tags in your HTML header:
 \`\`\`html
-<link rel="alternate" hreflang="fa" href="https://example.com/fa/page" />
-<link rel="alternate" hreflang="en" href="https://example.com/en/page" />
-<link rel="canonical" href="https://example.com/en/page" />
+<link rel="alternate" hreflang="fa" href="https://fidarbondar.com/fa/page" />
+<link rel="alternate" hreflang="en" href="https://fidarbondar.com/en/page" />
+<link rel="canonical" href="https://fidarbondar.com/en/page" />
 \`\`\`
 
 ### 3. Directional Layouts (RTL vs LTR)

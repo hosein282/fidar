@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'}/assets/images/logo.png`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.png`,
         width: 1200,
         height: 630,
         alt: 'Fidar Bondar Sazeh فیدار سازه بندار',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: INITIAL_SEO_META.siteTitle.fa,
     description: INITIAL_SEO_META.metaDescription.fa,
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'}/assets/images/logo.png`],
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.png`],
   },
   robots: {
     index: true,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'),
   category: 'industrial',
 };
 
@@ -63,7 +63,7 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com';
 
   const organizationSchema = {
     '@context': 'https://schema.org',

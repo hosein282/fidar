@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const defaultSiteUrl = 'https://example.com';
+const defaultSiteUrl = 'https://fidarbondar.com';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || defaultSiteUrl;
 
 export function getCanonicalUrl(path: string): string {
