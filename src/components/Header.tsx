@@ -92,30 +92,30 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenExporter,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  // const [headerVisible, setHeaderVisible] = useState(true);
+  // const [lastScrollY, setLastScrollY] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollY = window.scrollY;
 
-      // Always show header at top of page (< 50px)
-      if (currentScrollY <= 50) {
-        setHeaderVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling DOWN -> hide header
-        setHeaderVisible(false);
-      } else if (currentScrollY + 60 < lastScrollY) {
-        // Scrolling UP -> show header immediately
-        setHeaderVisible(true);
-      }
+  //     // Always show header at top of page (< 50px)
+  //     if (currentScrollY <= 50) {
+  //       setHeaderVisible(true);
+  //     } else if (currentScrollY > lastScrollY && currentScrollY > 500) {
+  //       // Scrolling DOWN -> hide header
+  //       setHeaderVisible(false);
+  //     } else if (currentScrollY + 60 < lastScrollY) {
+  //       // Scrolling UP -> show header immediately
+  //       setHeaderVisible(true);
+  //     }
 
-      setLastScrollY(currentScrollY);
-    };
+  //     setLastScrollY(currentScrollY);
+  //   };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  //   window.addEventListener('scroll', handleScroll, { passive: true });
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [lastScrollY]);
 
   const isFa = lang === 'fa';
 
@@ -169,8 +169,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header className={`sticky top-0 z-[100] w-full bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out ${headerVisible ? 'translate-y-0' : '-translate-y-full'
-        }`}>
+      <header id="header"  className={`sticky top-0 z-[100] w-full bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
         <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">

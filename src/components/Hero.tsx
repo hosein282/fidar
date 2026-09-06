@@ -36,10 +36,10 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
     { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
   ];
 
-const active = materials.find(m => m.id === activeMaterial);
+  const active = materials.find(m => m.id === activeMaterial);
 
   return (
-    
+
     <section className="relative w-full  min-h-[110vh] lg:min-h-[90vh] lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
 
       {/* Hero Background Video & Media Container */}
@@ -83,6 +83,7 @@ const active = materials.find(m => m.id === activeMaterial);
             </h1>
             <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
           </div>
+
           <div className="relative  inset-0 bg-gradient-to-b  from-black/60 via-transparent to-black/80 z-10">
 
             <Image
@@ -99,6 +100,11 @@ const active = materials.find(m => m.id === activeMaterial);
           </div>
 
         </div>
+        <ul className={`absolute flex justify-center items-center gap-3 bottom-12 lg:bottom-24  ${isFa ? "left-8" : "right-8"}`}>
+          {materials.map(((m) => (
+            <li key={m.id} className={`h-2 w-2 border-amber-50 border-1  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
+          )))}
+        </ul>
 
       </div>
 

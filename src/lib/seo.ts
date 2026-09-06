@@ -29,7 +29,7 @@ export function buildCanonicalMetadata(path: string): Metadata {
       description:
         'تولید دستگاه‌ها، خطوط تولید و کامپوننت‌های PHP/MySQL برای صنایع چوب، شیشه، سنگ و فلز | Industrial machinery, digital systems & bilingual web solutions.',
       url,
-      siteName: 'Fidar Bondar Sazeh',
+      siteName: 'Fidar Sazeh Bondar',
       locale: 'fa_IR',
       alternateLocale: 'en_US',
       type: 'website',
@@ -44,7 +44,7 @@ export function buildCanonicalMetadata(path: string): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'فیدار سازه بندار | Fidar Bondar',
+      title: 'فیدار سازه بندار | Fidar Sazeh Bondar',
       description:
         'تولید دستگاه‌ها، خطوط تولید و کامپوننت‌های PHP/MySQL برای صنایع چوب، شیشه، سنگ و فلز',
       images: [`${siteUrl}/assets/images/logo.png`],
@@ -100,7 +100,7 @@ export function buildBlogPostMetadata(
       type: 'article',
       locale: 'fa_IR',
       alternateLocale: 'en_US',
-      siteName: 'Fidar Bondar Sazeh',
+      siteName: 'Fidar Sazeh Bondar',
       images: opts.coverImage
         ? [{ url: opts.coverImage, width: 1200, height: 800, alt: opts.titleFa }]
         : undefined,

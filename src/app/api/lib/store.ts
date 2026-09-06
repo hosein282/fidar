@@ -1,6 +1,8 @@
 import { BlogPost, ContactMessage, BilingualText, PostStatus } from '@/src/types';
 import { sanitizeHtml } from '@/src/utils/sanitize';
 import { prisma } from './prisma';
+import { revalidateTag, unstable_cache } from 'next/cache';
+
 
 // ========================================================
 // Prisma Data Store
@@ -153,17 +155,32 @@ function blogPostToData(post: BlogPost) {
 // --- Blog Posts CRUD ---
 
 export async function getAllPosts(): Promise<BlogPost[]> {
-  const rows = await prisma.post.findMany({
-    orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
-  });
+
+  const getRows = unstable_cache(
+    async () => {
+      return await prisma.post.findMany({
+        orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
+      });
+    }, ['posts'],
+    { revalidate: 3600, tags: ['posts'] }
+  );
+
+  const rows = await getRows();
   return rows.map(rowToBlogPost);
 }
 
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-  const rows = await prisma.post.findMany({
-    where: { status: 'published' },
-    orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
-  });
+  const getRows = unstable_cache(
+    async () => {
+      return await prisma.post.findMany({
+        where: { status: 'published' },
+        orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
+      });
+    }, ['posts'],
+    { revalidate: 3600, tags: ['posts'] }
+  );
+
+  const rows = await getRows();
   return rows.map(rowToBlogPost);
 }
 
@@ -177,6 +194,7 @@ export async function getPostsByType(type: PostType): Promise<BlogPost[]> {
     where: { postType: type, status: 'published' },
     orderBy: [{ createdAt: 'desc' }, { date: 'desc' }],
   });
+
   return rows.map(rowToBlogPost);
 }
 
@@ -215,6 +233,9 @@ export async function addPost(post: BlogPost): Promise<BlogPost[]> {
     update: payload,
     create: { ...payload, id: post.id },
   });
+
+  revalidateTag('posts');
+  console.log("revaldated posts")
 
   return getAllPosts();
 }

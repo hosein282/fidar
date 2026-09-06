@@ -5,6 +5,7 @@ import { INITIAL_SERVICES, INITIAL_PORTFOLIO, INITIAL_SEO_META } from '@/src/dat
 import { Language, BlogPost } from '@/src/types';
 import { buildCanonicalMetadata } from '@/src/lib/seo';
 import { getPublishedPosts } from '../api/lib/store';
+import { revalidateTag } from 'next/cache';
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -15,6 +16,7 @@ export const revalidate = 300;
 
 // SSG: Pre-render both locales at build time for instant TTFB and optimal SEO
 export function generateStaticParams() {
+  
   return [{ lang: 'fa' }, { lang: 'en' }];
 }
 

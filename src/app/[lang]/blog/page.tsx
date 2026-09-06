@@ -5,6 +5,7 @@ import { INITIAL_SEO_META } from '@/src/data/mockData';
 import { Language, BlogPost } from '@/src/types';
 import { buildCanonicalMetadata } from '@/src/lib/seo';
 import { getPublishedPosts } from '../../api/lib/store';
+import { revalidateTag } from 'next/cache';
 
 interface PageProps {
   params: Promise<{ lang: string }>;
