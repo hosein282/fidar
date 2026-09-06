@@ -169,7 +169,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header id="header"  className={`sticky top-0 z-[100] w-full bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
+      <header id="header" className={`sticky top-0 z-[100] w-full bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
         <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">
@@ -278,7 +278,9 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <User className="w-4 h-4" />
             </button> */}
-
+            <div className="flex justify-start">
+              <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
+            </div>
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -287,6 +289,7 @@ export const Header: React.FC<HeaderProps> = ({
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
 
+
           </div>
 
         </div>
@@ -294,9 +297,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="lg:hidden bg-white border-t border-gray-200 px-6 py-6 space-y-4 shadow-xl">
-            <div className="flex justify-start">
-              <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
-            </div>
+
             <nav className="flex flex-col space-y-3 text-slate-900 font-bold text-base">
 
               <a href="#materials" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
@@ -339,6 +340,7 @@ export const Header: React.FC<HeaderProps> = ({
               </button> */}
 
             </div>
+
           </div>
         )}
 
