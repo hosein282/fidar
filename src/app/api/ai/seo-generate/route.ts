@@ -14,6 +14,8 @@ export async function POST(request: NextRequest) {
     }
 
     const apiKey = process.env.DEEPSEEK_API_KEY ;
+
+    console.log("process.env.DEEPSEEK_API_KEY " , process.env.DEEPSEEK_API_KEY )
     if (!apiKey) {
       return NextResponse.json(
         { success: false, error: 'DEEPSEEK_API_KEY is not configured.' },

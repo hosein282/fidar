@@ -8,7 +8,7 @@ interface HeroProps {
 }
 
 // Fixed rotation order + typing so the auto-carousel can advance predictably.
-const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia', 'metal'] as const;
+const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia'] as const;
 type MaterialId = typeof MATERIAL_IDS[number];
 
 export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
@@ -29,11 +29,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
   }, [activeMaterial]);
 
   const materials: { id: MaterialId; title: { fa: string; en: string }; color: string; sub: string, img: string }[] = [
-    { id: 'wood', title: { fa: 'چوب', en: 'Wood' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic', img: '/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp' },
-    { id: 'glass', title: { fa: 'شیشه', en: 'Glass' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database', img: '/assets/images/slides/Vetro_A_0_bassa.webp' },
-    { id: 'stone', title: { fa: 'سنگ', en: 'Stone' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang', img: '/assets/images/slides/Pietra_designB0-rossoverona.webp' },
-    { id: 'materia', title: { fa: 'متریال', en: 'Materia' }, color: 'var(--color-materia)', sub: 'CMS Control Panel', img: '/assets/images/slides/polimeri_formaA_02-viola-lr.webp' },
-    { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
+    { id: 'wood', title: { fa: 'RTG هیبرید', en: 'Hybrid RTG' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic', img: '/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp' },
+    { id: 'glass', title: { fa: 'تجهیزات جانبی بندرگاهی', en: 'Port Auxiliary Equipment' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database', img: '/assets/images/slides/Vetro_A_0_bassa.webp' },
+    { id: 'stone', title: { fa: 'فن ها', en: 'Fans' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang', img: '/assets/images/slides/Pietra_designB0-rossoverona.webp' },
+    { id: 'materia', title: { fa: 'بلوئر صنعتی', en: 'Industrial Blower' }, color: 'var(--color-materia)', sub: 'CMS Control Panel', img: '/assets/images/slides/polimeri_formaA_02-viola-lr.webp' },
+    // { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
   ];
 
   const active = materials.find(m => m.id === activeMaterial);
@@ -47,15 +47,25 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
         {/* Left Side Video / Hero Visual */}
         <div className="relative  h-full lg:h-full w-full lg:w-[60%] overflow-hidden bg-black ">
+            <div key={active?.title.fa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
+            <h1 className=" text-4xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
+              {isFa ?
+                active?.title.fa
+                :
+                active?.title.en
+              }
+            </h1>
+            <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
-          <h1 className={`md:hidden absolute  bottom-8 ${isFa ? "right-8" : "left-8"} text-3xl sm:text-4xl lg:text-4xl font-medium z-10 tracking-tight leading-tight text-white drop-shadow-2xl`}>
+          <h1 className={`lg:hidden absolute  bottom-8 ${isFa ? "right-8" : "left-8"} text-3xl sm:text-4xl lg:text-4xl font-medium z-10 tracking-tight leading-tight text-white drop-shadow-2xl`}>
             {isFa ? (
               <>
-                خطوط تولید، دستگاه‌ها برای پردازش <span className="font-bold">صنعتی و دیجیتال</span>
+              تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
               </>
             ) : (
               <>
-                Lines, machines and components for machining <span className="underline decoration-primary font-bold">digital systems</span>
+                Advanced Technology, Engineering Precision <br/><span className="">Future-Oriented Design</span>
               </>
             )}
           </h1>
@@ -73,8 +83,8 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         {/* Right Side Material Model Image */}
         <div className="relative h-8/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
 
-          <div key={active?.title.fa} className={`slidex flex absolute top-8 ${isFa ? "right-8" : "left-8"}  lg:top-[50%] z-100`}>
-            <h1 className=" text-5xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
+         <div key={active?.title.fa} className={`flex lg:hidden absolute top-8 ${isFa ? "slidex right-8" : "slidex-ltr left-8"}  lg:top-[50%] z-100`}>
+            <h1 className="text-xl font-black sm:text-xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
                 active?.title.fa
                 :
@@ -121,24 +131,28 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <h1 className="hidden lg:block text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-white drop-shadow-md">
             {isFa ? (
               <>
-                خطوط تولید و دستگاه‌ها برای پردازش <span className="underline decoration-primary font-bold">صنعتی و دیجیتال</span>
+                            تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
+
+                {/* خطوط تولید و دستگاه‌ها برای پردازش <span className="underline decoration-primary font-bold">صنعتی و دیجیتال</span> */}
               </>
             ) : (
               <>
-                Lines, machines and components for machining <span className="underline decoration-primary font-bold">digital systems</span>
+                Advanced Technology, Engineering Precision,<span className="underline decoration-primary font-bold">Future-Oriented Design</span>
+
+
               </>
             )}
           </h1>
 
-          <p className="hidden lg:flex text-slate-200 text-lg sm:text-2xl font-light max-w-2xl leading-relaxed">
+          {/* <p className="hidden lg:flex text-slate-200 text-lg sm:text-2xl font-light max-w-2xl leading-relaxed">
             {isFa ? (
-              'ارائه معمار‌ی‌های پیشرفته PHP 8، اتصال مستقیم به دیتابیس MySQL PDO، پشتیبانی کامل از زبان‌های فارسی و انگلیسی و سئوی برتر گوگل.'
+              "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم"
             ) : (
               'Empowering wood, glass, stone, and software materials into high-performance enterprise applications.'
             )}
-          </p>
+          </p> */}
 
-          <div className="hidden lg:flex pt-4 flex flex-wrap gap-4">
+          {/* <div className="hidden lg:flex pt-4 flex flex-wrap gap-4">
             <button
               onClick={onOpenExporter}
               className="px-8 py-3.5 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm transition shadow-lg flex items-center gap-2 hover:rounded-[30px]"
@@ -152,7 +166,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
             >
               <span>{isFa ? 'بررسی متریال‌ها و خدمات' : 'Discover Materials'}</span>
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom Carousel / Material Tab Selectors & Scroll Bounce */}

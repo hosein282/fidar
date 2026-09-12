@@ -107,9 +107,9 @@ const HomePageComponent: React.FC<HomePageProps> = ({
         />
 
         {/* 6. Global Locations & Branches */}
-        <LocationsSection
+        {/* <LocationsSection
           lang={currentLang}
-        />
+        /> */}
 
         {/* 7. Sustainability & Co.T.A.N.E.C. */}
         <SustainabilitySection

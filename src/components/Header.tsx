@@ -278,7 +278,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <User className="w-4 h-4" />
             </button> */}
-            <div className="flex justify-start">
+            <div className="flex justify-start lg:hidden">
               <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
             </div>
             {/* Mobile Menu Trigger */}

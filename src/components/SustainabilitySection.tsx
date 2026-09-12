@@ -52,9 +52,9 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.2] sm:leading-[1.15] tracking-tight text-white drop-shadow-md hover:text-teal-200 transition-colors cursor-pointer">
               <a href="#contact" className="block">
                 {isFa ? (
-                  'کشف نتایج به دست آمده در زمینه پایداری اقتصادی، اجتماعی و زیست‌محیطی.'
+                  'فیدارسازه بندار؛ مهندسی، ساخت و نوسازی برای عملکردی پايدارتر'
                 ) : (
-                  'Discover the results that have been achieved in terms of economic, social and environmental sustainability.'
+                  'Fidar Sazeh Bandar; Engineering, Manufacturing, and Renovation for More Sustainable Performance'
                 )}
               </a>
             </h2>
@@ -75,14 +75,14 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
       {/* Services & Training Programs Section */}
       <div className="mt-16 sm:mt-24 py-16 px-6 sm:px-12 max-w-[1320px] mx-auto text-center space-y-8 border-t border-gray-300">
         <h2 className="text-3xl sm:text-5xl font-light text-primary">
-          {isFa ? 'خدمات اختصاصی و برنامه‌های آموزشی فیدار بندار را کشف کنید!' : 'Discover our tailored services and training programs!'}
+          {isFa ? 'مهندسی دقیق برای تجهیزاتی که قلب عملیات صنعتی و بندری هستند' : 'Discover our tailored services and training programs!'}
         </h2>
 
         <p className="text-slate-700 text-base sm:text-xl font-light max-w-4xl mx-auto leading-relaxed">
           {isFa ? (
-            'آیا می‌خواهید عملکرد خود را بهینه کنید، مهارت‌های تیم خود را توسعه دهید یا طول عمر تجهیزات و کدهای خود را تضمین کنید؟ ما در تمام مراحل با طیف جامعی از خدمات فنی از شما پشتیبانی می‌کنیم: نصب دستگاه‌ها، آموزش‌های اختصاصی، خدمات پشتیبانی دیتابیس و نگهداری منظم.'
+           'فیدارسازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشی ن آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد'
           ) : (
-            'Do you want to optimize your performance, develop your skills, or ensure the longevity of your equipment? We support you every step of the way with a comprehensive range of technical services: machine installation, tailored training, technical assistance, spare parts, and regular maintenance.'
+            'Fidar Sazeh Bandar is a specialized engineering and manufacturing group in the field of material handling equipment, port machinery, and heavy industrial equipment, which—relying on engineering knowledge, executive experience, and manufacturing capability—provides comprehensive solutions from design and production to the renovation and upgrading of equipment.'
           )}
         </p>
 

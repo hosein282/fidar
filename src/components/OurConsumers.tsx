@@ -10,37 +10,38 @@ interface AboutSectionProps {
 
 const industries = [
     {
-        title: 'Furniture',
-        description: 'Technologies for companies and enterprises that make both functional and decorative objects used in living contexts',
+        title: 'تعمیرات تخصصی شناورها و سازههای دريايی',
+        description: 'ارائه خدمات تخصصی تعمیرات، بازسازی و نوسازی کشتی ها و سازههای دریایی',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4jsQEr5ZjvYqYSeDrACtIi/97a4f9cfb47e715b1c9407f190674706/Immagine_Forniture.png',
         alt: 'Furniture',
         width: 378,
         height: 539,
     },
     {
-        title: 'Construction',
-        description: 'Technologies for companies involved in the construction of buildings, infrastructure and industrial plants',
+        title: 'بازسازی و به روزرسانی تجهیزات',
+        description: 'به روزرسانی الکتریکال و مکانیکال انواع تجهیزات بندری',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/6ukbRKHprpHv8Woy4sGulM/ed0cbbe538d1ad7aeb93cca254d1de0d/image_11.png',
         alt: 'Construction',
         width: 378,
         height: 539,
     },
     {
-        title: 'Automotive',
-        description: 'Technologies for companies involved in the design, development, manufacture, repair and modification of motor vehicles',
+        title: 'تجهیزات بندرگاهی',
+        description: 'جرثقیلهای ترانستینر هیبرید',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/239ptN8rRogEflGCu4V30d/dd5ccb394a3c51c61cd7340d5518312f/clayton-cardinalli-hkJNx0EDbjE-unsplash.jpg',
         alt: 'Automotive',
         width: 400,
         height: 600,
-    },
-    {
-        title: 'Aerospace',
-        description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
-        imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/7AtmYfzL77F98TCcLoY29l/9643b18994bbdf30b0f34d9b32552189/luka-slapnicar-yqeXLR81Uj0-unsplash.jpg',
-        alt: 'Aerospace',
-        width: 400,
-        height: 600,
-    },
+    }
+    
+    // {
+    //     title: 'Aerospace',
+    //     description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
+    //     imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/7AtmYfzL77F98TCcLoY29l/9643b18994bbdf30b0f34d9b32552189/luka-slapnicar-yqeXLR81Uj0-unsplash.jpg',
+    //     alt: 'Aerospace',
+    //     width: 400,
+    //     height: 600,
+    // },
 ];
 
 
@@ -122,7 +123,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 {/* Header */}
                 <div className="flex flex-col w-full justify-between items-start md:items-center my-8  gap-6 transition-all md:flex-row">
                     <h2 className="text-4xl 2xl:text-6xl font-medium md:font-bold text-primary">
-                        {isFa ? "همکاران ما" : "Our customers' industries"}
+                        {isFa ? "راهکارهای صنعتی" : "Industrial Solutions"}
                     </h2>
                     <div className="text-lg xl:text-xl 2xl:text-2xl md:hidden text-dark"></div>
                     <div className="hidden md:block"></div>
@@ -152,10 +153,10 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                     <div className="relative px-8 py-10">
                                         <span className="absolute bottom-0 left-0 transition-all group-hover:h-full w-full h-3 -z-10 bg-primary"></span>
                                         <div className="text-white">
-                                            <h3 className="font-medium text-4xl mb-2 z-10">
+                                            <h3 className="font-medium text-3xl mb-2 z-10">
                                                 {industry.title}
                                             </h3>
-                                            <div className="rich-text whitespace-break-spaces font-light text-xl line-clamp-[9]">
+                                            <div className="rich-text whitespace-break-spaces font-light text-lg line-clamp-[9]">
                                                 <p>{industry.description}</p>
                                             </div>
                                         </div>

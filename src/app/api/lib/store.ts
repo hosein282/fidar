@@ -306,5 +306,7 @@ export async function getAllMessages(): Promise<ContactMessage[]> {
 
 export async function deleteMessage(id: string): Promise<ContactMessage[]> {
   await prisma.contactMessage.deleteMany({ where: { id } });
+  revalidateTag('posts');
+
   return getAllMessages();
 }
