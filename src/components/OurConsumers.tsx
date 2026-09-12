@@ -10,7 +10,7 @@ interface AboutSectionProps {
 
 const industries = [
     {
-        title: 'تعمیرات تخصصی شناورها و سازههای دريايی',
+        title: 'تعمیرات تخصصی شناورها و سازه های دريايی',
         description: 'ارائه خدمات تخصصی تعمیرات، بازسازی و نوسازی کشتی ها و سازههای دریایی',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4jsQEr5ZjvYqYSeDrACtIi/97a4f9cfb47e715b1c9407f190674706/Immagine_Forniture.png',
         alt: 'Furniture',
@@ -27,13 +27,13 @@ const industries = [
     },
     {
         title: 'تجهیزات بندرگاهی',
-        description: 'جرثقیلهای ترانستینر هیبرید',
+        description: 'جرثقیل های ترانستینر هیبرید',
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/239ptN8rRogEflGCu4V30d/dd5ccb394a3c51c61cd7340d5518312f/clayton-cardinalli-hkJNx0EDbjE-unsplash.jpg',
         alt: 'Automotive',
         width: 400,
         height: 600,
     }
-    
+
     // {
     //     title: 'Aerospace',
     //     description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
@@ -119,9 +119,9 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
 
     return (
         <div className="w-full relative">
-            <div className="bg-neutral  w-full overflow-hidden flex flex-col items-start justify-center px-8 py-10 lg:px-20 lg:py-10">
+            <div className="bg-neutral  w-screen overflow-hidden flex flex-col items-start justify-center  py-10 lg:px-20 lg:py-10">
                 {/* Header */}
-                <div className="flex flex-col w-full justify-between items-start md:items-center my-8  gap-6 transition-all md:flex-row">
+                <div className="flex flex-col w-full justify-between items-start md:items-center px-4 my-8  gap-6 transition-all md:flex-row">
                     <h2 className="text-4xl 2xl:text-6xl font-medium md:font-bold text-primary">
                         {isFa ? "راهکارهای صنعتی" : "Industrial Solutions"}
                     </h2>
@@ -133,7 +133,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-18 ${isFa ? "" : ""} ${isFa ? "pl-32" : "pr-32"}  overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-screen overflow-visible relative`}>
+                    className={`flex gap-18 ${isFa ? "px-8" : "px-32"}  scroll-px-5   overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-full overflow-visible `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
@@ -182,11 +182,11 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
 
                 </div>
                 {/* Navigation Button */}
-                <div >
+                <div  >
                     <button
                         id="rightIcon"
                         onClick={() => scroll('right')}
-                        className="transition-all  rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 translate-x-[50%] z-30 top-1/2">
+                        className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 translate-x-[50%] z-30 top-1/2 mt-8">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="28" height="28">
                             <path
                                 fill="none"
@@ -197,11 +197,13 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                         </svg>
                     </button>
                 </div>
+
+
                 <div >
                     <button
                         id="leftIcon"
                         onClick={() => scroll('left')}
-                        className="transition-all rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute left-0  translate-x-[50%] z-30 top-1/2">
+                        className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute left-0  translate-x-[50%] z-30 top-1/2 mt-8">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 26 26"
@@ -217,6 +219,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                             ></path>
                         </svg>
                     </button>
+
                 </div>
                 {/* Mobile Pagination Dots */}
                 <div className="md:hidden flex justify-center w-full mt-3"></div>

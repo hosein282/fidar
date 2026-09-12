@@ -22,7 +22,7 @@ const MATERIALS: MaterialData[] = [
   {
     id: 'wood',
     nameEn: 'Engineering Technology',
-    nameFa: 'تکنولوژی مهندسی فیدار سازه بندار',
+    nameFa: 'تکنولوژی مهندسی',
     color: 'var(--color-wood)',
     descEn: "We manufacture machines designed to simplify the production process for our customers who work with wood in the furniture and window and door industry.",
     descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعهمحور است.",
@@ -79,6 +79,7 @@ const MATERIALS: MaterialData[] = [
 export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) => {
   const isFa = lang === 'fa';
   const containerRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Scroll listener to activate tabs based on scroll position in 500vh container
@@ -86,18 +87,20 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
     const handleScroll = () => {
       if (!containerRef.current) return;
 
+      const mobileRect = containerRef.current.getBoundingClientRect();
       const rect = containerRef.current.getBoundingClientRect();
       const totalScrollableHeight = rect.height - window.innerHeight;
-      if (totalScrollableHeight <= 0) {
+      const totalScrollableHeightMob = mobileRect.height - window.innerHeight;
+      if (totalScrollableHeightMob <= 0) {
         const header = document.getElementById('header');
 
-        if ((rect.bottom - window.innerHeight < 0)) {
+        if ((mobileRect.bottom - window.innerHeight < 0)) {
           header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
           header!.style.pointerEvents = 'none';
           return;
 
         }
-        if (rect.bottom < 0) {
+        if (mobileRect.bottom < 0) {
           header!.style.opacity = '1';
           header!.style.transform = 'translateY(0)';
           header!.style.pointerEvents = 'auto';
@@ -150,19 +153,19 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   return (
-    <div ref={containerRef} id="materials">
+    <div  id="materials">
       {/* =========================================================
           MOBILE / TABLET VIEW — full-screen animated panel.
           Same look/animations as the original — but instead of
           scroll-jacking, the tabs switch the material directly.
          ========================================================= */}
-      <div className="lg:hidden relative z-30 h-screen w-full">
+      <div ref={mobileRef} className="lg:hidden  relative z-30 h-screen w-full">
         <div
           className="w-full h-full relative flex flex-col justify-between items-center pt-6 pb-10 px-6 select-none text-slate-900 transition-colors duration-500"
           style={{ backgroundColor: current.color }}
         >
           {/* Top Tabs Row */}
-          <div className="w-full flex justify-between items-center z-10 px-1 gap-1.5 overflow-x-auto pb-4 mt-12 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="w-screen flex flex-wrap justify-between items-center z-10 px-4 gap-1.5 overflow-x-auto pb-4 mt-12 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {MATERIALS.map((mat, idx) => {
               const isActive = activeIndex === idx;
               return (
@@ -223,7 +226,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
       {/* =========================================================
           DESKTOP VIEW — scroll-driven / scroll-jacking (lg+)
          ========================================================= */}
-      <div className="relative z-30 h-[500vh] bg-black hidden lg:block">
+      <div ref={containerRef} className="relative z-30 h-[500vh] bg-black hidden lg:block ">
         {/* Sticky Desktop View Container */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 

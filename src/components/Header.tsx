@@ -206,13 +206,13 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Center Navigation Categories */}
           <nav className="hidden lg:flex items-center gap-8 text-black text-lg xl:text-xl font-bold">
             <a href="#materials" className="hover:text-primary transition hover:underline">
-              {isFa ? 'خطوط تولید' : 'Lines'}
+              {isFa ? 'محصولات' : 'Lines'}
             </a>
             <a href="#services" className="hover:text-primary transition hover:underline">
-              {isFa ? 'دستگاه‌ها' : 'Machines'}
+              {isFa ? 'خدمات' : 'Machines'}
             </a>
             <a href="#portfolio" className="hover:text-primary transition hover:underline">
-              {isFa ? 'کامپوننت‌ها و دیتابیس' : 'Components'}
+              {isFa ? 'مجله و اخبار' : 'Components'}
             </a>
             <Link href={`/${lang}/about`} className="hover:text-primary transition hover:underline">
               {isFa ? 'درباره ما' : 'About us'}

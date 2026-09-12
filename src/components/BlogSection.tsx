@@ -38,11 +38,11 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
   return (
     <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden flex flex-col items-center justify-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         {/* Section Top Header: Title + "See all" Button */}
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white pr-4">
             {isFa ? 'مقالات، رویدادها و اخبار' : 'What\'s Next'}
           </h2>
 
@@ -55,7 +55,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           {/* Scroll Container */}
           <div
             ref={scrollContainerRef}
-            className="flex w-screen  gap-6 sm:gap-8 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8 pt-2 transition-all"
+            className="flex w-screen  gap-6 sm:gap-8 overflow-x-auto  scroll-px-5 scrollbar-none snap-x snap-mandatory pb-8 px-8 pt-2 transition-all"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {safePosts.map((post) => {
