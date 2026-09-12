@@ -92,31 +92,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenExporter,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // const [headerVisible, setHeaderVisible] = useState(true);
-  // const [lastScrollY, setLastScrollY] = useState(0);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const currentScrollY = window.scrollY;
-
-  //     // Always show header at top of page (< 50px)
-  //     if (currentScrollY <= 50) {
-  //       setHeaderVisible(true);
-  //     } else if (currentScrollY > lastScrollY && currentScrollY > 500) {
-  //       // Scrolling DOWN -> hide header
-  //       setHeaderVisible(false);
-  //     } else if (currentScrollY + 60 < lastScrollY) {
-  //       // Scrolling UP -> show header immediately
-  //       setHeaderVisible(true);
-  //     }
-
-  //     setLastScrollY(currentScrollY);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll, { passive: true });
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, [lastScrollY]);
-
+ 
   const isFa = lang === 'fa';
 
   return (
@@ -238,6 +214,9 @@ export const Header: React.FC<HeaderProps> = ({
             <a href="#portfolio" className="hover:text-primary transition hover:underline">
               {isFa ? 'کامپوننت‌ها و دیتابیس' : 'Components'}
             </a>
+            <Link href={`/${lang}/about`} className="hover:text-primary transition hover:underline">
+              {isFa ? 'درباره ما' : 'About us'}
+            </Link>
             <div className="btn--watermark shadow-sm relative group bg-white px-4 py-1.5 rounded-md border border-gray-300">
               <a href="#contact" className="hover:text-primary flex items-center gap-1 text-primary">
                 <span>{isFa ? 'پشتیبانی مشتریان' : 'Customer Care'}</span>
@@ -309,6 +288,9 @@ export const Header: React.FC<HeaderProps> = ({
               <a href="#portfolio" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'کامپوننت‌ها و دیتابیس (Components)' : 'Components'}
               </a>
+              <Link href={`/${lang}/about`} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
+                {isFa ? 'درباره ما (About us)' : 'About us'}
+              </Link>
               <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'پشتیبانی مشتریان (Customer Care)' : 'Customer Care'}
               </a>

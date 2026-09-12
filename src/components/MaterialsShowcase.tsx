@@ -26,11 +26,11 @@ const MATERIALS: MaterialData[] = [
     color: 'var(--color-wood)',
     descEn: "We manufacture machines designed to simplify the production process for our customers who work with wood in the furniture and window and door industry.",
     descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعهمحور است.",
-    btnEn:'Read More',
+    btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/WOOD-singolo-2.png'
   },
- {
+  {
     id: 'glass',
     nameEn: 'Port Material Handling Equipment',
     nameFa: 'تجهیزات انتقال مواد بندرگاهی',
@@ -59,7 +59,7 @@ const MATERIALS: MaterialData[] = [
     color: 'var(--color-materia)',
     descEn: 'Engineered solutions in the field of industrial rotating equipment; including the design and manufacturing of various fans, blowers, and power transmission systems with emphasis on quality, efficiency, and reliability.',
     descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
-    btnEn:'Read More',
+    btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/MATERIA-singolo-2.png'
   }
@@ -94,14 +94,17 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
         if ((rect.bottom - window.innerHeight < 0)) {
           header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
           header!.style.pointerEvents = 'none';
+          return;
+
         }
         if (rect.bottom < 0) {
           header!.style.opacity = '1';
           header!.style.transform = 'translateY(0)';
           header!.style.pointerEvents = 'auto';
+          return;
+
         }
 
-        return;
       }
       const header = document.getElementById('header');
 
@@ -228,7 +231,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             DESKTOP VIEW (lg:flex)
            ========================================================= */}
           <div
-            className={`w-full h-full relative items-center hidden lg:flex transition-colors duration-700 select-none ${isFa ? 'pr-[10vw] pl-6 flex-row-reverse dir-rtl' : 'pl-[10vw] pr-6 flex-row dir-ltr'
+            className={`w-full h-full relative items-center hidden lg:flex  flex-row-reverse transition-colors duration-700 select-none  ${isFa ? 'pr-[10vw] pl-6  ' : 'pl-[10vw] pr-6  '
               }`}
             style={{ backgroundColor: current.color }}
           >
@@ -270,39 +273,6 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                 }}
               /> */}
             </div>
-
-            {/* Middle Text Content & SVG Logo Column */}
-            <div className="flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900">
-              {/* Fidar Bondar Brand SVG Header */}
-              <div className="flex items-end mb-8 w-full relative">
-                <img src={'assets/images/logo_type.png'} alt={isFa ? current.nameFa : current.nameEn}
-                  className='w-40'
-                ></img>
-              </div>
-
-              {/* Description Paragraph with Fade Transition */}
-              <div className="h-full flex w-full flex-col justify-stretch">
-                <div className="max-h-[42vh] w-full overflow-hidden text-xl 2xl:text-2xl leading-relaxed text-slate-900 font-light">
-                  <p className="transition-all duration-500">
-                    {isFa ? current.descFa : current.descEn}
-                  </p>
-                </div>
-
-                {/* Action Button */}
-                <div className="pt-8">
-                  <a href="#contact">
-                    <button
-                      className="rounded-lg transition-all duration-300 whitespace-nowrap bg-black text-white hover:bg-primary-dark px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] shadow-2xl cursor-pointer flex items-center gap-3 active:scale-95"
-                      type="button"
-                    >
-                      <span>{isFa ? current.btnFa : current.btnEn}</span>
-                      <ArrowIcon className="w-5 h-5" />
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-
             {/* Right Image Display Column with Parallax Animated Stack */}
             <div className="h-full w-full overflow-hidden p-0 m-0 flex justify-center items-center relative flex-1">
               {MATERIALS.map((mat, idx) => {
@@ -332,6 +302,47 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                 );
               })}
             </div>
+
+
+            {/* Middle Text Content & SVG Logo Column */}
+            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ?  "mr-14" : "ml-14"}`}>
+              {/* Fidar Bondar Brand SVG Header */}
+              <div className="flex items-end mb-1 w-full relative">
+                <img src={'assets/images/logo_type.png'} alt={isFa ? current.nameFa : current.nameEn}
+                  className='w-40'
+                ></img>
+              </div>
+
+              <div className="max-h-[42vh] w-full mb-8 overflow-hidden text-xl 2xl:text-2xl leading-relaxed text-slate-900 font-bold">
+                <p className="transition-all duration-500">
+                  {isFa ? current.nameFa : current.nameEn}
+                </p>
+              </div>
+
+              {/* Description Paragraph with Fade Transition */}
+              <div className="h-full flex w-full flex-col justify-stretch">
+                <div className="max-h-[42vh] w-full overflow-hidden text-xl 2xl:text-2xl leading-relaxed text-slate-900 font-light">
+                  <p className="transition-all duration-500">
+                    {isFa ? current.descFa : current.descEn}
+                  </p>
+                </div>
+
+                {/* Action Button */}
+                <div className="pt-8">
+                  <a href="#contact">
+                    <button
+                      className="rounded-lg transition-all duration-300 whitespace-nowrap bg-black text-white hover:bg-primary-dark px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] shadow-2xl cursor-pointer flex items-center gap-3 active:scale-95"
+                      type="button"
+                    >
+                      <span>{isFa ? current.btnFa : current.btnEn}</span>
+                      <ArrowIcon className="w-5 h-5" />
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
           </div>
 
         </div>

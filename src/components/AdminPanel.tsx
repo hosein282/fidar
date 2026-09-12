@@ -152,7 +152,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         : 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
       seoTitle: { fa: '', en: '' },
       seoDescription: { fa: '', en: '' },
-      seoKeywords: { fa: ['PHP', 'MySQL', 'سئو'], en: ['PHP', 'MySQL', 'SEO'] },
+      seoKeywords: { fa: ['جرثقیل', 'فیدار سازه بندار', 'سازه بنادر'], en: ['fidar saze bondar', 'material handling systems', ' heavy port machinery','vessel repair and equipment retrofit'] },
       views: 0
     });
     setArticleSuccessMsg('');
