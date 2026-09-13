@@ -82,7 +82,6 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
         {/* Right Side Material Model Image */}
         <div className="relative h-8/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
-
          <div key={active?.title.fa} className={`flex lg:hidden absolute top-8 ${isFa ? "slidex right-8" : "slidex-ltr left-8"}  lg:top-[50%] z-100`}>
             <h1 className="text-2xl font-black sm:text-xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?

@@ -88,9 +88,9 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
 
       if (!containerRef.current) return;
 
-      const mobileRect = mobileRef.current?.getBoundingClientRect();
 
-      if (mobileRect) {
+      if (window.innerWidth <= 768 && mobileRef.current !== null) {
+        const mobileRect = mobileRef.current?.getBoundingClientRect();
         const totalScrollableHeightMob = mobileRect.height - window.innerHeight;
 
         if (totalScrollableHeightMob <= 0) {
@@ -102,9 +102,10 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             header!.style.pointerEvents = 'auto';
             return;
           }
-          if ((mobileRect.bottom - window.innerHeight < 100)) {
+          if ((mobileRect.top < 100)) {
             header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
             header!.style.pointerEvents = 'none';
+            console.log("first")
             return;
           }
         }
@@ -118,6 +119,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
       if (rect.top <= 100) {
         header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
         header!.style.pointerEvents = 'none';
+        console.log("sec")
       } else {
         header!.style.opacity = '1';
         header!.style.transform = 'translateY(0)';
