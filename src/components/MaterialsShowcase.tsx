@@ -105,7 +105,6 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
           if ((mobileRect.top < 100)) {
             header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
             header!.style.pointerEvents = 'none';
-            console.log("first")
             return;
           }
         }
@@ -119,7 +118,6 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
       if (rect.top <= 100) {
         header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
         header!.style.pointerEvents = 'none';
-        console.log("sec")
       } else {
         header!.style.opacity = '1';
         header!.style.transform = 'translateY(0)';
