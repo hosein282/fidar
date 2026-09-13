@@ -85,30 +85,34 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
   // Scroll listener to activate tabs based on scroll position in 500vh container
   useEffect(() => {
     const handleScroll = () => {
+
       if (!containerRef.current) return;
 
-      const mobileRect = containerRef.current.getBoundingClientRect();
-      const rect = containerRef.current.getBoundingClientRect();
-      const totalScrollableHeight = rect.height - window.innerHeight;
-      const totalScrollableHeightMob = mobileRect.height - window.innerHeight;
-      if (totalScrollableHeightMob <= 0) {
-        const header = document.getElementById('header');
+      const mobileRect = mobileRef.current?.getBoundingClientRect();
 
-        if ((mobileRect.bottom - window.innerHeight < 0)) {
-          header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
-          header!.style.pointerEvents = 'none';
-          return;
+      if (mobileRect) {
+        const totalScrollableHeightMob = mobileRect.height - window.innerHeight;
 
+        if (totalScrollableHeightMob <= 0) {
+          const header = document.getElementById('header');
+
+          if (mobileRect.bottom < 0) {
+            header!.style.opacity = '1';
+            header!.style.transform = 'translateY(0)';
+            header!.style.pointerEvents = 'auto';
+            return;
+          }
+          if ((mobileRect.bottom - window.innerHeight < 100)) {
+            header!.style.transform = 'translateY(-100%)'; // حرکت به بالا برای افکت بهتر
+            header!.style.pointerEvents = 'none';
+            return;
+          }
         }
-        if (mobileRect.bottom < 0) {
-          header!.style.opacity = '1';
-          header!.style.transform = 'translateY(0)';
-          header!.style.pointerEvents = 'auto';
-          return;
-
-        }
-
       }
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const totalScrollableHeight = rect.height - window.innerHeight;
+
       const header = document.getElementById('header');
 
       if (rect.top <= 100) {
@@ -153,7 +157,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
   return (
-    <div  id="materials">
+    <div id="materials">
       {/* =========================================================
           MOBILE / TABLET VIEW — full-screen animated panel.
           Same look/animations as the original — but instead of
@@ -161,11 +165,11 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
          ========================================================= */}
       <div ref={mobileRef} className="lg:hidden  relative z-30 h-screen w-full">
         <div
-          className="w-full h-full relative flex flex-col justify-between items-center pt-6 pb-10 px-6 select-none text-slate-900 transition-colors duration-500"
+          className="w-full h-full relative flex flex-col justify-between items-center pt-1 pb-2 px-6 select-none text-slate-900 transition-colors duration-500"
           style={{ backgroundColor: current.color }}
         >
           {/* Top Tabs Row */}
-          <div className="w-screen flex flex-wrap justify-between items-center z-10 px-4 gap-1.5 overflow-x-auto pb-4 mt-12 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="w-screen flex flex-wrap justify-between items-center z-10 px-4 gap-1.5 overflow-x-auto pb-4 mt-2 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {MATERIALS.map((mat, idx) => {
               const isActive = activeIndex === idx;
               return (
@@ -308,7 +312,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
 
 
             {/* Middle Text Content & SVG Logo Column */}
-            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ?  "mr-14" : "ml-14"}`}>
+            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "mr-14" : "ml-14"}`}>
               {/* Fidar Bondar Brand SVG Header */}
               <div className="flex items-end mb-1 w-full relative">
                 <img src={'assets/images/logo_type.png'} alt={isFa ? current.nameFa : current.nameEn}

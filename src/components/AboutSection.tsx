@@ -78,7 +78,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                   ?
                   "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم"
                   
-                  : 'We simplify production processes to enhance the potential of each material'}
+                  : 'We optimize port terminal operations using advanced technology and next-generation design of port material handling equipment.'}
               </h3>
             </div>
           </div>
@@ -126,21 +126,21 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                   {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Bondar'}
                 </h3>
 
-                <div className="mt-4 xl:mt-8  text-lg sm:text-sm lg:text-xl  font-light text-slate-800 leading-relaxed  ">
+                <div className="mt-4 xl:mt-8  text-base sm:text-sm lg:text-xl  font-light text-slate-800 leading-relaxed  ">
                   {isFa
                     ? 
                     'فیدارسازه بندار یک مجموعه دانش بنیان مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد و ماشین آلات سنگین بندرگاهی است که با تکیه بر دانش مهندسی، تجربه اجرایی و رویکردی مبتنی بر دقت، کیفیت و نوآوری فعالیت میکند.'
                     
-                    : 'We are an international company, manufacturing lines, machines and components for transforming materials into products'}
+                    : 'Fidar Sazeh Bandar is a knowledge-based engineering and manufacturing group specializing in material handling equipment and heavy port machinery, operating with a foundation of engineering expertise, executive experience, and an approach centered on precision, quality, and innovation.'}
                 </div>
 
                 <div className="shrink-0 mt-8 xl:mt-12">
-                  <a href="#contact">
+                  <a href={`/${lang}/about`}>
                     <button
                       className="inline-flex items-center gap-3 rounded-lg transition-all whitespace-nowrap bg-primary-dark text-white hover:bg-black px-8 py-3.5 sm:px-10 sm:h-14 sm:text-lg font-medium hover:rounded-[30px] shadow-lg cursor-pointer"
                       type="button"
                     >
-                      <span>{isFa ? 'کشف فیدار سازه بندار' : 'Discover Fidar Bondar'}</span>
+                      <span>{isFa ? 'درباره فیدار سازه بندار' : 'Discover Fidar Bondar'}</span>
                       <ArrowIcon className="w-5 h-5" />
                     </button>
                   </a>

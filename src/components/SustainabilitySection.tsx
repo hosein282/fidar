@@ -12,7 +12,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
   return (
     <section id="sustainability" className="relative w-full bg-surface text-slate-900  lg:py-12 lg:px-8">
-      
+
       {/* SVG ClipPath Definition for Biesse Signature Card Geometry */}
       <svg className="hidden lg:block absolute w-0 h-0 pointer-events-none " aria-hidden="true">
         <defs>
@@ -24,14 +24,14 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
       {/* Main Sustainability Hero Card Container */}
       <div className="max-w-[1320px] mx-auto">
-        <div 
+        <div
           className="relative w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[640px] flex flex-col items-center justify-center text-center p-8 sm:p-16 lg:p-24 transition-transform duration-500 hover:scale-[1.005]"
           style={{
             clipPath: 'url(#biesse-brand-card-clip)'
           }}
         >
           {/* Background Image */}
-          <div 
+          <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
             style={{
               backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/7z1ounD96FpGSL6bNv3MLD/6c60ee36a4a5d60088884b6f06346c90/AdobeStock_675117344_Preview-transformed_out.jpeg?w=2000&h=1336&q=50&fm=jpg")'
@@ -52,17 +52,21 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.2] sm:leading-[1.15] tracking-tight text-white drop-shadow-md hover:text-teal-200 transition-colors cursor-pointer">
               <a href="#contact" className="block">
                 {isFa ? (
-                  'فیدارسازه بندار؛ مهندسی، ساخت و نوسازی برای عملکردی پايدارتر'
+                  <>
+                    <p>فیدارسازه بندار</p>
+                    <br/>
+                    <p>مهندسی، ساخت و نوسازی برای عملکردی پايدارتر</p>
+                  </>
                 ) : (
-                  'Fidar Sazeh Bandar; Engineering, Manufacturing, and Renovation for More Sustainable Performance'
+                  'Fidar Sazeh Bandar\n Engineering, Manufacturing, and Renovation for More Sustainable Performance'
                 )}
               </a>
             </h2>
 
             {/* Bottom Arrow Indicator */}
             <div className="pt-4 flex justify-center">
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 className="p-3 sm:p-4 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all duration-300 border border-white/20 hover:scale-110 group"
               >
                 <ArrowIcon className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-1 transition-transform" />
@@ -80,7 +84,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
         <p className="text-slate-700 text-base sm:text-xl font-light max-w-4xl mx-auto leading-relaxed">
           {isFa ? (
-           'فیدارسازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشی ن آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد'
+            'فیدارسازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشی ن آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد'
           ) : (
             'Fidar Sazeh Bandar is a specialized engineering and manufacturing group in the field of material handling equipment, port machinery, and heavy industrial equipment, which—relying on engineering knowledge, executive experience, and manufacturing capability—provides comprehensive solutions from design and production to the renovation and upgrading of equipment.'
           )}

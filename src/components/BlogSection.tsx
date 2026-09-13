@@ -42,7 +42,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
         {/* Section Top Header: Title + "See all" Button */}
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white pr-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white px-4">
             {isFa ? 'مقالات، رویدادها و اخبار' : 'What\'s Next'}
           </h2>
 

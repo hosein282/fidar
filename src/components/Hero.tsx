@@ -84,14 +84,14 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         <div className="relative h-8/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
 
          <div key={active?.title.fa} className={`flex lg:hidden absolute top-8 ${isFa ? "slidex right-8" : "slidex-ltr left-8"}  lg:top-[50%] z-100`}>
-            <h1 className="text-xl font-black sm:text-xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
+            <h1 className="text-2xl font-black sm:text-xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
                 active?.title.fa
                 :
                 active?.title.en
               }
             </h1>
-            <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
+            <div className={`z-10 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={28} /> : <MoveRight size={28} />}</div>
           </div>
 
           <div className="relative  inset-0 bg-gradient-to-b  from-black/60 via-transparent to-black/80 z-10">

@@ -92,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenExporter,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
- 
+
   const isFa = lang === 'fa';
 
   return (
@@ -145,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header id="header" className={`sticky top-0 z-[100] w-full bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
+      <header id="header" className={`sticky top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
         <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">
@@ -208,10 +208,10 @@ export const Header: React.FC<HeaderProps> = ({
             <a href="#materials" className="hover:text-primary transition hover:underline">
               {isFa ? 'محصولات' : 'Lines'}
             </a>
-            <a href="#services" className="hover:text-primary transition hover:underline">
+            <a href="#cunsumers" className="hover:text-primary transition hover:underline">
               {isFa ? 'خدمات' : 'Machines'}
             </a>
-            <a href="#portfolio" className="hover:text-primary transition hover:underline">
+            <a href="#blog" className="hover:text-primary transition hover:underline">
               {isFa ? 'مجله و اخبار' : 'Components'}
             </a>
             <Link href={`/${lang}/about`} className="hover:text-primary transition hover:underline">
@@ -275,43 +275,40 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-200 px-6 py-6 space-y-4 shadow-xl">
+          <div className="lg:hidden bg-white  px-6 py-6 space-y-4 shadow-xl rounded-b-4xl ">
 
             <nav className="flex flex-col space-y-3 text-slate-900 font-bold text-base">
 
               <a href="#materials" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'خطوط تولید (Lines)' : 'Lines'}
+                {isFa ? 'محصولات' : 'Products'}
               </a>
               <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'دستگاه‌ها  (Machines)' : 'Machines'}
+                {isFa ? 'خدمات' : 'Services'}
               </a>
-              <a href="#portfolio" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'کامپوننت‌ها و دیتابیس (Components)' : 'Components'}
+    
+
+              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
+                {isFa ? 'پشتیبانی مشتریان (Customer Care)' : 'Customer Care'}
               </a>
               <Link href={`/${lang}/about`} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'درباره ما (About us)' : 'About us'}
               </Link>
-              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'پشتیبانی مشتریان (Customer Care)' : 'Customer Care'}
-              </a>
-              <a href="#blog" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'اخبار و مقالات دیتابیس (News)' : 'News & Articles'}
-              </a>
+
 
 
 
             </nav>
 
 
-            <div className="pt-4 border-t border-gray-200 flex flex-col gap-2">
-
+            {/* <div className="pt-4 border-t border-gray-200 flex flex-col gap-2"> */}
+{/* 
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenExporter(); }}
-                className="w-full py-2.5 rounded-lg text-xs font-bold bg-slate-100 text-primary border border-gray-300 flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-lg text-xs font-bold  text-primary border border-gray-300 flex items-center justify-center gap-2"
               >
                 <Code2 className="w-4 h-4" />
                 <span>{isFa ? 'دانلود سورس کد PHP و MySQL' : 'Export PHP & MySQL'}</span>
-              </button>
+              </button> */}
 
               {/* <button
                 onClick={() => { setMobileMenuOpen(false); onOpenAdmin(); }}
@@ -321,7 +318,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{isFa ? 'ورود به پنل مدیریت محتوای دیتابیس' : 'CMS Database Admin'}</span>
               </button> */}
 
-            </div>
+            {/* </div> */}
 
           </div>
         )}

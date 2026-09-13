@@ -10,31 +10,48 @@ interface AboutSectionProps {
 
 const industries = [
     {
-        title: 'تعمیرات تخصصی شناورها و سازه های دريايی',
-        description: 'ارائه خدمات تخصصی تعمیرات، بازسازی و نوسازی کشتی ها و سازههای دریایی',
+        title: {
+            fa: 'تعمیرات تخصصی شناورها و سازه‌های دریایی',
+            en: 'Specialized Repair of Vessels and Marine Structures',
+        },
+        description: {
+            fa: 'ارائه خدمات تخصصی تعمیرات، بازسازی و نوسازی کشتی‌ها و سازه‌های دریایی',
+            en: 'Providing specialized repair, refurbishment, and renovation services for ships and marine structures',
+        },
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4jsQEr5ZjvYqYSeDrACtIi/97a4f9cfb47e715b1c9407f190674706/Immagine_Forniture.png',
         alt: 'Furniture',
         width: 378,
         height: 539,
     },
     {
-        title: 'بازسازی و به روزرسانی تجهیزات',
-        description: 'به روزرسانی الکتریکال و مکانیکال انواع تجهیزات بندری',
+        title: {
+            fa: 'بازسازی و به‌روزرسانی تجهیزات',
+            en: 'Equipment Overhaul and Upgrading',
+        },
+        description: {
+            fa: 'به‌روزرسانی الکتریکال و مکانیکال انواع تجهیزات بندری',
+            en: 'Electrical and mechanical upgrading of all types of port equipment',
+        },
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/6ukbRKHprpHv8Woy4sGulM/ed0cbbe538d1ad7aeb93cca254d1de0d/image_11.png',
         alt: 'Construction',
         width: 378,
         height: 539,
     },
     {
-        title: 'تجهیزات بندرگاهی',
-        description: 'جرثقیل های ترانستینر هیبرید',
+        title: {
+            fa: 'تجهیزات بندرگاهی',
+            en: 'Port Equipment',
+        },
+        description: {
+            fa: 'جرثقیل‌های ترانستینر هیبرید',
+            en: 'Hybrid Transtainer Cranes',
+        },
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/239ptN8rRogEflGCu4V30d/dd5ccb394a3c51c61cd7340d5518312f/clayton-cardinalli-hkJNx0EDbjE-unsplash.jpg',
         alt: 'Automotive',
         width: 400,
         height: 600,
-    }
-
-    // {
+    },
+     // {
     //     title: 'Aerospace',
     //     description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
     //     imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/7AtmYfzL77F98TCcLoY29l/9643b18994bbdf30b0f34d9b32552189/luka-slapnicar-yqeXLR81Uj0-unsplash.jpg',
@@ -43,6 +60,7 @@ const industries = [
     //     height: 600,
     // },
 ];
+
 
 
 
@@ -118,7 +136,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
     };
 
     return (
-        <div className="w-full relative">
+        <div id="cunsumers" className="w-full relative">
             <div className="bg-neutral  w-screen overflow-hidden flex flex-col items-start justify-center  py-10 lg:px-20 lg:py-10">
                 {/* Header */}
                 <div className="flex flex-col w-full justify-between items-start md:items-center px-4 my-8  gap-6 transition-all md:flex-row">
@@ -133,7 +151,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-18 ${isFa ? "px-8" : "px-32"}  scroll-px-5   overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-full overflow-visible `}>
+                    className={`flex gap-18 ${isFa ? "px-8" : "px-8"}   scroll-px-5 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-full overflow-visible `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
@@ -154,10 +172,10 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                         <span className="absolute bottom-0 left-0 transition-all group-hover:h-full w-full h-3 -z-10 bg-primary"></span>
                                         <div className="text-white">
                                             <h3 className="font-medium text-3xl mb-2 z-10">
-                                                {industry.title}
+                                                {isFa ? industry.title.fa : industry.title.en}
                                             </h3>
                                             <div className="rich-text whitespace-break-spaces font-light text-lg line-clamp-[9]">
-                                                <p>{industry.description}</p>
+                                                <p>{isFa ? industry.description.fa : industry.description.en}</p>
                                             </div>
                                         </div>
                                     </div>
