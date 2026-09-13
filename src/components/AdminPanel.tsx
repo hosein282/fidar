@@ -138,8 +138,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       excerpt: { fa: '', en: '' },
       content: { fa: '', en: '' },
       author: {
-        fa: type === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
-        en: type === 'news' ? 'Fidar Bondar Press Team' : 'Biesss Engineering'
+        fa: type === 'news' ? 'روابط عمومی فیدار سازه بندار' : 'تیم فنی فیدار سازه بندار',
+        en: type === 'news' ? 'Fidar Saze Bondar Press Team' : 'Fidar Saze Bondar Engineering'
       },
       date: new Date().toISOString().split('T')[0],
       readTime: type === 'news' ? '3 min' : '5 min',

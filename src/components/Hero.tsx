@@ -122,10 +122,10 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
         {/* Overlapping Typography */}
         <div className="space-y-6 max-w-3xl">
-          <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/80 border border-teal-300/30 text-white text-xs font-mono">
+          {/* <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/80 border border-teal-300/30 text-white text-xs font-mono">
             <Sparkles className="w-3.5 h-3.5 text-teal-300" />
             <span>{isFa ? 'صنعت دیجیتال و توسعه وب‌سایت دوزبانه' : 'Industrial Digital Solutions & Dual Web Systems'}</span>
-          </div>
+          </div> */}
 
           <h1 className="hidden lg:block text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-white drop-shadow-md">
             {isFa ? (
@@ -136,7 +136,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
               </>
             ) : (
               <>
-                Advanced Technology, Engineering Precision,<span className="underline decoration-primary font-bold">Future-Oriented Design</span>
+                Advanced Technology, Engineering Precision<br/><span className="decoration-primary font-bold">Future-Oriented Design</span>
 
 
               </>
