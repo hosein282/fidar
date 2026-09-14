@@ -3,15 +3,15 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Language, BlogPost, SEOMetaConfig } from '../types';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import { sanitizeBlogPost } from '../utils/sanitize';
+import { Language, BlogPost, SEOMetaConfig } from '../../types';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
+import { sanitizeBlogPost } from '../../utils/sanitize';
 import { format as fr } from 'date-fns';
 
 // Lazy-load heavy admin/exporter components — they only load when the modal opens
-const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
-const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
+const AdminPanel = lazy(() => import('../AdminPanel').then(m => ({ default: m.AdminPanel })));
+const PhpExporter = lazy(() => import('../PhpExporter').then(m => ({ default: m.PhpExporter })));
 
 import {
   Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight,

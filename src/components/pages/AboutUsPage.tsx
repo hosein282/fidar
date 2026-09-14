@@ -4,10 +4,10 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Language, SEOMetaConfig } from '../types';
-import { Header } from '../components/Header';
-import { ContactSection } from '../components/ContactSection';
-import { Footer } from '../components/Footer';
+import { Language, SEOMetaConfig } from '../../types';
+import { Header } from '../Header';
+import { ContactSection } from '../ContactSection';
+import { Footer } from '../Footer';
 import {
   Ship, Anchor, Wind, Fan, Wrench, RefreshCw, Languages, SearchCheck,
   ChevronDown, MapPin, Compass, CalendarDays, Phone,

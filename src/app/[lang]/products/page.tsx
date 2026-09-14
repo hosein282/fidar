@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { ProductsPage } from '@/src/pages/ProductsPage';
+import { ProductsPage } from '@/src/components/pages/ProductsPage';
 import { INITIAL_SEO_META } from '@/src/data/mockData';
 import { Language } from '@/src/types';
 import { buildCanonicalMetadata } from '@/src/lib/seo';

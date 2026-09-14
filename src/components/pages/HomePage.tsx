@@ -2,21 +2,21 @@
 
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../types';
-import { Header } from '../components/Header';
-import { Hero } from '../components/Hero';
-import { AboutSection } from '../components/AboutSection';
-import { MaterialsShowcase } from '../components/MaterialsShowcase';
-import { BlogSection } from '../components/BlogSection';
-import { LocationsSection } from '../components/LocationsSection';
-import { SustainabilitySection } from '../components/SustainabilitySection';
-import { ContactSection } from '../components/ContactSection';
-import { Footer } from '../components/Footer';
-import OurConsumers from '../components/OurConsumers';
+import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../../types';
+import { Header } from '../Header';
+import { Hero } from '../Hero';
+import { AboutSection } from '../AboutSection';
+import { MaterialsShowcase } from '../MaterialsShowcase';
+import { BlogSection } from '../BlogSection';
+import { LocationsSection } from '../LocationsSection';
+import { SustainabilitySection } from '../SustainabilitySection';
+import { ContactSection } from '../ContactSection';
+import { Footer } from '../Footer';
+import OurConsumers from '../OurConsumers';
 
 // Lazy-load heavy admin/exporter components — they only load when the modal opens
-const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
-const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
+const AdminPanel = lazy(() => import('../AdminPanel').then(m => ({ default: m.AdminPanel })));
+const PhpExporter = lazy(() => import('../PhpExporter').then(m => ({ default: m.PhpExporter })));
 
 interface HomePageProps {
   services: ServiceItem[];

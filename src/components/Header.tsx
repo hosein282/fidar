@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Language, SEOMetaConfig } from '../types';
-import { Globe, Search, User, MapPin, Wrench, MessageSquare, Share2, Menu, X, Code2, LayoutDashboard, ChevronDown, Edit3 } from 'lucide-react';
+import { Language, SEOMetaConfig, MaterialData } from '../types';
+import { MATERIALS } from '../data/mockData';
+import { Globe, Search, User, MapPin, Wrench, MessageSquare, Share2, Menu, X, Code2, LayoutDashboard, ChevronDown, Edit3, Layers } from 'lucide-react';
 
 interface HeaderProps {
   lang: Language;
@@ -92,8 +93,26 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenExporter,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const productsRef = useRef<HTMLDivElement>(null);
 
   const isFa = lang === 'fa';
+
+  // Close the desktop products dropdown when clicking outside of it.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (productsRef.current && !productsRef.current.contains(e.target as Node)) {
+        setProductsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, []);
+
+  const productHref = (item: MaterialData) =>
+    `/${lang}/products/${isFa ? item.slugFa : item.slugEn}`;
+  const productLabel = (item: MaterialData) => (isFa ? item.nameFa : item.nameEn);
 
   return (
     <>
@@ -145,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header id="header" className={`fixed top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
+      <header id="header" className={`sticky top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
         {/* <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">
@@ -183,7 +202,7 @@ export const Header: React.FC<HeaderProps> = ({
         */}
 
         {/* Main Logo & Navigation Bar */}
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-10 py-2 flex items-center justify-between gap-6">
+        <div className="max-w-[1440px]  mx-auto px-4 sm:px-10 py-2 flex items-center justify-between gap-6">
 
           {/* Fidar Bondar Brand SVG Logo */}
           <Link href={`/${lang}`} className="flex items-center gap-3 shrink-0">
@@ -202,9 +221,49 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Center Navigation Categories */}
           <nav className="hidden lg:flex items-center gap-8 text-black text-lg xl:text-xl font-bold">
-            <a href="#materials" className="hover:text-primary transition hover:underline">
-              {isFa ? 'محصولات' : 'Lines'}
-            </a>
+            <div ref={productsRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setProductsOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={productsOpen}
+                className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
+              >
+                <span>{isFa ? 'محصولات' : 'Lines'}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {productsOpen && (
+                <div
+                  role="menu"
+                  className="absolute start-0 top-full mt-2 w-72 max-h-[70vh] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl z-[130]"
+                >
+                  <Link
+                    href={`/${lang}/products`}
+                    onClick={() => setProductsOpen(false)}
+                    role="menuitem"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-primary hover:bg-primary/10 transition"
+                  >
+                    <Layers className="w-4 h-4 shrink-0" />
+                    <span>{isFa ? 'همهٔ محصولات' : 'All Products'}</span>
+                  </Link>
+
+                  <div className="my-1.5 border-t border-gray-100" />
+
+                  {MATERIALS.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={productHref(item)}
+                      onClick={() => setProductsOpen(false)}
+                      role="menuitem"
+                      className="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-primary/10 hover:text-primary transition"
+                    >
+                      {productLabel(item)}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <a href="#cunsumers" className="hover:text-primary transition hover:underline">
               {isFa ? 'خدمات' : 'Machines'}
             </a>
@@ -276,13 +335,43 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white  px-6 py-6 space-y-4 shadow-xl rounded-b-4xl ">
+          <div className="lg:hidden bg-white   px-6 py-6 space-y-4 shadow-xl rounded-b-4xl ">
 
             <nav className="flex flex-col space-y-3 text-slate-900 font-bold text-base">
 
-              <a href="#materials" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'محصولات' : 'Products'}
-              </a>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileProductsOpen((o) => !o)}
+                  aria-expanded={mobileProductsOpen}
+                  className="flex w-full items-center justify-between hover:text-primary cursor-pointer"
+                >
+                  <span>{isFa ? 'محصولات' : 'Products'}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {mobileProductsOpen && (
+                  <div className="mt-2 flex flex-col space-y-1 border-s-2 border-primary/30 ps-3">
+                    <Link
+                      href={`/${lang}/products`}
+                      onClick={() => { setMobileMenuOpen(false); setMobileProductsOpen(false); }}
+                      className="py-1.5 text-sm text-primary hover:text-primary"
+                    >
+                      {isFa ? 'همهٔ محصولات' : 'All Products'}
+                    </Link>
+                    {MATERIALS.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={productHref(item)}
+                        onClick={() => { setMobileMenuOpen(false); setMobileProductsOpen(false); }}
+                        className="py-1.5 text-sm text-slate-900 hover:text-primary"
+                      >
+                        {productLabel(item)}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
               <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'خدمات' : 'Services'}
               </a>
