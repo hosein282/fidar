@@ -145,19 +145,17 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header id="header" className={`sticky top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
+      <header id="header" className={`fixed top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
-        <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">
+        {/* <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">
           <div className="max-w-[1440px] mx-auto flex justify-between items-center text-xs font-medium text-slate-800">
 
-            {/* Left Tagline */}
             <div className="flex items-center gap-2 text-slate-500">
               <span className="w-2 h-2 rounded-full bg-primary" />
               <span>{isFa ? 'سامانه بین‌المللی تولید دستگاه‌ها و کدهای وب فیدار بندار' : 'Fidar Bondar Group • Industrial Processing & Digital Architecture'}</span>
             </div>
 
-            {/* Right Top Links */}
             <div className="flex items-center gap-5">
               <a href="#about" className="hover:underline hover:text-primary flex items-center gap-1">
                 <span>{isFa ? 'درباره شرکت' : 'Company'}</span>
@@ -178,12 +176,11 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{isFa ? 'تماس با ما' : 'Contact us'}</span>
               </a>
 
-              {/* Language Selector Dropdown — minimal FA/EN */}
-              <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
             </div>
 
           </div>
         </div>
+        */}
 
         {/* Main Logo & Navigation Bar */}
         <div className="max-w-[1440px] mx-auto px-4 sm:px-10 py-2 flex items-center justify-between gap-6">
@@ -223,8 +220,12 @@ export const Header: React.FC<HeaderProps> = ({
                 <ChevronDown className="w-4 h-4" />
               </a>
             </div>
+
+
           </nav>
 
+          {/* Language Selector Dropdown — minimal FA/EN */}
+          <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
           {/* Right Action Icons (Store Locator, Search, User/Admin Login) */}
           <div className="flex items-center gap-3">
 
@@ -285,7 +286,7 @@ export const Header: React.FC<HeaderProps> = ({
               <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'خدمات' : 'Services'}
               </a>
-    
+
 
               <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'پشتیبانی مشتریان (Customer Care)' : 'Customer Care'}
@@ -301,7 +302,7 @@ export const Header: React.FC<HeaderProps> = ({
 
 
             {/* <div className="pt-4 border-t border-gray-200 flex flex-col gap-2"> */}
-{/* 
+            {/* 
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenExporter(); }}
                 className="w-full py-2.5 rounded-lg text-xs font-bold  text-primary border border-gray-300 flex items-center justify-center gap-2"
@@ -310,7 +311,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{isFa ? 'دانلود سورس کد PHP و MySQL' : 'Export PHP & MySQL'}</span>
               </button> */}
 
-              {/* <button
+            {/* <button
                 onClick={() => { setMobileMenuOpen(false); onOpenAdmin(); }}
                 className="w-full py-2.5 rounded-lg text-xs font-bold bg-primary text-white flex items-center justify-center gap-2"
               >

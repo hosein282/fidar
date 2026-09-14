@@ -95,3 +95,18 @@ export interface GeneratedPHPFile {
   code: string;
   description: BilingualText;
 }
+
+
+ export interface MaterialData {
+    id: number;
+    slugEn: string;
+    slugFa : string;
+    nameEn: string;
+    nameFa: string;
+    color: string;
+    descEn: string;
+    descFa: string;
+    btnEn: string;
+    btnFa: string;
+    imgUrl: string;
+}

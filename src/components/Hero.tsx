@@ -47,7 +47,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
         {/* Left Side Video / Hero Visual */}
         <div className="relative  h-full lg:h-full w-full lg:w-[60%] overflow-hidden bg-black ">
-            <div key={active?.title.fa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
+          <div key={active?.title.fa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
             <h1 className=" text-4xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
                 active?.title.fa
@@ -61,11 +61,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <h1 className={`lg:hidden absolute  bottom-8 ${isFa ? "right-8" : "left-8"} text-3xl sm:text-4xl lg:text-4xl font-medium z-10 tracking-tight leading-tight text-white drop-shadow-2xl`}>
             {isFa ? (
               <>
-              تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
+                تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
               </>
             ) : (
               <>
-                Advanced Technology, Engineering Precision <br/><span className="">Future-Oriented Design</span>
+                Advanced Technology, Engineering Precision <br /><span className="">Future-Oriented Design</span>
               </>
             )}
           </h1>
@@ -82,7 +82,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
         {/* Right Side Material Model Image */}
         <div className="relative h-8/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
-         <div key={active?.title.fa} className={`flex lg:hidden absolute top-8 ${isFa ? "slidex right-8" : "slidex-ltr left-8"}  lg:top-[50%] z-100`}>
+          <div key={active?.title.fa} className={`flex lg:hidden absolute top-8 ${isFa ? "slidex right-8" : "slidex-ltr left-8"}  lg:top-[50%] z-100`}>
             <h1 className="text-2xl font-black sm:text-xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
                 active?.title.fa
@@ -130,13 +130,13 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           <h1 className="hidden lg:block text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-white drop-shadow-md">
             {isFa ? (
               <>
-                            تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
+                تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
 
                 {/* خطوط تولید و دستگاه‌ها برای پردازش <span className="underline decoration-primary font-bold">صنعتی و دیجیتال</span> */}
               </>
             ) : (
               <>
-                Advanced Technology, Engineering Precision<br/><span className="decoration-primary font-bold">Future-Oriented Design</span>
+                Advanced Technology, Engineering Precision<br /><span className="decoration-primary font-bold">Future-Oriented Design</span>
 
 
               </>

@@ -3,7 +3,7 @@ import { url } from 'node:inspector';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  typedRoutes: true,
+  typedRoutes: false,
   images: {
     remotePatterns: [{ protocol: "https", hostname: "images.ctfassets.net", }, {
       protocol: "https", hostname: 'images.unsplash.com'

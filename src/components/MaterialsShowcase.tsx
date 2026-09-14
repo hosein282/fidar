@@ -63,17 +63,7 @@ const MATERIALS: MaterialData[] = [
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/MATERIA-singolo-2.png'
   }
-  // {
-  //   id: 'metal',
-  //   nameEn: 'Metal',
-  //   nameFa: 'فلز',
-  //   color: 'var(--color-metal)',
-  //   descEn: 'Advanced metalworking systems engineered for heavy-duty industrial manufacturing and ultimate precision.',
-  //   descFa: 'سیستم‌های پیشرفته متال‌ورکینگ صنعتی، طراحی‌شده برای برش و تراش سنگین فلزات با دقت میکرونی.',
-  //   btnEn: 'Discover Fidar Bondar Metal',
-  //   btnFa: 'کشف ماشین‌آلات فلز فیدار بندار',
-  //   imgUrl: '/assets/images/icona_metal.png'
-  // }
+
 ];
 
 export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) => {

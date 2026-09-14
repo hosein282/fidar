@@ -1,4 +1,4 @@
-import { ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig, EstimatorFeature } from '../types';
+import { ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig, EstimatorFeature , MaterialData } from '../types';
 
 export const INITIAL_SERVICES: ServiceItem[] = [
   {
@@ -532,4 +532,59 @@ export const ESTIMATOR_FEATURES: EstimatorFeature[] = [
     category: 'security',
     recommended: true
   }
+];
+
+export const MATERIALS: MaterialData[] = [
+  {
+    id: 0,
+    slugEn: 'engineering-technology',
+    slugFa: 'تکنولوژی-مهندسی',
+    nameEn: 'Engineering Technology',
+    nameFa: 'تکنولوژی مهندسی فیدار سازه بندار',
+    color: 'var(--color-wood)',
+    descEn: "We manufacture machines designed to simplify the production process for our customers who work with wood in the furniture and window and door industry.",
+    descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه‌محور است.",
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/WOOD-singolo-2.png',
+  },
+  {
+    id: 1,
+    slugEn: 'port-material-handling-equipment',
+    slugFa: 'تجهیزات-انتقال-مواد-بندرگاهی',
+    nameEn: 'Port Material Handling Equipment',
+    nameFa: 'تجهیزات انتقال مواد بندرگاهی',
+    color: 'var(--color-glass)',
+    descEn: 'Design and manufacturing of various port material handling equipment with a focus on reliability, operational precision, safety, and efficiency; from conventional solutions to modern and energy-efficient technologies.',
+    descFa: 'طراحی و ساخت انواع تجهیزات انتقال مواد بندرگاهی با تمرکز بر قابلیت اطمینان، دقت عملکرد، ایمنی و بهره وری؛ از راهکارهای متعارف تا فناوری های نوین و کم مصرف.',
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+  },
+  {
+    id: 2,
+    slugEn: 'industrial-cranes',
+    slugFa: 'جرثقیل-های-صنعتی',
+    nameEn: 'Industrial Cranes',
+    nameFa: 'جرثقیل های صنعتی',
+    color: 'var(--color-stone)',
+    descEn: 'Design and manufacturing of various gantry and overhead industrial cranes with an engineering approach, manufacturing precision, and a focus on safety and stable performance. Fidar Sazeh Bandar offers specialized material handling solutions tailored to the needs of various industries.',
+    descFa: 'طراحی و ساخت انواع جرثقیل‌های صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.',
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/STONE_singolo-2.png',
+  },
+  {
+    id: 3,
+    slugEn: 'process-equipment-power-transmission',
+    slugFa: 'تجهیزات-فرایندی-انتقال-توان',
+    nameEn: 'Process Equipment and Power Transmission',
+    nameFa: 'تجهیزات فرایندی و انتقال توان',
+    color: 'var(--color-materia)',
+    descEn: 'Engineered solutions in the field of industrial rotating equipment; including the design and manufacturing of various fans, blowers, and power transmission systems with emphasis on quality, efficiency, and reliability.',
+    descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/MATERIA-singolo-2.png',
+  },
 ];
