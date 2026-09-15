@@ -67,7 +67,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
       setActiveIndex(index);
       const scroller = document.getElementById('scrollContainer');
       scroller?.scrollTo({
-        left: index * -200
+        left: index * -240
       });
     };
 
@@ -194,7 +194,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             {/* Vertical Sidebar Tabs (10vw) */}
             <div id='scrollContainer'
               className={`
-                relative lg:absolute w-screen h-20 lg:h-full  overflow-x-scroll  lg:w-[12vw] top-0 flex flex-row lg:flex-col  justify-between z-20 select-none lg:py-28  ${isFa ? 'right-4' : 'left-0'}
+                relative lg:absolute w-screen h-20 lg:h-full  overflow-x-scroll  snap-start snap-mandatory lg:w-[12vw] top-0 flex flex-row lg:flex-col  justify-between z-20 select-none lg:py-28   ${isFa ? 'right-4 pl-20' : 'left-0 pr-20'}
                  z-10 px-4 lg:px-0  overflow-x-scroll pb-4 mt-2 no-scrollbar  [&::-webkit-scrollbar]:hidden
                 `}
             >
