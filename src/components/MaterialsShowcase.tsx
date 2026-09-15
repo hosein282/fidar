@@ -85,10 +85,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
     window.scrollTo({ top: targetScroll, behavior: 'smooth' });
   };
 
-  const router = useRouter();
-  const handleMoreClick = (id: string) => {
-    router.push((`/${lang}/products/${id}`));
-  }
+
 
   const current = MATERIALS[activeIndex];
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
@@ -150,9 +147,8 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             </p>
 
             <div className="pt-2">
-              <a href="#contact">
+                  <a href={`${(`/${lang}/products/${isFa ? current.slugFa : current.slugEn}`)}`}>
                 <button
-                  onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
 
                   className="rounded-xl transition-all duration-300 w-full bg-slate-900 text-white py-3.5 px-6 font-bold mb-2 text-sm shadow-xl active:scale-95 flex items-center justify-center gap-2"
                   type="button"
@@ -275,9 +271,9 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
 
                 {/* Action Button */}
                 <div className="pt-8">
-                  <a href="#contact">
+                  <a href={`${(`/${lang}/products/${isFa ? current.slugFa : current.slugEn}`)}`}>
                     <button
-                      onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
+                      // onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
                       className="rounded-lg transition-all duration-300 whitespace-nowrap bg-black text-white hover:bg-primary-dark px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] shadow-2xl cursor-pointer flex items-center gap-3 active:scale-95"
                       type="button"
                     >

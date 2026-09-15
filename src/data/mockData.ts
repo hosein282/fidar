@@ -432,34 +432,66 @@ export const INITIAL_BLOG_POSTS: BlogPost[] = [
 
 export const INITIAL_SEO_META: SEOMetaConfig = {
   siteTitle: {
-    fa: 'گروه دیجیتالفیدار بندار| طراحی سایت PHP دوزبانه و سئوی تخصصی (مشابه Biesss.com)',
-    en: 'Biesss Digital | Custom Bilingual PHP & MySQL Web Engineering & SEO'
+    fa: 'فیدار سازه بندار',
+    en: 'Fidar Saze Bondar'
   },
   metaDescription: {
-    fa: 'توسعه سیستم‌های وب اختصاصی با PHP 8 و MySQL، معماری دوزبانه (فارسی/انگلیسی)، سئوی پیشرفته، سرعت فوق‌العاده و پنل مدیریت کامل.',
-    en: 'Enterprise bilingual PHP 8 & MySQL web development studio with organic search SEO optimization, dark tech styling & exportable code.'
+    fa: "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم",
+    en: 'We optimize port terminal operations using advanced technology and next-generation design of port material handling equipment.'
   },
   keywords: {
-    fa: ['طراحی سایت biesss', 'سایت PHP و MySQL', 'طراحی سایت دوزبانه', 'سئوی تخصصی گوگل', 'کد PHP آماده سایت شرکتی'],
-    en: ['biesss style website', 'PHP MySQL web dev', 'Bilingual website development', 'Enterprise SEO agency', 'PHP source code generator']
+    fa: [
+      'فیدار سازه بندار',
+      'تجهیزات انتقال مواد بندرگاهی',
+      'طراحی و ساخت جرثقیل بندری',
+      'جرثقیل کانتینربر',
+      'جرثقیل RTG',
+      'جرثقیل RMG',
+      'جرثقیل ساحلی STS',
+      'تجهیزات تخلیه و بارگیری مواد فله',
+      'تجهیزات جابه‌جایی کانتینر',
+      'مهندسی تجهیزات بندری',
+      'بهینه‌سازی عملیات ترمینال بندری',
+      'ساخت تجهیزات بندرگاهی ایران',
+      'اتوماسیون ترمینال کانتینری',
+      'بالابر و مکانیزم انتقال مواد فله',
+      'طراحی نسل جدید تجهیزات بندری'
+    ],
+    en: [
+      'Fidar Saze Bondar',
+      'port material handling equipment',
+      'port crane design and manufacturing',
+      'container handling crane',
+      'RTG crane',
+      'RMG crane',
+      'STS shore crane',
+      'bulk material loading and unloading equipment',
+      'container handling systems',
+      'port equipment engineering',
+      'port terminal operation optimization',
+      'port equipment manufacturer Iran',
+      'container terminal automation',
+      'bulk material transfer system',
+      'next-generation port equipment design'
+    ]
   },
 
   ogImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-  canonicalUrl: 'https://biesss.example.com',
-  twitterHandle: '@BiesssDigital',
+  canonicalUrl: 'https://fidarbondar.com',
+  twitterHandle: '@fidarbondar',
   indexingEnabled: true,
   structuredDataSchema: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     'name': 'Biesss Digital Studio',
-    'url': 'https://biesss.example.com',
-    'logo': 'https://biesss.example.com/logo.png',
+    'url': 'https://fidarbondar.com',
+    'logo': 'https://fidarbondar.com/logo.png',
     'sameAs': [
-      'https://linkedin.com/company/biesss',
-      'https://twitter.com/BiesssDigital'
+      'https://linkedin.com/company/fidarbondar',
+      'https://twitter.com/fidarbondar'
     ],
     'knowsLanguage': ['fa', 'en'],
-    'description': 'High-performance bilingual web engineering with PHP 8 & MySQL.'
+    'description': 'We optimize port terminal operations using advanced technology and next-generation design of port material handling equipment.'
   }
 };
 
@@ -695,7 +727,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     descEn:
       'Fidar Sazeh Bandar offers engineering solutions and specialized equipment for unloading, transferring, and loading bulk materials in ports and industrial terminals; from mechanized handling and loading equipment to transfer and unloading systems suited to the type and characteristics of various grains, minerals, and petrochemical bulk materials. The engineering of this equipment requires a precise understanding of material behavior, capacity and flow rate, loading and environmental conditions. Structural and mechanism design, static and dynamic calculations, selection of transfer systems, sealing and dust control, material flow management, and design of transfer points are all a set of technical considerations that directly affect system capacity, durability, and efficiency. This equipment is designed based on the type and granulometry of the material, density and flow behavior, operational capacity, dock conditions, and operation pattern, and is developed in the form of an integrated engineering and manufacturing solution with an approach of compliance with valid and up-to-date international standards as well as relevant safety and operational requirements.',
     descFa:
-      'فیدار سازه بندار راهکارهای مهندسی و تجهیزات تخصصی برای تخلیه، انتقال و بارگیری مواد فله در بنادر و پایانه‌های صنعتی ارائه می‌دهد؛ از تجهیزات جابه‌جایی و بارگیری مکانیزه تا سامانه‌های انتقال و تخلیه‌ای متناسب با نوع و ویژگی‌های انواع غلات، مواد معدنی و پتروشیمی فله. مهندسی این تجهیزات نیازمند درک دقیق رفتار مواد، ظرفیت و نرخ جریان، شرایط بارگذاری و محیطی است. طراحی سازه و مکانیزم‌ها، محاسبات استاتیکی و دینامیکی، انتخاب سیستم‌های انتقال، آب‌بندی و کنترل گردوغبار، مدیریت جریان مواد و طراحی نقاط انتقال، همگی مجموعه‌ای از ملاحظات فنی هستند که مستقیماً بر ظرفیت، دوام و راندمان سیستم می‌گذارند. این تجهیزات بر اساس نوع و دانه‌بندی ماده، چگالی و رفتار جریان، ظرفیت عملیاتی، شرایط اسکله و الگوی بهره‌برداری طراحی می‌شوند و با رویکرد انطباق با استانداردهای معتبر و به‌روز بین‌المللی و همچنین الزامات ایمنی و عملیاتی مرتبط، در قالب یک راهکار یکپارچه مهندسی و ساخت توسعه می‌یابند.',
+      'فیدار سازه بندار راهکارهای مهندسی و تجهیزات تخصصی برای تخلیه، انتقال و بارگیری مواد فله در بنادر و پایانه‌های صنعتی ارائه می‌دهد؛ از تجهیزات جابه‌جایی و بارگیری مکانیزه تا سامانه‌های انتقال و تخلیه‌ای متناسب با نوع و ویژگی‌های انواع غلات، مواد معدنی و پتروشیمی فله.\n مهندسی این تجهیزات نیازمند درک دقیق رفتار مواد، ظرفیت و نرخ جریان، شرایط بارگذاری و محیطی است.\n طراحی سازه و مکانیزم‌ها، محاسبات استاتیکی و دینامیکی، انتخاب سیستم‌های انتقال، آب‌بندی و کنترل گردوغبار، مدیریت جریان مواد و طراحی نقاط انتقال، همگی مجموعه‌ای از ملاحظات فنی هستند که مستقیماً بر ظرفیت، دوام و راندمان سیستم می‌گذارند. این تجهیزات بر اساس نوع و دانه‌بندی ماده، چگالی و رفتار جریان، ظرفیت عملیاتی، شرایط اسکله و الگوی بهره‌برداری طراحی می‌شوند و با رویکرد انطباق با استانداردهای معتبر و به‌روز بین‌المللی و همچنین الزامات ایمنی و عملیاتی مرتبط، در قالب یک راهکار یکپارچه مهندسی و ساخت توسعه می‌یابند.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',

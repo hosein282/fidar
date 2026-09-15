@@ -79,7 +79,8 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
             <Header
                 lang={currentLang}
                 onLanguageChange={handleLanguageSwitch}
-                seoConfig={seoConfig} onOpenAdmin={function (): void {
+                seoConfig={seoConfig} 
+                onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
                 }} onOpenExporter={function (): void {
                     throw new Error('Function not implemented.');
