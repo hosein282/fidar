@@ -283,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           </nav>
 
-  
+
           {/* Right Action Icons (Store Locator, Search, User/Admin Login) */}
           <div className="flex items-center gap-3">
 
@@ -374,6 +374,10 @@ export const Header: React.FC<HeaderProps> = ({
               <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'خدمات' : 'Services'}
               </a>
+
+              <Link href={`/${lang}/blog`} className="hover:text-primary transition hover:underline">
+                {isFa ? 'اخبار و مقالات' : 'News & Blogs'}
+              </Link>
 
 
               <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">

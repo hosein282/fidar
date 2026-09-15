@@ -79,7 +79,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
             <Header
                 lang={currentLang}
                 onLanguageChange={handleLanguageSwitch}
-                seoConfig={seoConfig} 
+                seoConfig={seoConfig}
                 onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
                 }} onOpenExporter={function (): void {
@@ -260,8 +260,13 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
                     {/* ─── MOBILE SWIPER ─── */}
                     <div className='lg:hidden w-full relative'>
                         <div className=" flex flex-col items-center  mt-14 ">
-                            <ChevronRight className=' absolute -right-px top-[50%] ' color='grey' />
-                            <ChevronLeft className=' absolute -left-px top-[50%] ' color='grey' />
+                            {item.slides.length > 0 &&
+                                <div>
+                                    <ChevronRight className=' absolute -right-px top-[50%] ' color='grey' />
+                                    <ChevronLeft className=' absolute -left-px top-[50%] ' color='grey' />
+                                </div>
+                            }
+
                             {/* ── Scroll Container ── */}
                             <div className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex">
 

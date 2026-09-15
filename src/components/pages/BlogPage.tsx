@@ -306,7 +306,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
 
                   <p className="text-teal-100/90 text-sm sm:text-lg max-w-3xl font-light leading-relaxed">
                     {isFa ? (
-                      'آخرین رویدادهای صنعتی، داستان موفقیت مشتریان، تکنولوژی‌های پیشرفته ماشین‌آلات و راهنماهای جامع سئو و برنامه‌نویسی.'
+                      'آخرین رویدادهای شرکت، اخبار و مقالات فیدار سازه بندار .'
                     ) : (
                       'Explore the latest industrial events, customer success stories, advanced machinery tech, and technical engineering guides.'
                     )}
