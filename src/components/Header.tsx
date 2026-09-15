@@ -283,8 +283,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           </nav>
 
-          {/* Language Selector Dropdown — minimal FA/EN */}
-          <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
+  
           {/* Right Action Icons (Store Locator, Search, User/Admin Login) */}
           <div className="flex items-center gap-3">
 
@@ -317,7 +316,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <User className="w-4 h-4" />
             </button> */}
-            <div className="flex justify-start lg:hidden">
+            <div className="flex justify-start ">
               <LangSwitcher lang={lang} onLanguageChange={onLanguageChange} />
             </div>
             {/* Mobile Menu Trigger */}

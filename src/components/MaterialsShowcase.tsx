@@ -1,70 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Language } from '../types';
+import { Language, MaterialData } from '../types';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { MATERIALS } from '../data/mockData';
+import { useRouter } from 'next/navigation';
 
 interface MaterialsShowcaseProps {
   lang: Language;
 }
-
-interface MaterialData {
-  id: 'wood' | 'glass' | 'stone' | 'materia' | 'metal';
-  nameEn: string;
-  nameFa: string;
-  color: string;
-  descEn: string;
-  descFa: string;
-  btnEn: string;
-  btnFa: string;
-  imgUrl: string;
-}
-
-const MATERIALS: MaterialData[] = [
-  {
-    id: 'wood',
-    nameEn: 'Engineering Technology',
-    nameFa: 'تکنولوژی مهندسی',
-    color: 'var(--color-wood)',
-    descEn: "We manufacture machines designed to simplify the production process for our customers who work with wood in the furniture and window and door industry.",
-    descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعهمحور است.",
-    btnEn: 'Read More',
-    btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/WOOD-singolo-2.png'
-  },
-  {
-    id: 'glass',
-    nameEn: 'Port Material Handling Equipment',
-    nameFa: 'تجهیزات انتقال مواد بندرگاهی',
-    color: 'var(--color-glass)',
-    descEn: 'Design and manufacturing of various port material handling equipment with a focus on reliability, operational precision, safety, and efficiency; from conventional solutions to modern and energy-efficient technologies.',
-    descFa: 'طراحی و ساخت انواع تجهیزات انتقال مواد بندرگاهی با تمرکز بر قابلیت اطمینان، دقت عملکرد، ایمنی و بهره وری؛ از راهکارهای متعارف تا فناوری های نوین و کم مصرف.',
-    btnEn: 'Read More',
-    btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/test-GLASS-icon-2.png'
-  },
-  {
-    id: 'stone',
-    nameEn: 'Industrial Cranes',
-    nameFa: 'جرثقیل های صنعتی',
-    color: 'var(--color-stone)',
-    descEn: 'Design and manufacturing of various gantry and overhead industrial cranes with an engineering approach, manufacturing precision, and a focus on safety and stable performance. Fidar Sazeh Bandar offers specialized material handling solutions tailored to the needs of various industries.',
-    descFa: 'طراحی و ساخت انواع جرثقیلهای صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.',
-    btnEn: 'Read More',
-    btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/STONE_singolo-2.png'
-  },
-  {
-    id: 'materia',
-    nameEn: 'Process Equipment and Power Transmission',
-    nameFa: 'تجهیزات فرایندی و انتقال توان',
-    color: 'var(--color-materia)',
-    descEn: 'Engineered solutions in the field of industrial rotating equipment; including the design and manufacturing of various fans, blowers, and power transmission systems with emphasis on quality, efficiency, and reliability.',
-    descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
-    btnEn: 'Read More',
-    btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/MATERIA-singolo-2.png'
-  }
-
-];
 
 export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) => {
   const isFa = lang === 'fa';
@@ -143,6 +85,11 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
     window.scrollTo({ top: targetScroll, behavior: 'smooth' });
   };
 
+  const router = useRouter();
+  const handleMoreClick = (id: string) => {
+    router.push((`/${lang}/products/${id}`));
+  }
+
   const current = MATERIALS[activeIndex];
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
@@ -205,6 +152,8 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             <div className="pt-2">
               <a href="#contact">
                 <button
+                  onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
+
                   className="rounded-xl transition-all duration-300 w-full bg-slate-900 text-white py-3.5 px-6 font-bold mb-2 text-sm shadow-xl active:scale-95 flex items-center justify-center gap-2"
                   type="button"
                 >
@@ -328,6 +277,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                 <div className="pt-8">
                   <a href="#contact">
                     <button
+                      onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
                       className="rounded-lg transition-all duration-300 whitespace-nowrap bg-black text-white hover:bg-primary-dark px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] shadow-2xl cursor-pointer flex items-center gap-3 active:scale-95"
                       type="button"
                     >

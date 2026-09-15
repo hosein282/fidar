@@ -8,7 +8,7 @@ import { Language, SEOMetaConfig } from '../../types';
 import { Header } from '../Header';
 import { ContactSection } from '../ContactSection';
 import { Footer } from '../Footer';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { MATERIALS } from '../../data/mockData.ts'
 
 import {
@@ -65,11 +65,24 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
 
     useEffect(() => {
-        const mq = window.matchMedia("(min-width: 1280px)");
-        const handle = () => setIsDesktop(mq.matches);
-        handle();
-        mq.addEventListener("change", handle);
-        return () => mq.removeEventListener("change", handle);
+        // Tailwind `lg` breakpoint — the desktop carousel becomes visible at 1024px.
+        const BREAKPOINT_LG = 1024;
+        const update = () => setIsDesktop(window.innerWidth >= BREAKPOINT_LG);
+
+        update();
+
+        // `window.matchMedia` is only available on some browsers — fall back to a
+        // plain resize listener everywhere else.
+        if (typeof window.matchMedia === 'function') {
+            const mq = window.matchMedia(`(min-width: ${BREAKPOINT_LG}px)`);
+            const handle = () => setIsDesktop(mq.matches);
+            handle();
+            mq.addEventListener("change", handle);
+            return () => mq.removeEventListener("change", handle);
+        }
+
+        window.addEventListener('resize', update);
+        return () => window.removeEventListener('resize', update);
     }, []);
 
     const goNext = () => {
@@ -77,7 +90,8 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
     };
 
     const goPrev = () => {
-        setActiveIndex((i) => (i - 1) % MATERIALS.length);
+        // (i - 1) alone produces -1 when i === 0 — wrap around properly instead.
+        setActiveIndex((i) => (i - 1 + MATERIALS.length) % MATERIALS.length);
     };
 
     const handleClick = (id: string) => {
@@ -117,7 +131,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                     throw new Error('Function not implemented.');
                 }} />
 
-            <main className='scroll-smooth '>
+            <main className='scroll-smooth overflow-x-clip'>
                 {/* 1. Page Hero — full-screen banner + breadcrumb */}
                 <section className="w-full flex justify-center relative top-0 left-0 z-40">
                     <div className="bg-primary relative flex flex-col w-full h-screen md:h-[50vh]  px-5 pb-8 pt-14 lg:p-14">
@@ -135,6 +149,8 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                     playsInline
                                     preload="auto"
                                     controlsList="nofullscreen"
+
+                                    poster='/assets/images/video_placeholder.png'
                                 />
                             </div>
 
@@ -187,32 +203,29 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
                     </h2>
 
-                    <p className="text-lg leading-snug font-light px-8 lg:px-20 max-w-4xl text-center text-light">
-
+                    <p className="text-lg  font-light px-8 lg:px-20 max-w-4xl text-center text-light">
                         {isFa ?
-                            'در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعهمحور است' :
-
+                            'در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصولات ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه محور است' :
                             "Seamless integration of material handling, storage, and distribution is key to ensuring continuous production, minimizing wait times, and optimizing every process step. Biesse Technic solutions dynamically and intelligently manage materials, delivering coordinated, high-performance workflows."
-
                         }
 
                     </p>
 
                     {/* ─── DESKTOP CAROUSEL ─── */}
                     <div className="w-full flex-col items-center gap-10 relative mt-14 hidden lg:flex" >
-                        <div className="relative w-full overflow-x-hidden ">
+                        <div className="relative w-full overflow-hidden">
                             <div
-                                className={`px-0 w-full flex  ${isFa ? "flex-row-reverse" : "flex-row"} items-end h-full transition-transform duration-500 delay-50 ease-out`}
+                                className={`px-0 w-full flex ${isFa ? "flex-row-reverse" : "flex-row"}  items-end h-full transition-transform duration-500 delay-50 ease-out `}
                                 style={{ transform: `translateX(${getTranslateX()})` }}
                             >
                                 {MATERIALS.map((item, index) => (
 
                                     <div
                                         key={item.nameEn}
-                                        className="flex-[0_0_60%] lg:w-[60%] px-4 mx-5 cursor-pointer"
+                                        className="flex-[0_0_60%] lg:w-[60%] px-4  cursor-pointer"
                                         onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
                                     >
-                                        <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end xl:h-[60vh]">
+                                        <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end lg:h-[60vh]">
                                             <div className={` ${index === activeIndex ? " h-full" : "h-1/2"} flex flex-col lg:flex-row items-start  transition-all duration-500 ease-out rounded-3xl min-h-80 overflow-hidden bg-neutral w-full   bg-surface`}>
                                                 {/* Image */}
                                                 <div className="relative w-full lg:self-stretch overflow-hidden lg:w-1/2 h-64 lg:h-auto">
@@ -220,7 +233,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                                         src={item.imgUrl}
                                                         alt={isFa ? item.nameFa : item.nameEn}
                                                         fill
-                                                        sizes="(max-width: 1024px) 100vw, 50vw"
+                                                        sizes="(max-width: 1280px) 100vw, 50vw"
                                                         className="object-cover"
                                                     />
                                                 </div>
@@ -246,23 +259,23 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                             </div>
 
                             {/* Next Button */}
-                            <button
+                            {(activeIndex +1 ) < (MATERIALS.length) && <button
                                 type="button"
                                 onClick={goNext}
                                 aria-label="Next slide"
                                 className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 bottom-60"
                             >
                                 <ArrowRight />
-                            </button>
+                            </button>}
 
-                            <button
+                            {activeIndex > 0 && <button
                                 type="button"
                                 onClick={goPrev}
                                 aria-label="Prev slide"
                                 className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute left-8 bottom-60"
                             >
                                 <ArrowLeft />
-                            </button>
+                            </button>}
                         </div>
 
                         {/* Dots */}
@@ -286,47 +299,60 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                     </div>
 
                     {/* ─── MOBILE SWIPER ─── */}
-                    <div className="w-full flex flex-col items-center relative mt-14 lg:hidden">
-                        {/* ── Scroll Container ── */}
-                        <div className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex">
-                            {MATERIALS.map((item) => (
-                                <div
-                                    key={item.nameEn}
-                                    className="flex-[0_0_100%] min-w-0 snap-center snap-always shrink-0"
-                                >
-                                    <div className="pb-4 px-4 w-full flex items-end">
-                                        <div className="flex flex-col h-[70vh] items-center justify-between rounded-3xl min-h-80 overflow-hidden bg-surface w-full">
+                    <div className='lg:hidden w-full relative'>
+                        <div className=" flex flex-col items-center  mt-14 ">
+                            <ChevronRight className=' absolute -right-1 top-[50%] ' color='white' />
+                            <ChevronLeft className=' absolute -left-1 top-[50%] ' color='white' />
+                            {/* ── Scroll Container ── */}
+                            <div className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex">
 
-                                            {/* Image */}
-                                            <div className="relative w-full flex-1 overflow-hidden">
-                                                <Image
-                                                    src={item.imgUrl}
-                                                    alt={isFa ? item.nameFa : item.nameEn}
-                                                    fill
-                                                    className="object-contain object-center"
-                                                />
-                                            </div>
+                                {MATERIALS.map((item) => (
+                                    <div
+                                        key={item.nameEn}
+                                        onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
 
-                                            {/* Text */}
-                                            <div className="w-full flex flex-col items-start gap-4 pt-4 pb-10 px-7">
-                                                <h3 className="leading-none break-normal text-2xl lg:text-4xl text-primary font-normal">
-                                                    {isFa ? item.nameFa : item.nameEn}
-                                                </h3>
+                                        className="flex-[0_0_100%] min-w-0 snap-center snap-always shrink-0"
+                                    >
+                                        <div className="pb-4 px-4 w-full flex items-end">
+                                            <div className="flex flex-col h-[70vh] items-center justify-between rounded-3xl min-h-80 overflow-hidden bg-surface w-full">
 
-                                                {(isFa ? item.descFa : item.descEn) && (
-                                                    <div className="flex flex-col items-start gap-4 lg:gap-5 w-full overflow-hidden">
-                                                        <p className="text-base lg:text-lg leading-snug font-light line-clamp-[8] break-normal text-dark">
-                                                            {isFa ? item.descFa : item.descEn}
-                                                        </p>
-                                                    </div>
-                                                )}
+                                                {/* Image */}
+                                                <div className="relative w-full flex-1 overflow-hidden">
+                                                    <Image
+                                                        src={item.imgUrl}
+                                                        alt={isFa ? item.nameFa : item.nameEn}
+                                                        fill
+                                                        className="object-contain object-center"
+                                                    />
+                                                </div>
+
+                                                {/* Text */}
+                                                <div className="w-full flex flex-col items-start gap-4 pt-4 pb-10 px-7">
+                                                    <h3 className="leading-none break-normal text-2xl lg:text-4xl text-primary font-normal">
+                                                        {isFa ? item.nameFa : item.nameEn}
+                                                    </h3>
+
+                                                    {(isFa ? item.descFa : item.descEn) && (
+                                                        <div className="flex flex-col items-start gap-4 lg:gap-5 w-full overflow-hidden">
+                                                            <p className="text-base lg:text-lg leading-snug font-light line-clamp-[8] break-normal text-dark">
+                                                                {isFa ? item.descFa : item.descEn}
+                                                            </p>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+
+                            </div>
+
+
                         </div>
+
                     </div>
+
+
 
                 </section>
 

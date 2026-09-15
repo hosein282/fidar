@@ -95,18 +95,26 @@ export interface GeneratedPHPFile {
   code: string;
   description: BilingualText;
 }
+export interface slide {
+  nameEn: string,
+  nameFa: string,
+  descEn: string,
+  descFa: string,
+  imgUrl: string,
+}
 
-
- export interface MaterialData {
-    id: number;
-    slugEn: string;
-    slugFa : string;
-    nameEn: string;
-    nameFa: string;
-    color: string;
-    descEn: string;
-    descFa: string;
-    btnEn: string;
-    btnFa: string;
-    imgUrl: string;
+export interface MaterialData {
+  id: number;
+  slugEn: string;
+  slugFa: string;
+  slides: slide[];
+  nameEn: string;
+  nameFa: string;
+  color: string;
+  descEn: string;
+  descFa: string;
+  btnEn: string;
+  btnFa: string;
+  imgUrl: string;
+  videoUrl: string;
 }

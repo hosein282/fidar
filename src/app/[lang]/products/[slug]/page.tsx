@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductPage } from '@/src/components/pages/ProductPage';
-import { INITIAL_SEO_META, MATERIALS } from '@/src/data/mockData';
+import { INITIAL_SEO_META, MATERIALS_DETAILS } from '@/src/data/mockData';
 import { Language } from '@/src/types';
 import { buildCanonicalMetadata } from '@/src/lib/seo';
 
@@ -21,7 +21,7 @@ export function generateStaticParams() {
   const langs = ['fa', 'en'] as const;
 
   return langs.flatMap((lang) =>
-    MATERIALS.map((item) => ({
+    MATERIALS_DETAILS.map((item) => ({
       lang,
       slug: lang === 'fa' ? item.slugFa : item.slugEn,
     }))
@@ -39,7 +39,7 @@ function decodeSlug(slug: string): string {
 }
 
 function findProduct(lang: string, slug: string) {
-  return MATERIALS.find((e) =>
+  return MATERIALS_DETAILS.find((e) =>
     lang === 'fa' ? e.slugFa === decodeSlug(slug) : e.slugEn === decodeSlug(slug)
   );
 }

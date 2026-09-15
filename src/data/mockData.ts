@@ -1,4 +1,4 @@
-import { ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig, EstimatorFeature , MaterialData } from '../types';
+import { ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig, EstimatorFeature, MaterialData } from '../types';
 
 export const INITIAL_SERVICES: ServiceItem[] = [
   {
@@ -443,7 +443,7 @@ export const INITIAL_SEO_META: SEOMetaConfig = {
     fa: ['طراحی سایت biesss', 'سایت PHP و MySQL', 'طراحی سایت دوزبانه', 'سئوی تخصصی گوگل', 'کد PHP آماده سایت شرکتی'],
     en: ['biesss style website', 'PHP MySQL web dev', 'Bilingual website development', 'Enterprise SEO agency', 'PHP source code generator']
   },
-  
+
   ogImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
   canonicalUrl: 'https://biesss.example.com',
   twitterHandle: '@BiesssDigital',
@@ -537,36 +537,45 @@ export const ESTIMATOR_FEATURES: EstimatorFeature[] = [
 export const MATERIALS: MaterialData[] = [
   {
     id: 0,
-    slugEn: 'engineering-technology',
-    slugFa: 'تکنولوژی-مهندسی',
+    slugEn: 'fidar-sazeh-bandar-engineering-technology',
+    slugFa: 'تکنولوژی-مهندسی-فیدار-سازه-بندار',
     nameEn: 'Engineering Technology',
     nameFa: 'تکنولوژی مهندسی فیدار سازه بندار',
+    slides: [],
     color: 'var(--color-wood)',
     descEn: "We manufacture machines designed to simplify the production process for our customers who work with wood in the furniture and window and door industry.",
     descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه‌محور است.",
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/WOOD-singolo-2.png',
+    videoUrl: ",",
+
   },
   {
     id: 1,
-    slugEn: 'port-material-handling-equipment',
-    slugFa: 'تجهیزات-انتقال-مواد-بندرگاهی',
+    slugEn: 'container-loading-and-unloading-cranes',
+    slugFa: 'جرثقیل‌های-تخلیه-و-بارگیری-کانتینر',
     nameEn: 'Port Material Handling Equipment',
     nameFa: 'تجهیزات انتقال مواد بندرگاهی',
+    slides: [],
+    videoUrl: ",",
     color: 'var(--color-glass)',
     descEn: 'Design and manufacturing of various port material handling equipment with a focus on reliability, operational precision, safety, and efficiency; from conventional solutions to modern and energy-efficient technologies.',
     descFa: 'طراحی و ساخت انواع تجهیزات انتقال مواد بندرگاهی با تمرکز بر قابلیت اطمینان، دقت عملکرد، ایمنی و بهره وری؛ از راهکارهای متعارف تا فناوری های نوین و کم مصرف.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
+
   },
   {
     id: 2,
-    slugEn: 'industrial-cranes',
-    slugFa: 'جرثقیل-های-صنعتی',
+    slugEn: 'mobile-and-shore-rail-cranes',
+    slugFa: 'جرثقیل‌های-موبایل-و-ریلی-ساحلی',
     nameEn: 'Industrial Cranes',
     nameFa: 'جرثقیل های صنعتی',
+    slides: [],
+    videoUrl: ",",
+
     color: 'var(--color-stone)',
     descEn: 'Design and manufacturing of various gantry and overhead industrial cranes with an engineering approach, manufacturing precision, and a focus on safety and stable performance. Fidar Sazeh Bandar offers specialized material handling solutions tailored to the needs of various industries.',
     descFa: 'طراحی و ساخت انواع جرثقیل‌های صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.',
@@ -576,15 +585,120 @@ export const MATERIALS: MaterialData[] = [
   },
   {
     id: 3,
-    slugEn: 'process-equipment-power-transmission',
-    slugFa: 'تجهیزات-فرایندی-انتقال-توان',
+    slugEn: 'bulk-material-loading-and-unloading-equipment',
+    slugFa: 'تجهیزات-تخلیه-و-بارگیری-مواد-فله',
     nameEn: 'Process Equipment and Power Transmission',
     nameFa: 'تجهیزات فرایندی و انتقال توان',
+    slides: [],
+    videoUrl: ",",
+
     color: 'var(--color-materia)',
     descEn: 'Engineered solutions in the field of industrial rotating equipment; including the design and manufacturing of various fans, blowers, and power transmission systems with emphasis on quality, efficiency, and reliability.',
     descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/MATERIA-singolo-2.png',
+  },
+];
+
+export const MATERIALS_DETAILS: MaterialData[] = [
+
+  {
+    id: 0,
+    slugEn: 'fidar-sazeh-bandar-engineering-technology',
+    slugFa: 'تکنولوژی-مهندسی-فیدار-سازه-بندار',
+    nameEn: 'Fidar Sazeh Bandar Engineering Technology',
+    nameFa: 'تکنولوژی مهندسی فیدار سازه بندار',
+    color: 'var(--color-wood)',
+    descEn:
+      'Fidar Sazeh Bandar, specializing in the design and construction of port material handling equipment, offers engineered solutions for safe, precise, and efficient cargo movement in harsh operational environments. Our products include a variety of port cranes, container handling equipment, and systems related to loading and unloading operations, developed for stable and long-term performance through engineering knowledge, precise design, and controlled manufacturing processes. Our focus is on providing equipment that, in addition to meeting today’s operational needs, offers upgradeability, energy consumption optimization, and adaptability to modern port technologies. Precise engineering for reliable handling; from design to operation.',
+    descFa:
+      'فیدار سازه بندار با تخصص در طراحی و ساخت تجهیزات انتقال مواد بندرگاهی، راهکارهای مهندسی‌شده‌ای برای جابه‌جایی ایمن، دقیق و بهره‌ور بار در محیط‌های عملیاتی سخت ارائه می‌دهد.\n محصولات ما شامل انواع جرثقیل‌های بندرگاهی، تجهیزات جابه‌جایی کانتینر و سیستم‌های مرتبط با عملیات تخلیه و بارگیری است که با بهره‌گیری از دانش مهندسی، طراحی دقیق و فرآیند ساخت کنترل‌شده، برای عملکرد پایدار و طولانی‌مدت توسعه می‌یابند.\n تمرکز ما بر ارائه تجهیزاتی است که علاوه بر پاسخگویی به نیازهای عملیاتی امروز، قابلیت ارتقا، بهینه‌سازی مصرف انرژی و انطباق با فناوری‌های نوین بندری را داشته باشند.\n مهندسی دقیق برای جابه‌جایی مطمئن. از طراحی تا بهره‌ برداری.',
+    slides: [
+      {
+        nameEn: 'Container Cranes (RTG, RMG)',
+        nameFa: 'جرثقیل‌های کانتینربر (RTG، RMG)',
+        descEn:
+          'Where speed, precision, and operational space must be managed simultaneously. Fidar Sazeh Bandar RTG cranes, with an engineered design for the new generation of container terminals, offer a combination of productivity, flexibility, and precise load control.',
+        descFa:
+          'جایی که سرعت، دقت و فضای عملیاتی باید همزمان مدیریت شوند. جرثقیل‌های RTG فیدار سازه بندار با طراحی مهندسی‌شده برای نسل جدید پایانه‌های کانتینری، ترکیبی از بهره‌وری، انعطاف‌پذیری و کنترل دقیق بار را ارائه می‌دهد.',
+        imgUrl: '/assets/images/icona_metal.png',
+      },
+      {
+        nameEn: 'Mobile and Shore Rail Cranes',
+        nameFa: 'جرثقیل‌های موبایل و ریلی ساحلی',
+        descEn:
+          'A combination of mobility, capacity, and precise load control for heavy operations at the dock and port areas. Fidar Sazeh Bandar shore and rail cranes, designed according to operating conditions, provide extensive coverage of the working area and fast, reliable cargo movement; a flexible solution for ports and industries with diverse operational needs.',
+        descFa:
+          'ترکیبی از تحرک، ظرفیت و کنترل دقیق بار برای عملیات سنگین در اسکله و محوطه‌های بندری. جرثقیل‌های ساحلی و ریلی فیدار سازه بندار با طراحی متناسب با شرایط بهره‌برداری، امکان پوشش گسترده محدوده کاری و جابه‌جایی سریع و مطمئن بار را فراهم می‌کنند؛ راهکاری منعطف برای بنادر و صنایع با نیازهای متنوع عملیاتی.',
+        imgUrl: '/assets/images/WOOD-singolo-2.png',
+      },
+      {
+        nameEn: 'Bulk Material Loading and Unloading Equipment',
+        nameFa: 'تجهیزات تخلیه و بارگیری مواد فله',
+        descEn:
+          'Uninterrupted material flow, where capacity, speed, and control must work together. Fidar Sazeh Bandar offers engineered solutions for unloading, transferring, and loading various types of port bulk materials; equipment suited to the nature of the cargo and operating conditions, aimed at increasing handling capacity, reducing operation time, and sustainable operation.',
+        descFa:
+          'جریان بی‌وقفه مواد، جایی که ظرفیت، سرعت و کنترل باید در کنار هم عمل کنند. فیدار سازه بندار راهکارهای مهندسی‌شده برای تخلیه، انتقال و بارگیری انواع مواد فله بندرگاهی ارائه می‌دهد؛ تجهیزاتی متناسب با ماهیت بار و شرایط عملیاتی، با هدف افزایش ظرفیت جابه‌جایی، کاهش زمان عملیات و بهره‌برداری پایدار.',
+        imgUrl: '/assets/images/STONE_singolo-2.png',
+      },
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: 'test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  },
+  {
+    id: 1,
+    slugEn: 'container-loading-and-unloading-cranes',
+    slugFa: 'جرثقیل‌های-تخلیه-و-بارگیری-کانتینر',
+    nameEn: 'Container Loading and Unloading Cranes',
+    nameFa: 'جرثقیل‌های تخلیه و بارگیری کانتینر',
+    color: 'var(--color-glass)',
+    slides: [],
+    descEn:
+      'From shore container cranes (STS) to RTG cranes, Fidar Sazeh Bandar designs and manufactures a wide range of specialized container handling and loading equipment. This product range meets the diverse needs of docks, container terminals, and container storage and transfer yards. The design of each container handling equipment is the result of a multi-layered engineering process; from structural and fatigue analysis, design of hoisting and travel mechanisms, determination of working class and equipment life, to the integration of electrical, drive, control, and safety systems. Equipment design in accordance with current international standards guarantees its high reliability. The true complexity of container equipment is not summarized merely in lifting capacity; anti-sway load control, precise positioning, collision prevention, motion coordination, automation, energy management, and reliability in heavy duty cycles are all part of the engineering of a modern crane. In Fidar Sazeh Bandar cranes, from structural design to system intelligence; integrated engineering for the new generation of container operations has been realized.',
+    descFa:
+      'از جرثقیل‌های کانتینربر ساحلی (STS) تا جرثقیل‌های RTG، فیدار سازه بندار طیف گسترده‌ای از تجهیزات تخصصی جابه‌جایی و بارگیری کانتینر را طراحی و تولید می‌کند. این دامنهٔ محصول، پاسخگوی نیازهای متنوع اسکله، پایانه‌های کانتینری و محوطه‌های نگهداری و انتقال کانتینر است. طراحی هر تجهیز کانتینربر، حاصل یک فرآیند چندلایه مهندسی است؛ از تحلیل سازه و خستگی، طراحی مکانیزم‌های بالابری و حرکت، تعیین کلاس کاری و عمر تجهیز تا یکپارچه‌سازی سیستم‌های برق، درایو، کنترل و ایمنی. طراحی تجهیزات مطابق با استانداردهای بین‌المللی روز، قابلیت اطمینان بالای آن را تضمین می‌نماید. پیچیدگی واقعی تجهیزات کانتینری تنها در ظرفیت باربرداری خلاصه نمی‌شود؛ کنترل نوسان بار (Anti-Sway)، موقعیت‌یابی دقیق، جلوگیری از برخورد، هماهنگی حرکات، اتوماسیون، مدیریت انرژی و قابلیت اطمینان در سیکل‌های کاری سنگین، همگی بخشی از مهندسی یک جرثقیل مدرن هستند. در جرثقیل‌های فیدار سازه بندار، از طراحی سازه تا هوشمندی سیستم؛ مهندسی یکپارچه برای نسل جدید عملیات کانتینری تحقق یافته است.',
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
+  },
+  {
+    id: 2,
+    slugEn: 'mobile-and-shore-rail-cranes',
+    slugFa: 'جرثقیل‌های-موبایل-و-ریلی-ساحلی',
+    nameEn: 'Mobile and Shore Rail Cranes',
+    nameFa: 'جرثقیل‌های موبایل و ریلی ساحلی',
+    color: '',
+    slides: [],
+
+    descEn:
+      'Fidar Sazeh Bandar, with a specialized and experienced team in the design and construction of harbor mobile cranes, offers solutions for loading and unloading all types of vessels and handling materials and containers; equipment that provides the operator with a combination of high mobility, extensive working radius, and diverse lifting capacities. The engineering of these cranes encompasses a set of complex considerations including precise structural and fatigue analysis, crane stability during lifting and travel, design of the boom and hoisting and slewing mechanisms, design of elastic or flexible rail travel systems, and analysis of environmental conditions (wind and storm). The design of electrical and hydraulic systems, motion control, load management, and safety equipment are also considered integrally with the mechanical and structural design. With an approach based on international standards, integrated engineering, and the real requirements of port operation, each crane is developed according to the capacity, working range, type of cargo, and operational conditions of the project.',
+    descFa:
+      'فیدار سازه بندار با داشتن تیمی متخصص و با تجربه در حوزه طراحی و ساخت جرثقیل‌های موبایل ساحلی (Harbour Mobile Cranes)، راهکارهایی برای بارگیری و تخلیه انواع کشتی و جابه‌جایی مواد و کانتینر ارائه می‌دهد.\n تجهیزاتی که ترکیبی از تحرک بالا، شعاع کاری گسترده و ظرفیت‌های متنوع باربرداری را در اختیار بهره‌بردار قرار می‌دهند. مهندسی این جرثقیل‌ها، مجموعه‌ای از ملاحظات پیچیده شامل تحلیل دقیق سازه و خستگی آن، پایداری جرثقیل در باربرداری و حرکت، طراحی بوم و مکانیزم‌های بالابری و گردان، طراحی سیستم حرکتی الاستیکی و یا ریلی منعطف و تحلیل شرایط محیطی (باد و طوفان) را در بر می‌گیرد. \n\nطراحی سیستم‌های الکتریکی و هیدرولیکی، کنترل حرکت، مدیریت بار و تجهیزات ایمنی نیز به صورت یکپارچه با ساختار مکانیکی و سازه‌ای در نظر گرفته می‌شوند.\n با رویکردی مبتنی بر استانداردهای بین‌المللی، مهندسی یکپارچه و الزامات واقعی بهره‌برداری بندری، هر جرثقیل متناسب با ظرفیت، دامنه کاری، نوع بار و شرایط عملیاتی پروژه توسعه می‌یابد.',
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
+  },
+  {
+    id: 3,
+    slugEn: 'bulk-material-loading-and-unloading-equipment',
+    slugFa: 'تجهیزات-تخلیه-و-بارگیری-مواد-فله',
+    nameEn: 'Bulk Material Loading and Unloading Equipment',
+    nameFa: 'تجهیزات تخلیه و بارگیری مواد فله',
+    color: '',
+    slides: [],
+
+    descEn:
+      'Fidar Sazeh Bandar offers engineering solutions and specialized equipment for unloading, transferring, and loading bulk materials in ports and industrial terminals; from mechanized handling and loading equipment to transfer and unloading systems suited to the type and characteristics of various grains, minerals, and petrochemical bulk materials. The engineering of this equipment requires a precise understanding of material behavior, capacity and flow rate, loading and environmental conditions. Structural and mechanism design, static and dynamic calculations, selection of transfer systems, sealing and dust control, material flow management, and design of transfer points are all a set of technical considerations that directly affect system capacity, durability, and efficiency. This equipment is designed based on the type and granulometry of the material, density and flow behavior, operational capacity, dock conditions, and operation pattern, and is developed in the form of an integrated engineering and manufacturing solution with an approach of compliance with valid and up-to-date international standards as well as relevant safety and operational requirements.',
+    descFa:
+      'فیدار سازه بندار راهکارهای مهندسی و تجهیزات تخصصی برای تخلیه، انتقال و بارگیری مواد فله در بنادر و پایانه‌های صنعتی ارائه می‌دهد؛ از تجهیزات جابه‌جایی و بارگیری مکانیزه تا سامانه‌های انتقال و تخلیه‌ای متناسب با نوع و ویژگی‌های انواع غلات، مواد معدنی و پتروشیمی فله. مهندسی این تجهیزات نیازمند درک دقیق رفتار مواد، ظرفیت و نرخ جریان، شرایط بارگذاری و محیطی است. طراحی سازه و مکانیزم‌ها، محاسبات استاتیکی و دینامیکی، انتخاب سیستم‌های انتقال، آب‌بندی و کنترل گردوغبار، مدیریت جریان مواد و طراحی نقاط انتقال، همگی مجموعه‌ای از ملاحظات فنی هستند که مستقیماً بر ظرفیت، دوام و راندمان سیستم می‌گذارند. این تجهیزات بر اساس نوع و دانه‌بندی ماده، چگالی و رفتار جریان، ظرفیت عملیاتی، شرایط اسکله و الگوی بهره‌برداری طراحی می‌شوند و با رویکرد انطباق با استانداردهای معتبر و به‌روز بین‌المللی و همچنین الزامات ایمنی و عملیاتی مرتبط، در قالب یک راهکار یکپارچه مهندسی و ساخت توسعه می‌یابند.',
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
   },
 ];
