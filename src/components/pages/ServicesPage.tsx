@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, lazy, Suspense, useRef } from 'react';
+import React, { useEffect, useState, lazy, Suspense, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -9,7 +9,7 @@ import { Header } from '../Header';
 import { ContactSection } from '../ContactSection';
 import { Footer } from '../Footer';
 import { ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
-import { MATERIALS } from '../../data/mockData.ts'
+import {  SERVICES } from '../../data/mockData.ts'
 
 import {
     Ship, Anchor, Wind, Fan, Wrench, RefreshCw, Languages, SearchCheck,
@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 
 
-interface ProductsPageProps {
+interface ServicesPageProps {
     seoConfig: SEOMetaConfig;
     onOpenAdmin?: () => void;
     onOpenExporter?: () => void;
@@ -25,11 +25,11 @@ interface ProductsPageProps {
 }
 
 // =========================================================
-// All Products of the Fidar Bondar project (bilingual)
+// All Services of the Fidar Bondar project (bilingual)
 // =========================================================
 
 
-const ProductsPageComponent: React.FC<ProductsPageProps> = ({
+const ServicesPageComponent: React.FC<ServicesPageProps> = ({
     seoConfig,
     onOpenAdmin = () => { },
     onOpenExporter = () => { },
@@ -50,6 +50,11 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
     const [isDesktop, setIsDesktop] = useState(false);
     const touchStartX = useRef<number | null>(null);
 
+    // ── وضعیت بارگذاری ویدیوی هیرو (لودینگ + thumbnail) ──
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const [videoReady, setVideoReady] = useState(false);
+    const [videoFailed, setVideoFailed] = useState(false);
+
     // Sync HTML lang and dir attribute + scroll to top on load
     useEffect(() => {
         document.documentElement.setAttribute('dir', isFa ? 'rtl' : 'ltr');
@@ -57,7 +62,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const interval = setInterval(() => {
-            setActive((prev) => (prev + 1) % MATERIALS.length);
+            setActive((prev) => (prev + 1) % SERVICES.length);
         }, 3000);
         return () => clearInterval(interval);
 
@@ -85,18 +90,24 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
         return () => window.removeEventListener('resize', update);
     }, []);
 
+    // اگر ویدیو پیش از hydration آماده شده باشد، لودینگ را فوراً پنهان کن
+    useEffect(() => {
+        const v = videoRef.current;
+        if (v && v.readyState >= 3) setVideoReady(true);
+    }, []);
+
     const goNext = () => {
-        setActiveIndex((i) => (i + 1) % MATERIALS.length);
+        setActiveIndex((i) => (i + 1) % SERVICES.length);
     };
 
     const goPrev = () => {
         // (i - 1) alone produces -1 when i === 0 — wrap around properly instead.
-        setActiveIndex((i) => (i - 1 + MATERIALS.length) % MATERIALS.length);
+        setActiveIndex((i) => (i - 1 + SERVICES.length) % SERVICES.length);
     };
 
     const handleClick = (id: string) => {
 
-        router.push((`/${lang}/products/${id}`));
+        router.push((`/${lang}/services/${id}`));
     }
 
     const goTo = (i: number) => setActiveIndex(i);
@@ -114,12 +125,51 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
     };
 
     const handleLanguageSwitch = (newLang: Language) => {
-        router.push(`/${newLang}/products`);
+        router.push(`/${newLang}/services`);
+    };
+    // داخل کامپوننت:
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(true);
+    const [canScrollRight, setCanScrollRight] = useState(true);
+
+    const checkScrollability = useCallback(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = el;
+        const tolerance = 0; // جلوگیری از خطای رندر
+
+        console.log("left:" , -scrollLeft)
+        console.log("width:" , scrollWidth)
+        console.log("clientWidth:" , clientWidth)
+        setCanScrollLeft((-scrollLeft + clientWidth) !== scrollWidth);
+        setCanScrollRight(scrollLeft !== 0);
+    }, []);
+
+    useEffect(() => {
+        checkScrollability();
+        const el = scrollRef.current;
+        if (!el) return;
+
+        el.addEventListener('scroll', checkScrollability);
+        window.addEventListener('resize', checkScrollability);
+
+        return () => {
+            el.removeEventListener('scroll', checkScrollability);
+            window.removeEventListener('resize', checkScrollability);
+        };
+    }, [checkScrollability]);
+
+    const scrollByAmount = (dir: 'left' | 'right') => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const amount = el.clientWidth;
+        el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' });
     };
 
 
     return (
-        <div className="min-h-[screen] mt-6 lg:mt-18 bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white ">
+        <div className="min-h-[screen] bg-surface mt-6 lg:mt-18 text-slate-900 font-sans selection:bg-primary selection:text-white ">
 
             {/* Sticky Fidar Bondar Header */}
             <Header
@@ -140,8 +190,18 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
                             {/* ── Video Layer (پس‌زمینه) ── */}
                             <div className="absolute inset-0 z-0">
+                                {/* Thumbnail — تا لحظه‌ی آماده‌شدن ویدیو نمایش داده می‌شود و بعد کراس‌فید می‌شود */}
+                                <Image
+                                    src="/assets/images/video_placeholder.png"
+                                    alt=""
+                                    fill
+                                    priority
+                                    sizes="100vw"
+                                    className={`object-cover object-center transition-opacity duration-700 ${videoReady && !videoFailed ? 'opacity-0' : 'opacity-100'}`}
+                                />
                                 <video
-                                    className="w-full h-full object-cover object-center"
+                                    ref={videoRef}
+                                    className={`w-full h-full object-cover object-center transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
                                     src="/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v"
                                     autoPlay
                                     muted
@@ -150,14 +210,36 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                     preload="auto"
                                     controlsList="nofullscreen"
 
-                                    poster='/assets/images/video_placeholder.png'
+                                    poster="/assets/images/video_placeholder.png"
+                                    onCanPlay={() => setVideoReady(true)}
+                                    onLoadedData={() => setVideoReady(true)}
+                                    onPlaying={() => setVideoReady(true)}
+                                    onError={() => { setVideoFailed(true); setVideoReady(true); }}
                                 />
+                            </div>
+
+                            {/* ── Loading Overlay (اسپینر + نوار پیشرفت) تا وقتی ویدیو بافر می‌شود ── */}
+                            <div className={`absolute inset-0 z-10 flex items-center justify-center pointer-events-none transition-opacity duration-500 ${videoReady && !videoFailed ? 'opacity-0' : 'opacity-100'}`}>
+                                <div className="flex flex-col items-center gap-4 rounded-2xl bg-black/30 px-8 py-6 backdrop-blur-md shadow-2xl ring-1 ring-white/15">
+                                    <div className="relative w-14 h-14">
+                                        <div className="absolute inset-0 rounded-full border-[3px] border-white/20" />
+                                        <div className="absolute inset-0 rounded-full border-[3px] border-white/20 border-t-primary animate-spin" />
+                                    </div>
+                                    <span className="text-white/90 text-sm font-bold tracking-wide">
+                                        {isFa ? 'در حال بارگذاری ویدیو…' : 'Loading video…'}
+                                    </span>
+                                </div>
+
+                                {/* نوار پیشرفت لودینگ */}
+                                <div className="absolute bottom-0 inset-x-0 h-1 bg-white/15 overflow-hidden">
+                                    <div className="h-full w-1/3 bg-primary/90 animate-pulse" />
+                                </div>
                             </div>
 
                             {/* ── Content Layer (روی ویدیو) ── */}
                             <div className="relative z-20 w-full flex justify-center px-8 lg:px-20">
                                 <div className="w-full md:container md:mx-auto pb-16 pt-12 lg:items-center flex flex-col lg:flex-row justify-between gap-32">
-                                    <div className="flex flex-col gap-5 w-full">
+                                    <div className="flex flex-col gap-5 w-full text-white text-5xl">
                                         {/* محتوای شما اینجا */}
                                     </div>
                                 </div>
@@ -197,13 +279,13 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                     {/* Header */}
                     <h2 className="text-center text-3xl lg:text-4xl leading-tight font-medium px-8 lg:px-20 max-w-4xl text-light">
                         {isFa ?
-                            "محصولات فیدار سازه بندار" :
-                            " Products Of Fidar Saze Bondar"
+                            "خدمات فیدار سازه بندار" :
+                            "Services Of Fidar Saze Bondar"
                         }
 
                     </h2>
 
-                    <p className="text-lg  font-light px-8 lg:px-20 max-w-4xl text-center text-light">
+                    <p className="text-base  font-light px-8 lg:px-20 max-w-4xl text-center text-light">
                         {isFa ?
                             'در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصولات ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه محور است' :
                             "Seamless integration of material handling, storage, and distribution is key to ensuring continuous production, minimizing wait times, and optimizing every process step. Biesse Technic solutions dynamically and intelligently manage materials, delivering coordinated, high-performance workflows."
@@ -218,8 +300,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                 className={`px-0 w-full flex ${isFa ? "flex-row-reverse" : "flex-row"}  items-end h-full transition-transform duration-500 delay-50 ease-out `}
                                 style={{ transform: `translateX(${getTranslateX()})` }}
                             >
-                                {MATERIALS.map((item, index) => (
-
+                                {SERVICES.map((item, index) => (
                                     <div
                                         key={item.nameEn}
                                         className="flex-[0_0_60%] lg:w-[60%] px-4  cursor-pointer"
@@ -259,7 +340,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                             </div>
 
                             {/* Next Button */}
-                            {(activeIndex +1 ) < (MATERIALS.length) && <button
+                            {(activeIndex + 1) < (SERVICES.length) && <button
                                 type="button"
                                 onClick={goNext}
                                 aria-label="Next slide"
@@ -280,7 +361,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
                         {/* Dots */}
                         <div className="flex justify-center gap-2 px-8 lg:px-20 z-10 bottom-0">
-                            {MATERIALS.map((_, i) => (
+                            {SERVICES.map((_, i) => (
                                 <button
                                     key={i}
                                     type="button"
@@ -300,17 +381,41 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
                     {/* ─── MOBILE SWIPER ─── */}
                     <div className='lg:hidden w-full relative'>
-                        <div className=" flex flex-col items-center  mt-14 ">
-                            <ChevronRight className=' absolute -right-1 top-[50%] ' color='white' />
-                            <ChevronLeft className=' absolute -left-1 top-[50%] ' color='white' />
-                            {/* ── Scroll Container ── */}
-                            <div className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex">
+                        <div className="flex flex-col items-center mt-14">
 
-                                {MATERIALS.map((item) => (
+                            {/* فلش راست — فقط اگر بتوان به راست اسکرول کرد */}
+                            {canScrollRight && (
+                                <button
+                                    type="button"
+                                    onClick={() => scrollByAmount('right')}
+                                    aria-label="Next"
+                                    className='absolute -right-1 top-[50%] z-10 cursor-pointer'
+                                >
+                                    <ChevronRight color='white' />
+                                </button>
+                            )}
+
+                            {/* فلش چپ — فقط اگر بتوان به چپ اسکرول کرد */}
+                            {canScrollLeft && (
+                                <button
+                                    type="button"
+                                    onClick={() => scrollByAmount('left')}
+                                    aria-label="Previous"
+                                    className='absolute -left-1 top-[50%] z-10 cursor-pointer'
+                                >
+                                    <ChevronLeft color='white' />
+                                </button>
+                            )}
+
+                            {/* ── Scroll Container ── */}
+                            <div
+                                ref={scrollRef}
+                                className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex"
+                            >
+                                {SERVICES.map((item) => (
                                     <div
                                         key={item.nameEn}
                                         onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
-
                                         className="flex-[0_0_100%] min-w-0 snap-center snap-always shrink-0"
                                     >
                                         <div className="pb-4 px-4 w-full flex items-end">
@@ -344,14 +449,9 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                         </div>
                                     </div>
                                 ))}
-
                             </div>
-
-
                         </div>
-
                     </div>
-
 
 
                 </section>
@@ -377,6 +477,6 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
         </div>
     );
 };
-export default ProductsPageComponent;
+export default ServicesPageComponent;
 
-export { ProductsPageComponent as ProductsPage };
+export { ServicesPageComponent as ServicesPage };

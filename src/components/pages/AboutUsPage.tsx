@@ -217,15 +217,17 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
       />
 
       <main className='scroll-smooth '>
+
+
         {/* 1. Page Hero — full-screen banner + breadcrumb */}
-        <section className="relative w-full min-h-[62vh] lg:min-h-[72vh] bg-primary-dark text-white overflow-hidden flex items-center">
+        {/* <section className="relative w-full min-h-[62vh] lg:min-h-[72vh] bg-primary-dark text-white overflow-hidden flex items-center">
           <div
             className="absolute inset-0 bg-cover bg-left bg-no-repeat"
             style={{ backgroundImage: 'url("/assets/images/scroll-bg.webp")' }}
           />
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l  from-primary-dark via-primary-dark/70 to-black/40 z-10" />
 
-          
+
 
           <div className="relative z-20 w-full flex justify-center px-8 lg:px-20">
             <div className="w-full md:container md:mx-auto py-16 lg:py-24">
@@ -262,46 +264,52 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
+
 
         {/* 2. "This is us" — Statement */}
-        <section className="relative w-full bg-surface">
+        <section className="relative w-full bg-white">
           <div className="w-full flex justify-center px-8 lg:px-20">
             <div className="w-full md:container md:mx-auto">
-              <div className="gap-5 lg:gap-10 flex flex-col py-20 lg:py-28">
-                <h2 className="mb-6 text-center text-primary-dark text-4xl lg:text-6xl font-bold">
-                  {isFa ? 'این ما هستیم' : 'This is us'}
-                </h2>
-                <div className="!leading-snug text-center text-slate-900 text-xl lg:text-3xl xl:text-4xl font-normal max-w-5xl mx-auto">
+              <div className="gap-5 lg:gap-10 flex flex-col py-20 lg:py-28 justify-center items-center">
+                <Image className='mb-12' src={"/assets/images/logo_type.png"} alt="fidar bondar sazeh logo" width={400} height={200}></Image>
+                <h2 className='text-2xl text-primary'>                  فیدارسازه بندار؛ مهندسی، ساخت و نوسازی برای عملکردی پايدارتر</h2>
+
+                <div className="!leading-snug text-center text-slate-900 text-xl lg:text-3xl xl:text-2xl font-normal max-w-5xl mx-auto">
                   {isFa ? (
                     <>
-
                       <p>فیدار سازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشین آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد.</p>
-
-
                     </>
                   ) : (
                     <p>We are a knowledge-based engineering and manufacturing group. With advanced technology, engineering precision and future-oriented design, we optimize port terminals and heavy industries through next-generation material handling equipment.</p>
                   )}
+                  <br></br>
+                  <p>ما معتقدیم عملکرد پایدار تجهیزات، نتیجه ترکیب طراحی مهندسی، کیفیت ساخت، فناوری روز و شناخت عمیق از شرایط واقعی بهره برداری است. به همین دلیل، تمامی پروژه ها از تحلیل و طراحی تا ساخت، نصب، راه اندازی و پشتیبانی، با رویکردی یکپارچه و مهندسی شده اجرا میشوند.</p>
+
                 </div>
+
               </div>
             </div>
           </div>
+          
         </section>
 
+
+
+
         {/* 3. Vision & Mission — alternating blocks */}
-        <section id="vision-mission" className="w-full overflow-hidden  ">
+        <section id="vision-mission" className="w-full overflow-hidden ">
           <div className="w-full overflow-hidden relative bg-primary-dark">
-            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:flex-row lg:items-center lg:min-h-[34rem]">
+            <div className="w-full px-8 py-5 lg:p-0 flex flex-col  lg:items-center lg:min-h-[14rem]">
               <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
+                  // style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
                 />
               </div>
-              <div className="lg:flex-[0_0_50%] flex flex-col justify-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
+              <div className="lg:flex-[0_0_50%] flex flex-col items-center justify-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
                 <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'مهندسی و ساخت تجهیزات پیشرفته' : 'Vision'}</h2>
-                <p className="text-base md:text-lg xl:text-xl font-light text-white/90">
+                <p className="text-base md:text-lg xl:text-xl font-light text-white/90  leading-loose text-center">
                   {isFa ?
                     <>
                       توانمندی فیدارسازه بندار شامل طراحی و ساخت جرثقیل های بندرگاهی، تجهیزات انتقال و بارگیری کانتینر، تجهیزات جابه جایی مواد فله، جرثقیلهای صنعتی و تجهیزات فرایندی است.
@@ -315,18 +323,19 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
+          
 
           <div className="w-full overflow-hidden relative bg-primary-dark border-t border-white/10">
-            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:flex-row lg:items-center lg:flex-row-reverse lg:min-h-[34rem]">
-              <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
+            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:items-center  lg:min-h-[14rem]">
+              {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/mWYQ8AAHnePJkbDgMYnCz/e2d51a175da32db25f863037fbe38177/imag_MISSION.jpg?w=2334&h=1750&fm=jpg&q=50")' }}
                 />
-              </div>
-              <div className="lg:flex-[0_0_50%] flex flex-col justify-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
+              </div> */}
+              <div className="lg:flex-[0_0_50%] flex flex-col justify-center   items-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
                 <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'نوسازی و ارتقای تجهیزات موجود' : 'Mission'}</h2>
-                <p className="text-base md:text-lg xl:text-xl  font-light text-white/90">
+                <p className="text-base md:text-lg xl:text-xl  font-light text-white/90  leading-loose text-center">
                   {isFa ? (
                     'ارائه راهکارهای کامل از طراحی و تولید تا بازسازی و به‌روزرسانی تجهیزات؛ با تکیه بر دانش مهندسی، تجربه اجرایی و توان ساخت، تا هر ماده و هر عملیاتی به پتانسیل کامل خود دست یابد.'
                   ) : (
@@ -336,17 +345,19 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-          <div className="w-full overflow-hidden relative bg-primary-dark">
-            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:flex-row lg:items-center lg:min-h-[34rem]">
-              <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
+          
+          
+          <div className="w-full overflow-hidden relative bg-primary-dark border-t border-white/10">
+            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:items-center  lg:min-h-[14rem]">
+              {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
                 />
-              </div>
-              <div className="lg:flex-[0_0_50%] flex flex-col justify-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-                <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'ساخت برای امروز، آماده برای آينده' : 'Vision'}</h2>
-                <p className="text-base md:text-lg xl:text-xl  font-light text-white/90">
+              </div> */}
+              <div className="lg:flex-[0_0_50%] flex flex-col justify-center  items-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
+               <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'ساخت برای امروز، آماده برای آينده' : 'Vision'}</h2>
+                <p className="text-base md:text-lg xl:text-xl max-w-[70%]  font-light text-white/90 text-center">
                   {isFa ? (
                     'تمرکز بر بهره وری انرژی ، اتوماسیون و فناوری های نوین، فیدارسازه بندار راهکارهایی ارائه میدهد که عالوه بر پاسخگویی به نیازهای امروز صنعت، قابلیت توسعه و تطبیق با نیازهای آینده را داشته باشند.'
                   ) : (
@@ -358,15 +369,9 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
           </div>
         </section>
 
-        {/* Logo and Slug */}
-        <section className='h-[50vh] flex flex-col items-start justify-center px-[10%] text-xl'>
-          <Image className='mb-12' src={"/assets/images/logo_type.png"}  alt="fidar bondar sazeh logo" width={400} height={200}></Image>
-           <p>ما معتقدیم عملکرد پایدار تجهیزات، نتیجه ترکیب طراحی مهندسی، کیفیت ساخت، فناوری روز و شناخت عمیق از شرایط واقعی بهره برداری است. به همین دلیل، تمامی پروژه ها از تحلیل و طراحی تا ساخت، نصب، راه اندازی و پشتیبانی، با رویکردی یکپارچه و مهندسی شده اجرا میشوند.</p>
-        </section>
 
         {/* 4. Genuine Mastery — full-width parallax band */}
-        <section className="relative h-[60vh]  overflow-hidden lg:block bg-surface">
-          {/* Background */}
+        {/* <section className="relative h-[60vh]  overflow-hidden lg:block bg-surface">
           <div className="absolute inset-0">
             {slides.map((slide, index) => (<div key={slide.title.en}
               className={`absolute inset-0 transition-all duration-800 ease-in-out ${index === active ? "translate-y-0 opacity-100" : index < active ? "-translate-y-full opacity-0" : "translate-y-full opacity-0"}`}
@@ -380,22 +385,17 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
             ))}
 
           </div>
-          {/* Content */}
           <div className="relative z-20 h-full w-full overflow-hidden ">
             <div className="flex h-full w-full flex-col transition-transform duration-1000 ease-in-out"
               style={{ transform: `translateY(-${active * 100}%)`, }}
             >
-              {/* Destop Mask*/ }
               {slides.map((slide, index) => (
                 <div key={index}
                   className="h-full w-full shrink-0 items-center  hidden lg:flex " >
-                  {/* Left */}
                   <div className=" w-full items-center pl-4 pr-4 ">
                     <h2 className="text-4xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.title.fa : slide.title.en} </h2>
                   </div>
-                  {/* Right */}
                   <div className="flex h-full w-screen flex-col justify-end ">
-                    {/* Top */}
 
                     <div className="flex h-1/4 w-full justify-end " >
                       <div
@@ -420,11 +420,9 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
 
                     </div>
 
-                    {/* Center */}
                     <div className={`flex h-[51%]  items-center  -mt-px -mb-px bg-surface py-9 pl-24 px-14 ${isFa ? "rounded-r-3xl" : "rounded-l-3xl"}`}>
                       <p className="text-2xl font-normal  leading-loose text-slate-900 lg:text-3xl"> {isFa ? slide.desc.fa : slide.desc.en} </p>
                     </div>
-                    {/* Bottom */}
 
                     <div className="flex h-1/4 w-full justify-end">
                       <div
@@ -448,17 +446,13 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
                     </div>
                   </div>
                 </div>))}
-              {/* Mobile */}
               {slides.map((slide, index) => (
                 <div key={index}
                   className="h-full w-full shrink-0 items-center drop-shadow-2xl  sm:flex flex-col" >
-                  {/* Left */}
                   <div className=" w-full items-center pl-4 pr-4 absolute top-[8%]">
                     <h2 className="text-3xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.title.fa : slide.title.en} </h2>
                   </div>
-                  {/* Right */}
                   <div className="flex h-full w-full flex-col">
-                    {/* Top */}
 
                     <div className={`flex h-2/4 w-full ${isFa ? "justify-end" : "justify-start"} `} >
                       <div
@@ -470,16 +464,13 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
                             "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
                         }}
                       />
-                      {/* <div className="w-1/4 bg-neutral-100" /> */}
 
                     </div>
 
-                    {/* Center */}
                     <div className="flex h-1/4  items-center rounded-r-3xl -mt-px -mb-px py-9 pl-14 pr-24 bg-surface">
 
                       <p className="text-xl font-normal  leading-tight text-slate-900 lg:text-4xl"> {isFa ? slide.desc.fa : slide.desc.en} </p>
                     </div>
-                    {/* Bottom */}
 
                     <div className={`flex h-1/4 w-full  ${isFa ? "justify-end" : "justify-start"} `}>
                       <div
@@ -491,22 +482,22 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
                             "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
                         }}
                       />
-                      {/* <div className="w-1/4 bg-neutral-100" /> */}
 
                     </div>
                   </div>
                 </div>))}
             </div>
           </div>
+           */}
 
 
-          {/* Dots */}
-          <div className={`absolute bottom-8 -mt-px z-30 flex gap-3 ${isFa ? "right-14" : "left-14"} `}>
+        {/* Dots */}
+        {/* <div className={`absolute bottom-8 -mt-px z-30 flex gap-3 ${isFa ? "right-14" : "left-14"} `}>
             {slides.map((_, index) => (<button key={index} type="button" onClick={() => setActive(index)} aria-label={`Go to slide ${index + 1}`}
               className={`h-2 rounded-full transition-all duration-300 ${active === index ? "w-10 bg-white" : "w-2 bg-white/50"}`} />))}
-          </div>
+          </div> */}
 
-        </section>
+        {/* </section> */}
 
 
         {/* 5. Company Profile — with all specifications */}
@@ -617,7 +608,7 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
         </section> */}
 
         {/* 7. Governance & Approach — action cards */}
-        <section className="relative w-full py-10 lg:pt-20 lg:pb-24 overflow-hidden bg-surface">
+        {/* <section className="relative w-full py-10 lg:pt-20 lg:pb-24 overflow-hidden bg-surface">
           <div className="w-full flex justify-center px-8 lg:px-20 z-10 relative">
             <div className="w-full md:container md:mx-auto flex flex-col lg:flex-row gap-5 lg:gap-10 items-start justify-between">
               <div className="h-full flex-[1_1_60%]">
@@ -665,10 +656,10 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* 8. Fidar in the region — full-screen image block */}
-        <section className="bg-surface relative flex flex-col w-full sm:min-h-[32rem] min-h-[70vh] overflow-hidden">
+        {/* <section className="bg-surface relative flex flex-col w-full sm:min-h-[32rem] min-h-[70vh] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/5M8G9REET63gIAnA0IJnVh/998a413e5191145608039bb6b1e4a93f/Biesse_Por_do_Sol.jpg?w=1920&h=1080&fm=jpg&q=50")'
@@ -695,10 +686,10 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* 9. Our presence in the region — accordions */}
-        <section className="w-full flex justify-center px-8 lg:px-20 py-8 lg:py-20 bg-surface">
+        {/* <section className="w-full flex justify-center px-8 lg:px-20 py-8 lg:py-20 bg-surface">
           <div className="w-full md:container md:mx-auto">
             <h3 className="font-bold text-4xl mb-8 text-primary-dark">
               {isFa ? 'حضور ما در منطقه' : 'Our presence in the region'}
@@ -759,7 +750,7 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* 10. Contact Section */}
         <ContactSection lang={currentLang} />

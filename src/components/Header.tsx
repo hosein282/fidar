@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Language, SEOMetaConfig, MaterialData } from '../types';
-import { MATERIALS } from '../data/mockData';
+import { MATERIALS, SERVICES } from '../data/mockData';
 import { Globe, Search, User, MapPin, Wrench, MessageSquare, Share2, Menu, X, Code2, LayoutDashboard, ChevronDown, Edit3, Layers } from 'lucide-react';
 
 interface HeaderProps {
@@ -94,8 +94,11 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   const isFa = lang === 'fa';
 
@@ -112,6 +115,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   const productHref = (item: MaterialData) =>
     `/${lang}/products/${isFa ? item.slugFa : item.slugEn}`;
+
+  const serviceHref = (item: MaterialData) =>
+    `/${lang}/services/${isFa ? item.slugFa : item.slugEn}`;
   const productLabel = (item: MaterialData) => (isFa ? item.nameFa : item.nameEn);
 
   return (
@@ -164,7 +170,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header id="header" className={`sticky top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
+      <header id="header" className={`fixed top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
         {/* <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">
@@ -264,9 +270,49 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               )}
             </div>
-            <a href="#cunsumers" className="hover:text-primary transition hover:underline">
-              {isFa ? 'خدمات' : 'Machines'}
-            </a>
+            <div ref={servicesRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setServicesOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={servicesOpen}
+                className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
+              >
+                <span>{isFa ? 'خدمات' : 'Services'}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {servicesOpen && (
+                <div
+                  role="menu"
+                  className="absolute start-0 top-full mt-2 w-72 max-h-[70vh] overflow-y-auto rounded-xl border border-gray-200 bg-white p-2 shadow-xl z-[130]"
+                >
+                  <Link
+                    href={`/${lang}/services`}
+                    onClick={() => setServicesOpen(false)}
+                    role="menuitem"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-primary hover:bg-primary/10 transition"
+                  >
+                    <Layers className="w-4 h-4 shrink-0" />
+                    <span>{isFa ? 'همهٔ خدمات' : 'All Services'}</span>
+                  </Link>
+
+                  <div className="my-1.5 border-t border-gray-100" />
+
+                  {SERVICES.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={serviceHref(item)}
+                      onClick={() => setServicesOpen(false)}
+                      role="menuitem"
+                      className="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-primary/10 hover:text-primary transition"
+                    >
+                      {productLabel(item)}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
             <a href="#blog" className="hover:text-primary transition hover:underline">
               {isFa ? 'مجله و اخبار' : 'Components'}
             </a>
@@ -275,7 +321,7 @@ export const Header: React.FC<HeaderProps> = ({
             </Link>
             <div className="btn--watermark shadow-sm relative group bg-white px-4 py-1.5 rounded-md border border-gray-300">
               <a href="#contact" className="hover:text-primary flex items-center gap-1 text-primary">
-                <span>{isFa ? 'پشتیبانی مشتریان' : 'Customer Care'}</span>
+                <span>{isFa ? 'تماس با ما' : 'Contact Us'}</span>
                 <ChevronDown className="w-4 h-4" />
               </a>
             </div>
@@ -363,7 +409,7 @@ export const Header: React.FC<HeaderProps> = ({
                         key={item.id}
                         href={productHref(item)}
                         onClick={() => { setMobileMenuOpen(false); setMobileProductsOpen(false); }}
-                        className="py-1.5 text-sm text-slate-900 hover:text-primary"
+                        className="py-1.5 text-sm text-slate-700 hover:text-primary"
                       >
                         {productLabel(item)}
                       </Link>
@@ -371,9 +417,42 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                 )}
               </div>
-              <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
+              {/* <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
                 {isFa ? 'خدمات' : 'Services'}
-              </a>
+              </a> */}
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen((o) => !o)}
+                  aria-expanded={mobileServicesOpen}
+                  className="flex w-full items-center justify-between hover:text-primary cursor-pointer"
+                >
+                  <span>{isFa ? 'خدمات' : 'Services'}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${mobileProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {mobileServicesOpen && (
+                  <div className="mt-2 flex flex-col space-y-1 border-s-2 border-primary/30 ps-3">
+                    <Link
+                      href={`/${lang}/services`}
+                      onClick={() => { setMobileMenuOpen(false); setMobileServicesOpen(false); }}
+                      className="py-1.5 text-sm text-primary hover:text-primary"
+                    >
+                      {isFa ? 'همهٔ خدمات' : 'All Services'}
+                    </Link>
+                    {SERVICES.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={serviceHref(item)}
+                        onClick={() => { setMobileMenuOpen(false); setMobileServicesOpen(false); }}
+                        className="py-1.5 text-sm text-slate-700 hover:text-primary"
+                      >
+                        {productLabel(item)}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
 
               <Link href={`/${lang}/blog`} className="hover:text-primary transition hover:underline">
                 {isFa ? 'اخبار و مقالات' : 'News & Blogs'}
@@ -381,10 +460,10 @@ export const Header: React.FC<HeaderProps> = ({
 
 
               <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'پشتیبانی مشتریان (Customer Care)' : 'Customer Care'}
+                {isFa ? 'تماس با ما' : 'Contact Us'}
               </a>
               <Link href={`/${lang}/about`} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
-                {isFa ? 'درباره ما (About us)' : 'About us'}
+                {isFa ? 'درباره ما' : 'About us'}
               </Link>
 
 

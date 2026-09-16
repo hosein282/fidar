@@ -176,8 +176,8 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
         {/* Sticky Desktop View Container */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <a
-            href="#about"
-            className={`absolute z-100  bottom-10  transition animate-bounce ${isFa? "left-10" : "right-10"}`}
+            href="#"
+            className={`absolute z-100  bottom-16  transition animate-bounce ${isFa? "left-10" : "right-10"}`}
           >
             {/* <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span> */}
             <ArrowDown className="w-5 h-5 text-black" />
@@ -201,14 +201,14 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
               {MATERIALS.map((mat, idx) => {
                 const isActive = activeIndex === idx;
                 return (
-                 <div key={mat.id} className='-rotate-90 lg:rotate-0'>
+                 <div key={mat.id} className={`${isFa? "-rotate-90" : "rotate-90" } lg:rotate-0`}>
                    <button
                     
                     onClick={() => handleTabClick(idx)}
                     className={` 
-                      ${isActive ? "border-2 border-slate-900 pointer-events-none" : ""}
+                      ${isActive ? "border-2 pointer-events-none" : ""}
                       shrink-0 lg:flex-[1/8]  text-sm text-center   ${isFa ? 'rotate-90' : '-rotate-90'} 
-                     h-8  lg:h-26 w-60 lg:w-[12vw] p-2  flex rounded-full items-center py-0 justify-center transition-all duration-300 font-bold cursor-pointer text-slate-900 ${isActive ? 'opacity-100 font-extrabold' : 'opacity-60 hover:opacity-100'
+                     h-8  lg:h-26 w-max lg:w-[12vw] p-2 mx-1 flex rounded-full items-center py-0 justify-center border lg:border-0  border-slate-900  transition-all duration-300 font-bold cursor-pointer text-slate-900 ${isActive ? 'opacity-100 font-extrabold' : 'opacity-60 hover:opacity-100'
                       }`}
 
                     type="button"
@@ -250,7 +250,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                       height={1200}
                       loading="lazy"
                       decoding="async"
-                      className="max-h-[45vh] w-auto object-contain drop-shadow-2xl"
+                      className="max-h-[45vh] w-auto object-contain drop-shadow-xl rounded-2xl"
                     />
                   </div>
                 );
@@ -282,7 +282,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                 </div>
 
                 {/* Action Button */}
-                <div className="pt-8">
+                <div className="pt-2">
                   <a href={`${(`/${lang}/products/${isFa ? current.slugFa : current.slugEn}`)}`}>
                     <button
                       // onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}

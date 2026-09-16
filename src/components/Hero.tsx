@@ -40,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
   return (
 
-    <section className="relative w-full  min-h-[110vh] lg:min-h-[90vh] lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
+    <section className="relative w-full  min-h-[110vh] lg:min-h-[90vh] mt-18 lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
 
       {/* Hero Background Video & Media Container */}
       <div className="absolute inset-0 z-0 flex flex-col lg:flex-row  ">
@@ -109,7 +109,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
           </div>
 
         </div>
-        <ul className={`absolute flex justify-center items-center gap-3 bottom-12 lg:bottom-24  ${isFa ? "left-8" : "right-8"}`}>
+        <ul className={`absolute flex justify-center items-center gap-3 bottom-12 lg:bottom-8  ${isFa ? "left-8" : "right-8"}`}>
           {materials.map(((m) => (
             <li key={m.id} className={`h-2 w-2 border-amber-50 border-1  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
           )))}
@@ -194,20 +194,17 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
             })}
           </div>
 
-          {/* Bounce Scroll Down Indicator */}
-
-          <a
-            href="#about"
-            className="flex items-center gap-2 text-white/80 hover:text-white text-xs font-bold transition animate-bounce"
-          >
-            {/* <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span> */}
-            <ArrowDown className="w-5 h-5 text-primary" />
-          </a>
+      
+        
 
         </div>
+      
 
       </div>
+      {/* Bounce Scroll Down Indicator */}
 
+  
+            <ArrowDown className="absolute left-10 bottom-10 w-5 h-5 text-surface transition animate-bounce" />
     </section>
   );
 };

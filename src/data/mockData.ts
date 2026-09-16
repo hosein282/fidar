@@ -579,7 +579,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه‌محور است.",
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/WOOD-singolo-2.png',
+    imgUrl: '/assets/images/services/4294-2.jpg',
     videoUrl: ",",
 
   },
@@ -596,7 +596,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'طراحی و ساخت انواع تجهیزات انتقال مواد بندرگاهی با تمرکز بر قابلیت اطمینان، دقت عملکرد، ایمنی و بهره وری؛ از راهکارهای متعارف تا فناوری های نوین و کم مصرف.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    imgUrl: '/assets/images/services/4294-3.jpg',
 
   },
   {
@@ -613,7 +613,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'طراحی و ساخت انواع جرثقیل‌های صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/STONE_singolo-2.png',
+    imgUrl: '/assets/images/services/4294-4.jpg',
   },
   {
     id: 3,
@@ -629,7 +629,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/MATERIA-singolo-2.png',
+    imgUrl: '/assets/images/services/4294-5.jpg',
   },
 ];
 
@@ -654,7 +654,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'Where speed, precision, and operational space must be managed simultaneously. Fidar Sazeh Bandar RTG cranes, with an engineered design for the new generation of container terminals, offer a combination of productivity, flexibility, and precise load control.',
         descFa:
           'جایی که سرعت، دقت و فضای عملیاتی باید همزمان مدیریت شوند. جرثقیل‌های RTG فیدار سازه بندار با طراحی مهندسی‌شده برای نسل جدید پایانه‌های کانتینری، ترکیبی از بهره‌وری، انعطاف‌پذیری و کنترل دقیق بار را ارائه می‌دهد.',
-        imgUrl: '/assets/images/icona_metal.png',
+        imgUrl: '/assets/images/services/4294-2.jpg',
       },
       {
         nameEn: 'Mobile and Shore Rail Cranes',
@@ -663,7 +663,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'A combination of mobility, capacity, and precise load control for heavy operations at the dock and port areas. Fidar Sazeh Bandar shore and rail cranes, designed according to operating conditions, provide extensive coverage of the working area and fast, reliable cargo movement; a flexible solution for ports and industries with diverse operational needs.',
         descFa:
           'ترکیبی از تحرک، ظرفیت و کنترل دقیق بار برای عملیات سنگین در اسکله و محوطه‌های بندری. جرثقیل‌های ساحلی و ریلی فیدار سازه بندار با طراحی متناسب با شرایط بهره‌برداری، امکان پوشش گسترده محدوده کاری و جابه‌جایی سریع و مطمئن بار را فراهم می‌کنند؛ راهکاری منعطف برای بنادر و صنایع با نیازهای متنوع عملیاتی.',
-        imgUrl: '/assets/images/WOOD-singolo-2.png',
+        imgUrl: '/assets/images/services/4294-3.jpg',
       },
       {
         nameEn: 'Bulk Material Loading and Unloading Equipment',
@@ -672,12 +672,12 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'Uninterrupted material flow, where capacity, speed, and control must work together. Fidar Sazeh Bandar offers engineered solutions for unloading, transferring, and loading various types of port bulk materials; equipment suited to the nature of the cargo and operating conditions, aimed at increasing handling capacity, reducing operation time, and sustainable operation.',
         descFa:
           'جریان بی‌وقفه مواد، جایی که ظرفیت، سرعت و کنترل باید در کنار هم عمل کنند. فیدار سازه بندار راهکارهای مهندسی‌شده برای تخلیه، انتقال و بارگیری انواع مواد فله بندرگاهی ارائه می‌دهد؛ تجهیزاتی متناسب با ماهیت بار و شرایط عملیاتی، با هدف افزایش ظرفیت جابه‌جایی، کاهش زمان عملیات و بهره‌برداری پایدار.',
-        imgUrl: '/assets/images/STONE_singolo-2.png',
+        imgUrl: '/assets/images/services/4294-5.jpg',
       },
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: 'test-GLASS-icon-2.png',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
   {
@@ -733,4 +733,200 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
   },
+];
+
+
+export const SERVICES: MaterialData[] = [
+  {
+    id: 0,
+    slugEn: 'port-equipment-maintenance-support',
+    slugFa: 'خدمات-تعمیرات-نگهداری-پشتیبانی-تجهیزات-بندری',
+    nameEn: 'Port Equipment Maintenance, Repair & Support Services',
+    nameFa: 'خدمات تعمیرات، نگهداری و پشتیبانی تجهیزات بندری',
+    color: 'var(--color-wood)',
+    descEn:
+      'Round-the-clock, continuous support for port equipment; from operation and preventive maintenance to troubleshooting, repairs, and technical support, aimed at maximizing availability, reducing downtime, and ensuring operational continuity.',
+    descFa:
+      'پشتیبانی شبانه‌روزی و مستمر از تجهیزات بندری؛ از بهره‌برداری و نگهداری پیشگیرانه تا عیب‌یابی، تعمیرات و ارائه پشتیبانی فنی، با هدف حداکثر دسترس‌پذیری، کاهش توقفات و تداوم عملیات.',
+    slides: [
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/icona_metal.png',
+      }
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/services/4294-1.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  },
+
+  {
+    id: 1,
+    slugEn: 'port-equipment-redesign-upgrade',
+    slugFa: 'بازطراحی-و-به-روزرسانی-تجهیزات-بندرگاهی',
+    nameEn: 'Redesign & Upgrade of Port Equipment',
+    nameFa: 'بازطراحی و به‌روزرسانی تجهیزات بندرگاهی',
+    color: 'var(--color-wood)',
+    descEn:
+      'Leveraging its engineering capabilities and executive experience, Fidar Sazeh Bandar provides analysis, redesign, renovation, and upgrading services for port equipment, covering structures and mechanics as well as electrical and control systems.',
+    descFa:
+      'فیدارسازه بندر با تکیه بر توان مهندسی و تجربه اجرایی، خدمات تحلیل، بازطراحی، نوسازی و ارتقای تجهیزات بندرگاهی را از سازه و مکانیک تا سیستم‌های الکتریکی و کنترل ارائه می‌دهد.',
+    slides: [
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/icona_metal.png',
+      }
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/services/4294-2.jpg',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  },
+
+  {
+    id: 2,
+    slugEn: 'specialized-repair-marine-vessels-structures',
+    slugFa: 'تعمیرات-تخصصی-انواع-شناور-و-سازه-های-دریایی',
+    nameEn: 'Specialized Repair of Marine Vessels & Structures',
+    nameFa: 'تعمیرات تخصصی انواع شناور و سازه‌های دریایی',
+    color: 'var(--color-wood)',
+    descEn:
+      'Repair, restoration, and strengthening of marine structures and equipment through engineering assessment, precise execution, and quality control, with the aim of restoring performance and ensuring a fast and reliable return to operation.',
+    descFa:
+      'تعمیر، بازسازی و تقویت سازه‌ها و تجهیزات دریایی با تکیه بر ارزیابی مهندسی، اجرای دقیق و کنترل کیفیت؛ با هدف احیای عملکرد و بازگشت سریع و مطمئن به بهره‌برداری.',
+    slides: [
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/icona_metal.png',
+      }
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/services/4294-3.jpg',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  }
+];
+
+export const SERVICES_DETAILS: MaterialData[] = [
+  {
+    id: 0,
+    slugEn: 'port-equipment-maintenance-support',
+    slugFa: 'خدمات-تعمیرات-نگهداری-پشتیبانی-تجهیزات-بندری',
+    nameEn: 'Port Equipment Maintenance, Repair & Support Services',
+    nameFa: 'خدمات تعمیرات، نگهداری و پشتیبانی تجهیزات بندری',
+    color: 'var(--color-wood)',
+    descEn:
+      'Specialized repair, maintenance, and support services for port equipment, aimed at maximizing availability and ensuring uninterrupted operational continuity. Leveraging a specialized technical team and hands-on experience in port and marine equipment, these services cover everything from troubleshooting and specialized repairs to preventive maintenance, emergency breakdown response, and technical support. Fast and continuous 24/7 support, immediate response to emergency conditions, and a focus on reducing equipment downtime are among our key commitments in delivering these services.',
+    descFa:
+      'تعمیرات، نگهداری و پشتیبانی تخصصی تجهیزات بندری، با هدف حفظ حداکثری آماده‌به‌کاری و تداوم بدون وقفه عملیات. این خدمات با بهره‌گیری از تیم فنی متخصص و تجربه عملی در حوزه تجهیزات بندری و دریایی، از عیب‌یابی و تعمیرات تخصصی تا نگهداری پیشگیرانه، رفع اضطراری خرابی‌ها و تأمین پشتیبانی فنی را پوشش می‌دهد. پشتیبانی سریع و مستمر، پاسخ‌گویی فوری ۲۴/۷ به شرایط اضطراری و تمرکز بر کاهش زمان توقف تجهیزات، از مهم‌ترین تعهدات ما در ارائه خدمات است.',
+      slides: [
+        {
+          nameEn: '',
+          nameFa: '',
+          descEn: '',
+          descFa: '',
+          imgUrl: '/assets/images/services/4294-2.jpg',
+        },
+        {
+          nameEn: '',
+          nameFa: '',
+          descEn: '',
+          descFa: '',
+          imgUrl: '/assets/images/services/4294-3.jpg',
+        },
+        {
+          nameEn: '',
+          nameFa: '',
+          descEn: '',
+          descFa: '',
+          imgUrl: '/assets/images/services/4294-4.jpg',
+        },
+        {
+          nameEn: '',
+          nameFa: '',
+          descEn: '',
+          descFa: '',
+          imgUrl: '/assets/images/services/4294-5.jpg',
+        },
+        {
+          nameEn: '',
+          nameFa: '',
+          descEn: '',
+          descFa: '',
+          imgUrl: '/assets/images/services/4294-1.png',
+        },
+        {
+          nameEn: '',
+          nameFa: '',
+          descEn: '',
+          descFa: '',
+          imgUrl: '/assets/images/services/4294-4.jpg',
+        },
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  },
+
+  {
+    id: 1,
+    slugEn: 'port-equipment-redesign-upgrade',
+    slugFa: 'بازطراحی-و-به-روزرسانی-تجهیزات-بندرگاهی',
+    nameEn: 'Redesign & Upgrade of Port Equipment',
+    nameFa: 'بازطراحی و به‌روزرسانی تجهیزات بندرگاهی',
+    color: 'var(--color-wood)',
+    descEn:
+      'Providing comprehensive solutions for upgrading, restoring, and modernizing port equipment, with the aim of extending service life, improving reliability, and returning worn-out, obsolete, or low-efficiency equipment to optimal operational performance. Our approach is based on precise assessment of each equipment’s condition, re-engineering, and designing a solution tailored to its real-world circumstances; from overhaul and major repairs of mechanical systems to renewal of electrical and power systems, drives, PLC and HMI, control and automation, protection and safety systems, and providing up-to-date replacements for obsolete systems.\nIn designing and replacing systems, we do not consider only today’s performance of the equipment; readiness for future requirements and technologies is also taken into account. Improving the efficiency of electrical systems and drives, optimizing energy consumption, intelligent power management, monitoring and data-collection capability, and creating a suitable infrastructure for automation development, remote monitoring, and the solutions required by mechanized and smart ports are all part of our approach to equipment modernization engineering. Our goal is not merely to restore a piece of equipment; it is to re-engineer its life cycle and transform it into a reliable, scalable, and forward-looking operational platform. This approach, while enhancing reliability, safety, availability, and maintainability of the equipment, prevents full replacement of equipment in unnecessary cases and, by reducing the Total Cost of Ownership (TCO), optimizes the required investment.\nBy combining operational experience, engineering knowledge, and deep familiarity with port equipment, we transform idle assets and worn-out equipment into up-to-date, flexible assets ready for the new generation of port operations; equipment that not only delivers reliable performance today but will also have the capacity for development and adaptation for the future needs of ports.',
+    descFa:
+      'ارائه راهکارهای جامع به‌روزرسانی، بازسازی و مدرن‌سازی تجهیزات بندری با هدف افزایش عمر مفید، ارتقای قابلیت اطمینان و بازگرداندن تجهیزات فرسوده، از رده خارج یا کم‌بازده به سطح مطلوب عملکرد عملیاتی. رویکرد ما بر پایه ارزیابی دقیق وضعیت تجهیز، مهندسی مجدد و طراحی راهکار متناسب با شرایط واقعی هر تجهیز است؛ از بازسازی و تعمیرات اساسی سیستم‌های مکانیکی تا نوسازی سیستم‌های الکتریکی و قدرت، درایوها، PLC و HMI، کنترل و اتوماسیون، سیستم‌های حفاظتی و ایمنی و ارائه‌ی جایگزین به‌روز برای سیستم‌های منسوخ.\nدر طراحی و جایگزینی سیستم‌ها، صرفاً عملکرد امروز تجهیز مدنظر نیست؛ بلکه آمادگی برای الزامات و فناوری‌های آینده نیز در نظر گرفته می‌شود. ارتقای راندمان سیستم‌های الکتریکی و درایوها، بهینه‌سازی مصرف انرژی، مدیریت هوشمند توان، قابلیت پایش و جمع‌آوری داده، و ایجاد زیرساخت مناسب برای توسعه اتوماسیون، Remote Monitoring و راهکارهای موردنیاز بنادر مکانیزه و هوشمند، بخشی از رویکرد ما در مهندسی نوسازی تجهیزات است. هدف ما صرفاً بازسازی یک تجهیز نیست؛ بلکه مهندسی مجدد چرخه عمر تجهیز و تبدیل آن به یک پلتفرم عملیاتی قابل اتکا، قابل توسعه و آینده‌نگر است. این رویکرد، ضمن افزایش قابلیت اطمینان، ایمنی تجهیز، دسترس‌پذیری و تعمیرپذیری، از جایگزینی کامل تجهیزات در موارد غیرضروری جلوگیری کرده و با کاهش هزینه تجمیعی تجهیز (Total Cost of Ownership – TCO)، سرمایه‌گذاری موردنیاز را بهینه می‌کند.\nما با ترکیب تجربه عملیاتی، دانش مهندسی و شناخت عمیق از تجهیزات بندری، سرمایه‌های راکد و تجهیزات فرسوده را به دارایی‌هایی به‌روز، انعطاف‌پذیر و آماده ورود به نسل جدید عملیات بندری تبدیل می‌کنیم؛ تجهیزاتی که نه تنها امروز عملکردی قابل اتکا دارند، بلکه برای نیازهای فردای بنادر نیز ظرفیت توسعه و تطبیق خواهند داشت.',
+    slides: [
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/4294-5.jpg',
+      }
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  },
+
+  {
+    id: 2,
+    slugEn: 'specialized-repair-marine-vessels-structures',
+    slugFa: 'تعمیرات-تخصصی-انواع-شناور-و-سازه-های-دریایی',
+    nameEn: 'Specialized Repair of Marine Vessels & Structures',
+    nameFa: 'تعمیرات تخصصی انواع شناور و سازه‌های دریایی',
+    color: 'var(--color-wood)',
+    descEn:
+      'From structural repairs, correction and strengthening of worn components to the restoration and renewal of mechanical, hydraulic, and electrical systems and auxiliary equipment, Fidar Sazeh Bandar offers a comprehensive range of specialized repair and restoration services for ships, vessels, and marine structures.\nLeveraging engineering knowledge, operational experience, and an approach based on precise technical assessment, the repair process is carried out under full control—from inspection, damage identification, and analysis of the current condition to designing the engineering solution, procuring equipment, and executing repair operations.\nOur goal is to extend the useful life of marine assets, restore safe and stable performance of equipment, and reduce costs caused by prolonged downtime. Our services, with a focus on execution quality, compliance with technical standards, and minimizing out-of-service time, are designed to prepare vessels and marine structures for continued safe and efficient operation.\nRelying on its engineering capabilities and execution capacities, Fidar Sazeh Bandar is a trusted partner of the marine industry on the path to modernization, improved reliability, and increased productivity of marine equipment and infrastructure.',
+    descFa:
+      'از تعمیرات سازه‌ای، اصلاح و تقویت اجزای فرسوده تا بازسازی و نوسازی سیستم‌های مکانیکی، هیدرولیکی، الکتریکی و تجهیزات جانبی، فیدارسازه بندار مجموعه‌ای جامع از خدمات تخصصی تعمیر و احیای کشتی‌ها، شناورها و سازه‌های دریایی را ارائه می‌دهد.\nبا بهره‌گیری از دانش مهندسی، تجربه عملیاتی و رویکرد مبتنی بر ارزیابی فنی دقیق، فرآیند تعمیرات از مرحله بازرسی، شناسایی آسیب‌ها و تحلیل وضعیت موجود تا طراحی راهکار مهندسی، تأمین تجهیزات و اجرای عملیات تعمیراتی تحت کنترل کامل انجام می‌شود.\nهدف ما افزایش عمر مفید دارایی‌های دریایی، بازگرداندن عملکرد ایمن و پایدار تجهیزات و کاهش هزینه‌های ناشی از توقف‌های طولانی‌مدت است. خدمات ما با تمرکز بر کیفیت اجرا، رعایت استانداردهای فنی و حداقل‌سازی زمان خروج از سرویس، به گونه‌ای طراحی شده‌اند که شناورها و سازه‌های دریایی را برای ادامه بهره‌برداری مطمئن و کارآمد آماده سازند.\nفیدارسازه بندار با تکیه بر توان مهندسی و ظرفیت‌های اجرایی خود، شریک قابل اعتماد صنایع دریایی در مسیر نوسازی، ارتقای قابلیت اطمینان و افزایش بهره‌وری تجهیزات و زیرساخت‌های دریایی است.',
+    slides: [
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/4294-4.jpg',
+      }
+    ],
+    btnEn: 'Read More',
+    btnFa: 'اطلاعات بیشتر',
+    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+  }
 ];

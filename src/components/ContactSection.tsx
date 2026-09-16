@@ -68,7 +68,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
           </h2>
           <p className="text-slate-500 text-base sm:text-lg">
             {isFa
-              ? 'برای ما پیام بگذارید تا مشاوران ما در اطرع وقت با شما تماس بگیرند'
+              ? 'برای ما پیام بگذارید تا مشاوران ما در اسرع وقت با شما تماس بگیرند'
               : 'Our engineering specialists are ready to analyze your web requirements and deliver customized solutions.'}
           </p>
         </div>
