@@ -107,7 +107,7 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
     };
 
     return (
-        <div className="min-h-[screen] bg-surface mt-6 lg:mt-18 text-slate-900 font-sans selection:bg-primary selection:text-white">
+        <div className="min-h-[screen] bg-surface lg:mt-18 text-slate-900 font-sans selection:bg-primary selection:text-white">
 
             {/* Sticky Fidar Bondar Header */}
             <Header
@@ -214,7 +214,7 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                                     type="button"
                                     onClick={() => scrollByAmount('right')}
                                     aria-label="Next"
-                                    className={`absolute right-0 shadow-lg top-[55%] z-10 cursor-pointer p-3 transition-all duration-200 bg-slate-50 rounded-full ${canScrollRight ? 'opacity-100 translate-x-0' : "opacity-0 translate-x-4"}`}
+                                    className={`absolute right-0 shadow-lg top-[55%] z-10 cursor-pointer p-3 transition-all duration-200 bg-slate-50 rounded-full ${canScrollRight ? 'opacity-100 ' : "opacity-0 "}`}
                                 >
                                     <ChevronRight color='orange' />
                                 </button>
@@ -226,7 +226,7 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                                     type="button"
                                     onClick={() => scrollByAmount('left')}
                                     aria-label="Previous"
-                                    className={`absolute left-0 shadow-lg top-[55%] z-10 cursor-pointer p-3  transition-all duration-200 bg-slate-50 rounded-full ${canScrollLeft ? 'opacity-100 translate-x-0' : "opacity-0 -translate-x-4"}`}>
+                                    className={`absolute left-0 shadow-lg top-[55%] z-10 cursor-pointer p-3  transition-all duration-200 bg-slate-50 rounded-full ${canScrollLeft ? 'opacity-100 ' : "opacity-0 "}`}>
                                     <ChevronLeft color='orange' />
                                 </button>
                          

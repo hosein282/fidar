@@ -73,7 +73,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
 
 
     return (
-        <div className="min-h-[screen] bg-surface mt-6 lg:mt-18 text-slate-900 font-sans selection:bg-primary selection:text-white">
+        <div className="min-h-[screen] bg-surface  text-slate-900 font-sans selection:bg-primary selection:text-white">
 
             {/* Sticky Fidar Bondar Header */}
             <Header
@@ -284,7 +284,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
                                                         src={item.imgUrl}
                                                         alt={isFa ? item.nameFa : item.nameEn}
                                                         fill
-                                                        className="object-contain object-center"
+                                                        className="object-cover object-center"
                                                     />
                                                 </div>
 

@@ -123,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <>
       {/* Floating Sticky Action Widget Bar on Right Edge (Always 100% Visible 3 Buttons) */}
-      <div className="hidden  fixed z-[110] right-3 sm:right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 items-end dir-ltr select-none">
+      <div className="hidden  sticky z-[110] right-3 sm:right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 items-end dir-ltr select-none">
         {/* Button 1: Technical Support / PHP Exporter */}
         <div className="relative group/btn flex items-center">
           <span className="absolute right-14 top-1/2 -translate-y-1/2 pointer-events-none opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 translate-x-2 transition-all duration-200 bg-slate-900 text-white text-xs font-bold py-1.5 px-3 rounded-xl shadow-2xl whitespace-nowrap border border-slate-700">
@@ -170,7 +170,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Header Wrapper */}
-      <header id="header" className={`fixed top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
+      <header id="header" className={`sticky top-0 z-[100] w-full  bg-surface border-b border-gray-300 shadow-sm transition-transform duration-300 ease-in-out `}>
 
         {/* Top Utility Nav Bar (Exact Fidar Bondar top bar) */}
         {/* <div className="bg-surface px-4 sm:px-10 pt-3 pb-2 hidden lg:block border-b border-gray-200">

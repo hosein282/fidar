@@ -138,7 +138,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
 
     return (
-        <div className="min-h-[screen] mt-6 lg:mt-18 bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white ">
+        <div className="min-h-[screen] bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white ">
 
             {/* Sticky Fidar Bondar Header */}
             <Header

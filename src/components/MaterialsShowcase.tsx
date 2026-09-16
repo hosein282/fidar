@@ -187,8 +187,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             DESKTOP VIEW (lg:flex)
            ========================================================= */}
           <div
-            className={`w-full h-full relative items-center  flex  flex-col lg:flex-row-reverse transition-colors duration-700 select-none  ${isFa ? 'pr-[10vw] pl-6  ' : 'pl-[10vw] pr-6  '
-              }`}
+            className={`w-full h-full relative items-center  flex  flex-col lg:flex-row-reverse transition-colors duration-700 select-none  px-6  `}
             style={{ backgroundColor: current.color }}
           >
             {/* Vertical Sidebar Tabs (10vw) */}
@@ -259,7 +258,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
 
 
             {/* Middle Text Content & SVG Logo Column */}
-            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "lg:mr-14" : "lg:ml-14"}`}>
+            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "lg:mr-[16vw]" : "lg:ml-14"}`}>
               {/* Fidar Bondar Brand SVG Header */}
               <div className="flex items-end mb-1 w-full relative">
                 <img src={'assets/images/logo_type.png'} alt={isFa ? current.nameFa : current.nameEn}
