@@ -103,7 +103,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'تلفن مشاوره مستقیم:' : 'Direct Phone Line:'}</span>
                     <a href="tel:02166129310" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono">
-                      02166129310
+                     {isFa? '02166129310' : " +98 21 66129310"}
                     </a>
                   </div>
                 </div>

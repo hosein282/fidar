@@ -8,8 +8,8 @@ import { Language, SEOMetaConfig, MaterialData } from '../../types';
 import { Header } from '../Header';
 import { ContactSection } from '../ContactSection';
 import { Footer } from '../Footer';
-import { ArrowRight, ArrowLeft, ChevronRight, ChevronLeft } from 'lucide-react';
-import { MATERIALS, SERVICES, SERVICES_DETAILS } from '../../data/mockData.ts'
+import {   ChevronRight, ChevronLeft } from 'lucide-react';
+import {  SERVICES } from '../../data/mockData.ts'
 
 
 interface ServicesPageProps {
@@ -78,7 +78,6 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
     const checkScrollability = useCallback(() => {
 
         const el = scrollRef.current;
-        console.log(el)
         if (!el) return;
 
         const { scrollLeft, scrollWidth, clientWidth } = el;
@@ -90,7 +89,6 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
     useEffect(() => {
         checkScrollability();
         const el = scrollRef.current;
-        console.log("el mob", el)
         if (!el) return;
         el.addEventListener('scroll', checkScrollability);
         window.addEventListener('resize', checkScrollability);
@@ -211,28 +209,27 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                         <div className={`flex flex-col items-center mt-14  `}>
 
                             {/* فلش راست — فقط اگر بتوان به راست اسکرول کرد */}
-                            {canScrollRight && (
+                            
                                 <button
                                     type="button"
                                     onClick={() => scrollByAmount('right')}
                                     aria-label="Next"
-                                    className='absolute right-0 shadow-lg top-[55%] z-10 cursor-pointer p-3 bg-slate-50 rounded-full'
+                                    className={`absolute right-0 shadow-lg top-[55%] z-10 cursor-pointer p-3 transition-all duration-200 bg-slate-50 rounded-full ${canScrollRight ? 'opacity-100 translate-x-0' : "opacity-0 translate-x-4"}`}
                                 >
                                     <ChevronRight color='orange' />
                                 </button>
-                            )}
+                            
 
                             {/* فلش چپ — فقط اگر بتوان به چپ اسکرول کرد */}
-                            {canScrollLeft && (
+                           
                                 <button
                                     type="button"
                                     onClick={() => scrollByAmount('left')}
                                     aria-label="Previous"
-                                    className='absolute left-0 shadow-lg top-[55%] z-10 cursor-pointer p-3 bg-slate-50 rounded-full'
-                                >
+                                    className={`absolute left-0 shadow-lg top-[55%] z-10 cursor-pointer p-3  transition-all duration-200 bg-slate-50 rounded-full ${canScrollLeft ? 'opacity-100 translate-x-0' : "opacity-0 -translate-x-4"}`}>
                                     <ChevronLeft color='orange' />
                                 </button>
-                            )}
+                         
 
                             {/* ── Scroll Container ── */}
                             <div

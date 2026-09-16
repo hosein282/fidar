@@ -1,8 +1,9 @@
 import React from 'react';
-import { Language } from '../types';
+import { Language, MaterialData } from '../types';
 import Image from 'next/image';
 
 import { Facebook, Instagram, Linkedin, Youtube, Shield, FileText } from 'lucide-react';
+import { MATERIALS, SERVICES } from '../data/mockData';
 
 interface FooterProps {
   lang: Language;
@@ -12,6 +13,12 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin, onOpenExporter }) => {
   const isFa = lang === 'fa';
+  const productHref = (item: MaterialData) =>
+    `/${lang}/products/${isFa ? item.slugFa : item.slugEn}`;
+
+  const serviceHref = (item: MaterialData) =>
+    `/${lang}/services/${isFa ? item.slugFa : item.slugEn}`;
+  const productLabel = (item: MaterialData) => (isFa ? item.nameFa : item.nameEn);
 
   return (
     <footer className="bg-black text-white pt-12 pb-16 px-6 sm:px-12 border-t border-gray-800">
@@ -55,25 +62,25 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin, onOpenExporte
         {/* Quick Nav Links Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs text-slate-400">
           <div>
-            <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'محصولات' : 'Products'}</h4>
+            <a  href={`/${lang}/products`} ><h4 className="text-white font-bold text-sm mb-3">{isFa ? 'محصولات' : 'Products'}</h4></a>
             <ul className="space-y-2">
-              <li><a href="#materials" className="hover:text-white transition">{isFa ? 'تکنولوژی مهندسی' : 'Engineering Technology'}</a></li>
-              <li><a href="#materials" className="hover:text-white transition">{isFa ? 'تجهیزات انتقال مواد بندرگاهی' : 'Port Material Handling Equipment'}</a></li>
-              <li><a href="#materials" className="hover:text-white transition">{isFa ? 'جرثقیل های صنعتی' : 'Industrial Cranes'}</a></li>
-              <li><a href="#materials" className="hover:text-white transition">{isFa ? 'تجهیزات فرایندی و انتقال توان': 'Process Equipment and Power Transmission'}</a></li>
+              {MATERIALS.map((item) =>
+                <li key={item.slugEn}><a href={productHref(item)} className="hover:text-white transition">{isFa ? item.nameFa : item.nameEn}</a></li>
+              )}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'خدمات' : 'Services'}</h4>
+           <a href={`/${lang}/services`}> <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'خدمات' : 'Services'}</h4></a>
             <ul className="space-y-2">
-              <li><a href='consumers' className="hover:text-white transition text-left">{isFa ? 'تعمیرات تخصصی شناورها و سازه‌های دریایی' : 'Specialized Repair'}</a></li>
-              <li><a href="#consumers" className="hover:text-white transition">{isFa ? 'بازسازی و به‌روزرسانی تجهیزات' : ' Equipment Overhaul and Upgrading'}</a></li>
-              <li><a href="#consumers" className="hover:text-white transition">{isFa ? 'تجهیزات بندرگاهی' : 'Port Equipment'}</a></li>
+               {SERVICES.map((item) =>
+                <li key={item.slugEn}><a href={serviceHref(item)} className="hover:text-white transition">{isFa ? item.nameFa : item.nameEn}</a></li>
+              )}
+            
             </ul>
           </div>
 
-        
+
 
           <div>
             <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'درباره گروه فیدار بندار' : 'About Fidar Bondar'}</h4>
@@ -85,7 +92,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin, onOpenExporte
               )}
             </p>
           </div>
-            <div>
+          <div>
             <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'مقالات و اخبار ' : 'Articles & News'}</h4>
             <ul className="space-y-2">
               {/* <li><button onClick={onOpenAdmin} className="hover:text-white transition text-left">{isFa ? 'پنل مدیریت محتوای CMS' : 'CMS Admin Dashboard'}</button></li>

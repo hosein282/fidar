@@ -273,9 +273,13 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
             <div className="w-full md:container md:mx-auto">
               <div className="gap-5 lg:gap-10 flex flex-col py-20 lg:py-28 justify-center items-center">
                 <Image className='mb-12' src={"/assets/images/logo_type.png"} alt="fidar bondar sazeh logo" width={400} height={200}></Image>
-                <h2 className='text-2xl text-primary'>                  فیدارسازه بندار؛ مهندسی، ساخت و نوسازی برای عملکردی پايدارتر</h2>
+                <h2 className='text-2xl  text-primary'>
+                  {isFa ? (
+                    "مهندسی، ساخت و نوسازی برای عملکردی پايدارتر"
+                  ) : ("Engineering, construction, and renovation for more sustainable performance")}
+                </h2>
 
-                <div className="!leading-snug text-center text-slate-900 text-xl lg:text-3xl xl:text-2xl font-normal max-w-5xl mx-auto">
+                <div className="leading-snug!  text-slate-900 text-base lg:text-3xl xl:text-2xl font-normal max-w-5xl mx-auto">
                   {isFa ? (
                     <>
                       <p>فیدار سازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشین آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد.</p>
@@ -284,14 +288,22 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
                     <p>We are a knowledge-based engineering and manufacturing group. With advanced technology, engineering precision and future-oriented design, we optimize port terminals and heavy industries through next-generation material handling equipment.</p>
                   )}
                   <br></br>
-                  <p>ما معتقدیم عملکرد پایدار تجهیزات، نتیجه ترکیب طراحی مهندسی، کیفیت ساخت، فناوری روز و شناخت عمیق از شرایط واقعی بهره برداری است. به همین دلیل، تمامی پروژه ها از تحلیل و طراحی تا ساخت، نصب، راه اندازی و پشتیبانی، با رویکردی یکپارچه و مهندسی شده اجرا میشوند.</p>
+                  {isFa ? (
+                    <p>ما معتقدیم عملکرد پایدار تجهیزات، نتیجه ترکیب طراحی مهندسی، کیفیت ساخت، فناوری روز و شناخت عمیق از شرایط واقعی بهره برداری است. به همین دلیل، تمامی پروژه ها از تحلیل و طراحی تا ساخت، نصب، راه اندازی و پشتیبانی، با رویکردی یکپارچه و مهندسی شده اجرا میشوند.</p>
+                  ) : (
+                    <p>
+                      We believe that sustainable equipment performance is the result of combining engineering design, build quality, modern technology, and a deep understanding of real operating conditions. That is why all projects—from analysis and design to fabrication, installation, commissioning, and support—are executed with an integrated, engineering-driven approach.
+                    </p>
+                  )}
+
+
 
                 </div>
 
               </div>
             </div>
           </div>
-          
+
         </section>
 
 
@@ -301,15 +313,15 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
         <section id="vision-mission" className="w-full overflow-hidden ">
           <div className="w-full overflow-hidden relative bg-primary-dark">
             <div className="w-full px-8 py-5 lg:p-0 flex flex-col  lg:items-center lg:min-h-[14rem]">
-              <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
+              {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative"> */}
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  // style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
+                // style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
                 />
-              </div>
+              {/* </div> */}
               <div className="lg:flex-[0_0_50%] flex flex-col items-center justify-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-                <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'مهندسی و ساخت تجهیزات پیشرفته' : 'Vision'}</h2>
-                <p className="text-base md:text-lg xl:text-xl font-light text-white/90  leading-loose text-center">
+                <h2 className="text-2xl lg:text-4xl font-medium text-primary">{isFa ? 'مهندسی و ساخت تجهیزات پیشرفته' : 'Vision'}</h2>
+                <p className="text-base md:text-lg xl:text-xl font-light text-white/90  leading-loose ">
                   {isFa ?
                     <>
                       توانمندی فیدارسازه بندار شامل طراحی و ساخت جرثقیل های بندرگاهی، تجهیزات انتقال و بارگیری کانتینر، تجهیزات جابه جایی مواد فله، جرثقیلهای صنعتی و تجهیزات فرایندی است.
@@ -323,7 +335,7 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-          
+
 
           <div className="w-full overflow-hidden relative bg-primary-dark border-t border-white/10">
             <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:items-center  lg:min-h-[14rem]">
@@ -334,8 +346,8 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
                 />
               </div> */}
               <div className="lg:flex-[0_0_50%] flex flex-col justify-center   items-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-                <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'نوسازی و ارتقای تجهیزات موجود' : 'Mission'}</h2>
-                <p className="text-base md:text-lg xl:text-xl  font-light text-white/90  leading-loose text-center">
+                <h2 className="text-2xl lg:text-4xl font-medium text-primary">{isFa ? 'نوسازی و ارتقای تجهیزات موجود' : 'Mission'}</h2>
+                <p className="text-base md:text-lg xl:text-xl  font-light text-white/90  leading-loose ">
                   {isFa ? (
                     'ارائه راهکارهای کامل از طراحی و تولید تا بازسازی و به‌روزرسانی تجهیزات؛ با تکیه بر دانش مهندسی، تجربه اجرایی و توان ساخت، تا هر ماده و هر عملیاتی به پتانسیل کامل خود دست یابد.'
                   ) : (
@@ -345,8 +357,8 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
               </div>
             </div>
           </div>
-          
-          
+
+
           <div className="w-full overflow-hidden relative bg-primary-dark border-t border-white/10">
             <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:items-center  lg:min-h-[14rem]">
               {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
@@ -356,8 +368,8 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
                 />
               </div> */}
               <div className="lg:flex-[0_0_50%] flex flex-col justify-center  items-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-               <h2 className="text-3xl lg:text-4xl font-medium text-white">{isFa ? 'ساخت برای امروز، آماده برای آينده' : 'Vision'}</h2>
-                <p className="text-base md:text-lg xl:text-xl max-w-[70%]  font-light text-white/90 text-center">
+                <h2 className="text-2xl  lg:text-4xl font-medium text-primary">{isFa ? 'ساخت برای امروز، آماده برای آينده' : 'Built For Today, Ready For Tomorrow'}</h2>
+                <p className="text-base md:text-lg xl:text-xl   font-light text-white/90 ">
                   {isFa ? (
                     'تمرکز بر بهره وری انرژی ، اتوماسیون و فناوری های نوین، فیدارسازه بندار راهکارهایی ارائه میدهد که عالوه بر پاسخگویی به نیازهای امروز صنعت، قابلیت توسعه و تطبیق با نیازهای آینده را داشته باشند.'
                   ) : (

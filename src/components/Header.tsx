@@ -382,7 +382,7 @@ export const Header: React.FC<HeaderProps> = ({
         {mobileMenuOpen && (
           <div className="lg:hidden bg-white   px-6 py-6 space-y-4 shadow-xl rounded-b-4xl ">
 
-            <nav className="flex flex-col space-y-3 text-slate-900 font-bold text-base">
+            <nav className="flex flex-col space-y-6 text-slate-900 font-bold text-base">
 
               <div>
                 <button

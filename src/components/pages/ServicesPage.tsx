@@ -9,7 +9,7 @@ import { Header } from '../Header';
 import { ContactSection } from '../ContactSection';
 import { Footer } from '../Footer';
 import { ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
-import {  SERVICES } from '../../data/mockData.ts'
+import { SERVICES } from '../../data/mockData.ts'
 
 import {
     Ship, Anchor, Wind, Fan, Wrench, RefreshCw, Languages, SearchCheck,
@@ -137,11 +137,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
         if (!el) return;
 
         const { scrollLeft, scrollWidth, clientWidth } = el;
-        const tolerance = 0; // جلوگیری از خطای رندر
 
-        console.log("left:" , -scrollLeft)
-        console.log("width:" , scrollWidth)
-        console.log("clientWidth:" , clientWidth)
         setCanScrollLeft((-scrollLeft + clientWidth) !== scrollWidth);
         setCanScrollRight(scrollLeft !== 0);
     }, []);
@@ -275,9 +271,9 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
 
                 {/* Logo and Slug */}
-                <section className="flex flex-col w-full py-16 lg:py-28 gap-5 items-center bg-primary">
+                <section className="flex flex-col w-full py-16 lg:py-28 gap-5 items-center bg-primary-dark">
                     {/* Header */}
-                    <h2 className="text-center text-3xl lg:text-4xl leading-tight font-medium px-8 lg:px-20 max-w-4xl text-light">
+                    <h2 className="text-center text-3xl lg:text-4xl leading-tight font-medium px-8 lg:px-20 max-w-4xl text-primary text-light">
                         {isFa ?
                             "خدمات فیدار سازه بندار" :
                             "Services Of Fidar Saze Bondar"
@@ -285,7 +281,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
                     </h2>
 
-                    <p className="text-base  font-light px-8 lg:px-20 max-w-4xl text-center text-light">
+                    <p className="text-base  font-light px-8 lg:px-20 max-w-4xl text-center text-light text-surface">
                         {isFa ?
                             'در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصولات ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه محور است' :
                             "Seamless integration of material handling, storage, and distribution is key to ensuring continuous production, minimizing wait times, and optimizing every process step. Biesse Technic solutions dynamically and intelligently manage materials, delivering coordinated, high-performance workflows."
@@ -384,33 +380,12 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                         <div className="flex flex-col items-center mt-14">
 
                             {/* فلش راست — فقط اگر بتوان به راست اسکرول کرد */}
-                            {canScrollRight && (
-                                <button
-                                    type="button"
-                                    onClick={() => scrollByAmount('right')}
-                                    aria-label="Next"
-                                    className='absolute -right-1 top-[50%] z-10 cursor-pointer'
-                                >
-                                    <ChevronRight color='white' />
-                                </button>
-                            )}
-
-                            {/* فلش چپ — فقط اگر بتوان به چپ اسکرول کرد */}
-                            {canScrollLeft && (
-                                <button
-                                    type="button"
-                                    onClick={() => scrollByAmount('left')}
-                                    aria-label="Previous"
-                                    className='absolute -left-1 top-[50%] z-10 cursor-pointer'
-                                >
-                                    <ChevronLeft color='white' />
-                                </button>
-                            )}
+                           
 
                             {/* ── Scroll Container ── */}
                             <div
                                 ref={scrollRef}
-                                className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex"
+                                className={`relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex ${isFa ? "flex-row" : "flex-row-reverse"}`}
                             >
                                 {SERVICES.map((item) => (
                                     <div
@@ -432,7 +407,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                                 </div>
 
                                                 {/* Text */}
-                                                <div className="w-full flex flex-col items-start gap-4 pt-4 pb-10 px-7">
+                                                <div className="w-full flex flex-col items-start gap-4 pt-4 pb-10 px-6">
                                                     <h3 className="leading-none break-normal text-2xl lg:text-4xl text-primary font-normal">
                                                         {isFa ? item.nameFa : item.nameEn}
                                                     </h3>
@@ -444,13 +419,24 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                                             </p>
                                                         </div>
                                                     )}
+
                                                 </div>
+                                                <button className='bg-primary  h-10 w-50 text-white mb-4 rounded-4xl mr-6'>
+                                                    {isFa ? "اطلاعات بیشتر" : "Read More"}
+                                                </button>
                                             </div>
+
                                         </div>
+
                                     </div>
                                 ))}
                             </div>
+                            
                         </div>
+                         <ChevronRight className={`text-surface transition-all duration-200 absolute -right-1 top-[50%] 
+                                                        ${canScrollRight ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 -events-none'}`} />
+                            <ChevronLeft className={`text-surface transition-all duration-200 absolute -left-1 top-[50%] 
+                                                        ${canScrollLeft ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 -events-none'}`} />
                     </div>
 
 

@@ -108,7 +108,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-surface mt-6 lg:mt-16 text-slate-900 font-sans selection:bg-primary selection:text-white flex flex-col justify-between">
       <div>
         {/* Main Header */}
         <Header

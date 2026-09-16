@@ -15,7 +15,8 @@ const industries = [
             en: 'Specialized Repair of Vessels and Marine Structures',
         },
         description: {
-            fa: 'ارائه خدمات تخصصی تعمیرات، بازسازی و نوسازی کشتی‌ها و سازه‌های دریایی',
+            fa: 'ارائه <b>خدمات تخصصی</b> تعمیرات، بازسازی و نوسازی کشتی‌ها و سازه‌های دریایی',
+
             en: 'Providing specialized repair, refurbishment, and renovation services for ships and marine structures',
         },
         imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4jsQEr5ZjvYqYSeDrACtIi/97a4f9cfb47e715b1c9407f190674706/Immagine_Forniture.png',
@@ -23,6 +24,7 @@ const industries = [
         width: 378,
         height: 539,
     },
+    
     {
         title: {
             fa: 'بازسازی و به‌روزرسانی تجهیزات',
@@ -51,7 +53,7 @@ const industries = [
         width: 400,
         height: 600,
     },
-     // {
+    // {
     //     title: 'Aerospace',
     //     description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
     //     imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/7AtmYfzL77F98TCcLoY29l/9643b18994bbdf30b0f34d9b32552189/luka-slapnicar-yqeXLR81Uj0-unsplash.jpg',
@@ -151,18 +153,18 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-18 ${isFa ? "px-8" : "px-8"}   scroll-px-5 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-10 pt-12 transition-all w-full overflow-visible `}>
+                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
 
-                            className="pointer-events-auto "
+                            className="pointer-events-auto snap-center"
                             style={{
                                 // opacity: 1,
                                 zIndex: industries.length - index,
                                 // transform: 'translateX(calc(0% + 0px)) translateY(0px) scale(1) translateZ(0px)',
                             }}                        >
-                            <div className="relative rounded-2xl overflow-hidden aspect-3/4   group h-full w-80 lg:aspect-auto lg:h-136">
+                            <div className="relative rounded-2xl overflow-hidden aspect-3/4  group h-114 w-85 lg:aspect-auto lg:h-136">
                                 {/* Gradient Overlay */}
                                 <div className="absolute z-10  h-full w-full bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)]"></div>
 
@@ -174,8 +176,15 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                             <h3 className="font-medium text-3xl mb-2 z-10">
                                                 {isFa ? industry.title.fa : industry.title.en}
                                             </h3>
-                                            <div className="rich-text whitespace-break-spaces font-light text-lg line-clamp-[9]">
-                                                <p>{isFa ? industry.description.fa : industry.description.en}</p>
+                                            <div className="rich-text whitespace-break-spaces font-light text-lg line-clamp-[9] string:red-500">
+                                                <div dangerouslySetInnerHTML={{
+
+                                                    __html: isFa ? industry.description.fa : industry.description.en,
+                                                    
+                                                }}
+                                                ></div>
+
+
                                             </div>
                                         </div>
                                     </div>

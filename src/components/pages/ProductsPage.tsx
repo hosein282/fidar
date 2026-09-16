@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, lazy, Suspense, useRef } from 'react';
+import React, { useEffect, useState, lazy, Suspense, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -42,13 +42,8 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
     const isFa = currentLang === 'fa';
 
 
-    const [activeModal, setActiveModal] = useState<'admin' | 'exporter' | null>(null);
-    const [openAccordion, setOpenAccordion] = useState<number>(0);
-    const [active, setActive] = useState(0);
-
     const [activeIndex, setActiveIndex] = useState(0); // پیش‌فرض: کارت دوم (Storing)
     const [isDesktop, setIsDesktop] = useState(false);
-    const touchStartX = useRef<number | null>(null);
 
     // Sync HTML lang and dir attribute + scroll to top on load
     useEffect(() => {
@@ -56,10 +51,6 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
         document.documentElement.setAttribute('lang', currentLang);
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        const interval = setInterval(() => {
-            setActive((prev) => (prev + 1) % MATERIALS.length);
-        }, 3000);
-        return () => clearInterval(interval);
 
     }, [currentLang, isFa]);
 
@@ -101,14 +92,9 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
     const goTo = (i: number) => setActiveIndex(i);
 
-    // ── محاسبه translateX برای دسکتاپ ──
-    // در دسکتاپ: 6 کارت رندر می‌شود (3 کارت اصلی + 3 کلون) اما ما از CSS برای چیدمان استفاده می‌کنیم.
-    // برای سادگی و خوانایی، از یک روش ساده‌تر استفاده می‌کنیم: هر کارت 60% عرض دارد،
-    // و برای اینکه کارت فعال در وسط باشد، offset محاسبه می‌شود.
     const getTranslateX = () => {
         if (!isDesktop) return "0%";
-        // کارت فعال در مرکز: 50% - (60% / 2) = 20% از هر طرف
-        // با احتساب اینکه هر کارت 60% عرض دارد و gap/px-4 داریم
+
         const offset = 20 - activeIndex * 60;
         return `${offset}%`;
     };
@@ -116,6 +102,39 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
     const handleLanguageSwitch = (newLang: Language) => {
         router.push(`/${newLang}/products`);
     };
+
+
+    const mobileScrollerRef = useRef<HTMLDivElement>(null);
+
+    const [scrollLeft, setScrollLeft] = useState(false);
+    const [scrollRight, setScrollRight] = useState(false);
+
+
+    const checkScrollability = useCallback(() => {
+        const el = mobileScrollerRef.current;
+        if (!el) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = el;
+
+        setScrollLeft((-scrollLeft + clientWidth) !== scrollWidth);
+        setScrollRight(scrollLeft !== 0);
+    }, []);
+
+    useEffect(() => {
+        checkScrollability();
+
+        const el = mobileScrollerRef.current;
+
+        if (!el) return;
+
+        el.addEventListener('scroll', checkScrollability);
+        window.addEventListener('resize', checkScrollability);
+
+        return () => {
+            el.removeEventListener('scroll', checkScrollability);
+            window.removeEventListener('resize', checkScrollability);
+        }
+    }, [checkScrollability])
 
 
     return (
@@ -173,16 +192,16 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                         <div className="w-full md:container md:mx-auto">
                             <div className={`gap-5 lg:gap-10 flex flex-col lg:flex-row-reverse items-center py-20 lg:py-28`} >
                                 <Image className='object-contain  ' src={"/assets/images/logo_type.png"} alt='' width={300} height={100} />
-                                <div className="!leading-snug flex-[0_0_60%] text-center text-slate-900 text-base lg:text-xl  font-normal max-w-5xl mx-auto">
+                                <div className="leading-relaxed flex-[0_0_60%] text-center text-slate-900 text-base lg:text-xl  font-normal max-w-5xl mx-auto ">
                                     {isFa ? (
                                         <>
 
-                                            <p>فیدار سازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشین آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد.</p>
+                                            <p><b>فیدار سازه بندار</b> یک مجموعه مهندسی و ساخت تخصصی در حوزه <b>تجهیزات انتقال مواد</b>، <b>ماشین آلات بندری</b> و <b>تجهیزات صنعتی سنگین</b> است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد.</p>
 
 
                                         </>
                                     ) : (
-                                        <p>We are a knowledge-based engineering and manufacturing group. With advanced technology, engineering precision and future-oriented design, we optimize port terminals and heavy industries through next-generation material handling equipment.</p>
+                                        <p>We are a knowledge-based engineering and manufacturing group. With <b>advanced technology</b>, <b>engineering precision</b> and <b>future-oriented design</b>, we optimize port terminals and heavy industries through next-generation material handling equipment.</p>
                                     )}
                                 </div>
                             </div>
@@ -195,7 +214,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                 {/* Logo and Slug */}
                 <section className="flex flex-col w-full py-16 lg:py-28 gap-5 items-center bg-primary">
                     {/* Header */}
-                    <h2 className="text-center text-3xl lg:text-4xl leading-tight font-medium px-8 lg:px-20 max-w-4xl text-light">
+                    <h2 className="text-center text-3xl lg:text-4xl leading-tight font-bold px-8 lg:px-20 max-w-4xl text-light">
                         {isFa ?
                             "محصولات فیدار سازه بندار" :
                             " Products Of Fidar Saze Bondar"
@@ -203,13 +222,20 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
                     </h2>
 
-                    <p className="text-lg  font-light px-8 lg:px-20 max-w-4xl text-center text-light">
+                    <div className="text-lg   px-8 lg:px-20 max-w-4xl text-center text-light">
                         {isFa ?
-                            'در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصولات ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه محور است' :
-                            "Seamless integration of material handling, storage, and distribution is key to ensuring continuous production, minimizing wait times, and optimizing every process step. Biesse Technic solutions dynamically and intelligently manage materials, delivering coordinated, high-performance workflows."
+                            <p>
+                                در <b>فیدارسازه بندار</b>، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود.<br></br> محصولات ما حاصل ترکیب <b>توان طراحی مهندسی</b>، <b>دقت ساخت</b> و <b>رویکرد توسعه محور</b> است
+                            </p>
+                            :
+                            <p>
+                                "Seamless integration of material handling, storage, and distribution is key to ensuring continuous production, minimizing wait times, and optimizing every process step. Biesse Technic solutions dynamically and intelligently manage materials, delivering coordinated, high-performance workflows."
+                            </p>
                         }
+                    </div>
 
-                    </p>
+
+
 
                     {/* ─── DESKTOP CAROUSEL ─── */}
                     <div className="w-full flex-col items-center gap-10 relative mt-14 hidden lg:flex" >
@@ -252,6 +278,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                                         </div>
                                                     )}
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -259,7 +286,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                             </div>
 
                             {/* Next Button */}
-                            {(activeIndex +1 ) < (MATERIALS.length) && <button
+                            {(activeIndex + 1) < (MATERIALS.length) && <button
                                 type="button"
                                 onClick={goNext}
                                 aria-label="Next slide"
@@ -299,21 +326,20 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                     </div>
 
                     {/* ─── MOBILE SWIPER ─── */}
-                    <div className='lg:hidden w-full relative'>
+                    <div className='lg:hidden w-full relative '>
                         <div className=" flex flex-col items-center  mt-14 ">
-                            <ChevronRight className=' absolute -right-1 top-[50%] ' color='white' />
-                            <ChevronLeft className=' absolute -left-1 top-[50%] ' color='white' />
+                          
                             {/* ── Scroll Container ── */}
-                            <div className="relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex">
+                            <div ref={mobileScrollerRef} className={`relative w-full overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex ${isFa ? "flex-row" : "flex-row-reverse"}`}>
 
                                 {MATERIALS.map((item) => (
                                     <div
                                         key={item.nameEn}
                                         onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
 
-                                        className="flex-[0_0_100%] min-w-0 snap-center snap-always shrink-0"
+                                        className="flex-[0_0_100%] min-w-0 snap-center snap-always shrink-0 "
                                     >
-                                        <div className="pb-4 px-4 w-full flex items-end">
+                                        <div className="pb-4 px-4 w-full flex ">
                                             <div className="flex flex-col h-[70vh] items-center justify-between rounded-3xl min-h-80 overflow-hidden bg-surface w-full">
 
                                                 {/* Image */}
@@ -322,7 +348,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                                         src={item.imgUrl}
                                                         alt={isFa ? item.nameFa : item.nameEn}
                                                         fill
-                                                        className="object-contain object-center"
+                                                        className="object-cover object-center"
                                                     />
                                                 </div>
 
@@ -340,28 +366,23 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                                         </div>
                                                     )}
                                                 </div>
+                                                <button className='bg-primary h-10 w-50 text-white mb-4 rounded-4xl'>
+                                                    {isFa ? "اطلاعات بیشتر" : "Read More"}
+
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
-
+                                
                             </div>
-
-
+                              <ChevronRight className={`text-surface transition-all duration-200 absolute -right-1 top-[50%] 
+                            ${scrollRight ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 -events-none'}`} />
+                           <ChevronLeft className={`text-surface transition-all duration-200 absolute -left-1 top-[50%] 
+                            ${scrollLeft ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 -events-none'}`} />
                         </div>
-
                     </div>
-
-
-
                 </section>
-
-
-
-
-
-
-
             </main>
 
             {/* Footer */}
@@ -374,7 +395,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                 }} />
 
 
-        </div>
+        </div >
     );
 };
 export default ProductsPageComponent;
