@@ -204,7 +204,7 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
       {/* Bounce Scroll Down Indicator */}
 
   
-            <ArrowDown className="absolute left-10 bottom-10 w-5 h-5 text-surface transition animate-bounce" />
+            <ArrowDown className={`absolute ${isFa ? "right-10" : "left-10"} bottom-10 w-5 h-5 text-surface transition animate-bounce`} />
     </section>
   );
 };
