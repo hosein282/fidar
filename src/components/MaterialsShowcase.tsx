@@ -177,7 +177,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <a
             href="#"
-            className={`absolute z-100  bottom-16  transition animate-bounce ${isFa? "left-10" : "right-10"}`}
+            className={`absolute z-100  bottom-16  transition animate-bounce ${isFa ? "left-10" : "right-10"}`}
           >
             {/* <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span> */}
             <ArrowDown className="w-5 h-5 text-black" />
@@ -193,34 +193,34 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             {/* Vertical Sidebar Tabs (10vw) */}
             <div id='scrollContainer'
               className={`
-                relative lg:absolute w-screen h-20 lg:h-full  overflow-x-scroll  snap-start snap-mandatory lg:w-[12vw] top-0 flex flex-row lg:flex-col  justify-between z-20 select-none lg:py-28   ${isFa ? 'right-4 pl-20' : 'left-0 pr-20'}
-                 z-10 px-4 lg:px-0  overflow-x-scroll pb-4 mt-2 no-scrollbar  [&::-webkit-scrollbar]:hidden
+                relative lg:absolute w-screen h-20 lg:h-full overflow-x-scroll   snap-start snap-mandatory lg:w-[12vw] top-0 flex flex-row lg:flex-col  justify-between z-20 select-none lg:py-28   ${isFa ? ' right-4 pl-20' : 'left-0 pr-20 '}
+                 z-10 px-4 lg:px-0  overflow-y-clip pb-4 mt-2 no-scrollbar  [&::-webkit-scrollbar]:hidden
                 `}
             >
               {MATERIALS.map((mat, idx) => {
                 const isActive = activeIndex === idx;
                 return (
-                 <div key={mat.id} className={`${isFa? "-rotate-90" : "rotate-90" } lg:rotate-0`}>
-                   <button
-                    
-                    onClick={() => handleTabClick(idx)}
-                    className={` 
+                  <div key={mat.id} className={`${isFa ? "-rotate-90" : "rotate-90"} lg:rotate-0`}>
+                    <button
+
+                      onClick={() => handleTabClick(idx)}
+                      className={` 
                       ${isActive ? "border-2 pointer-events-none" : ""}
                       shrink-0 lg:flex-[1/8]  text-sm text-center   ${isFa ? 'rotate-90' : '-rotate-90'} 
                      h-8  lg:h-26 w-max lg:w-[12vw] p-2 mx-1 flex rounded-full items-center py-0 justify-center border lg:border-0  border-slate-900  transition-all duration-300 font-bold cursor-pointer text-slate-900 ${isActive ? 'opacity-100 font-extrabold' : 'opacity-60 hover:opacity-100'
-                      }`}
+                        }`}
 
-                    type="button"
-                  >
-                    <span
-                      className={`text-base lg:text-base tracking-wide select-none '
-                        }`}//${isFa ? 'rotate-90' : 'rotate-[-90deg]}
+                      type="button"
                     >
-                      {isFa ? mat.nameFa : mat.nameEn}
-                      {/* ${isFa ? 'rotate-90' : 'rotate-[-90deg]'} */}
-                    </span>
-                  </button>
-                 </div>
+                      <span
+                        className={`text-base lg:text-base tracking-wide select-none '
+                        }`}//${isFa ? 'rotate-90' : 'rotate-[-90deg]}
+                      >
+                        {isFa ? mat.nameFa : mat.nameEn}
+                        {/* ${isFa ? 'rotate-90' : 'rotate-[-90deg]'} */}
+                      </span>
+                    </button>
+                  </div>
                 );
               })}
 
@@ -234,7 +234,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                 return (
                   <div
                     key={mat.id}
-                    className="absolute transition-all duration-700 ease-out flex justify-center items-center max-w-lg"
+                    className="absolute transition-all duration-700 ease-out flex justify-center items-center max-w-lg px-4"
                     style={{
                       opacity: isActive ? 1 : 0,
                       zIndex: isActive ? 10 : 0,
@@ -249,7 +249,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                       height={1200}
                       loading="lazy"
                       decoding="async"
-                      className="max-h-[45vh] w-auto object-contain drop-shadow-xl rounded-2xl"
+                      className="max-h-[45vh] w-auto object-contain drop-shadow-xl rounded-2xl "
                     />
                   </div>
                 );
@@ -260,7 +260,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             {/* Middle Text Content & SVG Logo Column */}
             <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "lg:mr-[16vw]" : "lg:ml-14"}`}>
               {/* Fidar Bondar Brand SVG Header */}
-              <div className="flex items-end mb-1 w-full relative">
+              <div className="flex items-end mb-1 w-full relative ">
                 <img src={'assets/images/logo_type.png'} alt={isFa ? current.nameFa : current.nameEn}
                   className='w-40'
                 ></img>
@@ -275,7 +275,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
               {/* Description Paragraph with Fade Transition */}
               <div className="h-full flex w-full flex-col justify-stretch">
                 <div className="min-h-[16vh] max-h-[42vh] w-full overflow-hidden text-base lg:text-xl leading-relaxed text-slate-900 font-light">
-                  <p className="transition-all duration-500">
+                  <p className={`transition-all duration-500 ${isFa? "text-justify" : ""}`}>
                     {isFa ? current.descFa : current.descEn}
                   </p>
                 </div>

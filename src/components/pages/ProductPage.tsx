@@ -296,7 +296,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
 
                                                     {(isFa ? item.descFa : item.descEn) && (
                                                         <div className="flex flex-col items-start gap-4 lg:gap-5 w-full overflow-hidden">
-                                                            <p className="text-base lg:text-lg leading-snug font-light line-clamp-[8] break-normal text-dark">
+                                                            <p className="text-base lg:text-lg  leading-snug font-light line-clamp-[8] break-normal text-dark">
                                                                 {isFa ? item.descFa : item.descEn}
                                                             </p>
                                                         </div>

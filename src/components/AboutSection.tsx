@@ -74,12 +74,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               className={`absolute top-0 left-0 z-10 flex h-full  sm:p-10 lg:p-12 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
                 }`}
             >
-              <h3 className="text-xl sm:text-lg md:text-3xl lg:text-xl xl:text-5xl 2xl:text-4xl  lg:leading-18 font-light max-w-[90%] px-6 lg:w-[85%]  text-surface">
+              <h3 className="text-base  text-justify  sm:text-lg md:text-3xl lg:text-xl xl:text-5xl 2xl:text-4xl  lg:leading-18 font-light max-w-[90%] px-6 lg:w-[85%]  text-surface">
                 {isFa
                   ?
                   "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم"
                   
-                  : 'We optimize port terminal operations using advanced technology and next-generation design of port material handling equipment.'}
+                  : 'We optimize port terminal operations using advanced technology and next generation design of port material handling equipment.'}
               </h3>
             </div>
           </div>
@@ -127,12 +127,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                   {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Bondar'}
                 </h3>
 
-                <div className="mt-4 xl:mt-8  text-base sm:text-sm lg:text-xl  font-light text-slate-800 leading-relaxed  ">
+                <div className={`mt-4 xl:mt-8 ${isFa? "text-justify" : ""} text-base sm:text-sm lg:text-xl  font-light text-slate-800 leading-relaxed `}>
                   {isFa
                     ? 
                     'فیدارسازه بندار یک مجموعه دانش بنیان مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد و ماشین آلات سنگین بندرگاهی است که با تکیه بر دانش مهندسی، تجربه اجرایی و رویکردی مبتنی بر دقت، کیفیت و نوآوری فعالیت میکند.'
                     
-                    : 'Fidar Sazeh Bandar is a knowledge-based engineering and manufacturing group specializing in material handling equipment and heavy port machinery, operating with a foundation of engineering expertise, executive experience, and an approach centered on precision, quality, and innovation.'}
+                    : 'Fidar Sazeh Bandar is a knowledge based engineering and manufacturing group specializing in material handling equipment and heavy port machinery, operating with a foundation of engineering expertise, executive experience, and an approach centered on precision, quality, and innovation.'}
                 </div>
 
                 <div className="shrink-0 mt-8 xl:mt-12">

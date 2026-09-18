@@ -78,13 +78,13 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
       {/* Services & Training Programs Section */}
       <div className="mt-16 sm:mt-24 py-16 px-6 sm:px-12 max-w-[1320px] mx-auto text-center space-y-8 border-t border-gray-300">
-        <h2 className="text-3xl sm:text-5xl font-light text-primary">
+        <h2 className="text-3xl sm:text-5xl font-light text-primary capitalize">
           {isFa ? 'مهندسی دقیق برای تجهیزاتی که قلب عملیات صنعتی و بندری هستند' : 'Discover our tailored services and training programs!'}
         </h2>
 
-        <p className="text-slate-700 text-base sm:text-xl font-light max-w-4xl mx-auto leading-relaxed">
+        <p className="text-slate-700 text-base  wrap-break-word sm:text-xl font-light max-w-4xl mx-auto leading-relaxed">
           {isFa ? (
-            'فیدارسازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشی ن آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد'
+            'فیدارسازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشین آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد.'
           ) : (
             'Fidar Sazeh Bandar is a specialized engineering and manufacturing group in the field of material handling equipment, port machinery, and heavy industrial equipment, which—relying on engineering knowledge, executive experience, and manufacturing capability—provides comprehensive solutions from design and production to the renovation and upgrading of equipment.'
           )}

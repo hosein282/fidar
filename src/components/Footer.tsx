@@ -93,7 +93,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin, onOpenExporte
             </p>
           </div>
           <div>
-            <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'مقالات و اخبار ' : 'Articles & News'}</h4>
+             <a href={`/${lang}/blog`}>  <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'مقالات و اخبار ' : 'Articles & News'}</h4></a>
             <ul className="space-y-2">
               {/* <li><button onClick={onOpenAdmin} className="hover:text-white transition text-left">{isFa ? 'پنل مدیریت محتوای CMS' : 'CMS Admin Dashboard'}</button></li>
               <li><a href="#contact" className="hover:text-white transition">{isFa ? 'درخواست پشتیبانی فنی' : 'Technical Support'}</a></li>

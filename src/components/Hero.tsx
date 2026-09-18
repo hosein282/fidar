@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Language } from '../types';
+import { Language, MaterialData } from '../types';
 import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2, MoveRight, MoveLeft } from 'lucide-react';
 import Image from "next/image"
+import { MATERIALS } from '../data/mockData';
 interface HeroProps {
   lang: Language;
   onOpenExporter: () => void;
 }
 
 // Fixed rotation order + typing so the auto-carousel can advance predictably.
-const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia'] as const;
-type MaterialId = typeof MATERIAL_IDS[number];
+// const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia'] as const;
+// type MaterialId = typeof MATERIAL_IDS[number];
 
 export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
   const isFa = lang === 'fa';
-  const [activeMaterial, setActiveMaterial] = useState<MaterialId>('wood');
+  const [activeMaterial, setActiveMaterial] = useState<number>(0);
 
   // Auto-rotate the material image every 3 seconds with a slow zoom effect.
   // Re-running on every change also restarts the timer when a user manually
@@ -21,22 +22,21 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveMaterial((prev) => {
-        const idx = MATERIAL_IDS.indexOf(prev);
-        return MATERIAL_IDS[(idx + 1) % MATERIAL_IDS.length];
+        return (prev + 1) % MATERIALS.length;
       });
     }, 3000);
     return () => clearInterval(timer);
   }, [activeMaterial]);
 
-  const materials: { id: MaterialId; title: { fa: string; en: string }; color: string; sub: string, img: string }[] = [
-    { id: 'wood', title: { fa: 'RTG هیبرید', en: 'Hybrid RTG' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic', img: '/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp' },
-    { id: 'glass', title: { fa: 'تجهیزات جانبی بندرگاهی', en: 'Port Auxiliary Equipment' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database', img: '/assets/images/slides/Vetro_A_0_bassa.webp' },
-    { id: 'stone', title: { fa: 'فن ها', en: 'Fans' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang', img: '/assets/images/slides/Pietra_designB0-rossoverona.webp' },
-    { id: 'materia', title: { fa: 'بلوئر صنعتی', en: 'Industrial Blower' }, color: 'var(--color-materia)', sub: 'CMS Control Panel', img: '/assets/images/slides/polimeri_formaA_02-viola-lr.webp' },
-    // { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
-  ];
+  // const materials: { id: MaterialId; title: { fa: string; en: string }; color: string; sub: string, img: string }[] = [
+  //   { id: 'wood', title: { fa: 'RTG هیبرید', en: 'Hybrid RTG' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic', img: '/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp' },
+  //   { id: 'glass', title: { fa: 'تجهیزات جانبی بندرگاهی', en: 'Port Auxiliary Equipment' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database', img: '/assets/images/slides/Vetro_A_0_bassa.webp' },
+  //   { id: 'stone', title: { fa: 'فن ها', en: 'Fans' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang', img: '/assets/images/slides/Pietra_designB0-rossoverona.webp' },
+  //   { id: 'materia', title: { fa: 'بلوئر صنعتی', en: 'Industrial Blower' }, color: 'var(--color-materia)', sub: 'CMS Control Panel', img: '/assets/images/slides/polimeri_formaA_02-viola-lr.webp' },
+  //   // { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
+  // ];
 
-  const active = materials.find(m => m.id === activeMaterial);
+  const active = MATERIALS.find(m => m.id === activeMaterial);
 
   return (
 
@@ -47,12 +47,12 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
 
         {/* Left Side Video / Hero Visual */}
         <div className="relative  h-full lg:h-full w-full lg:w-[60%] overflow-hidden bg-black ">
-          <div key={active?.title.fa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
+          <div key={active?.nameFa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
             <h1 className=" text-4xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
-                active?.title.fa
+                active?.nameFa
                 :
-                active?.title.en
+                active?.nameEn
               }
             </h1>
             <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
@@ -81,36 +81,41 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         </div>
 
         {/* Right Side Material Model Image */}
-        <div className="relative h-8/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-center ">
-          <div key={active?.title.fa} className={`flex lg:hidden absolute top-8 ${isFa ? "slidex right-8" : "slidex-ltr left-8"}  lg:top-[50%] z-100`}>
-            <h1 className="text-3xl font-black  lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
-              {isFa ?
-                active?.title.fa
-                :
-                active?.title.en
-              }
+        <div className="relative h-4/10 min-h-4/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-start ">
+          <div
+            key={active?.nameFa}
+            className={`lg:hidden absolute top-4 ${isFa ? "mr-8 pl-4" : "ml-4 pr-2"
+              } lg:top-[50%] z-100`}
+          >
+            <h1  className="w-fit text-3xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
+              {isFa ? active?.nameFa : active?.nameEn}
+              {isFa ? <MoveLeft
+                size={28}
+                className="inline-block align-middle ms-3"
+              /> : <MoveRight
+                size={28}
+                className="inline-block align-middle ms-3"
+              />}
             </h1>
-            <div className={`z-10 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={28} /> : <MoveRight size={28} />}</div>
           </div>
-
           <div className="relative  inset-0 bg-gradient-to-b  from-black/60 via-transparent to-black/80 z-10">
 
             <Image
               key={activeMaterial}
-              src={active?.img || materials[0].img}
+              src={active?.imgUrl || MATERIALS[0].imgUrl}
               alt="Fidar Bondar Machine Model"
               width={613}
               height={906}
               loading='eager'
               decoding="async"
               priority={true}
-              className="md:h-dvh h-fit w-min object-cover relative z-10 slow-zoom opacity-1 scale-120"
+              className="md:h-dvh h-fit w-min object-cover relative z-10 slow-zoom opacity-1 scale-120 bg-gradient-to-b from-black/60 via-black/30 to-transparent z-0"
             />
           </div>
 
         </div>
-        <ul className={`absolute flex justify-center items-center gap-3 bottom-12 lg:bottom-8  ${isFa ? "left-8" : "right-8"}`}>
-          {materials.map(((m) => (
+        <ul className={`absolute flex justify-center items-center gap-3 bottom-16 lg:bottom-16 ${isFa ? "left-8" : "right-8"}`}>
+          {MATERIALS.map(((m) => (
             <li key={m.id} className={`h-2 w-2 border-amber-50 border-1  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
           )))}
         </ul>
@@ -169,11 +174,11 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
         </div>
 
         {/* Bottom Carousel / Material Tab Selectors & Scroll Bounce */}
-        <div className="hidden lg:flex pt-12  flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="hidden lg:flex pt-12  flex-col sm:flex-row items-center justify-between gap-6 px-4">
 
           {/* Material Interactive Pills */}
-          <div className="hidden lg:flex  items-center gap-2 sm:gap-4 overflow-x-auto max-w-full pb-2 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {materials.map((mat) => {
+          <div className="hidden lg:flex  items-center gap-2 sm:gap-4 overflow-x-visible max-w-full pb-2 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {MATERIALS.map((mat) => {
               const isActive = activeMaterial === mat.id;
               return (
                 <button
@@ -188,23 +193,23 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
                     className="w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: mat.color }}
                   />
-                  <span>{isFa ? mat.title.fa : mat.title.en}</span>
+                  <span>{isFa ? mat.nameFa : mat.nameEn}</span>
                 </button>
               );
             })}
           </div>
 
-      
-        
+
+
 
         </div>
-      
+
 
       </div>
       {/* Bounce Scroll Down Indicator */}
 
-  
-            <ArrowDown className={`absolute ${isFa ? "right-10" : "left-10"} bottom-10 w-5 h-5 text-surface transition animate-bounce`} />
+
+      <ArrowDown className={`absolute ${isFa ? "right-4" : "left-4"} bottom-15 w-5 h-5 text-surface transition animate-bounce`} />
     </section>
   );
 };

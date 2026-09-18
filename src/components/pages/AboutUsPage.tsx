@@ -219,54 +219,6 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
       <main className='scroll-smooth '>
 
 
-        {/* 1. Page Hero — full-screen banner + breadcrumb */}
-        {/* <section className="relative w-full min-h-[62vh] lg:min-h-[72vh] bg-primary-dark text-white overflow-hidden flex items-center">
-          <div
-            className="absolute inset-0 bg-cover bg-left bg-no-repeat"
-            style={{ backgroundImage: 'url("/assets/images/scroll-bg.webp")' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l  from-primary-dark via-primary-dark/70 to-black/40 z-10" />
-
-
-
-          <div className="relative z-20 w-full flex justify-center px-8 lg:px-20">
-            <div className="w-full md:container md:mx-auto py-16 lg:py-24">
-              <p className="text-base lg:text-xl font-light text-white/80 mb-4">
-                {isFa ? 'گروه مهندسی و ساخت' : 'Engineering & Manufacturing Group'}
-              </p>
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight">
-                {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Sazeh Bandar'}
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg lg:text-2xl font-light text-white/90 leading-relaxed">
-                {isFa ? (
-                  'مهندسی، ساخت، بازسازی و ارتقای تجهیزات انتقال مواد و ماشین‌آلات سنگین بندرگاهی'
-                ) : (
-                  'Engineering, manufacturing, refurbishment and upgrades for material handling systems and heavy port machinery.'
-                )}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a href="#profile">
-                  <button
-                    type="button"
-                    className="rounded-lg transition-all whitespace-nowrap bg-primary text-white hover:bg-black px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] cursor-pointer"
-                  >
-                    {isFa ? 'مشخصات گروه' : 'Company Profile'}
-                  </button>
-                </a>
-                <a href="#contact">
-                  <button
-                    type="button"
-                    className="rounded-lg transition-all whitespace-nowrap bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white hover:text-primary px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] cursor-pointer"
-                  >
-                    {isFa ? 'تماس با ما' : 'Contact us'}
-                  </button>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-
         {/* 2. "This is us" — Statement */}
         <section className="relative w-full bg-white">
           <div className="w-full flex justify-center px-8 lg:px-20">
