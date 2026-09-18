@@ -146,9 +146,8 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                 onLanguageChange={handleLanguageSwitch}
                 seoConfig={seoConfig} onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
-                }} onOpenExporter={function (): void {
-                    throw new Error('Function not implemented.');
-                }} />
+                }}
+                 />
 
             <main className='scroll-smooth overflow-x-clip'>
                 {/* 1. Page Hero — full-screen banner + breadcrumb */}
@@ -191,7 +190,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                     <div className="w-full  flex  justify-center px-8 lg:px-20">
                         <div className="w-full md:container md:mx-auto">
                             <div className={`gap-5 lg:gap-10 flex flex-col lg:flex-row-reverse items-center py-20 lg:py-28`} >
-                                <Image className='object-contain  ' src={"/assets/images/logo_type.png"} alt='' width={300} height={100} />
+                                <Image className='object-contain  ' src={"/assets/images/logo_type.webp"} alt='' width={300} height={100} />
                                 <div className="leading-relaxed flex-[0_0_60%] text-center text-slate-900 text-base lg:text-xl  font-normal max-w-5xl mx-auto ">
                                     {isFa ? (
                                         <>
@@ -389,8 +388,6 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
             <Footer
                 lang={currentLang}
                 onOpenAdmin={function (): void {
-                    throw new Error('Function not implemented.');
-                }} onOpenExporter={function (): void {
                     throw new Error('Function not implemented.');
                 }} />
 

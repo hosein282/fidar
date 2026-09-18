@@ -258,10 +258,10 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
 
 
             {/* Middle Text Content & SVG Logo Column */}
-            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "lg:mr-[16vw]" : "lg:ml-14"}`}>
+            <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "lg:mr-[16vw]" : "lg:ml-32"}`}>
               {/* Fidar Bondar Brand SVG Header */}
               <div className="flex items-end mb-1 w-full relative ">
-                <img src={'assets/images/logo_type.png'} alt={isFa ? current.nameFa : current.nameEn}
+                <img src={'assets/images/logo_type.webp'} alt={isFa ? current.nameFa : current.nameEn}
                   className='w-40'
                 ></img>
               </div>
@@ -275,14 +275,17 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
               {/* Description Paragraph with Fade Transition */}
               <div className="h-full flex w-full flex-col justify-stretch">
                 <div className="min-h-[16vh] max-h-[42vh] w-full overflow-hidden text-base lg:text-xl leading-relaxed text-slate-900 font-light">
-                  <p className={`transition-all duration-500 ${isFa? "text-justify" : ""}`}>
+                  <p className={`transition-all duration-500 ${isFa ? "text-justify" : ""}`}>
                     {isFa ? current.descFa : current.descEn}
                   </p>
                 </div>
 
                 {/* Action Button */}
                 <div className="pt-2">
-                  <a href={`${(`/${lang}/products/${isFa ? current.slugFa : current.slugEn}`)}`}>
+                  <a href={`${(`/${lang}/products/${isFa ? current.slugFa : current.slugEn}`)}`}
+                    aria-label={`${isFa ? `نمایش جزییات ${current.nameFa} ` : `Show Details of ${current.nameEn}`}`}
+
+                  >
                     <button
                       // onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
                       className="rounded-lg transition-all duration-300 whitespace-nowrap bg-black text-white hover:bg-primary-dark px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] shadow-2xl cursor-pointer flex items-center gap-3 active:scale-95"

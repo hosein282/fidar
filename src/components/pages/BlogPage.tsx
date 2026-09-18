@@ -11,7 +11,6 @@ import { format as fr } from 'date-fns';
 
 // Lazy-load heavy admin/exporter components — they only load when the modal opens
 const AdminPanel = lazy(() => import('../AdminPanel').then(m => ({ default: m.AdminPanel })));
-const PhpExporter = lazy(() => import('../PhpExporter').then(m => ({ default: m.PhpExporter })));
 
 import {
   Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight,
@@ -115,7 +114,6 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
           lang={currentLang}
           onLanguageChange={handleLanguageSwitch}
           onOpenAdmin={handleOpenAdmin}
-          onOpenExporter={handleOpenExporter}
           seoConfig={seoConfig}
         />
 
@@ -509,7 +507,6 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
       {/* Footer */}
       <Footer
         lang={currentLang}
-        onOpenExporter={handleOpenExporter}
         onOpenAdmin={handleOpenAdmin}
       />
 
@@ -537,7 +534,6 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
               </Suspense>
             ) : (
               <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Exporter...</div>}>
-                <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
               </Suspense>
             )}
           </div>

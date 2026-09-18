@@ -136,7 +136,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                 </div>
 
                 <div className="shrink-0 mt-8 xl:mt-12">
-                  <a href={`/${lang}/about`}>
+                  <a href={`/${lang}/about`} aria-label='About Fidar Saze Bondar Corporation'>
                     <button
                       className="inline-flex items-center gap-3 rounded-lg transition-all whitespace-nowrap bg-primary-dark text-white hover:bg-black px-8 py-3.5 sm:px-10 sm:h-14 sm:text-lg font-medium hover:rounded-[30px] shadow-lg cursor-pointer"
                       type="button"

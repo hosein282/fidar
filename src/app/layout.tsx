@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.png`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.webp`,
         width: 1200,
         height: 630,
         alt: 'Fidar Bondar Sazeh فیدار سازه بندار',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: INITIAL_SEO_META.siteTitle.fa,
     description: INITIAL_SEO_META.metaDescription.fa,
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.png`],
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.webp`],
   },
   robots: {
     index: true,
@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     '@type': 'Organization',
     name: 'فیدار سازه بندار | Fidar Bondar Sazeh',
     url: siteUrl,
-    logo: `${siteUrl}/assets/images/logo.png`,
+    logo: `${siteUrl}/assets/images/logo.webp`,
     description: INITIAL_SEO_META.metaDescription.fa,
     address: {
       '@type': 'PostalAddress',

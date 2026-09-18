@@ -50,7 +50,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
             {/* Main Headline */}
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.2] sm:leading-[1.15] tracking-tight text-white drop-shadow-md hover:text-teal-200 transition-colors cursor-pointer">
-              <a href="#contact" className="block">
+              <a href="#contact" className="block" aria-label='Contact us'>
                 {isFa ? (
                   <>
                     <p>فیدارسازه بندار</p>

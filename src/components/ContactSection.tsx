@@ -90,7 +90,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'ایمیل پشتیبانی:' : 'Support Email:'}</span>
-                    <a href="mailto:info@fidarbondar.com" className="text-sm font-semibold text-primary text-black font-mono">
+                    <a href="mailto:info@fidarbondar.com" className="text-sm font-semibold text-primary text-black font-mono" aria-label='Send Email to Fidar Saze Bondar Information Team'>
                       info@fidarbondar.com
                     </a>
                   </div>
@@ -102,7 +102,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'تلفن مشاوره مستقیم:' : 'Direct Phone Line:'}</span>
-                    <a href="tel:02166129310" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono ">
+                    <a href="tel:02166129310" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono "
+                    aria-label='Call Fidar Saze Bondar Phone'
+                    >
                      {isFa? <p className='tracking-widest'>021-66129310</p> : " +98-21-66129310"}
                     </a>
                   </div>
@@ -199,6 +201,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </label>
                   <select
                     value={formData.service}
+                    aria-label='contacts options'
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white"
                   >

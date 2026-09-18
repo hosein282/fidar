@@ -116,9 +116,8 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                 seoConfig={seoConfig}
                 onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
-                }} onOpenExporter={function (): void {
-                    throw new Error('Function not implemented.');
-                }} />
+                }} 
+               />
 
             <main className='scroll-smooth '>
                 {/* 1. Page Hero — full-screen banner + breadcrumb */}
@@ -160,7 +159,7 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                     <div className="w-full  flex  justify-center px-8 lg:px-20">
                         <div className="w-full md:container md:mx-auto">
                             <div className={`gap-5 lg:gap-10 flex flex-col lg:flex-col items-center py-20 lg:py-28`} >
-                                <Image className='object-contain  ' src={"/assets/images/logo_type.png"} alt='' width={300} height={100} />
+                                <Image className='object-contain  ' src={"/assets/images/logo_type.webp"} alt='' width={300} height={100} />
                                 <div className="!leading-snug flex-[0_0_60%] text-center text-slate-900 text-xl lg:text-2xl  font-normal max-w-5xl mx-auto">
                                     {isFa ? (
                                         <>
@@ -291,9 +290,8 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                 lang={currentLang}
                 onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
-                }} onOpenExporter={function (): void {
-                    throw new Error('Function not implemented.');
-                }} />
+                }} 
+              />
 
 
         </div>

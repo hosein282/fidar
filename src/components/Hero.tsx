@@ -5,16 +5,16 @@ import Image from "next/image"
 import { MATERIALS } from '../data/mockData';
 interface HeroProps {
   lang: Language;
-  onOpenExporter: () => void;
 }
 
 // Fixed rotation order + typing so the auto-carousel can advance predictably.
 // const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia'] as const;
 // type MaterialId = typeof MATERIAL_IDS[number];
 
-export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
+export const Hero: React.FC<HeroProps> = ({ lang}) => {
   const isFa = lang === 'fa';
   const [activeMaterial, setActiveMaterial] = useState<number>(0);
+
 
   // Auto-rotate the material image every 3 seconds with a slow zoom effect.
   // Re-running on every change also restarts the timer when a user manually
@@ -103,13 +103,15 @@ export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
             <Image
               key={activeMaterial}
               src={active?.imgUrl || MATERIALS[0].imgUrl}
-              alt="Fidar Bondar Machine Model"
+              alt={`Fidar Saze Bondar ${isFa ? active?.nameFa : active?.nameEn}`}
               width={613}
               height={906}
               loading='eager'
               decoding="async"
               priority={true}
+              fetchPriority="high"
               className="md:h-dvh h-fit w-min object-cover relative z-10 slow-zoom opacity-1 scale-120 bg-gradient-to-b from-black/60 via-black/30 to-transparent z-0"
+              
             />
           </div>
 

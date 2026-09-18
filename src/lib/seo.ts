@@ -35,7 +35,7 @@ export function buildCanonicalMetadata(path: string): Metadata {
       type: 'website',
       images: [
         {
-          url: `${siteUrl}/assets/images/logo.png`,
+          url: `${siteUrl}/assets/images/logo.webp`,
           width: 1200,
           height: 630,
           alt: 'Fidar Bondar Sazeh فیدار سازه بندار',
@@ -47,7 +47,7 @@ export function buildCanonicalMetadata(path: string): Metadata {
       title: 'فیدار سازه بندار | Fidar Sazeh Bondar',
       description:
         'تولید دستگاه‌ها، خطوط تولید و کامپوننت‌های PHP/MySQL برای صنایع چوب، شیشه، سنگ و فلز',
-      images: [`${siteUrl}/assets/images/logo.png`],
+      images: [`${siteUrl}/assets/images/logo.webp`],
     },
     robots: {
       index: true,

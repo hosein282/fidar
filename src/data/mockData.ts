@@ -485,7 +485,7 @@ export const INITIAL_SEO_META: SEOMetaConfig = {
     '@type': 'Organization',
     'name': 'Biesss Digital Studio',
     'url': 'https://fidarbondar.com',
-    'logo': 'https://fidarbondar.com/logo.png',
+    'logo': 'https://fidarbondar.com/logo.webp',
     'sameAs': [
       'https://linkedin.com/company/fidarbondar',
       'https://twitter.com/fidarbondar'
@@ -579,7 +579,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه‌محور است.",
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-2.jpg',
+    imgUrl: '/assets/images/services/4294-2.webp',
     videoUrl: ",",
 
   },
@@ -596,7 +596,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'طراحی و ساخت انواع تجهیزات انتقال مواد بندرگاهی با تمرکز بر قابلیت اطمینان، دقت عملکرد، ایمنی و بهره وری؛ از راهکارهای متعارف تا فناوری های نوین و کم مصرف.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-3.jpg',
+    imgUrl: '/assets/images/services/4294-3.webp',
 
   },
   {
@@ -613,7 +613,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'طراحی و ساخت انواع جرثقیل‌های صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-4.jpg',
+    imgUrl: '/assets/images/services/4294-4.webp',
   },
   {
     id: 3,
@@ -629,7 +629,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-5.jpg',
+    imgUrl: '/assets/images/services/4294-5.webp',
   },
 ];
 
@@ -654,7 +654,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'Where speed, precision, and operational space must be managed simultaneously. Fidar Sazeh Bandar RTG cranes, with an engineered design for the new generation of container terminals, offer a combination of productivity, flexibility, and precise load control.',
         descFa:
           'جایی که سرعت، دقت و فضای عملیاتی باید همزمان مدیریت شوند. جرثقیل‌های RTG فیدار سازه بندار با طراحی مهندسی‌شده برای نسل جدید پایانه‌های کانتینری، ترکیبی از بهره‌وری، انعطاف‌پذیری و کنترل دقیق بار را ارائه می‌دهد.',
-        imgUrl: '/assets/images/services/4294-2.jpg',
+        imgUrl: '/assets/images/services/4294-2.webp',
       },
       {
         nameEn: 'Mobile and Shore Rail Cranes',
@@ -663,7 +663,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'A combination of mobility, capacity, and precise load control for heavy operations at the dock and port areas. Fidar Sazeh Bandar shore and rail cranes, designed according to operating conditions, provide extensive coverage of the working area and fast, reliable cargo movement; a flexible solution for ports and industries with diverse operational needs.',
         descFa:
           'ترکیبی از تحرک، ظرفیت و کنترل دقیق بار برای عملیات سنگین در اسکله و محوطه‌های بندری. جرثقیل‌های ساحلی و ریلی فیدار سازه بندار با طراحی متناسب با شرایط بهره‌برداری، امکان پوشش گسترده محدوده کاری و جابه‌جایی سریع و مطمئن بار را فراهم می‌کنند؛ راهکاری منعطف برای بنادر و صنایع با نیازهای متنوع عملیاتی.',
-        imgUrl: '/assets/images/services/4294-3.jpg',
+        imgUrl: '/assets/images/services/4294-3.webp',
       },
       {
         nameEn: 'Bulk Material Loading and Unloading Equipment',
@@ -672,7 +672,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'Uninterrupted material flow, where capacity, speed, and control must work together. Fidar Sazeh Bandar offers engineered solutions for unloading, transferring, and loading various types of port bulk materials; equipment suited to the nature of the cargo and operating conditions, aimed at increasing handling capacity, reducing operation time, and sustainable operation.',
         descFa:
           'جریان بی‌وقفه مواد، جایی که ظرفیت، سرعت و کنترل باید در کنار هم عمل کنند. فیدار سازه بندار راهکارهای مهندسی‌شده برای تخلیه، انتقال و بارگیری انواع مواد فله بندرگاهی ارائه می‌دهد؛ تجهیزاتی متناسب با ماهیت بار و شرایط عملیاتی، با هدف افزایش ظرفیت جابه‌جایی، کاهش زمان عملیات و بهره‌برداری پایدار.',
-        imgUrl: '/assets/images/services/4294-5.jpg',
+        imgUrl: '/assets/images/services/4294-5.webp',
       },
     ],
     btnEn: 'Read More',
@@ -759,7 +759,7 @@ export const SERVICES: MaterialData[] = [
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-1.png',
+    imgUrl: '/assets/images/services/4294-1.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 
@@ -785,7 +785,7 @@ export const SERVICES: MaterialData[] = [
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-2.jpg',
+    imgUrl: '/assets/images/services/4294-2.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 
@@ -811,7 +811,7 @@ export const SERVICES: MaterialData[] = [
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-3.jpg',
+    imgUrl: '/assets/images/services/4294-3.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   }
 ];
@@ -834,42 +834,42 @@ export const SERVICES_DETAILS: MaterialData[] = [
           nameFa: '',
           descEn: '',
           descFa: '',
-          imgUrl: '/assets/images/services/4294-2.jpg',
+          imgUrl: '/assets/images/services/4294-2.webp',
         },
         {
           nameEn: '',
           nameFa: '',
           descEn: '',
           descFa: '',
-          imgUrl: '/assets/images/services/4294-3.jpg',
+          imgUrl: '/assets/images/services/4294-3.webp',
         },
         {
           nameEn: '',
           nameFa: '',
           descEn: '',
           descFa: '',
-          imgUrl: '/assets/images/services/4294-4.jpg',
+          imgUrl: '/assets/images/services/4294-4.webp',
         },
         {
           nameEn: '',
           nameFa: '',
           descEn: '',
           descFa: '',
-          imgUrl: '/assets/images/services/4294-5.jpg',
+          imgUrl: '/assets/images/services/4294-5.webp',
         },
         {
           nameEn: '',
           nameFa: '',
           descEn: '',
           descFa: '',
-          imgUrl: '/assets/images/services/4294-1.png',
+          imgUrl: '/assets/images/services/4294-1.webp',
         },
         {
           nameEn: '',
           nameFa: '',
           descEn: '',
           descFa: '',
-          imgUrl: '/assets/images/services/4294-4.jpg',
+          imgUrl: '/assets/images/services/4294-4.webp',
         },
     ],
     btnEn: 'Read More',
@@ -895,7 +895,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/services/4294-5.jpg',
+        imgUrl: '/assets/images/services/4294-0.webp',
       }
     ],
     btnEn: 'Read More',
@@ -921,7 +921,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/services/4294-4.jpg',
+        imgUrl: '/assets/images/services/4294-4.webp',
       }
     ],
     btnEn: 'Read More',

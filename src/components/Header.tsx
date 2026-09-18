@@ -9,7 +9,6 @@ interface HeaderProps {
   lang: Language;
   onLanguageChange: (lang: Language) => void;
   onOpenAdmin: () => void;
-  onOpenExporter: () => void;
   seoConfig: SEOMetaConfig;
 }
 
@@ -43,6 +42,7 @@ const LangSwitcher: React.FC<{
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
+        name='open language switch'
         aria-haspopup="listbox"
         aria-expanded={open}
         className="inline-flex min-w-[54px] items-center justify-center gap-1 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-[11px] font-bold tracking-wide text-slate-800 uppercase transition hover:border-primary hover:text-primary"
@@ -59,6 +59,7 @@ const LangSwitcher: React.FC<{
           <button
             type="button"
             role="option"
+            name='language switcher to fa'
             aria-selected={lang === 'fa'}
             onClick={() => { setOpen(false); onLanguageChange('fa'); }}
             className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-bold uppercase transition ${lang === 'fa' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
@@ -71,6 +72,7 @@ const LangSwitcher: React.FC<{
           <button
             type="button"
             role="option"
+            name='language switcher to en'
             aria-selected={lang === 'en'}
             onClick={() => { setOpen(false); onLanguageChange('en'); }}
             className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-bold uppercase transition ${lang === 'en' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
@@ -90,7 +92,6 @@ export const Header: React.FC<HeaderProps> = ({
   lang,
   onLanguageChange,
   onOpenAdmin,
-  onOpenExporter,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
@@ -125,19 +126,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Floating Sticky Action Widget Bar on Right Edge (Always 100% Visible 3 Buttons) */}
       <div className="hidden  sticky z-[110] right-3 sm:right-5 top-1/2 -translate-y-1/2 flex flex-col gap-3 items-end dir-ltr select-none">
         {/* Button 1: Technical Support / PHP Exporter */}
-        <div className="relative group/btn flex items-center">
-          <span className="absolute right-14 top-1/2 -translate-y-1/2 pointer-events-none opacity-0 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 translate-x-2 transition-all duration-200 bg-slate-900 text-white text-xs font-bold py-1.5 px-3 rounded-xl shadow-2xl whitespace-nowrap border border-slate-700">
-            {isFa ? 'پشتیبانی فنی / دریافت PHP' : 'Technical support'}
-          </span>
-          <button
-            type="button"
-            onClick={onOpenExporter}
-            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black hover:bg-primary text-white border border-white/20 shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 cursor-pointer active:scale-95"
-            aria-label="Technical Support"
-          >
-            <Wrench className="w-5 h-5 stroke-[2]" />
-          </button>
-        </div>
+
 
         {/* Button 2: Request Info / Contact Form */}
         <div className="relative group/btn flex items-center">
@@ -217,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({
               <path fill="currentColor" d="M124.546 25.674c-8.021 0-12.714 5.373-12.714 13.803 0 8.429 4.698 13.749 12.714 13.749 6.015 0 10.66-3.11 11.924-7.956.053-.212-.16-.42-.367-.42h-4.539c-.213 0-.315.159-.422.367-1.215 2.583-2.9 3.898-6.596 3.898-5.013 0-7.439-3.264-7.439-7.743 0-.106.106-.261.261-.261h19.577a.36.36 0 0 0 .368-.368v-1.262c0-8.009-4.431-13.803-12.767-13.803v-.004Zm6.965 11.694h-14.036a.359.359 0 0 1-.368-.368c.053-3.69 2.005-7.269 7.386-7.269s7.333 3.584 7.386 7.27a.358.358 0 0 1-.368.367ZM154.304 37.373l-4.378-.687c-2.586-.42-4.17-1.262-4.17-3.264 0-2.109 1.478-3.792 5.701-3.792 4.747 0 6.543 2.263 6.543 4.638 0 .212.159.367.368.367h4.272a.36.36 0 0 0 .369-.367c0-5.64-5.067-8.59-11.557-8.59-4.645 0-10.708 2.215-10.708 7.744 0 4.319 2.794 6.48 6.964 7.114l6.122.948c3.114.474 5.013 1.315 5.013 3.69 0 2.635-2.165 4.004-6.65 4.004-4.747 0-6.912-2.423-6.912-4.532a.358.358 0 0 0-.368-.367h-4.272a.36.36 0 0 0-.368.367c0 4.846 4.326 8.59 11.924 8.59 6.65 0 11.504-2.53 11.504-8.43s-4.698-6.693-9.392-7.429l-.005-.004ZM180.738 37.373l-4.379-.687c-2.585-.42-4.169-1.262-4.169-3.264 0-2.109 1.477-3.792 5.7-3.792 4.747 0 6.544 2.263 6.544 4.638 0 .212.159.367.367.367h4.272c.214 0 .369-.159.369-.367 0-5.64-5.066-8.59-11.557-8.59-4.644 0-10.708 2.215-10.708 7.744 0 4.319 2.794 6.48 6.964 7.114l6.123.948c3.114.474 5.012 1.315 5.012 3.69 0 2.635-2.165 4.004-6.649 4.004-4.747 0-6.912-2.423-6.912-4.532a.359.359 0 0 0-.368-.367h-4.272a.36.36 0 0 0-.368.367c0 4.846 4.325 8.59 11.923 8.59 6.651 0 11.504-2.53 11.504-8.43s-4.697-6.693-9.392-7.429l-.004-.004ZM93.097 33.682c-.314-.159-.314-.42 0-.58 3.377-1.528 4.854-4.372 4.854-7.428-.053-4.74-2.902-9.852-10.816-9.852h-16.25a.359.359 0 0 0-.367.368V52.33c0 .213.16.368.368.368h16.622c7.706 0 11.237-5.059 11.237-10.011 0-3.637-1.163-7.061-5.648-9.01v.005ZM75.474 20.194c0-.212.16-.367.368-.367h10.34c4.747 0 6.752 2.476 6.752 6.427 0 3.951-2.266 5.373-6.223 5.373H75.84a.359.359 0 0 1-.368-.368V20.194ZM86.71 48.593H75.788a.359.359 0 0 1-.368-.368v-12.12c0-.212.16-.367.368-.367h11.29c4.485 0 6.703 2.316 6.703 6.533 0 4.217-2.848 6.322-7.071 6.322ZM107.928 15.822h-4.964a.367.367 0 0 0-.368.368v5.271c0 .203.164.368.368.368h4.964a.368.368 0 0 0 .368-.368V16.19a.368.368 0 0 0-.368-.368ZM107.607 26.201h-4.276a.368.368 0 0 0-.368.368v25.767c0 .203.165.367.368.367h4.276a.368.368 0 0 0 .369-.367V26.569a.368.368 0 0 0-.369-.368ZM205.697 25.674c-8.02 0-12.715 5.373-12.715 13.803 0 8.429 4.698 13.749 12.715 13.749 6.015 0 10.66-3.11 11.924-7.956.053-.212-.16-.42-.369-.42h-4.537c-.213 0-.316.159-.422.367-1.215 2.583-2.902 3.898-6.596 3.898-5.013 0-7.439-3.264-7.439-7.743 0-.106.106-.261.261-.261h19.577a.36.36 0 0 0 .368-.368v-1.262c0-8.009-4.432-13.803-12.767-13.803v-.004Zm6.965 11.694h-14.037a.358.358 0 0 1-.367-.368c.053-3.69 2.004-7.269 7.386-7.269 5.381 0 7.332 3.584 7.386 7.27 0 .212-.16.367-.368.367Z"></path>
             </svg> */}
             <Image
-              src="/assets/images/logo.png"
+              src="/assets/images/logo.webp"
               width={140}
               height={60}
               alt="Fidar Bondar Sazeh فیدار بندار سازه"
@@ -233,6 +222,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setProductsOpen((o) => !o)}
                 aria-haspopup="menu"
                 aria-expanded={productsOpen}
+                name='open products menu'
                 className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
               >
                 <span>{isFa ? 'محصولات' : 'Lines'}</span>
@@ -276,6 +266,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setServicesOpen((o) => !o)}
                 aria-haspopup="menu"
                 aria-expanded={servicesOpen}
+                name='open services menu'
                 className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
               >
                 <span>{isFa ? 'خدمات' : 'Services'}</span>
@@ -291,6 +282,8 @@ export const Header: React.FC<HeaderProps> = ({
                     href={`/${lang}/services`}
                     onClick={() => setServicesOpen(false)}
                     role="menuitem"
+                    aria-label={`${isFa ? `نمایش همه محصولات ` : `Show all of Products`}`}
+
                     className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-primary hover:bg-primary/10 transition"
                   >
                     <Layers className="w-4 h-4 shrink-0" />
@@ -304,6 +297,8 @@ export const Header: React.FC<HeaderProps> = ({
                       key={item.id}
                       href={serviceHref(item)}
                       onClick={() => setServicesOpen(false)}
+                      aria-label={`${isFa ? `نمایش جزییات ${item.nameFa} ` : `Show Details of ${item.nameEn}`}`}
+
                       role="menuitem"
                       className="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-primary/10 hover:text-primary transition"
                     >
@@ -313,14 +308,16 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               )}
             </div>
-            <a href="#blog" className="hover:text-primary transition hover:underline">
+            <a href="#blog" className="hover:text-primary transition hover:underline" aria-label='show blogs and news'>
               {isFa ? 'مجله و اخبار' : 'Components'}
             </a>
             <Link href={`/${lang}/about`} className="hover:text-primary transition hover:underline">
               {isFa ? 'درباره ما' : 'About us'}
             </Link>
             <div className="btn--watermark shadow-sm relative group bg-white px-4 py-1.5 rounded-md border border-gray-300">
-              <a href="#contact" className="hover:text-primary flex items-center gap-1 text-primary">
+              <a href="#contact" className="hover:text-primary flex items-center gap-1 text-primary" aria-label='show contact us page'
+
+              >
                 <span>{isFa ? 'تماس با ما' : 'Contact Us'}</span>
                 <ChevronDown className="w-4 h-4" />
               </a>
@@ -368,6 +365,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              name='open mobile navigation menu'
               className="lg:hidden p-2 rounded-full bg-white border border-gray-300 text-slate-800 hover:text-primary"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -388,6 +386,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   type="button"
                   onClick={() => setMobileProductsOpen((o) => !o)}
+                  name='open products menu'
                   aria-expanded={mobileProductsOpen}
                   className="flex w-full items-center justify-between hover:text-primary cursor-pointer"
                 >
@@ -399,6 +398,8 @@ export const Header: React.FC<HeaderProps> = ({
                   <div className="mt-2 flex flex-col space-y-1 border-s-2 border-primary/30 ps-3">
                     <Link
                       href={`/${lang}/products`}
+                      aria-label={`${isFa ? `نمایش همه محصولات ` : `Show all of Products`}`}
+
                       onClick={() => { setMobileMenuOpen(false); setMobileProductsOpen(false); }}
                       className="py-1.5 text-sm text-primary hover:text-primary"
                     >
@@ -408,6 +409,8 @@ export const Header: React.FC<HeaderProps> = ({
                       <Link
                         key={item.id}
                         href={productHref(item)}
+                        aria-label={`${isFa ? `نمایش جزییات ${item.nameFa} ` : `Show Details of ${item.nameEn}`}`}
+
                         onClick={() => { setMobileMenuOpen(false); setMobileProductsOpen(false); }}
                         className="py-1.5 text-sm text-slate-700 hover:text-primary"
                       >
@@ -423,6 +426,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div>
                 <button
                   type="button"
+                  name='open services menu'
                   onClick={() => setMobileServicesOpen((o) => !o)}
                   aria-expanded={mobileServicesOpen}
                   className="flex w-full items-center justify-between hover:text-primary cursor-pointer"
@@ -434,6 +438,8 @@ export const Header: React.FC<HeaderProps> = ({
                   <div className="mt-2 flex flex-col space-y-1 border-s-2 border-primary/30 ps-3">
                     <Link
                       href={`/${lang}/services`}
+                      aria-label={`${isFa ? `نمایش همه خدمات ` : `Show all of Services`}`}
+
                       onClick={() => { setMobileMenuOpen(false); setMobileServicesOpen(false); }}
                       className="py-1.5 text-sm text-primary hover:text-primary"
                     >
@@ -442,6 +448,7 @@ export const Header: React.FC<HeaderProps> = ({
                     {SERVICES.map((item) => (
                       <Link
                         key={item.id}
+                        aria-label={`${isFa ? `نمایش جزییات ${item.nameFa} ` : `Show Details of ${item.nameEn}`}`}
                         href={serviceHref(item)}
                         onClick={() => { setMobileMenuOpen(false); setMobileServicesOpen(false); }}
                         className="py-1.5 text-sm text-slate-700 hover:text-primary"
@@ -454,15 +461,15 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
 
 
-              <Link href={`/${lang}/blog`} className="hover:text-primary transition hover:underline">
+              <Link href={`/${lang}/blog`} className="hover:text-primary transition hover:underline" aria-label='Show Blogs And News Of Fidar Saze Bondar'>
                 {isFa ? 'اخبار و مقالات' : 'News & Blogs'}
               </Link>
 
 
-              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
+              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary" aria-label='show contact us'>
                 {isFa ? 'تماس با ما' : 'Contact Us'}
               </a>
-              <Link href={`/${lang}/about`} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary">
+              <Link href={`/${lang}/about`} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary" aria-label='show About Us Page'>
                 {isFa ? 'درباره ما' : 'About us'}
               </Link>
 

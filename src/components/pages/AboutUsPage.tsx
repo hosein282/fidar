@@ -212,7 +212,6 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
         lang={currentLang}
         onLanguageChange={handleLanguageSwitch}
         onOpenAdmin={handleOpenAdmin}
-        onOpenExporter={handleOpenExporter}
         seoConfig={seoConfig}
       />
 
@@ -224,7 +223,7 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
           <div className="w-full flex justify-center px-8 lg:px-20">
             <div className="w-full md:container md:mx-auto">
               <div className="gap-5 lg:gap-10 flex flex-col py-20 lg:py-28 justify-center items-center">
-                <Image className='mb-12' src={"/assets/images/logo_type.png"} alt="fidar bondar sazeh logo" width={400} height={200}></Image>
+                <Image className='mb-12' src={"/assets/images/logo_type.webp"} alt="fidar bondar sazeh logo" width={400} height={200}></Image>
                 <h2 className='text-2xl  text-primary'>
                   {isFa ? (
                     "مهندسی، ساخت و نوسازی برای عملکردی پايدارتر"
@@ -723,7 +722,6 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
       {/* Footer */}
       <Footer
         lang={currentLang}
-        onOpenExporter={handleOpenExporter}
         onOpenAdmin={handleOpenAdmin}
       />
 
