@@ -1,0 +1,44 @@
+# Fidar Bondar Sazeh | فیدار سازه بندار
+
+> Corporate bilingual (Persian/English) website of Fidar Sazeh Bandar — an Iranian engineering company that designs, manufactures and refurbishes port equipment, industrial cranes, bulk material handling systems and marine structures, and also provides engineering services for wood, glass, stone and metal industries.
+
+The site is built with Next.js 15 (App Router) and Tailwind CSS 4, backed by a MySQL database via the Prisma ORM. Content is served in two locales: Persian (`/fa`, RTL) and English (`/en`, LTR). Individual blog post URLs are generated from a database and are reachable from the blog listing pages below.
+
+## Persian (فارسی)
+
+- [صفحه اصلی](https://fidarbondar.com/fa): معرفی شرکت فیدار سازه بندار، محصولات، خدمات و آخرین مقالات تخصصی.
+- [درباره ما](https://fidarbondar.com/fa/about): سابقه، مأموریت، توانمندی‌های مهندسی و زمینه‌های فعالیت شرکت.
+- [محصولات](https://fidarbondar.com/fa/products): فهرست تجهیزات بندری، جرثقیل‌ها و سیستم‌های جابه‌جایی مواد.
+  - [تکنولوژی مهندسی فیدار سازه بندار](https://fidarbondar.com/fa/products/تکنولوژی-مهندسی-فیدار-سازه-بندار): معرفی قابلیت‌های مهندسی و فناوری شرکت.
+  - [جرثقیل‌های تخلیه و بارگیری کانتینر](https://fidarbondar.com/fa/products/جرثقیل‌های-تخلیه-و-بارگیری-کانتینر): جرثقیل‌های کانتینربر از جمله RTG و RMG.
+  - [جرثقیل‌های موبایل و ریلی ساحلی](https://fidarbondar.com/fa/products/جرثقیل‌های-موبایل-و-ریلی-ساحلی): جرثقیل‌های متحرک و ریلی مورد استفاده در بنادر و پایانه‌ها.
+  - [تجهیزات تخلیه و بارگیری مواد فله](https://fidarbondar.com/fa/products/تجهیزات-تخلیه-و-بارگیری-مواد-فله): تجهیزات فرایندی و انتقال توان برای مواد فله.
+- [خدمات](https://fidarbondar.com/fa/services): فهرست خدمات مهندسی، ساخت و بازطراحی تجهیزات بندری.
+  - [خدمات تعمیرات، نگهداری و پشتیبانی تجهیزات بندری](https://fidarbondar.com/fa/services/خدمات-تعمیرات-نگهداری-پشتیبانی-تجهیزات-بندری): نگهداری پیشگیرانه، عیب‌یابی و پشتیبانی شبانه‌روزی.
+  - [بازطراحی و به‌روزرسانی تجهیزات بندرگاهی](https://fidarbondar.com/fa/services/بازطراحی-و-به-روزرسانی-تجهیزات-بندرگاهی): تحلیل، نوسازی و ارتقای سازه و مکانیک تا سیستم‌های کنترل.
+  - [تعمیرات تخصصی انواع شناور و سازه‌های دریایی](https://fidarbondar.com/fa/services/تعمیرات-تخصصی-انواع-شناور-و-سازه-های-دریایی): تعمیرات تخصصی شناورها و سازه‌های فراساحل.
+- [وبلاگ](https://fidarbondar.com/fa/blog): مقالات تخصصی فنی؛ لینک هر پست در این فهرست درج شده است.
+
+## English
+
+- [Home](https://fidarbondar.com/en): Company introduction, products, services and latest technical articles.
+- [About Us](https://fidarbondar.com/en/about): History, mission, engineering capabilities and areas of activity.
+- [Products](https://fidarbondar.com/en/products): Overview of port equipment, cranes and material handling systems.
+  - [Engineering Technology](https://fidarbondar.com/en/products/fidar-sazeh-bandar-engineering-technology): Engineering design and technology capabilities of the company.
+  - [Container Loading and Unloading Cranes](https://fidarbondar.com/en/products/container-loading-and-unloading-cranes): Container cranes including RTG and RMG.
+  - [Mobile and Shore Rail Cranes](https://fidarbondar.com/en/products/mobile-and-shore-rail-cranes): Mobile and shore rail cranes used at ports and terminals.
+  - [Bulk Material Loading and Unloading Equipment](https://fidarbondar.com/en/products/bulk-material-loading-and-unloading-equipment): Process equipment and power transmission for bulk materials.
+- [Services](https://fidarbondar.com/en/services): Engineering, manufacturing, redesign and repair services.
+  - [Port Equipment Maintenance, Repair & Support](https://fidarbondar.com/en/services/port-equipment-maintenance-support): Preventive maintenance, troubleshooting and 24/7 support.
+  - [Redesign & Upgrade of Port Equipment](https://fidarbondar.com/en/services/port-equipment-redesign-upgrade): Analysis, renovation and upgrade of structure, mechanical, electrical and control systems.
+  - [Specialized Repair of Marine Vessels & Structures](https://fidarbondar.com/en/services/specialized-repair-marine-vessels-structures): Specialized repair of marine vessels and offshore structures.
+- [Blog](https://fidarbondar.com/en/blog): Technical articles; links to individual posts are listed on this page.
+
+## Site Resources
+
+- [Sitemap](https://fidarbondar.com/sitemap.xml): Auto-generated XML sitemap covering all bilingual pages and blog posts.
+- [Robots](https://fidarbondar.com/robots.txt): Disallows `/admin` and `/api/`; points to the sitemap.
+
+## Updates
+
+- 2026-09-21: Initial llms.txt for the Fidar Bondar Sazeh bilingual website.

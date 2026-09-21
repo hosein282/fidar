@@ -296,7 +296,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                 {SERVICES.map((item, index) => (
                                     <div
                                         key={item.nameEn}
-                                        className="flex-[0_0_60%] lg:w-[60%] px-4  cursor-pointer"
+                                        className="flex-[0_0_60%] lg:w-[60%] px-4  "
                                         onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
                                     >
                                         <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end lg:h-[60vh]">
