@@ -3,6 +3,7 @@ import { Language, MaterialData } from '../types';
 import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2, MoveRight, MoveLeft } from 'lucide-react';
 import Image from "next/image"
 import { MATERIALS } from '../data/mockData';
+import Link from 'next/link';
 interface HeroProps {
   lang: Language;
 }
@@ -48,6 +49,8 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
         {/* Left Side Video / Hero Visual */}
         <div className="relative  h-full lg:h-full w-full lg:w-[60%] overflow-hidden bg-black ">
           <div key={active?.nameFa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
+                      {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
+
             <h1 className=" text-4xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
                 active?.nameFa
@@ -55,6 +58,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
                 active?.nameEn
               }
             </h1>
+            {/* </Link> */}
             <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
           </div>
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
@@ -87,6 +91,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
             className={`lg:hidden absolute top-4 ${isFa ? "mr-8 pl-4" : "ml-4 pr-2"
               } lg:top-[50%] z-100`}
           >
+            {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
             <h1  className="w-fit text-3xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
               {isFa ? active?.nameFa : active?.nameEn}
               {isFa ? <MoveLeft
@@ -97,6 +102,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
                 className="inline-block align-middle ms-3"
               />}
             </h1>
+            {/* </Link> */}
           </div>
           <div className="relative  inset-0 bg-gradient-to-b  from-black/60 via-transparent to-black/80 z-10">
 
