@@ -43,7 +43,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
 
     const goPrev = () => {
         // (i - 1) alone produces -1 when i === 0 — wrap around properly instead.
-        setActiveIndex((i) => (i - 1 + item.slides.length) % MATERIALS.length);
+        setActiveIndex((i) => (i - 1 + item.slides.length) % item.slides.length);
     };
 
 
@@ -199,7 +199,9 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
                                                     </h3>
 
                                                     {prod.descEn && (
-                                                        <div className="flex flex-col items-start gap-4 lg:gap-5 w-full overflow-hidden">
+                                                        <div className={`flex flex-col items-start gap-4 duartion-300 lg:gap-5 w-full overflow-hidden 
+                                                       ${index === activeIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-100"}
+                                                       `}>
                                                             <p className="text-base lg:text-lg leading-snug font-light line-clamp-[8] break-normal text-dark">
                                                                 {isFa ? prod.descFa : prod.descEn}
                                                             </p>
@@ -226,7 +228,9 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
                                 type="button"
                                 onClick={goPrev}
                                 aria-label="Prev slide"
-                                className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute left-8 bottom-60"
+                                className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg duration-300 absolute left-8 bottom-60 
+                                    ${activeIndex <= 0? "opacity-0 " : "opacity-100 "}
+                                    `}
                             >
                                 <ArrowLeft />
                             </button>

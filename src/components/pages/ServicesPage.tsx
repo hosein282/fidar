@@ -296,7 +296,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                 {SERVICES.map((item, index) => (
                                     <div
                                         key={item.nameEn}
-                                        className="flex-[0_0_60%] lg:w-[60%] px-4  "
+                                        className="flex-[0_0_60%] lg:w-[60%] px-4  cursor-pointer"
                                         onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
                                     >
                                         <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end lg:h-[60vh]">
@@ -328,14 +328,14 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                                             </p>
                                                         </div>
                                                     )}
-                                                    <button
+                                                    <div
                                                         aria-label={`${isFa ? `نمابش اطلاعات ${item.nameFa}` : `Show Details of ${item.nameEn}`}`}
-                                                        className={`bg-primary h-10 w-50 text-white my-4 rounded-4xl duration-300 delay-200  self-end 
+                                                        className={`flex justify-center items-center bg-primary h-10 w-50 text-white my-4 rounded-4xl duration-300 delay-200  self-end 
                                                          ${index === activeIndex ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20 -events-none'}
                                                         `}>
                                                         {isFa ? "اطلاعات بیشتر" : "Read More"}
 
-                                                    </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

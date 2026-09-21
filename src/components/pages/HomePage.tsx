@@ -62,7 +62,7 @@ const HomePageComponent: React.FC<HomePageProps> = ({
 
 
   return (
-    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white snap-proximity">
       
       {/* 1. Sticky Fidar Bondar Header */}
       <Header

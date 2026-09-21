@@ -82,8 +82,8 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
 
         const { scrollLeft, scrollWidth, clientWidth } = el;
 
-        setCanScrollLeft((-scrollLeft + clientWidth) !== scrollWidth);
-        setCanScrollRight(scrollLeft !== 0);
+        setCanScrollLeft((-scrollLeft + clientWidth) < (scrollWidth-50));
+        setCanScrollRight(scrollLeft > 4 ||  scrollLeft<0);
     }, []);
 
     useEffect(() => {

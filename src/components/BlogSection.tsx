@@ -37,7 +37,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
   };
 
   return (
-    <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden flex flex-col items-center justify-center">
+    <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden flex flex-col items-center justify-center ">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         {/* Section Top Header: Title + "See all" Button */}

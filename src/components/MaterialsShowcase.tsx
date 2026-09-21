@@ -172,7 +172,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
       {/* =========================================================
           DESKTOP VIEW — scroll-driven / scroll-jacking (lg+)
          ========================================================= */}
-      <div ref={containerRef} className="relative z-30 h-[500vh] bg-black  lg:block ">
+      <div ref={containerRef} className="relative z-30 h-[500vh] bg-black  lg:block snap-start  ">
 
         {/* Sticky Desktop View Container */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
