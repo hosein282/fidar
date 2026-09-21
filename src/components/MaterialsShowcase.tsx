@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Language, MaterialData } from '../types';
 import { ArrowRight, ArrowLeft, ArrowDown } from 'lucide-react';
 import { MATERIALS } from '../data/mockData';
-import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
 
 interface MaterialsShowcaseProps {
   lang: Language;
@@ -177,6 +178,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <a
             href="#"
+            aria-label='Scroll Hint'
             className={`absolute z-100  bottom-16  transition animate-bounce ${isFa ? "left-10" : "right-10"}`}
           >
             {/* <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span> */}
@@ -202,8 +204,8 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                 return (
                   <div key={mat.id} className={`${isFa ? "-rotate-90" : "rotate-90"} lg:rotate-0`}>
                     <button
-
                       onClick={() => handleTabClick(idx)}
+                      aria-label={`${isFa?  `نمایش ${mat.nameFa }`: `Show ${mat.nameEn}`}`}
                       className={` 
                       ${isActive ? "border-2 pointer-events-none" : ""}
                       shrink-0 lg:flex-[1/8]  text-sm text-center   ${isFa ? 'rotate-90' : '-rotate-90'} 
@@ -242,7 +244,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                       pointerEvents: isActive ? 'auto' : 'none'
                     }}
                   >
-                    <img
+                    <Image
                       src={mat.imgUrl}
                       alt={mat.nameEn}
                       width={900}
@@ -261,9 +263,13 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
             <div className={`flex flex-1 flex-col z-10 max-w-xl xl:max-w-2xl text-slate-900  ${isFa ? "lg:mr-[16vw]" : "lg:ml-32"}`}>
               {/* Fidar Bondar Brand SVG Header */}
               <div className="flex items-end mb-1 w-full relative ">
-                <img src={'assets/images/logo_type.webp'} alt={isFa ? current.nameFa : current.nameEn}
+                <Image
+                  src="/assets/images/logo_type.webp"
+                  alt={isFa ? current.nameFa : current.nameEn}
+                  width={140}
+                  height={60}
                   className='w-40'
-                ></img>
+                />
               </div>
 
               <div className="max-h-[42vh] w-full h-22  lg:mb-8 overflow-hidden text-xl 2xl:text-2xl leading-relaxed text-slate-900 font-bold">
@@ -288,6 +294,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                   >
                     <button
                       // onClick={() => handleMoreClick(isFa ? current.slugFa : current.slugEn)}
+                      aria-label={`${isFa? "نمابش جزییات محصول" : "Show Product Details"}`}
                       className="rounded-lg transition-all duration-300 whitespace-nowrap bg-black text-white hover:bg-primary-dark px-10 h-12 md:px-12 md:h-14 md:text-xl font-medium hover:rounded-[30px] shadow-2xl cursor-pointer flex items-center gap-3 active:scale-95"
                       type="button"
                     >

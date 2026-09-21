@@ -42,9 +42,10 @@ const LangSwitcher: React.FC<{
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        name='open language switch'
+        aria-label='open language switch'
         aria-haspopup="listbox"
         aria-expanded={open}
+        
         className="inline-flex min-w-[54px] items-center justify-center gap-1 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-[11px] font-bold tracking-wide text-slate-800 uppercase transition hover:border-primary hover:text-primary"
       >
         {current}
@@ -59,7 +60,7 @@ const LangSwitcher: React.FC<{
           <button
             type="button"
             role="option"
-            name='language switcher to fa'
+            aria-label='language switcher to fa'
             aria-selected={lang === 'fa'}
             onClick={() => { setOpen(false); onLanguageChange('fa'); }}
             className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-bold uppercase transition ${lang === 'fa' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
@@ -72,7 +73,7 @@ const LangSwitcher: React.FC<{
           <button
             type="button"
             role="option"
-            name='language switcher to en'
+            aria-label='language switcher to en'
             aria-selected={lang === 'en'}
             onClick={() => { setOpen(false); onLanguageChange('en'); }}
             className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-bold uppercase transition ${lang === 'en' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
@@ -222,7 +223,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setProductsOpen((o) => !o)}
                 aria-haspopup="menu"
                 aria-expanded={productsOpen}
-                name='open products menu'
+                aria-label='open products menu'
                 className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
               >
                 <span>{isFa ? 'محصولات' : 'Lines'}</span>
@@ -266,7 +267,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setServicesOpen((o) => !o)}
                 aria-haspopup="menu"
                 aria-expanded={servicesOpen}
-                name='open services menu'
+                aria-label='open services menu'
                 className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
               >
                 <span>{isFa ? 'خدمات' : 'Services'}</span>
@@ -365,7 +366,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Mobile Menu Trigger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              name='open mobile navigation menu'
+              aria-label='open mobile navigation menu'
               className="lg:hidden p-2 rounded-full bg-white border border-gray-300 text-slate-800 hover:text-primary"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -386,7 +387,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <button
                   type="button"
                   onClick={() => setMobileProductsOpen((o) => !o)}
-                  name='open products menu'
+                  aria-label='open products menu'
                   aria-expanded={mobileProductsOpen}
                   className="flex w-full items-center justify-between hover:text-primary cursor-pointer"
                 >
@@ -426,7 +427,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div>
                 <button
                   type="button"
-                  name='open services menu'
+                  aria-label='open services menu'
                   onClick={() => setMobileServicesOpen((o) => !o)}
                   aria-expanded={mobileServicesOpen}
                   className="flex w-full items-center justify-between hover:text-primary cursor-pointer"

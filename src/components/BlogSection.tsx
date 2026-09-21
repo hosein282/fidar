@@ -133,6 +133,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
             <button
               onClick={() => { setSelectedPost(null); setShowSchemaModal(false); }}
+              aria-label='Show Blog'
               className="absolute top-5 left-5 p-2 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-900 transition"
             >
               <X className="w-5 h-5" />

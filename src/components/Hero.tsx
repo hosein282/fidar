@@ -192,6 +192,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
                 <button
                   key={mat.id}
                   onClick={() => setActiveMaterial(mat.id)}
+                  aria-label={`${isFa ? mat.nameFa : mat.nameEn}`}
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${isActive
                     ? 'bg-white text-black shadow-lg scale-105'
                     : 'bg-black/50 text-white hover:bg-black/80 border border-white/20'

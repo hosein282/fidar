@@ -205,7 +205,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white"
                   >
-                    <option value="tous-web-php">{isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}</option>
+                    <option 
+                  aria-label={`${isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}`}
+                    value="tous-web-php">{isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}</option>
                     {/* <option value="seo-audit">{isFa ? 'سئوی پیشرفته و آنالیز گوگل' : 'Technical SEO Audit & Growth'}</option>
                     <option value="bilingual-system">{isFa ? 'سیستم دو زبانه (فارسی / انگلیسی)' : 'Bilingual RTL/LTR Architecture'}</option>
                     <option value="custom-cms">{isFa ? 'پنل مدیریت اختصاصی CMS' : 'Custom Admin CMS'}</option> */}
@@ -230,6 +232,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
               <button
                 type="submit"
                 disabled={submitting}
+                aria-label={`${isFa ? "ارسال فرم مشاوره" : "Submit Support Form"}`}
                 className="w-full py-3.5 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-sm disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />

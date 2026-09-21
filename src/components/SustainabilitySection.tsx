@@ -67,6 +67,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
             <div className="pt-4 flex justify-center">
               <a
                 href="#contact"
+                aria-label='show contact us form'
                 className="p-3 sm:p-4 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all duration-300 border border-white/20 hover:scale-110 group"
               >
                 <ArrowIcon className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-1 transition-transform" />

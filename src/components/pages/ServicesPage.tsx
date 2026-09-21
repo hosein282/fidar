@@ -172,7 +172,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                 seoConfig={seoConfig} onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
                 }}
-               />
+            />
 
             <main className='scroll-smooth overflow-x-clip'>
                 {/* 1. Page Hero — full-screen banner + breadcrumb */}
@@ -313,18 +313,29 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                                 </div>
 
                                                 {/* Text */}
-                                                <div className="w-full lg:w-1/2 flex flex-col items-start gap-4 lg:gap-5 pt-4 pb-10 lg:py-14 px-7 xl:px-10 2xl:px-20">
-                                                    <h3 className="leading-none break-normal text-2xl lg:text-4xl text-primary font-normal">
+                                                <div className="w-full h-full lg:w-1/2 flex flex-col items-start gap-4 justify-between lg:gap-5 pt-4 pb-10 lg:py-14 px-7 xl:px-10 2xl:px-20">
+                                                    <h3 className="leading-relaxed break-normal text-2xl lg:text-4xl text-primary font-bold">
                                                         {isFa ? item.nameFa : item.nameEn}
                                                     </h3>
 
                                                     {item.descEn && (
-                                                        <div className="flex flex-col items-start gap-4 lg:gap-5 w-full overflow-hidden">
-                                                            <p className="text-base lg:text-lg leading-snug font-light line-clamp-[8] break-normal text-dark">
+                                                        <div className={`overflow-hidden delay-200 origin-top
+                                                        ${index === activeIndex ? 'opacity-100 transform-y-0' : 'opacity-0 transform-y-50'}
+                                                        
+                                                        `}>
+                                                            <p className="text-base lg:text-lg  font-light line-clamp-[8] break-normal text-dark">
                                                                 {isFa ? item.descFa : item.descEn}
                                                             </p>
                                                         </div>
                                                     )}
+                                                    <button
+                                                        aria-label={`${isFa ? `نمابش اطلاعات ${item.nameFa}` : `Show Details of ${item.nameEn}`}`}
+                                                        className={`bg-primary h-10 w-50 text-white my-4 rounded-4xl duration-300 delay-200  self-end 
+                                                         ${index === activeIndex ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20 -events-none'}
+                                                        `}>
+                                                        {isFa ? "اطلاعات بیشتر" : "Read More"}
+
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -377,7 +388,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                         <div className="flex flex-col items-center mt-14">
 
                             {/* فلش راست — فقط اگر بتوان به راست اسکرول کرد */}
-                           
+
 
                             {/* ── Scroll Container ── */}
                             <div
@@ -428,11 +439,11 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                     </div>
                                 ))}
                             </div>
-                            
+
                         </div>
-                         <ChevronRight className={`text-surface transition-all duration-200 absolute -right-1 top-[50%] 
+                        <ChevronRight className={`text-surface transition-all duration-200 absolute -right-1 top-[50%] 
                                                         ${canScrollRight ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 -events-none'}`} />
-                            <ChevronLeft className={`text-surface transition-all duration-200 absolute -left-1 top-[50%] 
+                        <ChevronLeft className={`text-surface transition-all duration-200 absolute -left-1 top-[50%] 
                                                         ${canScrollLeft ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 -events-none'}`} />
                     </div>
 
@@ -452,8 +463,8 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                 lang={currentLang}
                 onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
-                }} 
-               />
+                }}
+            />
 
 
         </div>

@@ -213,6 +213,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                     <button
                         id="rightIcon"
                         onClick={() => scroll('right')}
+                        aria-label="Scroll Right"
                         className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 translate-x-[50%] z-30 top-1/2 mt-8">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="28" height="28">
                             <path
@@ -230,6 +231,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                     <button
                         id="leftIcon"
                         onClick={() => scroll('left')}
+                        aria-label="Scroll Left"
                         className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute left-0  translate-x-[50%] z-30 top-1/2 mt-8">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

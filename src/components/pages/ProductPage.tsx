@@ -177,7 +177,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
 
                                     <div
                                         key={prod.nameEn}
-                                        className="flex-[0_0_60%] lg:w-[60%] px-4  cursor-pointer"
+                                        className="flex-[0_0_60%] lg:w-[60%] px-4  "
                                     >
                                         <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end lg:h-[60vh]">
                                             <div className={` ${index === activeIndex ? " h-full" : "h-1/2"} flex flex-col lg:flex-row items-start  transition-all duration-500 ease-out rounded-3xl min-h-80 overflow-hidden bg-neutral w-full   bg-primary`}>
@@ -194,7 +194,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
 
                                                 {/* Text */}
                                                 <div className="w-full lg:w-1/2 flex flex-col items-start gap-4 lg:gap-5 pt-4 pb-10 lg:py-14 px-7 xl:px-10 2xl:px-20">
-                                                    <h3 className="leading-relaxed break-normal text-2xl lg:text-3xl  font-normal">
+                                                    <h3 className="leading-relaxed break-normal text-xl lg:text-3xl  font-normal">
                                                         {isFa ? prod.nameFa : prod.nameEn}
                                                     </h3>
 

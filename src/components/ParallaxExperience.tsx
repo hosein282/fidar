@@ -240,6 +240,7 @@ export const ParallaxExperience: React.FC<ParallaxExperienceProps> = ({ lang }) 
               <button
                 key={theme.id}
                 onClick={() => setActiveTab(index)}
+                aria-label={`${isFa? `نمایش محصول` : `Show Product`}`}
                 className={`px-5 py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2.5 transition-all cursor-pointer ${
                   activeTab === index
                     ? 'bg-white text-slate-900 shadow-xl scale-105 ring-2 ring-white/50'
