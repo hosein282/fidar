@@ -116,8 +116,8 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
         const { scrollLeft, scrollWidth, clientWidth } = el;
 
-        setScrollLeft((-scrollLeft + clientWidth) !== scrollWidth);
-        setScrollRight(scrollLeft !== 0);
+        setScrollLeft((-scrollLeft + clientWidth) < (scrollWidth-50));
+        setScrollRight(scrollLeft > 4 ||  scrollLeft<0);
     }, []);
 
     useEffect(() => {

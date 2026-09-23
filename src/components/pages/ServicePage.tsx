@@ -107,7 +107,7 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
     };
 
     return (
-        <div className="min-h-[screen] bg-surface lg:mt-18 text-slate-900 font-sans selection:bg-primary selection:text-white">
+        <div className="min-h-[screen] bg-surface  text-slate-900 font-sans selection:bg-primary selection:text-white">
 
             {/* Sticky Fidar Bondar Header */}
             <Header

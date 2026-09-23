@@ -29,13 +29,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
     return () => clearInterval(timer);
   }, [activeMaterial]);
 
-  // const materials: { id: MaterialId; title: { fa: string; en: string }; color: string; sub: string, img: string }[] = [
-  //   { id: 'wood', title: { fa: 'RTG هیبرید', en: 'Hybrid RTG' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic', img: '/assets/images/slides/legno_forma_A.RGB_color.0000_bassa.webp' },
-  //   { id: 'glass', title: { fa: 'تجهیزات جانبی بندرگاهی', en: 'Port Auxiliary Equipment' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database', img: '/assets/images/slides/Vetro_A_0_bassa.webp' },
-  //   { id: 'stone', title: { fa: 'فن ها', en: 'Fans' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang', img: '/assets/images/slides/Pietra_designB0-rossoverona.webp' },
-  //   { id: 'materia', title: { fa: 'بلوئر صنعتی', en: 'Industrial Blower' }, color: 'var(--color-materia)', sub: 'CMS Control Panel', img: '/assets/images/slides/polimeri_formaA_02-viola-lr.webp' },
-  //   // { id: 'metal', title: { fa: 'فلز', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi', img: '/assets/images/slides/METAL_Image_shape_A1.jpg' },
-  // ];
+  
 
   const active = MATERIALS.find(m => m.id === activeMaterial);
 

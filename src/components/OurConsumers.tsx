@@ -1,5 +1,5 @@
 "use client"
-import { FunctionComponent, useEffect, useRef } from "react";
+import { FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import { Language } from "../types";
 import Image from 'next/image';
 interface AboutSectionProps {
@@ -11,20 +11,18 @@ interface AboutSectionProps {
 const industries = [
     {
         title: {
-            fa: 'تعمیرات تخصصی شناورها و سازه‌های دریایی',
-            en: 'Specialized Repair of Vessels and Marine Structures',
+            fa: 'تجهیزات بندرگاهی',
+            en: 'Port Equipment',
         },
         description: {
-            fa: 'ارائه <b>خدمات تخصصی</b> تعمیرات، بازسازی و نوسازی کشتی‌ها و سازه‌های دریایی',
-
-            en: 'Providing specialized repair, refurbishment, and renovation services for ships and marine structures',
+            fa: 'جرثقیل‌های ترانستینر هیبرید',
+            en: 'Hybrid Transtainer Cranes',
         },
-        imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4jsQEr5ZjvYqYSeDrACtIi/97a4f9cfb47e715b1c9407f190674706/Immagine_Forniture.png',
-        alt: 'Furniture',
-        width: 378,
-        height: 539,
+        imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/239ptN8rRogEflGCu4V30d/dd5ccb394a3c51c61cd7340d5518312f/clayton-cardinalli-hkJNx0EDbjE-unsplash.jpg',
+        alt: 'Automotive',
+        width: 400,
+        height: 600,
     },
-    
     {
         title: {
             fa: 'بازسازی و به‌روزرسانی تجهیزات',
@@ -41,18 +39,22 @@ const industries = [
     },
     {
         title: {
-            fa: 'تجهیزات بندرگاهی',
-            en: 'Port Equipment',
+            fa: 'تعمیرات تخصصی شناورها و سازه‌های دریایی',
+            en: 'Specialized Repair of Vessels and Marine Structures',
         },
         description: {
-            fa: 'جرثقیل‌های ترانستینر هیبرید',
-            en: 'Hybrid Transtainer Cranes',
+            fa: 'ارائه <b>خدمات تخصصی</b> تعمیرات، بازسازی و نوسازی کشتی‌ها و سازه‌های دریایی',
+
+            en: 'Providing specialized repair, refurbishment, and renovation services for ships and marine structures',
         },
-        imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/239ptN8rRogEflGCu4V30d/dd5ccb394a3c51c61cd7340d5518312f/clayton-cardinalli-hkJNx0EDbjE-unsplash.jpg',
-        alt: 'Automotive',
-        width: 400,
-        height: 600,
-    },
+        imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/4jsQEr5ZjvYqYSeDrACtIi/97a4f9cfb47e715b1c9407f190674706/Immagine_Forniture.png',
+        alt: 'Furniture',
+        width: 378,
+        height: 539,
+    }
+
+
+
     // {
     //     title: 'Aerospace',
     //     description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
@@ -70,63 +72,43 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
     const isFa = lang === 'fa';
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [scrollLeft, setScrollLeft] = useState(false);
+    const [scrollRight, setScrollRight] = useState(false);
 
 
-    const initScrollBtn = () => {
-        const rightArrow = document.getElementById('rightIcon');
-        const leftArrow = document.getElementById('leftIcon');
+    const checkScrollability = useCallback(() => {
+        const el = scrollContainerRef.current;
+        if (!el) return;
 
-        if (window.innerWidth < (scrollContainerRef.current?.scrollWidth ?? 0)) {
+        const { scrollLeft, scrollWidth, clientWidth } = el;
 
-            if (isFa) {
-                rightArrow?.classList.add('hidden');
-                leftArrow?.classList.remove('hidden');
-            } else {
-                rightArrow?.classList.remove('hidden');
-                leftArrow?.classList.add('hidden');
-            }
+
+        if (isFa) {
+            setScrollLeft((-scrollLeft + clientWidth) < (scrollWidth - 50));
+            setScrollRight(scrollLeft > 4 || scrollLeft < 0);
         } else {
-            rightArrow?.classList.add('hidden');
-            leftArrow?.classList.add('hidden');
 
+            setScrollRight(clientWidth-scrollLeft >0 );
+            setScrollLeft(scrollLeft > 4 || scrollLeft < 0);
         }
-    }
+    }, []);
 
     useEffect(() => {
-        handleScroll();
-        window.onresize = function (event) {
-            initScrollBtn();
-        };
+        checkScrollability();
+
+        const el = scrollContainerRef.current;
+
+        if (!el) return;
+
+        el.addEventListener('scroll', checkScrollability);
+        window.addEventListener('resize', checkScrollability);
+
         return () => {
-            scrollContainerRef.current?.removeEventListener('scroll', () => { });
+            el.removeEventListener('scroll', checkScrollability);
+            window.removeEventListener('resize', checkScrollability);
         }
+    }, [checkScrollability])
 
-    }, [])
-
-    const handleScroll = () => {
-        const rightArrow = document.getElementById('rightIcon');
-        const leftArrow = document.getElementById('leftIcon');
-
-        initScrollBtn();
-
-
-        scrollContainerRef.current?.addEventListener('scroll', (scroll) => {
-            if (scrollContainerRef.current?.scrollLeft === 0) {
-                if (isFa) {
-                    rightArrow?.classList.add('hidden');
-                } else {
-                    leftArrow?.classList.add('hidden');
-                }
-            } else {
-                if (isFa) {
-                    rightArrow?.classList.remove('hidden');
-                } else {
-                    leftArrow?.classList.remove('hidden');
-                }
-
-            }
-        });
-    }
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
@@ -153,18 +135,18 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto scrollbar-none snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
+                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto  scrollbar-none snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
 
-                            className="pointer-events-auto snap-center"
+                            className="pointer-events-auto snap-center "
                             style={{
                                 // opacity: 1,
                                 zIndex: industries.length - index,
                                 // transform: 'translateX(calc(0% + 0px)) translateY(0px) scale(1) translateZ(0px)',
                             }}                        >
-                            <div className="relative rounded-2xl overflow-hidden aspect-3/4  group h-114 w-85 lg:aspect-auto lg:h-136">
+                            <div className="relative rounded-2xl overflow-hidden aspect-3/4  group h-124 w-90 lg:aspect-auto lg:h-136">
                                 {/* Gradient Overlay */}
                                 <div className="absolute z-10  h-full w-full bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)]"></div>
 
@@ -180,7 +162,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                                 <div dangerouslySetInnerHTML={{
 
                                                     __html: isFa ? industry.description.fa : industry.description.en,
-                                                    
+
                                                 }}
                                                 ></div>
 
@@ -209,53 +191,52 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
 
                 </div>
                 {/* Navigation Button */}
-                <div  >
-                    <button
-                        id="rightIcon"
-                        onClick={() => scroll('right')}
-                        aria-label="Scroll Right"
-                        className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 translate-x-[50%] z-30 top-1/2 mt-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="28" height="28">
-                            <path
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                d="m16.8 19.4 6.8-6.8-6.8-6.8M23.7 12.8H2"
-                            />
-                        </svg>
-                    </button>
-                </div>
+
+                <button
+                    id="rightIcon"
+                    onClick={() => scroll('right')}
+                    aria-label="Scroll Right"
+                    className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-12 h-12 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 z-30 top-1/2 mt-8 *:
+                        ${scrollRight ? "opacity-100 " : "opacity-0 "}
+                        `}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="28" height="28">
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            d="m16.8 19.4 6.8-6.8-6.8-6.8M23.7 12.8H2"
+                        />
+                    </svg>
+                </button>
 
 
-                <div >
-                    <button
-                        id="leftIcon"
-                        onClick={() => scroll('left')}
-                        aria-label="Scroll Left"
-                        className="rounded-full flex items-center justify-center transition-all active:scale-95 w-11 h-11 bg-white shadow-md text-primary hover:shadow-lg absolute left-0  translate-x-[50%] z-30 top-1/2 mt-8">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 26 26"
-                            width="28"
-                            height="28"
-                            className=""
-                        >
-                            <path
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                d="M9.2 19.4 2.4 12.6l6.8-6.8M2.3 12.8h21.7"
-                            ></path>
-                        </svg>
-                    </button>
 
-                </div>
+                <button
+                    id="leftIcon"
+                    onClick={() => scroll('left')}
+                    aria-label="Scroll Left"
+                    className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-12 h-12 bg-white shadow-md text-primary hover:shadow-lg absolute left-6  z-30 top-1/2 mt-8 ${scrollLeft ? "opacity-100 " : "opacity-0 "}`}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 26 26"
+                        width="28"
+                        height="28"
+                        className=""
+                    >
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            d="M9.2 19.4 2.4 12.6l6.8-6.8M2.3 12.8h21.7"
+                        ></path>
+                    </svg>
+                </button>
+
                 {/* Mobile Pagination Dots */}
                 <div className="md:hidden flex justify-center w-full mt-3"></div>
             </div>
 
-            <div className="text-2xl text-center text-current flex flex-col w-full justify-center items-center md:items-center my-8  gap-6  ">
-                {/* Header */}
+            {/* <div className="text-2xl text-center text-current flex flex-col w-full justify-center items-center md:items-center my-8  gap-6  ">
                 <div className="transition-all md:flex-row">
                     <h2 className="text-4xl 2xl:text-6xl font-medium md:font-bold text-primary mb-8">
                         {isFa ? "مواد را می‌شناسیم، الهام می‌بخشیم" : "Master of materials' industries"}
@@ -268,7 +249,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                     </div>
                     <div className="hidden md:block"></div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

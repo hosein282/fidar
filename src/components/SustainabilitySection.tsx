@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language } from '../types';
 import { ExternalLink, ArrowRight, ArrowLeft } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface SustainabilitySectionProps {
   lang: Language;
@@ -16,66 +17,75 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
       {/* SVG ClipPath Definition for Biesse Signature Card Geometry */}
       <svg className="hidden lg:block absolute w-0 h-0 pointer-events-none " aria-hidden="true">
         <defs>
-          <clipPath id="biesse-brand-card-clip" clipPathUnits="objectBoundingBox">
+          <clipPath id="fidar-brand-card-clip" clipPathUnits="objectBoundingBox">
             <path d="M 0.04,0 L 0.88,0 L 1,0.18 L 1,0.92 Q 1,1 0.96,1 L 0.12,1 L 0,0.82 L 0,0.08 Q 0,0 0.04,0 Z" />
           </clipPath>
         </defs>
       </svg>
 
       {/* Main Sustainability Hero Card Container */}
-      <div className="max-w-[1320px] mx-auto">
-        <div
-          className="relative w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[640px] flex flex-col items-center justify-center text-center p-8 sm:p-16 lg:p-24 transition-transform duration-500 hover:scale-[1.005]"
-          style={{
-            clipPath: 'url(#biesse-brand-card-clip)'
-          }}
-        >
-          {/* Background Image */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.8 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        <div className="max-w-[1320px] mx-auto">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+            className="relative w-full min-h-[500px] sm:min-h-[580px] lg:min-h-[640px] flex flex-col items-center justify-center text-center p-8 sm:p-16 lg:p-24 transition-transform duration-500 hover:scale-[1.005]"
             style={{
-              backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/7z1ounD96FpGSL6bNv3MLD/6c60ee36a4a5d60088884b6f06346c90/AdobeStock_675117344_Preview-transformed_out.jpeg?w=2000&h=1336&q=50&fm=jpg")'
+              clipPath: 'url(#fidar-brand-card-clip)'
             }}
-          />
+          >
+            {/* Background Image */}
 
-          {/* Dark Green Gradient Tint Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-primary-darker/75 to-black/70 z-10" />
+            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
+              style={{
+                backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/7z1ounD96FpGSL6bNv3MLD/6c60ee36a4a5d60088884b6f06346c90/AdobeStock_675117344_Preview-transformed_out.jpeg?w=2000&h=1336&q=50&fm=jpg")'
+              }}
+            />
 
-          {/* Card Content */}
-          <div className="relative z-20 max-w-4xl mx-auto space-y-6 sm:space-y-8 text-white">
-            {/* Top Eyebrow Subtitle */}
-            <p className="text-base sm:text-xl lg:text-2xl font-light tracking-wide text-slate-100">
-              {isFa ? 'عملکرد مسئولانه در صنعت' : 'Acting in a responsible manner'}
-            </p>
+            {/* Dark Green Gradient Tint Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-primary-darker/75 to-black/70 z-10" />
 
-            {/* Main Headline */}
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.2] sm:leading-[1.15] tracking-tight text-white drop-shadow-md hover:text-teal-200 transition-colors cursor-pointer">
-              <a href="#contact" className="block" aria-label='Contact us'>
-                {isFa ? (
-                  <>
-                    <p>فیدارسازه بندار</p>
-                    <br/>
-                    <p>مهندسی، ساخت و نوسازی برای عملکردی پايدارتر</p>
-                  </>
-                ) : (
-                  'Fidar Sazeh Bandar\n Engineering, Manufacturing, and Renovation for More Sustainable Performance'
-                )}
-              </a>
-            </h2>
+            {/* Card Content */}
+            <div className="relative z-20 max-w-4xl mx-auto space-y-6 sm:space-y-8 text-white">
+              {/* Top Eyebrow Subtitle */}
+              <p className="text-base sm:text-xl lg:text-2xl font-light tracking-wide text-slate-100">
+                {isFa ? 'عملکرد مسئولانه در صنعت' : 'Acting in a responsible manner'}
+              </p>
 
-            {/* Bottom Arrow Indicator */}
-            <div className="pt-4 flex justify-center">
-              <a
-                href="#contact"
-                aria-label='show contact us form'
-                className="p-3 sm:p-4 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all duration-300 border border-white/20 hover:scale-110 group"
-              >
-                <ArrowIcon className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-1 transition-transform" />
-              </a>
+              {/* Main Headline */}
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.2] sm:leading-[1.15] tracking-tight text-white drop-shadow-md hover:text-teal-200 transition-colors cursor-pointer">
+                <a href="#contact" className="block" aria-label='Contact us'>
+                  {isFa ? (
+                    <>
+                      <p>فیدارسازه بندار</p>
+                      <br />
+                      <p>مهندسی، ساخت و نوسازی برای عملکردی پايدارتر</p>
+                    </>
+                  ) : (
+                    'Fidar Sazeh Bandar\n Engineering, Manufacturing, and Renovation for More Sustainable Performance'
+                  )}
+                </a>
+              </h2>
+
+              {/* Bottom Arrow Indicator */}
+              <div className="pt-4 flex justify-center">
+                <a
+                  href={`${lang}/about`}
+                  aria-label='show contact us form'
+                  className="p-3 sm:p-4 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all duration-300 border border-white/20 hover:scale-110 group"
+                >
+                  <ArrowIcon className="w-6 h-6 sm:w-8 sm:h-8 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+
             </div>
           </div>
+
         </div>
-      </div>
+      </motion.div>
 
       {/* Services & Training Programs Section */}
       <div className="mt-16 sm:mt-24 py-16 px-6 sm:px-12 max-w-[1320px] mx-auto text-center space-y-8 border-t border-gray-300">
@@ -103,7 +113,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
       </div>
 
       {/* European Funds & Innovation Section */}
-      <div className="bg-slate-200/80 rounded-2xl py-12 px-6 sm:px-12 mt-12 max-w-[1320px] mx-auto text-center space-y-6 border border-gray-300">
+      {/* <div className="bg-slate-200/80 rounded-2xl py-12 px-6 sm:px-12 mt-12 max-w-[1320px] mx-auto text-center space-y-6 border border-gray-300">
         <span className="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest block">
           {isFa ? 'پروژه‌های تحقیق و توسعه اروپا' : 'European Research & Innovation Projects'}
         </span>
@@ -131,7 +141,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
-      </div>
+      </div> */}
 
     </section>
   );

@@ -136,8 +136,8 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
         const { scrollLeft, scrollWidth, clientWidth } = el;
 
-        setCanScrollLeft((-scrollLeft + clientWidth) !== scrollWidth);
-        setCanScrollRight(scrollLeft !== 0);
+        setCanScrollLeft((-scrollLeft + clientWidth) < (scrollWidth-50));
+        setCanScrollRight(scrollLeft > 4 ||  scrollLeft<0);
     }, []);
 
     useEffect(() => {
@@ -299,7 +299,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                         className="flex-[0_0_60%] lg:w-[60%] px-4  cursor-pointer"
                                         onClick={() => handleClick(isFa ? item.slugFa : item.slugEn)}
                                     >
-                                        <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end lg:h-[60vh]">
+                                        <div className="pb-4 px-4 xl:px-0 w-full h-full flex items-end lg:h-[65vh]">
                                             <div className={` ${index === activeIndex ? " h-full" : "h-1/2"} flex flex-col lg:flex-row items-start  transition-all duration-500 ease-out rounded-3xl min-h-80 overflow-hidden bg-neutral w-full   bg-surface`}>
                                                 {/* Image */}
                                                 <div className="relative w-full lg:self-stretch overflow-hidden lg:w-1/2 h-64 lg:h-auto">
