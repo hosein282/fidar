@@ -80,16 +80,15 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
         const el = scrollContainerRef.current;
         if (!el) return;
 
-        const { scrollLeft, scrollWidth, clientWidth } = el;
+        const { scrollLeft, scrollWidth, clientWidth, offsetWidth } = el;
 
 
         if (isFa) {
             setScrollLeft((-scrollLeft + clientWidth) < (scrollWidth - 50));
-            setScrollRight(scrollLeft > 4 || scrollLeft < 0);
+            setScrollRight(scrollLeft > 16 || scrollLeft < -30);
         } else {
-
-            setScrollRight(clientWidth-scrollLeft >0 );
-            setScrollLeft(scrollLeft > 4 || scrollLeft < 0);
+            setScrollRight((scrollLeft + offsetWidth) < (scrollWidth - 50));
+            setScrollLeft(scrollLeft > 16 || scrollLeft < -30);
         }
     }, []);
 
@@ -135,7 +134,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto  scrollbar-none snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
+                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto  scrollbar-none snap-x snap-mandatory pb-8 pt-8 transition-all w-screen `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}
@@ -146,7 +145,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                                 zIndex: industries.length - index,
                                 // transform: 'translateX(calc(0% + 0px)) translateY(0px) scale(1) translateZ(0px)',
                             }}                        >
-                            <div className="relative rounded-2xl overflow-hidden aspect-3/4  group h-124 w-90 lg:aspect-auto lg:h-136">
+                            <div className="relative rounded-2xl overflow-hidden aspect-3/4  group h-124 w-84 lg:aspect-auto lg:h-136">
                                 {/* Gradient Overlay */}
                                 <div className="absolute z-10  h-full w-full bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.5)]"></div>
 
@@ -189,48 +188,49 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                         </div>
                     ))}
 
-                </div>
-                {/* Navigation Button */}
+                    {/* Navigation Button */}
 
-                <button
-                    id="rightIcon"
-                    onClick={() => scroll('right')}
-                    aria-label="Scroll Right"
-                    className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-12 h-12 bg-white shadow-md text-primary hover:shadow-lg absolute right-8 z-30 top-1/2 mt-8 *:
+                    <button
+                        id="rightIcon"
+                        onClick={() => scroll('right')}
+                        aria-label="Scroll Right"
+                        className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-12 h-12 bg-white shadow-md text-primary hover:shadow-lg absolute right-0 z-30 top-1/2 mt-8 *:
                         ${scrollRight ? "opacity-100 " : "opacity-0 "}
                         `}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="28" height="28">
-                        <path
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            d="m16.8 19.4 6.8-6.8-6.8-6.8M23.7 12.8H2"
-                        />
-                    </svg>
-                </button>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="28" height="28">
+                            <path
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                d="m16.8 19.4 6.8-6.8-6.8-6.8M23.7 12.8H2"
+                            />
+                        </svg>
+                    </button>
 
 
 
-                <button
-                    id="leftIcon"
-                    onClick={() => scroll('left')}
-                    aria-label="Scroll Left"
-                    className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-12 h-12 bg-white shadow-md text-primary hover:shadow-lg absolute left-6  z-30 top-1/2 mt-8 ${scrollLeft ? "opacity-100 " : "opacity-0 "}`}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 26 26"
-                        width="28"
-                        height="28"
-                        className=""
-                    >
-                        <path
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            d="M9.2 19.4 2.4 12.6l6.8-6.8M2.3 12.8h21.7"
-                        ></path>
-                    </svg>
-                </button>
+                    <button
+                        id="leftIcon"
+                        onClick={() => scroll('left')}
+                        aria-label="Scroll Left"
+                        className={`rounded-full flex items-center justify-center transition-all active:scale-95 w-12 h-12 bg-white shadow-md text-primary hover:shadow-lg absolute left-0  z-30 top-1/2 mt-8 ${scrollLeft ? "opacity-100 " : "opacity-0 "}`}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 26 26"
+                            width="28"
+                            height="28"
+                            className=""
+                        >
+                            <path
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                d="M9.2 19.4 2.4 12.6l6.8-6.8M2.3 12.8h21.7"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+
 
                 {/* Mobile Pagination Dots */}
                 <div className="md:hidden flex justify-center w-full mt-3"></div>
