@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { generateAIResponse } from '../../lib/ai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,49 +14,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.DEEPSEEK_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        { success: false, error: 'DEEPSEEK_API_KEY is not configured.' },
-        { status: 500 }
-      );
-    }
-
     const prompt = targetLang === 'fa'
       ? `Translate the following text to Persian (Farsi). Keep the meaning accurate and natural. Return only the translated text without any additional commentary:\n\n${text}`
       : `Translate the following text to English. Keep the meaning accurate and natural. Return only the translated text without any additional commentary:\n\n${text}`;
 
-    // استفاده از DeepSeek API
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'deepseek-chat', // مدل رایگان
-        messages: [
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
-        temperature: 0.3, // دمای پایین برای ترجمه دقیق‌تر
-        max_tokens: 1000,
-      }),
+    // Gemini is tried first; if it is unavailable or returns nothing,
+    // the request automatically falls back to DeepSeek (see src/app/api/lib/ai.ts).
+    const result = await generateAIResponse(prompt, {
+      temperature: 0.3, // پایین برای ترجمه دقیق‌تر
+      maxOutputTokens: 1000,
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('DeepSeek API error:', errorData);
-      return NextResponse.json(
-        { success: false, error: `DeepSeek API error: ${errorData.error?.message || 'Unknown error'}` },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    const translatedText = data.choices?.[0]?.message?.content?.trim() || '';
+    const translatedText = result.text;
 
     if (!translatedText) {
       return NextResponse.json(
@@ -64,7 +34,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true, translatedText });
+    return NextResponse.json({
+      success: true,
+      provider: result.provider,
+      translatedText,
+    });
   } catch (error) {
     console.error('Translation error:', error);
     return NextResponse.json(

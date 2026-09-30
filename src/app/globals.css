@@ -254,8 +254,8 @@
    ======================================================== */
 @keyframes slow-zoom {
   from {
-    opacity: 0.7;
-    transform: scale(1.2);
+    opacity: 1;
+    transform: scale(1.1);
   }
 
   to {
@@ -267,7 +267,7 @@
 
 .slow-zoom {
   transform-origin: center;
-  animation: slow-zoom 3s ease-out forwards;
+  animation: slow-zoom var(--slide-duration, 3.8s) ease-out forwards;
   will-change: transform;
 }
 

@@ -207,9 +207,9 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                       onClick={() => handleTabClick(idx)}
                       aria-label={`${isFa?  `نمایش ${mat.nameFa }`: `Show ${mat.nameEn}`}`}
                       className={` 
-                      ${isActive ? "border-2 pointer-events-none" : ""}
+                      ${isActive ? "bg-black lg:bg-transparent text-slate-200 pointer-events-none" : ""}
                       shrink-0 lg:flex-[1/8]  text-sm text-center   ${isFa ? 'rotate-90' : '-rotate-90'} 
-                     h-8  lg:h-26 w-max lg:w-[12vw] p-2 mx-1 flex rounded-full items-center py-0 justify-center border lg:border-0  border-slate-900  transition-all duration-300 font-bold cursor-pointer text-slate-900 ${isActive ? 'opacity-100 font-extrabold' : 'opacity-60 hover:opacity-100'
+                     h-8  lg:h-26 w-max lg:w-[12vw] p-2 mx-1 flex rounded-full items-center py-0 justify-center border lg:border-0  border-slate-900  transition-all duration-300 font-bold cursor-pointer  ${isActive ? 'opacity-100 font-extrabold' : 'opacity-60 hover:opacity-100'
                         }`}
 
                       type="button"

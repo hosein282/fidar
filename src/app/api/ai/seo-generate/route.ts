@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { generateAIResponse } from '../../lib/ai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,16 +11,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { success: false, error: 'Topic is required.' },
         { status: 400 }
-      );
-    }
-
-    const apiKey = process.env.DEEPSEEK_API_KEY ;
-
-    console.log("process.env.DEEPSEEK_API_KEY " , process.env.DEEPSEEK_API_KEY )
-    if (!apiKey) {
-      return NextResponse.json(
-        { success: false, error: 'DEEPSEEK_API_KEY is not configured.' },
-        { status: 500 }
       );
     }
 
@@ -47,39 +38,15 @@ Return a JSON object with exactly these fields:
 
 Return ONLY valid JSON, no markdown, no commentary.`;
 
-    // استفاده از DeepSeek API
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'deepseek-chat', // مدل رایگان
-        messages: [
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 500,
-      }),
+    // Gemini is tried first; if it is unavailable or returns nothing,
+    // the request automatically falls back to DeepSeek (see src/app/api/lib/ai.ts).
+    const result = await generateAIResponse(prompt, {
+      temperature: 0.7,
+      maxOutputTokens: 500,
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      return NextResponse.json(
-        { success: false, error: `DeepSeek API error: ${errorData.error?.message || 'Unknown error'}` },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    const rawText = data.choices?.[0]?.message?.content?.trim() || '';
-
     // Extract JSON from the response (handle markdown code fences if present)
-    const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+    const jsonMatch = result.text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       return NextResponse.json(
         { success: false, error: 'Failed to parse AI response.' },
@@ -104,6 +71,7 @@ Return ONLY valid JSON, no markdown, no commentary.`;
 
     return NextResponse.json({
       success: true,
+      provider: result.provider,
       seoTitle,
       seoDesc,
       keywords,

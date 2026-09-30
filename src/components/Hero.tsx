@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Language, MaterialData } from '../types';
 import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2, MoveRight, MoveLeft } from 'lucide-react';
 import Image from "next/image"
@@ -12,24 +12,111 @@ interface HeroProps {
 // const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia'] as const;
 // type MaterialId = typeof MATERIAL_IDS[number];
 
-export const Hero: React.FC<HeroProps> = ({ lang}) => {
+export const Hero: React.FC<HeroProps> = ({ lang }) => {
+  const slideDuration = 3800;
   const isFa = lang === 'fa';
   const [activeMaterial, setActiveMaterial] = useState<number>(0);
+  const [readyNextMaterial, setReadyNextMaterial] = useState<number | null>(null);
+  const loadedMaterialIds = useRef(new Set<number>([MATERIALS[0].id]));
+  const preloadRequests = useRef(new Map<number, Promise<boolean>>());
+  const latestSlideRequest = useRef(0);
 
+  // Keep only the upcoming slide warm in the browser cache. Since these files
+  // are already WebP, using the original URL here avoids downloading every
+  // slide during the initial page load.
+  const preloadMaterial = useCallback((materialId: number) => {
+    if (loadedMaterialIds.current.has(materialId)) {
+      return Promise.resolve(true);
+    }
 
-  // Auto-rotate the material image every 3 seconds with a slow zoom effect.
-  // Re-running on every change also restarts the timer when a user manually
-  // picks a material with the pills below.
+    const existingRequest = preloadRequests.current.get(materialId);
+    if (existingRequest) {
+      return existingRequest;
+    }
+
+    const material = MATERIALS.find((item) => item.id === materialId);
+    if (!material || typeof window === 'undefined') {
+      return Promise.resolve(false);
+    }
+
+    const request = new Promise<boolean>((resolve) => {
+      const image = new window.Image();
+      image.onload = async () => {
+        // Loading the bytes alone is not enough on slower devices; decode the
+        // bitmap before allowing the current slide to be replaced.
+        try {
+          await image.decode();
+        } catch {
+          // Some browsers reject `decode()` for already-decoded images.
+        }
+        loadedMaterialIds.current.add(materialId);
+        resolve(true);
+      };
+      image.onerror = () => resolve(false);
+      image.src = material.imgUrl;
+    });
+
+    preloadRequests.current.set(materialId, request);
+    return request;
+  }, []);
+
+  const showMaterial = useCallback(async (materialId: number) => {
+    const requestId = ++latestSlideRequest.current;
+    const isReady = await preloadMaterial(materialId);
+
+    // A later click or timer tick may have requested another slide while this
+    // image was loading, so never let an old request replace the newer choice.
+    if (isReady && requestId === latestSlideRequest.current) {
+      setActiveMaterial(materialId);
+    }
+  }, [preloadMaterial]);
+
+  // Preload just one upcoming slide after the current slide is visible. The
+  // zoom starts only after that image is ready, so it finishes exactly when
+  // the slide can be safely replaced.
   useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveMaterial((prev) => {
-        return (prev + 1) % MATERIALS.length;
-      });
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [activeMaterial]);
+    const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
+    setReadyNextMaterial(null);
 
-  
+    let isCurrentSlide = true;
+    const preloadNext = () => {
+      void preloadMaterial(nextMaterialId).then((isReady) => {
+        if (isCurrentSlide && isReady) {
+          setReadyNextMaterial(nextMaterialId);
+        }
+      });
+    };
+    const idleCallback = window.requestIdleCallback?.(preloadNext, { timeout: 1200 });
+
+    if (idleCallback === undefined) {
+      const timeout = window.setTimeout(preloadNext, 250);
+      return () => {
+        isCurrentSlide = false;
+        window.clearTimeout(timeout);
+      };
+    }
+
+    return () => {
+      isCurrentSlide = false;
+      window.cancelIdleCallback?.(idleCallback);
+    };
+  }, [activeMaterial, preloadMaterial]);
+
+  // Do not replace the current image until the next one has decoded into the
+  // cache. The duration matches `.slow-zoom`, so the zoom ends at transition.
+  useEffect(() => {
+    const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
+    if (readyNextMaterial !== nextMaterialId) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      void showMaterial(nextMaterialId);
+    }, slideDuration);
+    return () => window.clearTimeout(timer);
+  }, [activeMaterial, readyNextMaterial, showMaterial, slideDuration]);
+
+
 
   const active = MATERIALS.find(m => m.id === activeMaterial);
 
@@ -43,7 +130,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
         {/* Left Side Video / Hero Visual */}
         <div className="relative  h-full lg:h-full w-full lg:w-[60%] overflow-hidden bg-black ">
           <div key={active?.nameFa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
-                      {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
+            {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
 
             <h1 className=" text-4xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
               {isFa ?
@@ -86,7 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
               } lg:top-[50%] z-100`}
           >
             {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
-            <h1  className="w-fit text-3xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
+            <h1 className="w-fit text-3xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
               {isFa ? active?.nameFa : active?.nameEn}
               {isFa ? <MoveLeft
                 size={28}
@@ -104,14 +191,16 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
               key={activeMaterial}
               src={active?.imgUrl || MATERIALS[0].imgUrl}
               alt={`Fidar Saze Bondar ${isFa ? active?.nameFa : active?.nameEn}`}
-              width={613}
-              height={906}
-              loading='eager'
+              width={1200}
+              height={1400}
+              priority={activeMaterial === MATERIALS[0].id}
               decoding="async"
-              priority={true}
-              fetchPriority="high"
-              className="md:h-dvh h-fit w-min object-cover relative z-10 slow-zoom opacity-1 scale-120 bg-gradient-to-b from-black/60 via-black/30 to-transparent z-0"
-              
+              fetchPriority={activeMaterial === MATERIALS[0].id ? 'high' : 'auto'}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              unoptimized
+              className={`md:h-dvh h-fit w-min object-cover relative z-10 opacity-1 scale-110 bg-gradient-to-b from-black/60 via-black/30 to-transparent z-0 ${readyNextMaterial !== null ? 'slow-zoom' : ''}`}
+              style={{ '--slide-duration': `${slideDuration}ms` } as React.CSSProperties}
+
             />
           </div>
 
@@ -185,7 +274,7 @@ export const Hero: React.FC<HeroProps> = ({ lang}) => {
               return (
                 <button
                   key={mat.id}
-                  onClick={() => setActiveMaterial(mat.id)}
+                  onClick={() => void showMaterial(mat.id)}
                   aria-label={`${isFa ? mat.nameFa : mat.nameEn}`}
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${isActive
                     ? 'bg-white text-black shadow-lg scale-105'
