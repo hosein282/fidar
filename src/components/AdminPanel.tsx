@@ -67,7 +67,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'biesss2026' || password === 'admin') {
+    if (password === 'biesss2026' || password === 'At9127995883') {
       setIsLoggedIn(true);
       setErrorMsg('');
       fetchMessages();
