@@ -28,8 +28,8 @@ export interface AIProviderResult {
 const DEEPSEEK_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
 const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
 
-// Known-good Gemini models, tried in order when the configured model 404s.
-const GEMINI_FALLBACK_MODELS = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash'];
+// Fallback candidates, tried in order when the configured model 404s.
+const GEMINI_FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-3-pro-preview'];
 
 function geminiModelCandidates(): string[] {
   // Read at call time so runtime-injected env / tests can override it.
@@ -42,6 +42,53 @@ function geminiModelCandidates(): string[] {
     ];
   }
   return [...GEMINI_FALLBACK_MODELS];
+}
+
+// Collects model names referenced in an error message, e.g.
+// "...update your code to use models/gemini-3.8-flash ...".
+function extractSuggestedModels(message: string): string[] {
+  const found = new Set<string>();
+  const re = /models\/([a-zA-Z0-9._-]+)/g;
+  let match: RegExpExecArray | null;
+  while ((match = re.exec(message)) !== null) {
+    const name = match[1].trim();
+    if (name) found.add(name);
+  }
+  return [...found];
+}
+
+// Cache for the model list discovered through ListModels.
+let geminiDiscoveredModels: string[] | undefined;
+
+// Fetches available Gemini model IDs and keeps the ones that support text
+// generation. Called only when every queued candidate returned 404.
+async function discoverGeminiModels(ai: GoogleGenAI): Promise<string[]> {
+  if (geminiDiscoveredModels) return geminiDiscoveredModels;
+
+  const usable: string[] = [];
+  try {
+    const pager = await ai.models.list({ config: { pageSize: 100 } });
+    for await (const model of pager) {
+      const parts = String(model.name || '').split('/');
+      const id = parts[parts.length - 1].trim();
+      if (!id || id === 'tunedModels') continue;
+
+      const actions = Array.isArray(model.supportedActions)
+        ? model.supportedActions.map((a) => String(a).toLowerCase())
+        : [];
+      if (actions.length > 0 && !actions.some((a) => a.includes('content'))) {
+        continue;
+      }
+      usable.push(id);
+    }
+  } catch (error) {
+    console.error(
+      `[ai] Could not list Gemini models: ${error instanceof Error ? error.message : error}`
+    );
+  }
+
+  geminiDiscoveredModels = usable;
+  return usable;
 }
 
 // Detects "model not found / model not supported for generateContent"
@@ -107,11 +154,20 @@ export async function callGemini(prompt: string, options: AIProviderOptions = {}
 
   const ai = new GoogleGenAI({ apiKey });
   const config = buildGeminiConfig(options);
-  const candidates = geminiModelCandidates();
 
+  const preferred = geminiModelCandidates()[0];
+  const tried = new Set<string>();
+  const queue: string[] = [...geminiModelCandidates()];
+  let discovered: string[] | undefined;
   let lastError: Error | undefined;
+  let attempts = 0;
 
-  for (const model of candidates) {
+  while (queue.length > 0 && attempts < 8) {
+    const model = queue.shift();
+    if (!model || tried.has(model)) continue;
+    tried.add(model);
+    attempts++;
+
     try {
       const response = await ai.models.generateContent({
         model,
@@ -124,24 +180,41 @@ export async function callGemini(prompt: string, options: AIProviderOptions = {}
         throw new Error('Gemini returned an empty response.');
       }
 
-      if (model !== candidates[0]) {
+      if (model !== preferred) {
         console.log(
-          `[ai] Configured Gemini model "${candidates[0]}" is unavailable; using "${model}".`
+          `[ai] Configured Gemini model "${preferred}" is unavailable; using "${model}".`
         );
       }
       console.log(`[ai] Gemini responded (${model}).`);
       return text;
     } catch (error) {
-      if (isModelNotFoundError(error)) {
-        console.error(
-          `[ai] Gemini model "${model}" is not found / not supported, trying the next model.`
-        );
-        lastError = error instanceof Error ? error : new Error(String(error));
-        continue;
+      if (!isModelNotFoundError(error)) {
+        // Any other failure (auth, quota, rate limit, network, blocked prompt)
+        // propagates up and triggers the DeepSeek fallback in generateAIResponse.
+        throw error;
       }
-      // Any other failure (auth, quota, rate limit, network, blocked prompt)
-      // propagates up and triggers the DeepSeek fallback in generateAIResponse.
-      throw error;
+
+      console.error(
+        `[ai] Gemini model "${model}" is not found / not supported, trying the next model.`
+      );
+      lastError = error instanceof Error ? error : new Error(String(error));
+
+      // 1) Gemini often names the replacement model in the error text,
+      //    e.g. "...use models/gemini-3.8-flash ...". Try it immediately.
+      const suggested = extractSuggestedModels(error instanceof Error ? error.message : '')
+        .filter((name) => !tried.has(name));
+      for (const name of suggested) {
+        if (!queue.includes(name)) queue.unshift(name);
+      }
+
+      // 2) If nothing is left to try, ask the API for the current model list
+      //    (as the error message itself recommends via ListModels).
+      if (queue.length === 0 && discovered === undefined) {
+        discovered = await discoverGeminiModels(ai);
+        for (const name of discovered) {
+          if (!tried.has(name) && !queue.includes(name)) queue.push(name);
+        }
+      }
     }
   }
 
