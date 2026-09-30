@@ -12,6 +12,8 @@ import { GoogleGenAI } from '@google/genai';
 export interface AIProviderOptions {
   temperature?: number;
   maxOutputTokens?: number;
+  /** When 'json', ask the model to return strict JSON output. */
+  responseFormat?: 'json';
 }
 
 export interface AIProviderResult {
@@ -25,7 +27,7 @@ const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
 
 // --- Gemini (primary provider) ---
 
-async function callGemini(prompt: string, options: AIProviderOptions): Promise<string> {
+export async function callGemini(prompt: string, options: AIProviderOptions = {}): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error('GEMINI_API_KEY is not configured.');
@@ -33,18 +35,28 @@ async function callGemini(prompt: string, options: AIProviderOptions): Promise<s
 
   const ai = new GoogleGenAI({ apiKey });
 
+  const config: {
+    temperature: number;
+    maxOutputTokens: number;
+    responseMimeType?: string;
+  } = {
+    temperature: options.temperature ?? 0.7,
+    maxOutputTokens: options.maxOutputTokens ?? 1024,
+  };
+
+  // Force structured JSON output from Gemini so the response is parseable.
+  if (options.responseFormat === 'json') {
+    config.responseMimeType = 'application/json';
+  }
+
   const response = await ai.models.generateContent({
     model: GEMINI_MODEL,
     contents: prompt,
-    config: {
-      temperature: options.temperature ?? 0.7,
-      maxOutputTokens: options.maxOutputTokens ?? 1024,
-    },
+    config,
   });
 
   const text = String(response.text || '').trim();
   if (!text) {
-    console.log("gemini error")
     throw new Error('Gemini returned an empty response.');
   }
   return text;
@@ -52,10 +64,27 @@ async function callGemini(prompt: string, options: AIProviderOptions): Promise<s
 
 // --- DeepSeek (fallback provider) ---
 
-async function callDeepseek(prompt: string, options: AIProviderOptions): Promise<string> {
+export async function callDeepseek(prompt: string, options: AIProviderOptions = {}): Promise<string> {
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
     throw new Error('DEEPSEEK_API_KEY is not configured.');
+  }
+
+  const payload: Record<string, unknown> = {
+    model: DEEPSEEK_MODEL,
+    messages: [
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+    temperature: options.temperature ?? 0.7,
+    max_tokens: options.maxOutputTokens ?? 1024,
+  };
+
+  // DeepSeek (OpenAI-compatible) JSON mode.
+  if (options.responseFormat === 'json') {
+    payload.response_format = { type: 'json_object' };
   }
 
   const response = await fetch(DEEPSEEK_URL, {
@@ -64,17 +93,7 @@ async function callDeepseek(prompt: string, options: AIProviderOptions): Promise
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     },
-    body: JSON.stringify({
-      model: DEEPSEEK_MODEL,
-      messages: [
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: options.temperature ?? 0.7,
-      max_tokens: options.maxOutputTokens ?? 1024,
-    }),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
