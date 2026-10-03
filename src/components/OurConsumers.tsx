@@ -52,17 +52,6 @@ const industries = [
         width: 378,
         height: 539,
     }
-
-
-
-    // {
-    //     title: 'Aerospace',
-    //     description: 'Solutions for high-tech companies that manufacture aircraft, spacecraft, aeronautical engines and related parts',
-    //     imageUrl: 'https://images.ctfassets.net/bdj0rlksezwc/7AtmYfzL77F98TCcLoY29l/9643b18994bbdf30b0f34d9b32552189/luka-slapnicar-yqeXLR81Uj0-unsplash.jpg',
-    //     alt: 'Aerospace',
-    //     width: 400,
-    //     height: 600,
-    // },
 ];
 
 
@@ -119,8 +108,8 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
     };
 
     return (
-        <div id="cunsumers" className="w-full relative">
-            <div className="bg-neutral  w-screen overflow-hidden flex flex-col items-start justify-center  py-10 lg:px-20 lg:py-10">
+        <div id="cunsumers" className="w-full relative  overflow-x-hidden">
+            <div className="bg-neutral  w-full overflow-hidden flex flex-col items-start justify-center  py-10 lg:px-20 lg:py-10">
                 {/* Header */}
                 <div className="flex flex-col w-full justify-between items-start md:items-center px-4 my-8  gap-6 transition-all md:flex-row">
                     <h2 className="text-4xl 2xl:text-6xl font-medium md:font-bold text-primary">
@@ -134,7 +123,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto  scrollbar-none snap-x snap-mandatory pb-8 pt-8 transition-all w-screen `}>
+                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto  scrollbar-none  snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}

@@ -471,14 +471,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <span>{isFa ? `پیام‌های دریافتی (${messages.length})` : `Inquiries (${messages.length})`}</span>
               </button>
 
-              {/* <button
+              <button
                 onClick={() => setActiveTab('ai-assistant')}
                 className={`pb-3 text-xs sm:text-sm font-bold border-b-2 transition flex items-center gap-2 shrink-0 ${activeTab === 'ai-assistant' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-900'
                   }`}
               >
                 <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>{isFa ? 'دستیار سئوی Gemini AI' : 'Gemini AI Assistant'}</span>
-              </button> */}
+                <span>{isFa ? 'دستیار سئوی AI' : 'AI Assistant'}</span>
+              </button>
             </div>
 
             {/* ========================================================= */}
