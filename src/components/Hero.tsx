@@ -14,9 +14,11 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ lang }) => {
   const slideDuration = 3800;
+  const fadeDuration = 350;
   const isFa = lang === 'fa';
   const [activeMaterial, setActiveMaterial] = useState<number>(0);
-  const [readyNextMaterial, setReadyNextMaterial] = useState<number | null>(null);
+  const [incomingMaterial, setIncomingMaterial] = useState<number | null>(null);
+  const [isFading, setIsFading] = useState(false);
   const loadedMaterialIds = useRef(new Set<number>([MATERIALS[0].id]));
   const preloadRequests = useRef(new Map<number, Promise<boolean>>());
   const latestSlideRequest = useRef(0);
@@ -61,52 +63,33 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
   }, []);
 
   const showMaterial = useCallback(async (materialId: number) => {
+    if (materialId === activeMaterial || incomingMaterial !== null) {
+      return;
+    }
     const requestId = ++latestSlideRequest.current;
     const isReady = await preloadMaterial(materialId);
 
     // A later click or timer tick may have requested another slide while this
     // image was loading, so never let an old request replace the newer choice.
     if (isReady && requestId === latestSlideRequest.current) {
-      setActiveMaterial(materialId);
+      setIncomingMaterial(materialId);
     }
-  }, [preloadMaterial]);
+  }, [activeMaterial, incomingMaterial, preloadMaterial]);
 
-  // Preload just one upcoming slide after the current slide is visible. The
-  // zoom starts only after that image is ready, so it finishes exactly when
-  // the slide can be safely replaced.
+  // Start loading the next image immediately. The timer below still runs
+  // independently; `showMaterial` waits for decoding if the connection is
+  // slow, so a blank slide is never shown.
   useEffect(() => {
     const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
-    setReadyNextMaterial(null);
-
-    let isCurrentSlide = true;
-    const preloadNext = () => {
-      void preloadMaterial(nextMaterialId).then((isReady) => {
-        if (isCurrentSlide && isReady) {
-          setReadyNextMaterial(nextMaterialId);
-        }
-      });
-    };
-    const idleCallback = window.requestIdleCallback?.(preloadNext, { timeout: 1200 });
-
-    if (idleCallback === undefined) {
-      const timeout = window.setTimeout(preloadNext, 250);
-      return () => {
-        isCurrentSlide = false;
-        window.clearTimeout(timeout);
-      };
-    }
-
-    return () => {
-      isCurrentSlide = false;
-      window.cancelIdleCallback?.(idleCallback);
-    };
+    void preloadMaterial(nextMaterialId);
   }, [activeMaterial, preloadMaterial]);
 
-  // Do not replace the current image until the next one has decoded into the
-  // cache. The duration matches `.slow-zoom`, so the zoom ends at transition.
+  // Ask for the next slide at a predictable interval. If it is already
+  // decoded, the cross-fade starts immediately; otherwise it starts as soon
+  // as decoding finishes.
   useEffect(() => {
     const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
-    if (readyNextMaterial !== nextMaterialId) {
+    if (incomingMaterial !== null) {
       return;
     }
 
@@ -114,8 +97,34 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
       void showMaterial(nextMaterialId);
     }, slideDuration);
     return () => window.clearTimeout(timer);
-  }, [activeMaterial, readyNextMaterial, showMaterial, slideDuration]);
+  }, [activeMaterial, incomingMaterial, showMaterial, slideDuration]);
 
+  // Leave both images mounted throughout the fade. After it finishes, the
+  // incoming image becomes the current one and the next slide is preloaded.
+  useEffect(() => {
+    if (incomingMaterial === null) {
+      setIsFading(false);
+      return;
+    }
+
+    // Render the incoming image at opacity 0 first, then change opacity on
+    // the next frame. This guarantees a browser transition rather than a
+    // keyframe that can be skipped when React batches updates.
+    let timer: number | undefined;
+    const frame = window.requestAnimationFrame(() => {
+      setIsFading(true);
+      timer = window.setTimeout(() => {
+        setActiveMaterial(incomingMaterial);
+        setIncomingMaterial(null);
+        setIsFading(false);
+      }, fadeDuration);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [incomingMaterial, fadeDuration]);
 
 
   const active = MATERIALS.find(m => m.id === activeMaterial);
@@ -185,7 +194,7 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
             </h1>
             {/* </Link> */}
           </div>
-          <div className="relative  inset-0 bg-gradient-to-b  from-black/60 via-transparent to-black/80 z-10">
+          <div className="relative inset-0 h-full w-full bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10">
 
             <Image
               key={activeMaterial}
@@ -198,10 +207,31 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
               fetchPriority={activeMaterial === MATERIALS[0].id ? 'high' : 'auto'}
               sizes="(min-width: 1024px) 40vw, 100vw"
               unoptimized
-              className={`md:h-dvh h-fit w-min object-cover relative z-10 opacity-1 scale-110 bg-gradient-to-b from-black/60 via-black/30 to-transparent z-0 ${readyNextMaterial !== null ? 'slow-zoom' : ''}`}
-              style={{ '--slide-duration': `${slideDuration}ms` } as React.CSSProperties}
+              className="absolute inset-0 size-full object-cover z-0 transition-opacity ease-in-out slow-zoom"
+              style={{
+                // Keep zooming through the fade, then finish precisely when
+                // the incoming image becomes the active slide.
+                '--slide-duration': `${slideDuration + fadeDuration}ms`,
+                opacity: isFading ? 0 : 1,
+                transitionDuration: `${fadeDuration}ms`,
+              } as React.CSSProperties}
 
             />
+            {incomingMaterial !== null && (
+              <Image
+                src={MATERIALS.find((material) => material.id === incomingMaterial)?.imgUrl || MATERIALS[0].imgUrl}
+                alt=""
+                aria-hidden="true"
+                width={1200}
+                height={1400}
+                unoptimized
+                className="absolute inset-0 size-full object-cover z-0 transition-opacity ease-in-out"
+                style={{
+                  opacity: isFading ? 1 : 0,
+                  transitionDuration: `${fadeDuration}ms`,
+                }}
+              />
+            )}
           </div>
 
         </div>

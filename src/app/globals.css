@@ -254,14 +254,11 @@
    ======================================================== */
 @keyframes slow-zoom {
   from {
-    opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1);
   }
 
   to {
-    opacity: 1;
-
-    transform: scale(1.3);
+    transform: scale(1.12);
   }
 }
 
@@ -270,7 +267,6 @@
   animation: slow-zoom var(--slide-duration, 3.8s) ease-out forwards;
   will-change: transform;
 }
-
 
 /* ========================================================
    Materials mobile/tablet tabs — content switch animation
