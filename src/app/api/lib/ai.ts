@@ -21,12 +21,14 @@ export interface AIProviderOptions {
 }
 
 export interface AIProviderResult {
-  provider: 'gemini' | 'deepseek';
+  provider: 'gemini' | 'deepseek' | 'openrouter';
   text: string;
 }
 
 const DEEPSEEK_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
 const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions';
+const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const OPENROUTER_MODEL = process.env.OPENROTER_MODEL || '';
 
 // Fallback candidates, tried in order when the configured model 404s.
 const GEMINI_FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-3-pro-preview'];
@@ -221,6 +223,63 @@ export async function callGemini(prompt: string, options: AIProviderOptions = {}
   throw lastError ?? new Error('No Gemini model is available.');
 }
 
+// --- OpenRouter  (fallback provider) ---
+export async function callOpenRouter(prompt: string, options: AIProviderOptions = {}): Promise<string> {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error('OPENROUTER_API_KEY is not configured.');
+  }
+
+  const payload: Record<string, unknown> = {
+    model: OPENROUTER_MODEL,
+    messages: [
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+    temperature: options.temperature ?? 0.7,
+    max_tokens: options.maxOutputTokens ?? 1024,
+  };
+
+  // OpenAI-compatible JSON mode.
+  if (options.responseFormat === 'json') {
+    payload.response_format = { type: 'json_object' };
+  }
+
+  const response = await fetch(OPENROUTER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+      'HTTP-Referer': OPENROUTER_URL,
+      'X-Title': 'Fidar',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    let message = `OpenRouter API error (HTTP ${response.status}).`;
+    try {
+      const errorData = await response.json();
+      if (errorData?.error?.message) {
+        message = `OpenRouter API error: ${errorData.error.message}`;
+      }
+    } catch {
+      // response body is not JSON — keep the generic message
+    }
+    throw new Error(message);
+  }
+
+  const data = await response.json();
+  const text = String(data.choices?.[0]?.message?.content ?? '').trim();
+  if (!text) {
+    throw new Error('OpenRouter returned an empty response.');
+  }
+  return text;
+}
+
+
 // --- DeepSeek (fallback provider) ---
 
 export async function callDeepseek(prompt: string, options: AIProviderOptions = {}): Promise<string> {
@@ -283,15 +342,20 @@ export async function generateAIResponse(
   options: AIProviderOptions = {}
 ): Promise<AIProviderResult> {
   // Gemini is the preferred provider. Try it whenever a key exists.
-  if (process.env.GEMINI_API_KEY) {
-    try {
-      const text = await callGemini(prompt, options);
-      return { provider: 'gemini', text };
-    } catch (error) {
-      console.error(
-        `[ai] Gemini unavailable, falling back to DeepSeek. Reason: ${error instanceof Error ? error.message : error}`
-      );
-    }
+  // if (process.env.GEMINI_API_KEY) {
+  //   try {
+  //     const text = await callGemini(prompt, options);
+  //     return { provider: 'gemini', text };
+  //   } catch (error) {
+  //     console.error(
+  //       `[ai] Gemini unavailable, falling back to DeepSeek. Reason: ${error instanceof Error ? error.message : error}`
+  //     );
+  //   }
+  // }
+  if (process.env.OPENROUTER_API_KEY) {
+    const text = await callOpenRouter(prompt, options);
+    console.log('[ai] OpenRouter responded.');
+    return { provider: 'openrouter', text }
   }
 
   const text = await callDeepseek(prompt, options);
