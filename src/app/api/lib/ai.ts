@@ -253,20 +253,23 @@ export async function callOpenRouter(prompt: string, options: AIProviderOptions 
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
       'HTTP-Referer': OPENROUTER_URL,
-      'X-Title': 'Fidar',
+      'X-OpenRouter-Title': 'Fidar',
     },
     body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
+    const errorData = await response.json();
+    // چاپ خطای کامل برای دیباگ
+    console.error('OpenRouter full error:', JSON.stringify(errorData, null, 2));
+
     let message = `OpenRouter API error (HTTP ${response.status}).`;
-    try {
-      const errorData = await response.json();
-      if (errorData?.error?.message) {
-        message = `OpenRouter API error: ${errorData.error.message}`;
-      }
-    } catch {
-      // response body is not JSON — keep the generic message
+    if (errorData?.error?.message) {
+      message = `OpenRouter API error: ${errorData.error.message}`;
+    }
+    // اگر metadata.raw وجود داشت، آن را هم به پیام اضافه کن
+    if (errorData?.error?.metadata?.raw) {
+      message += ` | Raw: ${errorData.error.metadata.raw}`;
     }
     throw new Error(message);
   }
