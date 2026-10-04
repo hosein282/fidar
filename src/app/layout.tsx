@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { INITIAL_SEO_META } from '@/src/data/mockData';
 import { getCanonicalUrl } from '@/src/lib/seo';
 import { NavigationLoader } from '@/src/components/NavigationLoader';
@@ -117,7 +117,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body>
-        <NavigationLoader />
+        <Suspense fallback={null}>
+          <NavigationLoader />
+        </Suspense>
         {children}
       </body>
     </html>
