@@ -309,14 +309,14 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               )}
             </div>
-            <a href="#blog" className="hover:text-primary transition hover:underline" aria-label='show blogs and news'>
+            <a href={`/${lang}/blog`} className="hover:text-primary transition hover:underline" aria-label='show blogs and news'>
               {isFa ? 'مجله و اخبار' : 'Components'}
             </a>
             <Link href={`/${lang}/about`} className="hover:text-primary transition hover:underline">
               {isFa ? 'درباره ما' : 'About us'}
             </Link>
             <div className="btn--watermark shadow-sm relative group bg-white px-4 py-1.5 rounded-md border border-gray-300">
-              <a href="#contact" className="hover:text-primary flex items-center gap-1 text-primary" aria-label='show contact us page'
+              <a href={`/${lang}/#contact`} className="hover:text-primary flex items-center gap-1 text-primary" aria-label='show contact us page'
 
               >
                 <span>{isFa ? 'تماس با ما' : 'Contact Us'}</span>

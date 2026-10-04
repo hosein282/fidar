@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 import { INITIAL_SEO_META } from '@/src/data/mockData';
 import { getCanonicalUrl } from '@/src/lib/seo';
+import { NavigationLoader } from '@/src/components/NavigationLoader';
 
 export const metadata: Metadata = {
   title: {
@@ -93,8 +94,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var isEnglish = window.location.pathname === '/en' || window.location.pathname.indexOf('/en/') === 0;
+                document.documentElement.lang = isEnglish ? 'en' : 'fa';
+                document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+              })();
+            `,
+          }}
+        />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
@@ -104,7 +116,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <NavigationLoader />
+        {children}
+      </body>
     </html>
   );
 }

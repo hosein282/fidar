@@ -8,6 +8,7 @@ import { Language, SEOMetaConfig } from '../../types';
 import { Header } from '../Header';
 import { ContactSection } from '../ContactSection';
 import { Footer } from '../Footer';
+import { startNavigationLoading } from '../NavigationLoader';
 import { ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SERVICES } from '../../data/mockData.ts'
 
@@ -104,7 +105,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
     };
 
     const handleClick = (id: string) => {
-
+        startNavigationLoading();
         router.push((`/${lang}/services/${id}`));
     }
 
