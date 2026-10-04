@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Language, MaterialData } from '../types';
 import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2, MoveRight, MoveLeft } from 'lucide-react';
 import Image from "next/image"
@@ -14,117 +14,23 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ lang }) => {
   const slideDuration = 3800;
-  const fadeDuration = 350;
+  const fadeDuration = 700;
   const isFa = lang === 'fa';
   const [activeMaterial, setActiveMaterial] = useState<number>(0);
-  const [incomingMaterial, setIncomingMaterial] = useState<number | null>(null);
-  const [isFading, setIsFading] = useState(false);
-  const loadedMaterialIds = useRef(new Set<number>([MATERIALS[0].id]));
-  const preloadRequests = useRef(new Map<number, Promise<boolean>>());
-  const latestSlideRequest = useRef(0);
+  const [loadedMaterialIds, setLoadedMaterialIds] = useState<Set<number>>(new Set());
 
-  // Keep only the upcoming slide warm in the browser cache. Since these files
-  // are already WebP, using the original URL here avoids downloading every
-  // slide during the initial page load.
-  const preloadMaterial = useCallback((materialId: number) => {
-    if (loadedMaterialIds.current.has(materialId)) {
-      return Promise.resolve(true);
-    }
-
-    const existingRequest = preloadRequests.current.get(materialId);
-    if (existingRequest) {
-      return existingRequest;
-    }
-
-    const material = MATERIALS.find((item) => item.id === materialId);
-    if (!material || typeof window === 'undefined') {
-      return Promise.resolve(false);
-    }
-
-    const request = new Promise<boolean>((resolve) => {
-      const image = new window.Image();
-      image.onload = async () => {
-        // Loading the bytes alone is not enough on slower devices; decode the
-        // bitmap before allowing the current slide to be replaced.
-        try {
-          await image.decode();
-        } catch {
-          // Some browsers reject `decode()` for already-decoded images.
-        }
-        loadedMaterialIds.current.add(materialId);
-        resolve(true);
-      };
-      image.onerror = () => resolve(false);
-      image.src = material.imgUrl;
-    });
-
-    preloadRequests.current.set(materialId, request);
-    return request;
-  }, []);
-
-  const showMaterial = useCallback(async (materialId: number) => {
-    if (materialId === activeMaterial || incomingMaterial !== null) {
-      return;
-    }
-    const requestId = ++latestSlideRequest.current;
-    const isReady = await preloadMaterial(materialId);
-
-    // A later click or timer tick may have requested another slide while this
-    // image was loading, so never let an old request replace the newer choice.
-    if (isReady && requestId === latestSlideRequest.current) {
-      setIncomingMaterial(materialId);
-    }
-  }, [activeMaterial, incomingMaterial, preloadMaterial]);
-
-  // Start loading the next image immediately. The timer below still runs
-  // independently; `showMaterial` waits for decoding if the connection is
-  // slow, so a blank slide is never shown.
+  // Every image is created only once and requested immediately. The browser
+  // cache handles reuse; switching slides changes opacity only.
   useEffect(() => {
     const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
-    void preloadMaterial(nextMaterialId);
-  }, [activeMaterial, preloadMaterial]);
-
-  // Ask for the next slide at a predictable interval. If it is already
-  // decoded, the cross-fade starts immediately; otherwise it starts as soon
-  // as decoding finishes.
-  useEffect(() => {
-    const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
-    if (incomingMaterial !== null) {
-      return;
-    }
+    if (!loadedMaterialIds.has(nextMaterialId)) return;
 
     const timer = window.setTimeout(() => {
-      void showMaterial(nextMaterialId);
+      setActiveMaterial(nextMaterialId);
     }, slideDuration);
+
     return () => window.clearTimeout(timer);
-  }, [activeMaterial, incomingMaterial, showMaterial, slideDuration]);
-
-  // Leave both images mounted throughout the fade. After it finishes, the
-  // incoming image becomes the current one and the next slide is preloaded.
-  useEffect(() => {
-    if (incomingMaterial === null) {
-      setIsFading(false);
-      return;
-    }
-
-    // Render the incoming image at opacity 0 first, then change opacity on
-    // the next frame. This guarantees a browser transition rather than a
-    // keyframe that can be skipped when React batches updates.
-    let timer: number | undefined;
-    const frame = window.requestAnimationFrame(() => {
-      setIsFading(true);
-      timer = window.setTimeout(() => {
-        setActiveMaterial(incomingMaterial);
-        setIncomingMaterial(null);
-        setIsFading(false);
-      }, fadeDuration);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      if (timer !== undefined) window.clearTimeout(timer);
-    };
-  }, [incomingMaterial, fadeDuration]);
+  }, [activeMaterial, loadedMaterialIds, slideDuration]);
 
 
   const active = MATERIALS.find(m => m.id === activeMaterial);
@@ -196,42 +102,34 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
           </div>
           <div className="relative inset-0 h-full w-full bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10">
 
-            <Image
-              key={activeMaterial}
-              src={active?.imgUrl || MATERIALS[0].imgUrl}
-              alt={`Fidar Saze Bondar ${isFa ? active?.nameFa : active?.nameEn}`}
-              width={1200}
-              height={1400}
-              priority={activeMaterial === MATERIALS[0].id}
-              decoding="async"
-              fetchPriority={activeMaterial === MATERIALS[0].id ? 'high' : 'auto'}
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              unoptimized
-              className="absolute inset-0 size-full object-cover z-0 transition-opacity ease-in-out slow-zoom"
-              style={{
-                // Keep zooming through the fade, then finish precisely when
-                // the incoming image becomes the active slide.
-                '--slide-duration': `${slideDuration + fadeDuration}ms`,
-                opacity: isFading ? 0 : 1,
-                transitionDuration: `${fadeDuration}ms`,
-              } as React.CSSProperties}
-
-            />
-            {incomingMaterial !== null && (
+            {MATERIALS.map((material) => {
+              const isActive = material.id === activeMaterial;
+              return (
               <Image
-                src={MATERIALS.find((material) => material.id === incomingMaterial)?.imgUrl || MATERIALS[0].imgUrl}
-                alt=""
-                aria-hidden="true"
+                key={material.id}
+                src={material.imgUrl}
+                alt={isActive ? `Fidar Saze Bondar ${isFa ? material.nameFa : material.nameEn}` : ''}
+                aria-hidden={!isActive}
                 width={1200}
                 height={1400}
+                priority
+                fetchPriority="high"
                 unoptimized
-                className="absolute inset-0 size-full object-cover z-0 transition-opacity ease-in-out"
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                onLoad={() => setLoadedMaterialIds((loaded) => {
+                  if (loaded.has(material.id)) return loaded;
+                  const nextLoaded = new Set(loaded);
+                  nextLoaded.add(material.id);
+                  return nextLoaded;
+                })}
+                className={`absolute inset-0 size-full object-cover transition-opacity ease-out ${isActive ? 'z-10 opacity-100 slow-zoom' : 'z-0 opacity-0'}`}
                 style={{
-                  opacity: isFading ? 1 : 0,
+                  '--slide-duration': `${slideDuration + fadeDuration}ms`,
                   transitionDuration: `${fadeDuration}ms`,
-                }}
+                } as React.CSSProperties}
               />
-            )}
+              );
+            })}
           </div>
 
         </div>
@@ -304,7 +202,9 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
               return (
                 <button
                   key={mat.id}
-                  onClick={() => void showMaterial(mat.id)}
+                  onClick={() => {
+                    if (loadedMaterialIds.has(mat.id)) setActiveMaterial(mat.id);
+                  }}
                   aria-label={`${isFa ? mat.nameFa : mat.nameEn}`}
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${isActive
                     ? 'bg-white text-black shadow-lg scale-105'

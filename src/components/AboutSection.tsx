@@ -123,7 +123,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               </div>
 
               <div className={`${isFa ? 'xl:ml-[8%] md:mr-8' : 'ml-[20%]'} lg:w-8/10 w-full md:w-[55%] xl:w-[60%] mr-24 mt-[15%] sm:mt-[15%] md:mt-[1%] xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none`}>
-                <h3 className="shrink-0 text-2xl sm:text-3xl xl:text-5xl font-extrabold text-primary-dark">
+                <h3 className="shrink-0 text-2xl sm:text-3xl xl:text-5xl  text-primary-dark">
                   {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Bondar'}
                 </h3>
 

@@ -302,7 +302,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     {isFa ? 'اخبار، دستاوردها و مقالات تخصصی فیدار بندار' : 'Fidar Bondar News, Events & Technical Insights'}
                   </h1>
 
-                  <p className="text-teal-100/90 text-sm sm:text-lg max-w-3xl font-light leading-relaxed">
+                  <p className={`text-teal-100/90 text-sm sm:text-lg max-w-3xl font-light leading-relaxed ${isFa? "text-right" : "text-left"}`}>
                     {isFa ? (
                       'آخرین رویدادهای شرکت، اخبار و مقالات فیدار سازه بندار .'
                     ) : (

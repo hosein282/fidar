@@ -250,7 +250,7 @@
 
 /* ========================================================
    Hero material auto-slideshow — slow zoom-in effect
-   Restarts on each image change via the `key` prop.
+   Restarts when the active slide receives the `.slow-zoom` class.
    ======================================================== */
 @keyframes slow-zoom {
   from {
