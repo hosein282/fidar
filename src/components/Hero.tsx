@@ -78,7 +78,8 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover object-center opacity-80"
+            className="w-full h-full object-cover object-center opacity-90"
+            poster='/assets/videos/hero_placeholder.webp'
             src="/assets/videos/CNC_V1.mp4"
           />
 
