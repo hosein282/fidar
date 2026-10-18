@@ -156,6 +156,17 @@ export const Header: React.FC<HeaderProps> = ({
     return () => document.removeEventListener('mousedown', onClick);
   }, []);
 
+  // Close the desktop services dropdown when clicking outside of it.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, []);
+
   const productHref = (item: MaterialData) =>
     `/${lang}/products/${isFa ? item.slugFa : item.slugEn}`;
 
