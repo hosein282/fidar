@@ -110,11 +110,14 @@ export interface MaterialData {
   slides: slide[];
   nameEn: string;
   nameFa: string;
+  shortNameFa?: string;
+  shortNameEn?: string;
   color: string;
   descEn: string;
   descFa: string;
   btnEn: string;
   btnFa: string;
   imgUrl: string;
+  showCaseImage?: string;
   videoUrl: string;
 }

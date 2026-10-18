@@ -19,6 +19,10 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
   const [activeMaterial, setActiveMaterial] = useState<number>(0);
   const [loadedMaterialIds, setLoadedMaterialIds] = useState<Set<number>>(new Set());
 
+  const productHref = (item: MaterialData) =>
+    `/${lang}/products/${isFa ? item.slugFa : item.slugEn}`;
+  const productLabel = (item: MaterialData) => (isFa ? item.nameFa : item.nameEn);
+
   // Every image is created only once and requested immediately. The browser
   // cache handles reuse; switching slides changes opacity only.
   useEffect(() => {
@@ -75,20 +79,22 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
             muted
             playsInline
             className="w-full h-full object-cover object-center opacity-80"
-            src="https://videos.ctfassets.net/bdj0rlksezwc/CCGyT8oUYqXWT6BpX3lIv/c963fce731aaa0cf086eee849f9b0e6f/Clip_-1.mp4"
+            src="/assets/videos/CNC_V1.mp4"
           />
 
         </div>
 
         {/* Right Side Material Model Image */}
-        <div className="relative h-4/10 min-h-4/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[40%]  bg-slate-900 overflow-hidden flex items-center justify-start ">
+
+        <div className="relative h-4/10 min-h-4/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[45%]  bg-slate-900 overflow-hidden flex items-center justify-start ">
+
           <div
             key={active?.nameFa}
             className={`lg:hidden absolute top-4 ${isFa ? "mr-8 pl-4" : "ml-4 pr-2"
               } lg:top-[50%] z-100`}
           >
             {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
-            <h1 className="w-fit text-3xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
+            <h1 className="w-fit text-2xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
               {isFa ? active?.nameFa : active?.nameEn}
               {isFa ? <MoveLeft
                 size={28}
@@ -100,44 +106,49 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
             </h1>
             {/* </Link> */}
           </div>
-          <div className="relative inset-0 h-full w-full bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10">
+        
 
-            {MATERIALS.map((material) => {
-              const isActive = material.id === activeMaterial;
-              return (
-              <Image
-                key={material.id}
-                src={material.imgUrl}
-                alt={isActive ? `Fidar Saze Bondar ${isFa ? material.nameFa : material.nameEn}` : ''}
-                aria-hidden={!isActive}
-                width={1200}
-                height={1400}
-                priority
-                fetchPriority="high"
-                unoptimized
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                onLoad={() => setLoadedMaterialIds((loaded) => {
-                  if (loaded.has(material.id)) return loaded;
-                  const nextLoaded = new Set(loaded);
-                  nextLoaded.add(material.id);
-                  return nextLoaded;
-                })}
-                className={`absolute inset-0 size-full object-cover transition-opacity ease-out ${isActive ? 'z-10 opacity-100 slow-zoom' : 'z-0 opacity-0'}`}
-                style={{
-                  '--slide-duration': `${slideDuration + fadeDuration}ms`,
-                  transitionDuration: `${fadeDuration}ms`,
-                } as React.CSSProperties}
-              />
-              );
-            })}
-          </div>
+            <div className="relative inset-0 h-full w-full bg-linear-to-b from-black/60 via-transparent to-black/80 z-10">
 
+              {MATERIALS.map((material) => {
+                const isActive = material.id === activeMaterial;
+                return (
+                  <Image
+                    key={material.id}
+                    src={material.imgUrl}
+                    alt={isActive ? `Fidar Saze Bondar ${isFa ? material.nameFa : material.nameEn}` : ''}
+                    aria-hidden={!isActive}
+                    width={1200}
+                    height={1400}
+                    priority
+                    fetchPriority="high"
+                    unoptimized
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    onLoad={() => setLoadedMaterialIds((loaded) => {
+                      if (loaded.has(material.id)) return loaded;
+                      const nextLoaded = new Set(loaded);
+                      nextLoaded.add(material.id);
+                      return nextLoaded;
+                    })}
+                    className={`absolute inset-0 size-full object-cover transition-opacity ease-out ${isActive ? 'z-10 opacity-100 slow-zoom' : 'z-0 opacity-0'}`}
+                    style={{
+                      '--slide-duration': `${slideDuration + fadeDuration}ms`,
+                      transitionDuration: `${fadeDuration}ms`,
+                    } as React.CSSProperties}
+                  />
+                );
+              })}
+            </div>
+
+         
         </div>
+
         <ul className={`absolute flex justify-center items-center gap-3 bottom-16 lg:bottom-16 ${isFa ? "left-8" : "right-8"}`}>
           {MATERIALS.map(((m) => (
-            <li key={m.id} className={`h-2 w-2 border-amber-50 border-1  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
+            <li key={m.id} className={`h-2 w-2 border-amber-50 border  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
           )))}
         </ul>
+
 
       </div>
 

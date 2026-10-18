@@ -218,7 +218,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                         className={`text-base lg:text-base tracking-wide select-none '
                         }`}//${isFa ? 'rotate-90' : 'rotate-[-90deg]}
                       >
-                        {isFa ? mat.nameFa : mat.nameEn}
+                        {isFa ? mat.shortNameFa : mat.shortNameEn}
                         {/* ${isFa ? 'rotate-90' : 'rotate-[-90deg]'} */}
                       </span>
                     </button>
@@ -245,7 +245,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                     }}
                   >
                     <Image
-                      src={mat.imgUrl}
+                      src={mat.showCaseImage ?? mat.imgUrl}
                       alt={mat.nameEn}
                       width={900}
                       height={1200}

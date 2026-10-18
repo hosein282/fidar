@@ -42,13 +42,13 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin }) => {
 
           {/* Social Links */}
           <div className="flex gap-4">
-            <a href="https://www.facebook.com/Fidar BondarHQ/" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
+            {/* <a href="https://www.facebook.com/Fidar BondarHQ/" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
             aria-label='Facebook of fidar saze bondar'
             
             >
               <Facebook className="w-5 h-5" />
-            </a>
-            <a href="https://www.instagram.com/Fidar Bondar/" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
+            </a> */}
+            <a href="https://www.instagram.com/fidarsazebondar.co?cplk=dmxma29jYnl3bjZm" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
             aria-label='Instagram Page'
             >
               <Instagram className="w-5 h-5" />
@@ -58,11 +58,11 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin }) => {
             >
               <Linkedin className="w-5 h-5" />
             </a>
-            <a href="https://www.youtube.com/channel/UClGlpjMxN5E4L8eU81Vu7rg" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
+            {/* <a href="https://www.youtube.com/channel/UClGlpjMxN5E4L8eU81Vu7rg" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
             aria-label='Youtube Channel'
             >
               <Youtube className="w-5 h-5" />
-            </a>
+            </a> */}
           </div>
 
         </div>
@@ -100,14 +100,14 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin }) => {
               )}
             </p>
           </div>
-          <div>
-             <a href={`/${lang}/blog`} aria-label='Show Blogs and News of Fidar Saze Bondar'>  <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'مقالات و اخبار ' : 'Articles & News'}</h4></a>
-            <ul className="space-y-2">
+          {/* <div> */}
+             {/* <a href={`/${lang}/blog`} aria-label='Show Blogs and News of Fidar Saze Bondar'>  <h4 className="text-white font-bold text-sm mb-3">{isFa ? 'مقالات و اخبار ' : 'Articles & News'}</h4></a> */}
+            {/* <ul className="space-y-2"> */}
               {/* <li><button onClick={onOpenAdmin} className="hover:text-white transition text-left">{isFa ? 'پنل مدیریت محتوای CMS' : 'CMS Admin Dashboard'}</button></li>
               <li><a href="#contact" className="hover:text-white transition">{isFa ? 'درخواست پشتیبانی فنی' : 'Technical Support'}</a></li>
               <li><a href="#locations" className="hover:text-white transition">{isFa ? 'شعب و نمایندگی‌ها' : 'Global Locations'}</a></li> */}
-            </ul>
-          </div>
+            {/* </ul> */}
+          {/* </div> */}
         </div>
 
         {/* Bottom Legal & Copyright Row */}

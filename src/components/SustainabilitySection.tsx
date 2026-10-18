@@ -27,7 +27,7 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
       <motion.div
         initial={{ opacity: 0.5, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: false, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <div className="max-w-[1320px] mx-auto">
