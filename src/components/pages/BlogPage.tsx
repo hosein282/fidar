@@ -273,7 +273,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                           <h4 className="font-bold text-slate-900 text-sm line-clamp-2 group-hover:text-primary transition">
                             {isFa ? relPost.title?.fa : relPost.title?.en}
                           </h4>
-                          <span className="text-xs text-slate-400 block font-mono">
+                          <span className="text-xs text-slate-400 block ">
                                                 {isFa ?  format(Date.parse(relPost.date), 'dd MMMM yyyy') : fr(Date.parse(relPost.date), 'MMMM d, yyyy') }
                             
                           </span>
@@ -293,7 +293,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                 <div className="max-w-7xl mx-auto space-y-6 relative z-10 text-center sm:text-right">
 
                   {/* Badge */}
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-mono font-bold border border-white/20">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs  font-bold border border-white/20">
                     <Newspaper className="w-3.5 h-3.5 text-teal-300" />
                     <span>{isFa ? 'پرتال اخبار و مقالات فیدار بندار' : 'Fidar Bondar News & Articles Hub'}</span>
                   </div>
@@ -363,13 +363,13 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                         decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       />
-                      <span className="absolute top-4 right-4 bg-primary text-white text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
+                      <span className="absolute top-4 right-4 bg-primary text-white text-xs  font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
                         {isFa ? 'ویژه / Featured' : 'Featured'}
                       </span>
                     </div>
                     <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-4">
                       <div className="space-y-3">
-                        <span className="text-xs font-mono font-bold text-primary tracking-widest uppercase block">
+                        <span className="text-xs  font-bold text-primary tracking-widest uppercase block">
                           {isFa ? filteredPosts[0].category?.fa : filteredPosts[0].category?.en}
                         </span>
                         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-primary transition leading-snug">
@@ -383,7 +383,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-mono">
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3.5 h-3.5" />
-                          {filteredPosts[0].date}
+                            {isFa ? format(Date.parse(filteredPosts[0].date), 'dd MMMM yyyy') : fr(Date.parse(filteredPosts[0].date), 'MMMM d, yyyy')}
                         </span>
                         <span className="flex items-center gap-1 text-primary font-bold group-hover:underline">
                           <span>{isFa ? 'مطالعه کامل' : 'Read Article'}</span>
@@ -444,10 +444,11 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                             </div>
                           </div>
 
-                          <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between text-xs text-slate-500 font-mono">
+                          <div className="p-6 pt-4 border-t border-slate-100 mt-4 flex items-center justify-between text-xs text-slate-500 font-mono">
                             <span className="flex items-center gap-1">
                               <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                              {post.date}
+                                                          {isFa ? format(Date.parse(post.date), 'dd MMMM yyyy') : fr(Date.parse(post.date), 'MMMM d, yyyy')}
+
                             </span>
                             <span className="flex items-center gap-1 text-primary font-bold group-hover:translate-x-1 transition-transform">
                               <span>{isFa ? 'مطالعه' : 'Read'}</span>

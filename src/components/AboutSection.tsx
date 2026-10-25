@@ -25,7 +25,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
       >
         {/* Top Sticky Teal Gradient Overlay */}
         <div className="absolute h-full w-full pointer-events-none z-40">
-          <div className="sticky top-0 mt-[-1px] z-20 overflow-hidden h-[10vh] lg:h-[22vh] bg-gradient-to-b from-primary-dark via-primary-dark via-[40%] lg:via-[25%] to-transparent" />
+          <div className="sticky top-0 mt-[-1px] z-20 overflow-hidden h-[10vh] lg:h-[16vh] bg-gradient-to-b from-primary-dark via-primary-dark via-[40%] lg:via-[25%] to-transparent" />
         </div>
 
         <div className="flex flex-col overflow-hidden  relative z-20">
@@ -34,7 +34,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               1. Statement Block with Custom Teal SVG Backdrop
              ========================================================= */}
           <div
-            className={`relative w-[92%] mb-40 sm:w-[90%] 3xl:w-[80%] ${isFa ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
+            className={`relative w-[92%] mb-2 sm:w-[90%] lg:w-[70%]  3xl:w-[80%] ${isFa ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
               }`}
           >
             {/* Desktop SVG */}
@@ -71,10 +71,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
 
             {/* Statement Text overlay */}
             <div
-              className={`absolute top-0 left-0 z-10 flex h-full  sm:p-10 lg:p-12 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
+              className={`absolute -top-5 left-0 z-10 flex h-full  sm:p-10 lg:p-12 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
                 }`}
             >
-              <h3 className="text-base  text-justify  sm:text-lg md:text-3xl lg:text-xl xl:text-5xl 2xl:text-4xl  lg:leading-18 font-light max-w-[90%] px-6 lg:w-[85%]  text-surface">
+              <h3 className="text-base  text-justify  sm:text-lg md:text-3xl lg:leading-18 font-light max-w-[90%] px-6 lg:w-[85%]  text-surface">
                 {isFa
                   ?
                   "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم"
@@ -130,7 +130,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div className={`mt-4 xl:mt-8 ${isFa ? "text-justify" : ""} text-base sm:text-sm lg:text-xl  font-light text-slate-800 leading-relaxed `}>
                   {isFa
                     ?
-                    'فیدارسازه بندار یک مجموعه دانش بنیان مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد و ماشین آلات سنگین بندرگاهی است که با تکیه بر دانش مهندسی، تجربه اجرایی و رویکردی مبتنی بر دقت، کیفیت و نوآوری فعالیت میکند.'
+                    'فیدارسازه بندار یک مجموعه دانش بنیان مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد و ماشین آلات سنگین بندرگاهی است که با تکیه بر دانش مهندسی، تجربه اجرایی و رویکردی مبتنی بر دقت، کیفیت و نوآوری فعالیت می کند.'
 
                     : 'Fidar Sazeh Bandar is a knowledge based engineering and manufacturing group specializing in material handling equipment and heavy port machinery, operating with a foundation of engineering expertise, executive experience, and an approach centered on precision, quality, and innovation.'}
                 </div>

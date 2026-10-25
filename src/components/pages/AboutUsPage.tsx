@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, lazy, Suspense, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -11,7 +11,12 @@ import { Footer } from '../Footer';
 import {
   Ship, Anchor, Wind, Fan, Wrench, RefreshCw, Languages, SearchCheck,
   ChevronDown, MapPin, Compass, CalendarDays, Phone,
+  ArrowLeft,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
+import { MATERIALS } from '@/src/data/mockData';
 
 
 interface AboutUsPageProps {
@@ -89,76 +94,127 @@ const slides = [
 
 ];
 
-const ACCORDIONS = [
+const VALUE = [
   {
-    icon: Compass,
-    title: { fa: 'شوروم و معرفی تجهیزات', en: 'Showroom & Equipment Demo' },
-    content: {
-      fa: 'از نزدیک با نسل جدید تجهیزات انتقال مواد، ترانستینرهای هیبرید و بلوئرهای صنعتی ما آشنا شوید. بازدید حضوری و دموی زنده در محل پروژه‌ها با هماهنگی قبلی میسر است.',
-      en: 'Explore our next-generation material handling systems, hybrid RTG cranes and industrial blowers up close. Live demos at project sites are available by appointment.',
+    image: "/assets/images/products/Fidar_Sazeh_Bondar-Fan-Gearbox (1).webp",
+    title: {
+      fa: 'مهندسی و ساخت تجهیزات پیشرفته',
+      en: 'Vision'
     },
-    action: {
-      fa: 'یافتن نزدیک‌ترین شعبه یا نمایندگی',
-      en: 'Find your nearest official branch or distributor',
-    },
-  },
-  {
-    icon: CalendarDays,
-    title: { fa: 'رویدادهای پیش رو', en: 'Upcoming Events' },
-    content: {
-      fa: 'گروه فیدار سازه بندار در نمایشگاه‌های بین‌المللی صنعت دریایی، بنادر و تجهیزات صنعتی حضور فعال دارد. آخرین رویدادها و همایش‌های تخصصی از طریق پایگاه خبری اطلاع‌رسانی می‌شود.',
-      en: 'Fidar Sazeh Bandar actively participates in international maritime, port machinery and industrial equipment exhibitions. Stay tuned through our news hub for upcoming events.',
-    },
-    action: {
-      fa: 'مشاهده اخبار و رویدادها',
-      en: 'Browse news & events',
-    },
-  },
-  {
-    icon: MapPin,
-    title: { fa: 'پروژه‌های اجرا شده', en: 'Delivered Projects' },
-    content: {
-      fa: 'تعمیرات تخصصی شناورها، بازسازی الکتریکال و مکانیکال تجهیزات بندری و ارتقای پایانه‌ها؛ نمونه‌کارهای اجرا شده در بخش نمونه‌کارها و اخبار قابل مشاهده است.',
-      en: 'From specialized vessel repair to electrical & mechanical retrofit of port equipment and terminal upgrades — delivered projects are showcased in the portfolio and news sections.',
-    },
-    action: {
-      fa: 'مشاهده نمونه‌کارها',
-      en: 'View portfolio',
-    },
-  },
-  {
-    icon: Phone,
-    title: { fa: 'تماس با ما', en: 'Contacts' },
-    content: {
-      fa: 'دفتر مرکزی: تهران، خیابان اسکندری، پلاک ۴۳۲، ساختمان پردیس — تلفن: ۰۲۱-۶۶۱۲۹۳۱۰',
-      en: 'Headquarters: No. 432, Pardis Building, Eskandari St., Tehran — Phone: +98 21 6612 9310',
-    },
-    action: {
-      fa: 'ثبت درخواست مشاوره',
-      en: 'Request a consultation',
-    },
-  },
-];
 
-const VALUES_FA = [
-  'دقت مهندسی در تمام مراحل طراحی و ساخت',
-  'کیفیت پایدار و استانداردهای بین‌المللی',
-  'نوآوری و طراحی آینده‌گرا',
-  'تجربه اجرایی در پروژه‌های واقعی',
-  'تعهد به پایداری و بهره‌وری',
-];
-const VALUES_EN = [
-  'Engineering precision across every design stage',
-  'Consistent quality and international standards',
-  'Innovation with future-oriented design',
-  'Field-proven execution experience',
-  'Commitment to sustainability & efficiency',
-];
+    desc: {
+      fa: '   توانمندی فیدارسازه بندار شامل طراحی و ساخت جرثقیل های بندرگاهی، تجهیزات انتقال و بارگیری کانتینر، تجهیزات جابه جایی مواد فله، جرثقیلهای صنعتی و تجهیزات فرایندی است. \n    ترکیب دانش های تخصصی در حوزههای سازه، مکانیک، برق، کنترل و اتوماسیون، امکان توسعه تجهیزاتی با عملکرد مطمئن، قابلیت نگهداری مناسب و عمر بهره برداری طولانی را فراهم می کند',
+      en: 'To simplify and empower manufacturing and port operations through advanced technology, engineering precision and future-oriented design — delivering ever-increasing productivity and sustainability for our customers.',
+    }
+
+  },
+  {
+    image: "/assets/images/products/Fidar_Sazeh_Bondar-Fan-Gearbox (1).webp",
+    title: {
+      fa: 'نوسازی و ارتقای تجهیزات موجود',
+      en: 'Mission'
+    },
+
+    desc: {
+      fa: 'ارائه راهکارهای کامل از طراحی و تولید تا بازسازی و به‌روزرسانی تجهیزات؛ با تکیه بر دانش مهندسی، تجربه اجرایی و توان ساخت، تا هر ماده و هر عملیاتی به پتانسیل کامل خود دست یابد.',
+      en: 'To deliver complete solutions — from design and manufacturing to refurbishment and upgrades — built on engineering know-how, execution experience and manufacturing capability, enabling every material and operation to reach its full potential.',
+    }
+
+  },
+  {
+    image: "/assets/images/products/Fidar_Sazeh_Bondar-Fan-Gearbox (2).webp",
+    title: {
+      fa: 'ساخت برای امروز، آماده برای آينده',
+      en: 'Built For Today, Ready For Tomorrow'
+    },
+
+    desc: {
+      fa: 'تمرکز بر بهره وری انرژی ، اتوماسیون و فناوری های نوین، فیدارسازه بندار راهکارهایی ارائه میدهد که عالوه بر پاسخگویی به نیازهای امروز صنعت، قابلیت توسعه و تطبیق با نیازهای آینده را داشته باشند.',
+      en: 'To simplify and empower manufacturing and port operations through advanced technology, engineering precision and future-oriented design — delivering ever-increasing productivity and sustainability for our customers.',
+    }
+
+  },
 
 
-// const slides = [{ title: "Widespread transparency", description: "The honesty of the people, the integrity of the company", image: "https://images.ctfassets.net/bdj0rlksezwc/46Qovx76Xp99zEZk9uh2CR/3ba0f915f8f10f7013a6a7f6b64505c3/istockphoto-1338523355-1024x1024.jpg", },
-// { title: "Building trust", description: "Transparency creates stronger relationships and lasting trust", image: "/assets/images/test-GLASS-icon-2.png", },
-// { title: "Integrity in action", description: "Every decision is driven by honesty, responsibility and integrity", image: "https://images.ctfassets.net/bdj0rlksezwc/46Qovx76Xp99zEZk9uh2CR/3ba0f915f8f10f7013a6a7f6b64505c3/istockphoto-1338523355-1024x1024.jpg", },];
+];
+
+const ABOUT_US = [
+  {
+    image: "/assets/images/licenses/cert-fidar-sazeh-bondar-HSE-MS.webp",
+    title: { fa: 'گواهینامه HSE-MS', en: 'HSE-MS' },
+
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/cert-fidar-sazeh-bondar-IMS.webp",
+    title: { fa: 'گواهینامه IMS', en: 'IMS' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/cert-fidar-sazeh-bondar-ISO9001.webp",
+    title: { fa: 'گواهینامه ISO-9001', en: 'ISO-9001' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/cert-fidar-sazeh-bondar-ISO14001.webp",
+    title: { fa: 'گواهینامه ISO-14001', en: 'ISO-14001' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/cert-fidar-sazeh-bondar-ISO45001.webp",
+    title: { fa: 'گواهینامه ISO-45001', en: 'ISO-45001' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/رزومه فیدارسازه.webp",
+    title: { fa: 'لوح سپاس', en: 'Certificate of Appreciation' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/رزومه فیدارسازه1.webp",
+    title: { fa: 'لوح سپاس', en: 'Certificate of Appreciation' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+  {
+    image: "/assets/images/licenses/رزومه فیدارسازه2.webp",
+    title: { fa: 'لوح سپاس', en: 'Certificate of Appreciation' },
+    content: {
+      fa: '',
+      en: '',
+    }
+
+  },
+
+];
+
 
 const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
   seoConfig,
@@ -170,7 +226,6 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
 
   const currentLang: Language = (lang === 'en' || lang === 'fa') ? lang : 'fa';
   const isFa = currentLang === 'fa';
-  const values = isFa ? VALUES_FA : VALUES_EN;
 
   const [activeModal, setActiveModal] = useState<'admin' | 'exporter' | null>(null);
   const [openAccordion, setOpenAccordion] = useState<number>(0);
@@ -183,11 +238,20 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % slides.length);
-    }, 3000);
+      setActive((prev) => (prev + 1) % VALUE.length);
+    }, 5000);
     return () => clearInterval(interval);
 
   }, [currentLang, isFa]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1280px)");
+    const handle = () => setIsDesktop(mq.matches);
+    handle();
+    mq.addEventListener("change", handle);
+    return () => mq.removeEventListener("change", handle);
+  }, []);
+
 
 
   const handleLanguageSwitch = (newLang: Language) => {
@@ -198,11 +262,51 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
     setActiveModal('admin');
     onOpenAdmin?.();
   };
+  const getTranslateX = () => {
+    if (!isDesktop) return "0%";
 
-  const handleOpenExporter = () => {
-    setActiveModal('exporter');
-    onOpenExporter?.();
+    const offset = 20 - activeIndex * 60;
+    return `${offset}%`;
   };
+
+  const [activeIndex, setActiveIndex] = useState(1); // پیش‌فرض: کارت دوم (Storing)
+  const [isDesktop, setIsDesktop] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(true);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScrollability = useCallback(() => {
+
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+
+    setCanScrollLeft((-scrollLeft + clientWidth) < (scrollWidth - 50));
+    setCanScrollRight(scrollLeft > 4 || scrollLeft < 0);
+  }, []);
+
+  useEffect(() => {
+    checkScrollability();
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', checkScrollability);
+    window.addEventListener('resize', checkScrollability);
+
+    return () => {
+      el.removeEventListener('scroll', checkScrollability);
+      window.removeEventListener('resize', checkScrollability);
+    };
+  }, [checkScrollability]);
+
+  const scrollByAmount = (dir: 'left' | 'right') => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const amount =  100;// el.clientWidth;
+    el.scrollBy({ left: dir === 'left' ? (-amount) : amount, behavior: 'smooth' });
+  };
+
+
 
   return (
     <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white">
@@ -222,15 +326,15 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
         <section className="relative w-full bg-white">
           <div className="w-full flex justify-center px-8 lg:px-20">
             <div className="w-full md:container md:mx-auto">
-              <div className="gap-5 lg:gap-10 flex flex-col py-20 lg:py-28 justify-center items-center">
-                <Image className='mb-12' src={"/assets/images/logo_type.webp"} alt="fidar bondar sazeh logo" width={400} height={200}></Image>
-                <h2 className='text-2xl  text-primary'>
+              <div className="gap-5 lg:gap-10 flex flex-col py-20 lg:py-28 justify-center items-center text-primary">
+                {/* <Image className='mb-12' src={"/assets/images/logo.svg"} alt="fidar bondar sazeh logo" width={400} height={200}></Image> */}
+                <h2 className='text-3xl text-center lg:text-current  font-black '>
                   {isFa ? (
                     "مهندسی، ساخت و نوسازی برای عملکردی پايدارتر"
                   ) : ("Engineering, construction, and renovation for more sustainable performance")}
                 </h2>
 
-                <div className="leading-snug!  text-slate-900 text-base lg:text-3xl xl:text-2xl font-normal max-w-5xl mx-auto">
+                <div className="leading-relaxed  text-slate-600 text-base lg:text-2xl xl:text-xl font-normal max-w-5xl mx-auto">
                   {isFa ? (
                     <>
                       <p>فیدار سازه بندار یک مجموعه مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد، ماشین آلات بندری و تجهیزات صنعتی سنگین است که با تکیه بر دانش مهندسی ، تجربه اجرایی و توان ساخت، راهکارهای جامع از طراحی و تولید تا بازسازی و ارتقای تجهیزات ارائه میدهد.</p>
@@ -257,80 +361,208 @@ const AboutUsPageComponent: React.FC<AboutUsPageProps> = ({
 
         </section>
 
+        {/* 4. Genuine Mastery — full-width parallax band */}
+        <section className="relative h-[60vh]  overflow-hidden lg:block bg-white ">
+          <div className="absolute inset-0">
+            {VALUE.map((slide, index) => (<div key={slide.title.en}
+              className={`absolute inset-0 transition-all duration-800 delay-50 ease-in-out ${index === active ? "translate-y-0 opacity-100" : index < active ? "-translate-y-full " : "translate-y-full "}`}
+            >
+
+              <Image src={slide.image} alt="" fill priority={index === 0} className="object-cover" sizes="100vw"
+              />
+
+              <div className="absolute inset-0 bg-black/40" />
+            </div>
+            ))}
+
+          </div>
+          <div className="relative z-20 h-full w-full overflow-hidden ">
+            <div className="flex h-full w-full flex-col transition-transform duration-1000 ease-in-out"
+              style={{ transform: `translateY(-${active * 100}%)`, }}
+            >
+              {VALUE.map((slide, index) => (
+                <div key={index}
+                  className="h-full w-full shrink-0 items-center  hidden lg:flex " >
+                  <div className=" w-full items-center pl-4 pr-4 ">
+                    <h2 className="text-4xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.title.fa : slide.title.en} </h2>
+                  </div>
+                  <div className="flex h-full w-screen flex-col justify-end ">
+
+                    <div className="flex h-1/4 w-full justify-end " >
+                      <div
+                        className="relative z-10 h-6 w-6 bg-white self-end"
+                        style={
+                          isFa ?
+                            {
+                              WebkitMaskImage:
+                                "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                              maskImage:
+                                "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                            }
+                            : {
+                              WebkitMaskImage:
+                                "radial-gradient(circle at 0% 0%, transparent 0 24px, black 24px)",
+                              maskImage:
+                                "radial-gradient(circle at 0% 0%, transparent 0 24px, black 24px)",
+                            }
+                        }
+                      />
+                      <div className="w-1/4 bg-white" />
+
+                    </div>
+
+                    <div className={`flex h-[51%]  items-center  -mt-px -mb-px bg-white py-9 pl-24 px-14 ${isFa ? "rounded-r-3xl" : "rounded-l-3xl"}`}>
+                      <p className="text-2xl font-normal  leading-loose text-slate-900 lg:text-xl"> {isFa ? slide.desc.fa : slide.desc.en} </p>
+                    </div>
+
+                    <div className="flex h-1/4 w-full justify-end">
+                      <div
+                        className="relative z-10 h-6 w-6 bg-white"
+                        style={isFa ? {
+                          WebkitMaskImage:
+                            "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                          maskImage:
+                            "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                        }
+                          : {
+                            WebkitMaskImage:
+                              "radial-gradient(circle at 0% 100%, transparent 0 24px, black 24px)",
+                            maskImage:
+                              "radial-gradient(circle at 0% 100%, transparent 0 24px, black 24px)",
+                          }
+                        }
+                      />
+                      <div className="w-1/4 bg-white" />
+
+                    </div>
+                  </div>
+                </div>))}
+              {VALUE.map((slide, index) => (
+                <div key={index}
+                  className="h-full w-full shrink-0 items-center drop-shadow-2xl  sm:flex flex-col" >
+                  <div className=" w-full items-center pl-4 pr-4 absolute top-[8%]">
+                    <h2 className="text-3xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.title.fa : slide.title.en} </h2>
+                  </div>
+                  <div className="flex h-full w-full flex-col">
+
+                    <div className={`flex h-2/4 w-full ${isFa ? "justify-end" : "justify-start"} `} >
+                      <div
+                        className="relative z-10 h-6 w-6 bg-white self-end"
+                        style={{
+                          WebkitMaskImage:
+                            "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                          maskImage:
+                            "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                        }}
+                      />
+
+                    </div>
 
 
 
-        {/* 3. Vision & Mission — alternating blocks */}
-        <section id="vision-mission" className="w-full overflow-hidden ">
-          <div className="w-full overflow-hidden relative bg-primary-dark">
-            <div className="w-full px-8 py-5 lg:p-0 flex flex-col  lg:items-center lg:min-h-[14rem]">
-              {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative"> */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                // style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
-                />
-              {/* </div> */}
-              <div className="lg:flex-[0_0_50%] flex flex-col items-center justify-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-                <h2 className="text-2xl lg:text-4xl font-medium text-primary">{isFa ? 'مهندسی و ساخت تجهیزات پیشرفته' : 'Vision'}</h2>
-                <p className="text-base md:text-lg xl:text-xl font-light text-white/90  leading-loose ">
-                  {isFa ?
-                    <>
-                      توانمندی فیدارسازه بندار شامل طراحی و ساخت جرثقیل های بندرگاهی، تجهیزات انتقال و بارگیری کانتینر، تجهیزات جابه جایی مواد فله، جرثقیلهای صنعتی و تجهیزات فرایندی است.
-                      <br></br>
-                      ترکیب دانش های تخصصی در حوزههای سازه، مکانیک، برق، کنترل و اتوماسیون، امکان توسعه تجهیزاتی با عملکرد مطمئن، قابلیت نگهداری مناسب و عمر بهره برداری طولانی را فراهم می کند
-                    </>
-                    : (
-                      'To simplify and empower manufacturing and port operations through advanced technology, engineering precision and future-oriented design — delivering ever-increasing productivity and sustainability for our customers.'
-                    )}
-                </p>
-              </div>
+                    <div className={`flex h-1/4 w-full  ${isFa ? "justify-end" : "justify-start"} `}>
+                      <div
+                        className="relative z-10 h-6 w-6 bg-white"
+                        style={{
+                          WebkitMaskImage:
+                            "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                          maskImage:
+                            "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                        }}
+                      />
+
+                    </div>
+                  </div>
+                </div>))}
             </div>
           </div>
 
 
-          <div className="w-full overflow-hidden relative bg-primary-dark border-t border-white/10">
-            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:items-center  lg:min-h-[14rem]">
-              {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
-                <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/mWYQ8AAHnePJkbDgMYnCz/e2d51a175da32db25f863037fbe38177/imag_MISSION.jpg?w=2334&h=1750&fm=jpg&q=50")' }}
-                />
-              </div> */}
-              <div className="lg:flex-[0_0_50%] flex flex-col justify-center   items-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-                <h2 className="text-2xl lg:text-4xl font-medium text-primary">{isFa ? 'نوسازی و ارتقای تجهیزات موجود' : 'Mission'}</h2>
-                <p className="text-base md:text-lg xl:text-xl  font-light text-white/90  leading-loose ">
-                  {isFa ? (
-                    'ارائه راهکارهای کامل از طراحی و تولید تا بازسازی و به‌روزرسانی تجهیزات؛ با تکیه بر دانش مهندسی، تجربه اجرایی و توان ساخت، تا هر ماده و هر عملیاتی به پتانسیل کامل خود دست یابد.'
-                  ) : (
-                    'To deliver complete solutions — from design and manufacturing to refurbishment and upgrades — built on engineering know-how, execution experience and manufacturing capability, enabling every material and operation to reach its full potential.'
-                  )}
-                </p>
-              </div>
-            </div>
+          {/* Dots */}
+          <div className={`absolute bottom-8 -mt-px z-30 flex gap-3 ${isFa ? "right-14" : "left-14"} `}>
+            {VALUE.map((_, index) => (<button key={index} type="button" onClick={() => setActive(index)} aria-label={`Go to slide ${index + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${active === index ? "w-10 bg-white" : "w-2 bg-white/50"}`} />))}
           </div>
 
 
-          <div className="w-full overflow-hidden relative bg-primary-dark border-t border-white/10">
-            <div className="w-full px-8 py-5 lg:p-0 flex flex-col lg:items-center  lg:min-h-[14rem]">
-              {/* <div className="h-80 lg:h-auto self-stretch lg:flex-[50%] rounded-tr-3xl rounded-bl-3xl overflow-hidden relative">
-                <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={{ backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/6FoUC119IxDgJKfJATdJjz/0d73bf74b3fe9863bbf5360b874bda26/vision.jpg?w=2200&h=1479&fm=jpg&q=50")' }}
-                />
-              </div> */}
-              <div className="lg:flex-[0_0_50%] flex flex-col justify-center  items-center gap-6 lg:gap-10 pt-9 pb-12 lg:py-16 lg:px-16 xl:px-20 z-10">
-                <h2 className="text-2xl  lg:text-4xl font-medium text-primary">{isFa ? 'ساخت برای امروز، آماده برای آينده' : 'Built For Today, Ready For Tomorrow'}</h2>
-                <p className="text-base md:text-lg xl:text-xl   font-light text-white/90 ">
-                  {isFa ? (
-                    'تمرکز بر بهره وری انرژی ، اتوماسیون و فناوری های نوین، فیدارسازه بندار راهکارهایی ارائه میدهد که عالوه بر پاسخگویی به نیازهای امروز صنعت، قابلیت توسعه و تطبیق با نیازهای آینده را داشته باشند.'
-                  ) : (
-                    'To simplify and empower manufacturing and port operations through advanced technology, engineering precision and future-oriented design — delivering ever-increasing productivity and sustainability for our customers.'
-                  )}
-                </p>
+        </section>
+
+
+
+        <section className="flex flex-col w-full py-16  lg:py-28 gap-5 items-center bg-white">
+
+          {/* ─── MOBILE SWIPER ─── */}
+          <div className=' w-full relative'>
+            <div className={`flex flex-col items-center  `}>
+
+              <h2 className='my-10 mb-24 text-primary text-4xl font-black text-center '>
+
+                {isFa? 'اعتبار ما'   : "Certificates and Customer Satisfaction"}
+              </h2>
+
+              {/* فلش راست — فقط اگر بتوان به راست اسکرول کرد */}
+
+              <button
+                type="button"
+                onClick={() => scrollByAmount('right')}
+                aria-label="Next"
+                className={`absolute right-0 shadow-lg top-[55%] z-10 cursor-pointer p-3 transition-all duration-200 bg-slate-50 rounded-full `}
+              >
+                <ChevronRight color='orange' />
+              </button>
+
+
+              {/* فلش چپ — فقط اگر بتوان به چپ اسکرول کرد */}
+
+              <button
+                type="button"
+                onClick={() => scrollByAmount('left')}
+                aria-label="Previous"
+                className={`absolute left-0 shadow-lg top-[55%] z-10 cursor-pointer p-3  transition-all duration-200 bg-slate-50 rounded-full `}>
+                <ChevronLeft color='orange' />
+              </button>
+
+
+              {/* ── Scroll Container ── */}
+              <div
+                ref={scrollRef}
+                className={`relative w-full lg:px-16 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none flex ${ABOUT_US.length === 1 ? "justify-center" : ""} flex-row `}
+              >
+                {ABOUT_US.map((slide, index) => (
+                  <div
+                    key={index}
+                    className={`flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_34%] min-w-0 snap-center snap-always shrink-0`}
+                  >
+                    <div className="pb-4 px-4 w-full flex items-end justify-center">
+                      {/* کادر به اندازه محتوا جمع می‌شود */}
+                      <div className="inline-flex flex-col items-center justify-between rounded-3xl overflow-hidden bg-white w-fit max-w-full">
+                        {/* Image — والد relative ولی بدون fill */}
+                        <div className="relative w-fit">
+                          <Image
+                            src={slide.image}
+                            alt={isFa ? slide.title.fa : slide.title.en}
+                            width={600}          // عرض پایه (نسبت حفظ می‌شود)
+                            height={400}         // ارتفاع پایه (نسبت حفظ می‌شود)
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                            className="object-contain object-center w-auto h-auto max-w-full rounded-4xl"
+                          />
+                        </div>
+
+                        {/* Text */}
+                        <div className="w-full items-center pt-4 pb-10 px-7">
+                          <h3 className="leading-none break-normal text-xl lg:text-2xl text-primary-dark font-normal text-center">
+                            {isFa ? slide.title.fa : slide.title.en}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
+
 
 
         {/* 4. Genuine Mastery — full-width parallax band */}

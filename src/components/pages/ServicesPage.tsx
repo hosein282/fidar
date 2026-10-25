@@ -10,7 +10,7 @@ import { ContactSection } from '../ContactSection';
 import { Footer } from '../Footer';
 import { startNavigationLoading } from '../NavigationLoader';
 import { ArrowRight, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
-import { SERVICES } from '../../data/mockData.ts'
+import { MATERIALS, SERVICES } from '../../data/mockData.ts'
 
 import {
     Ship, Anchor, Wind, Fan, Wrench, RefreshCw, Languages, SearchCheck,
@@ -45,7 +45,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
     const [openAccordion, setOpenAccordion] = useState<number>(0);
     const [active, setActive] = useState(0);
 
-    const [activeIndex, setActiveIndex] = useState(0); // پیش‌فرض: کارت دوم (Storing)
+    const [activeIndex, setActiveIndex] = useState(1); // شروع از آیتم دوم
     const [isDesktop, setIsDesktop] = useState(false);
     const touchStartX = useRef<number | null>(null);
 
@@ -266,6 +266,135 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                     </div>
                 </section>
 
+
+                {/* 4. Genuine Mastery — full-width parallax band */}
+                <section className="relative h-[60vh]  overflow-hidden lg:block bg-surface ">
+                    <div className="absolute inset-0">
+                        {SERVICES.map((slide, index) => (<div key={slide.nameEn}
+                            className={`absolute inset-0 transition-all duration-800 delay-50 ease-in-out ${index === active ? "translate-y-0 opacity-100" : index < active ? "-translate-y-full " : "translate-y-full "}`}
+                        >
+
+                            <Image src={slide.imgUrl} alt="" fill priority={index === 0} className="object-cover" sizes="100vw"
+                            />
+
+                            <div className="absolute inset-0 bg-black/40" />
+                        </div>
+                        ))}
+
+                    </div>
+                    <div className="relative z-20 h-full w-full overflow-hidden ">
+                        <div className="flex h-full w-full flex-col transition-transform duration-1000 ease-in-out"
+                            style={{ transform: `translateY(-${active * 100}%)`, }}
+                        >
+                            {SERVICES.map((slide, index) => (
+                                <div key={index}
+                                    className="h-full w-full shrink-0 items-center  hidden lg:flex " >
+                                    <div className=" w-full items-center pl-4 pr-4 ">
+                                        <h2 className="text-4xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.nameFa : slide.nameEn} </h2>
+                                    </div>
+                                    <div className="flex h-full w-screen flex-col justify-end ">
+
+                                        <div className="flex h-1/4 w-full justify-end " >
+                                            <div
+                                                className="relative z-10 h-6 w-6 bg-surface self-end"
+                                                style={
+                                                    isFa ?
+                                                        {
+                                                            WebkitMaskImage:
+                                                                "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                                                            maskImage:
+                                                                "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                                                        }
+                                                        : {
+                                                            WebkitMaskImage:
+                                                                "radial-gradient(circle at 0% 0%, transparent 0 24px, black 24px)",
+                                                            maskImage:
+                                                                "radial-gradient(circle at 0% 0%, transparent 0 24px, black 24px)",
+                                                        }
+                                                }
+                                            />
+                                            <div className="w-1/4 bg-surface" />
+
+                                        </div>
+
+                                        <div className={`flex h-[51%]  items-center  -mt-px -mb-px bg-surface py-9 pl-24 px-14 ${isFa ? "rounded-r-3xl" : "rounded-l-3xl"}`}>
+                                            <p className="text-2xl font-normal  leading-loose text-slate-900 lg:text-xl"> {isFa ? slide.descFa : slide.descEn} </p>
+                                        </div>
+
+                                        <div className="flex h-1/4 w-full justify-end">
+                                            <div
+                                                className="relative z-10 h-6 w-6 bg-surface"
+                                                style={isFa ? {
+                                                    WebkitMaskImage:
+                                                        "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                                                    maskImage:
+                                                        "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                                                }
+                                                    : {
+                                                        WebkitMaskImage:
+                                                            "radial-gradient(circle at 0% 100%, transparent 0 24px, black 24px)",
+                                                        maskImage:
+                                                            "radial-gradient(circle at 0% 100%, transparent 0 24px, black 24px)",
+                                                    }
+                                                }
+                                            />
+                                            <div className="w-1/4 bg-surface" />
+
+                                        </div>
+                                    </div>
+                                </div>))}
+                            {SERVICES.map((slide, index) => (
+                                <div key={index}
+                                    className="h-full w-full shrink-0 items-center drop-shadow-2xl  sm:flex flex-col" >
+                                    <div className=" w-full items-center pl-4 pr-4 absolute top-[8%]">
+                                        <h2 className="text-3xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.nameFa : slide.nameEn} </h2>
+                                    </div>
+                                    <div className="flex h-full w-full flex-col">
+
+                                        <div className={`flex h-2/4 w-full ${isFa ? "justify-end" : "justify-start"} `} >
+                                            <div
+                                                className="relative z-10 h-6 w-6 bg-surface self-end"
+                                                style={{
+                                                    WebkitMaskImage:
+                                                        "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                                                    maskImage:
+                                                        "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
+                                                }}
+                                            />
+
+                                        </div>
+
+                                        <div className="flex h-1/4  items-center rounded-r-3xl -mt-px -mb-px py-9 pl-14 pr-24 bg-surface">
+
+                                            <p className="text-xl font-normal  leading-tight text-slate-900 lg:text-4xl"> {isFa ? slide.descFa : slide.descEn} </p>
+                                        </div>
+
+                                        <div className={`flex h-1/4 w-full  ${isFa ? "justify-end" : "justify-start"} `}>
+                                            <div
+                                                className="relative z-10 h-6 w-6 bg-surface"
+                                                style={{
+                                                    WebkitMaskImage:
+                                                        "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                                                    maskImage:
+                                                        "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
+                                                }}
+                                            />
+
+                                        </div>
+                                    </div>
+                                </div>))}
+                        </div>
+                    </div>
+
+
+
+                    {/* Dots */}
+                    <div className={`absolute bottom-8 -mt-px z-30 flex gap-3 ${isFa ? "right-14" : "left-14"} `}>
+                        {MATERIALS.map((_, index) => (<button key={index} type="button" onClick={() => setActive(index)} aria-label={`Go to slide ${index + 1}`}
+                            className={`h-2 rounded-full transition-all duration-300 ${active === index ? "w-10 bg-white" : "w-2 bg-white/50"}`} />))}
+                    </div>
+
+                </section>
 
 
                 {/* Logo and Slug */}

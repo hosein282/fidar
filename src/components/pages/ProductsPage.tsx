@@ -108,7 +108,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
     const isFa = currentLang === 'fa';
 
 
-    const [activeIndex, setActiveIndex] = useState(0); // پیش‌فرض: کارت دوم (Storing)
+    const [activeIndex, setActiveIndex] = useState(1); // شروع از آیتم دوم
     const [isDesktop, setIsDesktop] = useState(false);
     const [active, setActive] = useState(0);
 
@@ -285,7 +285,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                             className={`absolute inset-0 transition-all duration-800 delay-50 ease-in-out ${index === active ? "translate-y-0 opacity-100" : index < active ? "-translate-y-full " : "translate-y-full "}`}
                         >
 
-                            <Image src={slide.imgUrl} alt="" fill priority={index === 0} className="object-cover " sizes="100vw"
+                            <Image src={slide.imgUrl} alt="" fill priority={index === 0} className="object-cover" sizes="100vw"
                             />
 
                             <div className="absolute inset-0 bg-black/40" />
@@ -354,11 +354,11 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                                         </div>
                                     </div>
                                 </div>))}
-                            {slides.map((slide, index) => (
+                            {MATERIALS.map((slide, index) => (
                                 <div key={index}
                                     className="h-full w-full shrink-0 items-center drop-shadow-2xl  sm:flex flex-col" >
                                     <div className=" w-full items-center pl-4 pr-4 absolute top-[8%]">
-                                        <h2 className="text-3xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.title.fa : slide.title.en} </h2>
+                                        <h2 className="text-3xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.nameFa : slide.nameEn} </h2>
                                     </div>
                                     <div className="flex h-full w-full flex-col">
 
@@ -377,7 +377,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
 
                                         <div className="flex h-1/4  items-center rounded-r-3xl -mt-px -mb-px py-9 pl-14 pr-24 bg-surface">
 
-                                            <p className="text-xl font-normal  leading-tight text-slate-900 lg:text-4xl"> {isFa ? slide.desc.fa : slide.desc.en} </p>
+                                            <p className="text-xl font-normal  leading-tight text-slate-900 lg:text-4xl"> {isFa ? slide.descFa : slide.descEn} </p>
                                         </div>
 
                                         <div className={`flex h-1/4 w-full  ${isFa ? "justify-end" : "justify-start"} `}>

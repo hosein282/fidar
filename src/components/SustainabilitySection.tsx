@@ -41,12 +41,12 @@ export const SustainabilitySection: React.FC<SustainabilitySectionProps> = ({ la
 
             <div className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 hover:scale-105"
               style={{
-                backgroundImage: 'url("https://images.ctfassets.net/bdj0rlksezwc/7z1ounD96FpGSL6bNv3MLD/6c60ee36a4a5d60088884b6f06346c90/AdobeStock_675117344_Preview-transformed_out.jpeg?w=2000&h=1336&q=50&fm=jpg")'
+                backgroundImage:    `url(/assets/images/Picture3.webp)`
               }}
             />
 
             {/* Dark Green Gradient Tint Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-primary-darker/75 to-black/70 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-primary-darker/65 to-black/70 z-10" />
 
             {/* Card Content */}
             <div className="relative z-20 max-w-4xl mx-auto space-y-6 sm:space-y-8 text-white">

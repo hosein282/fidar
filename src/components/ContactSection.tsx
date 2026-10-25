@@ -60,7 +60,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-primary text-xs font-bold uppercase tracking-widest block mb-3">
+          <span className="text-primary font-medium text-xl uppercase tracking-widest block mb-3">
             {isFa ? 'ارتباط با کارشناسان فیدار سازه بندار' : 'Get In Touch'}
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
@@ -184,18 +184,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-slate-500 mb-1">
-                    {isFa ? 'شماره موبایل' : 'Phone Number'}
+                    {isFa ? 'شماره موبایل *' : 'Phone Number *'}
                   </label>
                   <input
                     type="tel"
                     value={formData.phone}
+                    required
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className={`w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white ${isFa ? "" : "font-sans"}`}
                     placeholder={`${isFa ? "09..." : "+1..."}`}
                   />
                 </div>
 
-                <div>
+                {/* <div>
                   <label className="block text-xs font-medium text-slate-500 mb-1">
                     {isFa ? 'خدمت مورد نظر' : 'Requested Subject'}
                   </label>
@@ -208,11 +209,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                     <option 
                   aria-label={`${isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}`}
                     value="tous-web-php">{isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}</option>
-                    {/* <option value="seo-audit">{isFa ? 'سئوی پیشرفته و آنالیز گوگل' : 'Technical SEO Audit & Growth'}</option>
-                    <option value="bilingual-system">{isFa ? 'سیستم دو زبانه (فارسی / انگلیسی)' : 'Bilingual RTL/LTR Architecture'}</option>
-                    <option value="custom-cms">{isFa ? 'پنل مدیریت اختصاصی CMS' : 'Custom Admin CMS'}</option> */}
+                    
                   </select>
-                </div>
+                </div> */}
               </div>
 
               <div>

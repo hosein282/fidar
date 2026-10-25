@@ -82,8 +82,8 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
 
         const { scrollLeft, scrollWidth, clientWidth } = el;
 
-        setCanScrollLeft((-scrollLeft + clientWidth) < (scrollWidth-50));
-        setCanScrollRight(scrollLeft > 4 ||  scrollLeft<0);
+        setCanScrollLeft((-scrollLeft + clientWidth) < (scrollWidth - 50));
+        setCanScrollRight(scrollLeft > 4 || scrollLeft < 0);
     }, []);
 
     useEffect(() => {
@@ -116,8 +116,8 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                 seoConfig={seoConfig}
                 onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
-                }} 
-               />
+                }}
+            />
 
             <main className='scroll-smooth '>
                 {/* 1. Page Hero — full-screen banner + breadcrumb */}
@@ -238,19 +238,19 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                                 {item.slides.map((slide, index) => (
                                     <div
                                         key={index}
-                                        className={`flex-[0_0_100%] md:flex-[0_0_50%] ${item.slides.length > 1 ? "lg:flex-[0_0_33%]" : "lg:flex-[0_0_50%]"} min-w-0 snap-center snap-always shrink-0 rounded-4xl `}
+                                        className={`flex-[0_0_100%] md:flex-[0_0_50%] ${item.slides.length > 1 ? "lg:flex-[0_0_33%]" : "lg:flex-[0_0_50%]"} min-w-0 snap-center snap-always shrink-0 `}
                                     >
                                         <div className="pb-4 px-4 w-full flex items-end">
-                                            <div className="flex flex-col h-[60vh] items-center shadow-lg justify-between rounded-3xl min-h-80 overflow-hidden bg-surface w-full">
+                                            <div className="flex flex-col h-[50vh] items-centerjustify-between rounded-3xl min-h-80 overflow-hidden bg-surface w-full">
 
                                                 {/* Image */}
-                                                <div className="relative w-full flex-2  overflow-hidden  ">
+                                                <div className="relative  flex-2  overflow-hidden   ">
                                                     <Image
                                                         src={slide.imgUrl}
                                                         alt={isFa ? slide.nameFa : slide.nameEn}
                                                         fill={true}
 
-                                                        className="object-cover object-center"
+                                                        className="object-contain object-center w-full h-full "
                                                     />
                                                 </div>
 
@@ -290,8 +290,8 @@ const ServicePageComponent: React.FC<ServicesPageProps> = ({
                 lang={currentLang}
                 onOpenAdmin={function (): void {
                     throw new Error('Function not implemented.');
-                }} 
-              />
+                }}
+            />
 
 
         </div>

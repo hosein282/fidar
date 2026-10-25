@@ -122,7 +122,7 @@ const OurConsumers: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div
                     ref={scrollContainerRef}
 
-                    className={`flex gap-8 ${isFa ? "px-8" : "px-8"} scroll-px-5 overflow-x-auto  scrollbar-none  snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
+                    className={`flex gap-12 ${isFa ? "px-8" : "px-8"} lg:justify-center scroll-px-5 overflow-x-auto  scrollbar-none  snap-x snap-mandatory pb-8 pt-8 transition-all w-full `}>
                     {industries.map((industry, index) => (
                         <div
                             key={index}

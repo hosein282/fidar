@@ -46,30 +46,30 @@ const LangSwitcher: React.FC<{
         aria-haspopup="listbox"
         aria-expanded={open}
 
-        className="inline-flex min-w-[54px] items-center justify-center gap-1 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-[11px] font-bold tracking-wide text-slate-800 uppercase transition hover:border-primary hover:text-primary"
+        className="inline-flex min-w-[54px] items-center justify-center gap-1 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-[13px] font-bold tracking-wide text-slate-800 uppercase transition hover:border-primary hover:text-primary"
       >
-        {current === 'FA' ? 
-       <>
-        <img
-          className='w-5 max-w-xs aspect-square bg-emerald-500 object-cover rounded-full'
+        {current === 'FA' ?
+          <>
+            <img
+              className='w-5 max-w-xs aspect-square bg-emerald-500 object-cover rounded-full'
 
-          src={'/assets/images/iran.svg'}
-          alt="Company Logo"
-          width="30"
-          height="30"
-        /> 
-        <span> FA </span>
-       </>:
-      <>
-        <img
-          className='w-5 max-w-xs aspect-square bg-emerald-500 object-cover rounded-full'
-          src={'/assets/images/britain.svg'}
-          alt="Company Logo"
-          width="30"
-          height="30"
-        />
-        <span> EN </span>
-      </>
+              src={'/assets/images/iran.svg'}
+              alt="Company Logo"
+              width="30"
+              height="30"
+            />
+            <span> FA </span>
+          </> :
+          <>
+            <img
+              className='w-5 max-w-xs aspect-square bg-emerald-500 object-cover rounded-full'
+              src={'/assets/images/britain.svg'}
+              alt="Company Logo"
+              width="30"
+              height="30"
+            />
+            <span> EN </span>
+          </>
         }
         <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -85,7 +85,7 @@ const LangSwitcher: React.FC<{
             aria-label='language switcher to fa'
             aria-selected={lang === 'fa'}
             onClick={() => { setOpen(false); onLanguageChange('fa'); }}
-            className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-bold uppercase transition ${lang === 'fa' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
+            className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[13px] font-bold uppercase transition ${lang === 'fa' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
               }`}
           >
             <img
@@ -93,11 +93,11 @@ const LangSwitcher: React.FC<{
 
               src={'/assets/images/iran.svg'}
               alt="Company Logo"
-              width="30"
-              height="30"
+              width="24"
+              height="24"
             />
             <span>fa</span>
-            {lang === 'fa' && <span className="ml-auto text-[10px] text-green-600">✓</span>}
+            {lang === 'fa' && <span className="ml-auto text-[16x] text-green-600">✓</span>}
           </button>
           <button
             type="button"
@@ -105,7 +105,7 @@ const LangSwitcher: React.FC<{
             aria-label='language switcher to en'
             aria-selected={lang === 'en'}
             onClick={() => { setOpen(false); onLanguageChange('en'); }}
-            className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[11px] font-bold uppercase transition ${lang === 'en' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
+            className={`flex w-full items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[13px] font-bold uppercase transition ${lang === 'en' ? 'bg-slate-100 text-primary' : 'text-slate-700 hover:bg-slate-50'
               }`}
           >
             <div className="">
@@ -113,7 +113,8 @@ const LangSwitcher: React.FC<{
                 className='w-6 max-w-xs aspect-square bg-emerald-500 rounded-full object-cover'
                 src={'/assets/images/britain.svg'}
                 alt="Company Logo"
-
+                width="24"
+                height="24"
               />
 
             </div>
@@ -122,7 +123,7 @@ const LangSwitcher: React.FC<{
 
 
             <span>en</span>
-            {lang === 'en' && <span className="ml-auto text-[10px] text-green-600">✓</span>}
+            {lang === 'en' && <span className="ml-auto text-[16px] text-green-600">✓</span>}
           </button>
         </div>
       )}
@@ -260,8 +261,8 @@ export const Header: React.FC<HeaderProps> = ({
             </svg> */}
             <Image
               src="/assets/images/logo.svg"
-              width={140}
-              height={60}
+              width={200}
+              height={80}
               alt="Fidar Bondar Sazeh فیدار بندار سازه"
             />
           </Link>
@@ -278,7 +279,7 @@ export const Header: React.FC<HeaderProps> = ({
                 aria-label='open products menu'
                 className="flex items-center gap-1 hover:text-primary transition hover:underline cursor-pointer"
               >
-                <span>{isFa ? 'محصولات' : 'Lines'}</span>
+                <span>{isFa ? 'محصولات' : 'Products'}</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${productsOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -362,7 +363,7 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </div>
             <a href={`/${lang}/blog`} className="hover:text-primary transition hover:underline" aria-label='show blogs and news'>
-              {isFa ? 'مجله و اخبار' : 'Components'}
+              {isFa ? 'مقالات و اخبار' : 'Blogs & News'}
             </a>
             <Link href={`/${lang}/about`} className="hover:text-primary transition hover:underline">
               {isFa ? 'درباره ما' : 'About us'}
@@ -520,14 +521,14 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
 
 
-              <Link href={`/${lang}/blog`} className="hover:text-primary transition hover:underline" aria-label='Show Blogs And News Of Fidar Saze Bondar'>
+              <Link  href={`/${lang}/blog`} className="hover:text-primary transition hover:underline" aria-label='Show Blogs And News Of Fidar Saze Bondar'>
                 {isFa ? 'اخبار و مقالات' : 'News & Blogs'}
               </Link>
 
 
-              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary" aria-label='show contact us'>
+              <Link href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-primary" aria-label='show contact us'>
                 {isFa ? 'تماس با ما' : 'Contact Us'}
-              </a>
+              </Link>
               <Link href={`/${lang}/about`} onClick={() => setMobileMenuOpen(false)} className="hover:text-primary" aria-label='show About Us Page'>
                 {isFa ? 'درباره ما' : 'About us'}
               </Link>

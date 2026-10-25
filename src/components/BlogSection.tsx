@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Language, BlogPost } from '../types';
@@ -27,14 +27,80 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
   const safePosts = (Array.isArray(posts) ? posts : []).map(sanitizeBlogPost);
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = isFa
-        ? (direction === 'left' ? -340 : 340)
-        : (direction === 'left' ? -340 : 340);
-      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
+  const [showNav, setShowNav] = useState<boolean>(false);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const update = () => {
+      setShowNav(container.scrollWidth > container.clientWidth + 1);
+    };
+
+    // Check on mount
+    update();
+
+    // Check on scroll and resize
+    container.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+
+    // Re-check when lazy-loaded images finish loading (critical!)
+    const images = container.querySelectorAll('img');
+    const onImgLoad = () => update();
+    images.forEach((img) => {
+      img.addEventListener('load', onImgLoad);
+      img.addEventListener('error', onImgLoad);
+    });
+
+    // Re-check on any size change (images, fonts, etc.)
+    const observer = new ResizeObserver(update);
+    observer.observe(container);
+
+    return () => {
+      container.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+      images.forEach((img) => {
+        img.removeEventListener('load', onImgLoad);
+        img.removeEventListener('error', onImgLoad);
+      });
+      observer.disconnect();
+    };
+  }, [safePosts]);
+
+  const scrollToCenteredItem = useCallback((direction: 'prev' | 'next') => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const items = Array.from(container.children) as HTMLElement[];
+    if (items.length === 0) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const centerX = containerRect.width / 2;
+
+    let currentIndex = 0;
+    let minDiff = Infinity;
+    items.forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      const itemCenter = rect.left - containerRect.left + rect.width / 2;
+      const diff = Math.abs(itemCenter - centerX);
+      if (diff < minDiff) {
+        minDiff = diff;
+        currentIndex = index;
+      }
+    });
+
+    const targetIndex = Math.max(
+      0,
+      Math.min(items.length - 1, direction === 'next' ? currentIndex + 1 : currentIndex - 1)
+    );
+    const target = items[targetIndex];
+    const rect = target.getBoundingClientRect();
+    const targetCenter = rect.left - containerRect.left + rect.width / 2;
+
+    container.scrollTo({
+      left: container.scrollLeft + (targetCenter - centerX),
+      behavior: 'smooth',
+    });
+  }, []);
 
   return (
     <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden flex flex-col items-center justify-center ">
@@ -55,7 +121,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           {/* Scroll Container */}
           <div
             ref={scrollContainerRef}
-            className="flex w-screen  gap-6 sm:gap-8 overflow-x-auto  scroll-px-5 scrollbar-none snap-x snap-mandatory pb-8 px-8 pt-2 transition-all"
+            className="flex w-full  gap-6 sm:gap-8 overflow-x-auto  touch-pan-x justify-start items-center scrollbar-none pb-8 px-8 pt-2"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {safePosts.map((post) => {
@@ -68,7 +134,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                 <article
                   key={post.id}
                   onClick={() => router.push(`/${lang}/blog/${post.id}`)}
-                  className="w-70 sm:w-[320px] shrink-0 snap-start flex flex-col items-center  cursor-pointer text-center"
+                  className="w-70 sm:w-[320px] shrink-0 flex flex-col items-center  cursor-pointer text-center"
                 >
                   {/* Card Image with Fidar Bondar rounded-3xl corners */}
                   <div className="w-full h-75 sm:h-[340px] rounded-[32px] overflow-hidden group bg-emerald-950/40 shadow-xl border border-white/10 relative">
@@ -86,7 +152,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
                   {/* Outlined Pill Tag under Image */}
                   <div className="mt-5">
-                    <span className="inline-block px-5 py-1.5 rounded-full border border-white/70 text-white text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase hover:bg-white hover:text-primary-dark transition-colors">
+                    <span className="inline-block px-5 py-1.5 rounded-full border border-white/70 text-white text-[10px] sm:text-[11px]  font-thin tracking-widest uppercase hover:bg-white hover:text-primary-dark transition-colors">
                       {catStr}
                     </span>
                   </div>
@@ -105,24 +171,29 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             })}
           </div>
 
-          {/* Floating Circle Arrow Nav Buttons */}
-          <button
-            onClick={() => scroll('left')}
-            className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
-          </button>
-
-          <button
-            onClick={() => scroll('right')}
-            className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
-            aria-label="Next"
-          >
-            <ChevronRight className="w-6 h-6 stroke-[2.5]" />
-          </button>
+         
 
         </div>
+         {/* Floating Circle Arrow Nav Buttons */}
+          {showNav && (
+            <>
+              <button
+                onClick={() => scrollToCenteredItem(isFa ? 'next' : 'prev')}
+                className="absolute left-0 lg:left-8 lg:top-1/2 top-2/3 -translate-y-1/2 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
+                aria-label={isFa ? 'مقاله بعدی' : 'Previous article'}
+              >
+                <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
+              </button>
+
+              <button
+                onClick={() => scrollToCenteredItem(isFa ? 'prev' : 'next')}
+                className="absolute right-0 lg:right-8 lg:top-1/2 top-2/3 -translate-y-1/2 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
+                aria-label={isFa ? 'مقاله قبلی' : 'Next article'}
+              >
+                <ChevronRight className="w-6 h-6 stroke-[2.5]" />
+              </button>
+            </>
+          )}
 
       </div>
 

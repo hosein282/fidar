@@ -209,7 +209,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                       className={` 
                       ${isActive ? "bg-black lg:bg-transparent text-slate-200 lg:text-black pointer-events-none" : ""}
                       shrink-0 lg:flex-[1/8]  text-sm text-center   ${isFa ? 'rotate-90' : '-rotate-90'} 
-                     h-8  lg:h-26 w-max lg:w-[12vw] p-2 mx-1 flex rounded-full items-center py-0 justify-center border lg:border-0  border-slate-900  transition-all duration-300 font-bold cursor-pointer  ${isActive ? 'opacity-100 font-extrabold' : 'opacity-60 hover:opacity-100'
+                     h-8  lg:h-26 w-max lg:w-[12vw] p-2 mx-1 flex rounded-full items-center py-0 justify-center border lg:border-0  border-slate-900  transition-all duration-300 font-bold cursor-pointer  ${isActive ? 'opacity-100 scale-105 font-black' : 'opacity-20 hover:opacity-100'
                         }`}
 
                       type="button"
@@ -251,7 +251,7 @@ export const MaterialsShowcase: React.FC<MaterialsShowcaseProps> = ({ lang }) =>
                       height={1200}
                       loading="lazy"
                       decoding="async"
-                      className="max-h-[45vh] w-auto object-contain drop-shadow-xl rounded-2xl "
+                      className="max-h-[65vh] w-auto object-contain drop-shadow-xl rounded-2xl "
                     />
                   </div>
                 );

@@ -567,30 +567,14 @@ export const ESTIMATOR_FEATURES: EstimatorFeature[] = [
 ];
 
 export const MATERIALS: MaterialData[] = [
-  // {
-  //   id: 0,
-  //   slugEn: 'fidar-sazeh-bandar-engineering-technology',
-  //   slugFa: 'تکنولوژی-مهندسی-فیدار-سازه-بندار',
-  //   nameEn: 'Engineering Technology',
-  //   nameFa: 'تکنولوژی مهندسی فیدار سازه بندار',
-  //   slides: [],
-  //   color: 'var(--color-wood)',
-  //   descEn: "We manufacture machines designed to simplify the production process for our customers who work with wood in the furniture and window and door industry.",
-  //   descFa: "در فیدارسازه بندار، طراحی و ساخت بر پایه مهندسی دقیق، شناخت عمیق تجهیزات و توجه به الزامات عملکردی پروژه انجام می شود. محصوالت ما حاصل ترکیب توان طراحی مهندسی، دقت ساخت و رویکرد توسعه‌محور است.",
-  //   btnEn: 'Read More',
-  //   btnFa: 'اطلاعات بیشتر',
-  //   imgUrl: '/assets/images/services/4294-2.webp',
-  //   videoUrl: ",",
-
-  // },
   {
     id: 0,
     slugEn: 'container-loading-and-unloading-cranes',
     slugFa: 'جرثقیل‌های-تخلیه-و-بارگیری-کانتینر',
     nameEn: 'Port Material Handling Equipment',
     nameFa: 'تجهیزات انتقال مواد بندرگاهی',
-     shortNameFa: 'تجهیزات بندری',
-     shortNameEn: 'Port Equipment',
+    shortNameFa: 'تجهیزات بندری',
+    shortNameEn: 'Port Equipment',
 
     slides: [],
     videoUrl: ",",
@@ -600,7 +584,7 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'طراحی و ساخت انواع تجهیزات انتقال مواد بندرگاهی با تمرکز بر قابلیت اطمینان، دقت عملکرد، ایمنی و بهره وری؛ از راهکارهای متعارف تا فناوری های نوین و کم مصرف.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/products/p8.webp',
+    imgUrl: '/assets/images/products/p7.webp',
     showCaseImage: "/assets/images/products/Industrial Gantry Crane Lifting.webp"
   },
   {
@@ -608,7 +592,7 @@ export const MATERIALS: MaterialData[] = [
     slugEn: 'mobile-and-shore-rail-cranes',
     slugFa: 'جرثقیل‌های-موبایل-و-ریلی-ساحلی',
     shortNameFa: 'تجهیزات صنعتی',
-       shortNameEn: 'Industrial Equipment',
+    shortNameEn: 'Industrial Equipment',
     nameEn: 'Industrial Cranes',
     nameFa: 'جرثقیل های صنعتی',
     slides: [],
@@ -619,9 +603,9 @@ export const MATERIALS: MaterialData[] = [
     descFa: 'طراحی و ساخت انواع جرثقیل‌های صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-     imgUrl: '/assets/images/products/p7.webp',
-    showCaseImage: '/assets/images/products/Blue Ship-Mounted Conveyor Loader.webp',
-    
+    imgUrl: '/assets/images/products/Fidar_Sazeh_Bondar.webp',
+    showCaseImage: '/assets/images/products/Industrial Yellow Overhead Crane Cutaway2.webp',
+
   },
   {
     id: 2,
@@ -631,16 +615,16 @@ export const MATERIALS: MaterialData[] = [
     nameFa: 'تجهیزات فرایندی و انتقال توان',
     slides: [],
     videoUrl: ",",
-        shortNameFa: 'فن و گیربکس',
-       shortNameEn: 'Fans & Gearboxes',
+    shortNameFa: 'فن و گیربکس',
+    shortNameEn: 'Fans & Gearboxes',
 
     color: 'var(--color-materia)',
     descEn: 'Engineered solutions in the field of industrial rotating equipment; including the design and manufacturing of various fans, blowers, and power transmission systems with emphasis on quality, efficiency, and reliability.',
     descFa: 'راهکارهای مهندسی شده در حوزه تجهیزات دوار صنعتی؛ شامل طراحی و ساخت انواع فن، بلوئر و سیستم های انتقال قدرت با تأکید بر کیفیت، راندمان و قابلیت اطمینان',
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/products/p9.webp',
-    showCaseImage: '/assets/images/products/Industrial Tanker and Harbor Crane Cutout.webp',
+    imgUrl: '/assets/images/products/Fidar_Sazeh_Bondar-Fan-Gearbox (3).webp',
+    showCaseImage: '/assets/images/products/Photorealistic Blue Gearbox Assembly.webp',
   },
 ];
 
@@ -653,14 +637,14 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     nameEn: 'Fidar Sazeh Bandar Engineering Technology',
     nameFa: 'تکنولوژی مهندسی فیدار سازه بندار',
     color: 'var(--color-wood)',
-         shortNameFa: 'تجهیزات بندری',
-     shortNameEn: 'تجهیزات بندری',
+    shortNameFa: 'تجهیزات بندری',
+    shortNameEn: 'تجهیزات بندری',
     descEn:
       'Fidar Sazeh Bandar, specializing in the design and construction of port material handling equipment, offers engineered solutions for safe, precise, and efficient cargo movement in harsh operational environments. Our products include a variety of port cranes, container handling equipment, and systems related to loading and unloading operations, developed for stable and long-term performance through engineering knowledge, precise design, and controlled manufacturing processes. Our focus is on providing equipment that, in addition to meeting today’s operational needs, offers upgradeability, energy consumption optimization, and adaptability to modern port technologies. Precise engineering for reliable handling; from design to operation.',
     descFa:
       'فیدار سازه بندار با تخصص در طراحی و ساخت تجهیزات انتقال مواد بندرگاهی، راهکارهای مهندسی‌شده‌ای برای جابه‌جایی ایمن، دقیق و بهره‌ور بار در محیط‌های عملیاتی سخت ارائه می‌دهد.\n محصولات ما شامل انواع جرثقیل‌های بندرگاهی، تجهیزات جابه‌جایی کانتینر و سیستم‌های مرتبط با عملیات تخلیه و بارگیری است که با بهره‌گیری از دانش مهندسی، طراحی دقیق و فرآیند ساخت کنترل‌شده، برای عملکرد پایدار و طولانی‌مدت توسعه می‌یابند.\n تمرکز ما بر ارائه تجهیزاتی است که علاوه بر پاسخگویی به نیازهای عملیاتی امروز، قابلیت ارتقا، بهینه‌سازی مصرف انرژی و انطباق با فناوری‌های نوین بندری را داشته باشند.\n مهندسی دقیق برای جابه‌جایی مطمئن. از طراحی تا بهره‌ برداری.',
     slides: [
-     
+
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
@@ -671,30 +655,30 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     id: 1,
     slugEn: 'container-loading-and-unloading-cranes',
     slugFa: 'جرثقیل‌های-تخلیه-و-بارگیری-کانتینر',
-    nameEn: 'Container Loading and Unloading Cranes',
-    nameFa: 'جرثقیل‌های تخلیه و بارگیری کانتینر',
-        shortNameFa: 'تجهیزات صنعتی',
-       shortNameEn: 'تجهیزات بندری',
+    nameEn: 'Port Material Handling Equipment',
+    nameFa: 'تجهیزات انتقال مواد بندرگاهی',
+    shortNameFa: 'تجهیزات صنعتی',
+    shortNameEn: 'Port Equipment',
     color: 'var(--color-glass)',
     slides: [
-       {
+      {
         nameEn: 'Container Cranes (RTG, RMG)',
         nameFa: 'جرثقیل‌های کانتینربر (RTG، RMG)',
         descEn:
           'Where speed, precision, and operational space must be managed simultaneously. Fidar Sazeh Bandar RTG cranes, with an engineered design for the new generation of container terminals, offer a combination of productivity, flexibility, and precise load control.',
         descFa:
           'جایی که سرعت، دقت و فضای عملیاتی باید همزمان مدیریت شوند. جرثقیل‌های RTG فیدار سازه بندار با طراحی مهندسی‌شده برای نسل جدید پایانه‌های کانتینری، ترکیبی از بهره‌وری، انعطاف‌پذیری و کنترل دقیق بار را ارائه می‌دهد.',
-        imgUrl: '/assets/images/products/p7.webp',
+        imgUrl: '/assets/images/products/RTG/1743152406275.jfif',
       },
       {
         nameEn: 'Mobile and Shore Rail Cranes',
         nameFa: 'جرثقیل‌های موبایل و ریلی ساحلی',
-        
+
         descEn:
           'A combination of mobility, capacity, and precise load control for heavy operations at the dock and port areas. Fidar Sazeh Bandar shore and rail cranes, designed according to operating conditions, provide extensive coverage of the working area and fast, reliable cargo movement; a flexible solution for ports and industries with diverse operational needs.',
         descFa:
           'ترکیبی از تحرک، ظرفیت و کنترل دقیق بار برای عملیات سنگین در اسکله و محوطه‌های بندری. جرثقیل‌های ساحلی و ریلی فیدار سازه بندار با طراحی متناسب با شرایط بهره‌برداری، امکان پوشش گسترده محدوده کاری و جابه‌جایی سریع و مطمئن بار را فراهم می‌کنند؛ راهکاری منعطف برای بنادر و صنایع با نیازهای متنوع عملیاتی.',
-        imgUrl: '/assets/images/products/p8.webp',
+        imgUrl: '/assets/images/products/موبایل صاحلی.webp',
       },
       {
         nameEn: 'Bulk Material Loading and Unloading Equipment',
@@ -703,7 +687,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'Uninterrupted material flow, where capacity, speed, and control must work together. Fidar Sazeh Bandar offers engineered solutions for unloading, transferring, and loading various types of port bulk materials; equipment suited to the nature of the cargo and operating conditions, aimed at increasing handling capacity, reducing operation time, and sustainable operation.',
         descFa:
           'جریان بی‌وقفه مواد، جایی که ظرفیت، سرعت و کنترل باید در کنار هم عمل کنند. فیدار سازه بندار راهکارهای مهندسی‌شده برای تخلیه، انتقال و بارگیری انواع مواد فله بندرگاهی ارائه می‌دهد؛ تجهیزاتی متناسب با ماهیت بار و شرایط عملیاتی، با هدف افزایش ظرفیت جابه‌جایی، کاهش زمان عملیات و بهره‌برداری پایدار.',
-        imgUrl: '/assets/images/products/p9.webp',
+        imgUrl: '/assets/images/products/p8.webp',
       },
     ],
     descEn:
@@ -719,16 +703,16 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     id: 2,
     slugEn: 'mobile-and-shore-rail-cranes',
     slugFa: 'جرثقیل‌های-موبایل-و-ریلی-ساحلی',
-    nameEn: 'Mobile and Shore Rail Cranes',
-    nameFa: 'جرثقیل‌های موبایل و ریلی ساحلی',
-    
+    shortNameFa: 'تجهیزات صنعتی',
+    shortNameEn: 'Industrial Equipment',
+    nameEn: 'Industrial Cranes',
+    nameFa: 'جرثقیل های صنعتی',
+
     color: '',
     slides: [],
 
-    descEn:
-      'Fidar Sazeh Bandar, with a specialized and experienced team in the design and construction of harbor mobile cranes, offers solutions for loading and unloading all types of vessels and handling materials and containers; equipment that provides the operator with a combination of high mobility, extensive working radius, and diverse lifting capacities. The engineering of these cranes encompasses a set of complex considerations including precise structural and fatigue analysis, crane stability during lifting and travel, design of the boom and hoisting and slewing mechanisms, design of elastic or flexible rail travel systems, and analysis of environmental conditions (wind and storm). The design of electrical and hydraulic systems, motion control, load management, and safety equipment are also considered integrally with the mechanical and structural design. With an approach based on international standards, integrated engineering, and the real requirements of port operation, each crane is developed according to the capacity, working range, type of cargo, and operational conditions of the project.',
-    descFa:
-      'فیدار سازه بندار با داشتن تیمی متخصص و با تجربه در حوزه طراحی و ساخت جرثقیل‌های موبایل ساحلی (Harbour Mobile Cranes)، راهکارهایی برای بارگیری و تخلیه انواع کشتی و جابه‌جایی مواد و کانتینر ارائه می‌دهد.\n تجهیزاتی که ترکیبی از تحرک بالا، شعاع کاری گسترده و ظرفیت‌های متنوع باربرداری را در اختیار بهره‌بردار قرار می‌دهند. مهندسی این جرثقیل‌ها، مجموعه‌ای از ملاحظات پیچیده شامل تحلیل دقیق سازه و خستگی آن، پایداری جرثقیل در باربرداری و حرکت، طراحی بوم و مکانیزم‌های بالابری و گردان، طراحی سیستم حرکتی الاستیکی و یا ریلی منعطف و تحلیل شرایط محیطی (باد و طوفان) را در بر می‌گیرد. \n\nطراحی سیستم‌های الکتریکی و هیدرولیکی، کنترل حرکت، مدیریت بار و تجهیزات ایمنی نیز به صورت یکپارچه با ساختار مکانیکی و سازه‌ای در نظر گرفته می‌شوند.\n با رویکردی مبتنی بر استانداردهای بین‌المللی، مهندسی یکپارچه و الزامات واقعی بهره‌برداری بندری، هر جرثقیل متناسب با ظرفیت، دامنه کاری، نوع بار و شرایط عملیاتی پروژه توسعه می‌یابد.',
+    descEn: 'Design and manufacturing of various gantry and overhead industrial cranes with an engineering approach, manufacturing precision, and a focus on safety and stable performance. Fidar Sazeh Bandar offers specialized material handling solutions tailored to the needs of various industries.',
+    descFa: 'طراحی و ساخت انواع جرثقیل‌های صنعتی دروازه ای و سقفی با رویکرد مهندسی، دقت ساخت و تمرکز بر ایمنی و عملکرد پایدار. فیدارسازه بندار راهکارهای تخصصی جابه جایی مواد را متناسب با نیاز صنایع مختلف ارائه می دهد.', 
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
@@ -740,8 +724,8 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     slugFa: 'تجهیزات-تخلیه-و-بارگیری-مواد-فله',
     nameEn: 'Bulk Material Loading and Unloading Equipment',
     nameFa: 'تجهیزات تخلیه و بارگیری مواد فله',
-            shortNameFa: 'فن و گیربکس',
-       shortNameEn: 'تجهیزات بندری',
+    shortNameFa: 'فن و گیربکس',
+    shortNameEn: 'تجهیزات بندری',
     color: '',
     slides: [],
 
@@ -780,7 +764,7 @@ export const SERVICES: MaterialData[] = [
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-1.webp',
+    imgUrl: '/assets/images/خدمات پشتیبانی 24 ساعته.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 
@@ -801,12 +785,26 @@ export const SERVICES: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/icona_metal.png',
-      }
+        imgUrl: '/assets/images/services/STS/Hing Area.png',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/STS/Hinge.PNG',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/STS/Picture9.PNG',
+      },
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-2.webp',
+    imgUrl: '/assets/images/Picture7.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 
@@ -827,12 +825,12 @@ export const SERVICES: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/icona_metal.png',
+        imgUrl: '/assets/images/Picture2.webp',
       }
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/services/4294-3.webp',
+    imgUrl: '/assets/images/Picture2.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   }
 ];
@@ -849,49 +847,64 @@ export const SERVICES_DETAILS: MaterialData[] = [
       'Specialized repair, maintenance, and support services for port equipment, aimed at maximizing availability and ensuring uninterrupted operational continuity. Leveraging a specialized technical team and hands-on experience in port and marine equipment, these services cover everything from troubleshooting and specialized repairs to preventive maintenance, emergency breakdown response, and technical support. Fast and continuous 24/7 support, immediate response to emergency conditions, and a focus on reducing equipment downtime are among our key commitments in delivering these services.',
     descFa:
       'تعمیرات، نگهداری و پشتیبانی تخصصی تجهیزات بندری، با هدف حفظ حداکثری آماده‌به‌کاری و تداوم بدون وقفه عملیات. این خدمات با بهره‌گیری از تیم فنی متخصص و تجربه عملی در حوزه تجهیزات بندری و دریایی، از عیب‌یابی و تعمیرات تخصصی تا نگهداری پیشگیرانه، رفع اضطراری خرابی‌ها و تأمین پشتیبانی فنی را پوشش می‌دهد. پشتیبانی سریع و مستمر، پاسخ‌گویی فوری ۲۴/۷ به شرایط اضطراری و تمرکز بر کاهش زمان توقف تجهیزات، از مهم‌ترین تعهدات ما در ارائه خدمات است.',
-      slides: [
-        {
-          nameEn: '',
-          nameFa: '',
-          descEn: '',
-          descFa: '',
-          imgUrl: '/assets/images/services/4294-2.webp',
-        },
-        {
-          nameEn: '',
-          nameFa: '',
-          descEn: '',
-          descFa: '',
-          imgUrl: '/assets/images/services/4294-3.webp',
-        },
-        {
-          nameEn: '',
-          nameFa: '',
-          descEn: '',
-          descFa: '',
-          imgUrl: '/assets/images/services/4294-4.webp',
-        },
-        {
-          nameEn: '',
-          nameFa: '',
-          descEn: '',
-          descFa: '',
-          imgUrl: '/assets/images/services/4294-5.webp',
-        },
-        {
-          nameEn: '',
-          nameFa: '',
-          descEn: '',
-          descFa: '',
-          imgUrl: '/assets/images/services/4294-1.webp',
-        },
-        {
-          nameEn: '',
-          nameFa: '',
-          descEn: '',
-          descFa: '',
-          imgUrl: '/assets/images/services/4294-4.webp',
-        },
+    slides: [
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/به روزرسانی تجهیزات بندری.png',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/پروژه جرثقیل RTG.png',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/پروژه جرثقیل1 RTG.jpeg',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/قطعات RTG/Picture4.webp',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/قطعات RTG/Picture5.webp',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/قطعات RTG/Picture7.webp',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/قطعات RTG/Picture8.webp',
+      },
+      
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/قطعات RTG/2.webp',
+      },
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
@@ -916,8 +929,22 @@ export const SERVICES_DETAILS: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/services/4294-0.webp',
-      }
+        imgUrl: '/assets/images/services/STS/Hing Area.png',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/STS/Hinge.PNG',
+      },
+      {
+        nameEn: '',
+        nameFa: '',
+        descEn: '',
+        descFa: '',
+        imgUrl: '/assets/images/services/STS/Picture9.PNG',
+      },
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
@@ -942,7 +969,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/services/4294-4.webp',
+        imgUrl: '/assets/images/picture3.webp',
       }
     ],
     btnEn: 'Read More',

@@ -12,6 +12,14 @@
   font-family: 'vazirmatn';
   src: url('/assets/fonts/Estedad-Medium.woff2') format('woff2');
   font-weight: 600;
+  font-style: medium;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'vazirmatn';
+  src: url('/assets/fonts/Estedad-Bold.woff2') format('woff2');
+  font-weight: 900;
   font-style: bold;
   font-display: swap;
 }

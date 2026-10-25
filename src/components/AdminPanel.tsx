@@ -72,7 +72,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       setErrorMsg('');
       fetchMessages();
     } else {
-      setErrorMsg(isFa ? 'رمز عبور اشتباه است (رمز پیش‌فرض: biesss2026)' : 'Incorrect password (default: biesss2026)');
+      setErrorMsg(isFa ? 'رمز عبور اشتباه است ' : 'Incorrect password ');
     }
   };
 
@@ -404,14 +404,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             <form onSubmit={handleLogin} className="space-y-4 text-left dir-ltr">
               <div>
                 <label className="block text-xs font-medium text-slate-500 mb-1">
-                  {isFa ? 'رمز عبور (پیش‌فرض: biesss2026)' : 'Passcode (Default: biesss2026)'}
+                  {isFa ? 'رمز عبور ' : 'Passcode '}
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white"
-                  placeholder="biesss2026"
+                  placeholder="رمز ورود مدیر"
                 />
               </div>
 

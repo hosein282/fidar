@@ -33,7 +33,7 @@ const ProductPageComponent: React.FC<ProductsPageProps> = ({
     const isFa = currentLang === 'fa';
 
 
-    const [activeIndex, setActiveIndex] = useState(0); // پیش‌فرض: کارت دوم (Storing)
+    const [activeIndex, setActiveIndex] = useState(1); // پیش‌فرض: کارت دوم (Storing)
     const [isDesktop, setIsDesktop] = useState(false);
     const touchStartX = useRef<number | null>(null);
 
