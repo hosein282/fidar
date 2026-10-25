@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BlogPost } from '@/src/types';
 import { getPostsByType, addPost } from '../lib/store';
 import { sanitizeBlogPost } from '@/src/utils/sanitize';
+import { revalidatePath } from 'next/cache';
 
 export async function GET() {
   try {
@@ -21,6 +22,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const post = sanitizeBlogPost({ ...body, postType: 'article' } as Partial<BlogPost>);
     const posts = await addPost(post);
+    
+    
     return NextResponse.json({ success: true, posts });
   } catch (error) {
     const err = error as Error;

@@ -3,15 +3,14 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Language, BlogPost, SEOMetaConfig } from '../types';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import { sanitizeBlogPost } from '../utils/sanitize';
+import { Language, BlogPost, SEOMetaConfig } from '../../types';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
+import { sanitizeBlogPost } from '../../utils/sanitize';
 import { format as fr } from 'date-fns';
 
 // Lazy-load heavy admin/exporter components — they only load when the modal opens
-const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
-const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
+const AdminPanel = lazy(() => import('../AdminPanel').then(m => ({ default: m.AdminPanel })));
 
 import {
   Search, Calendar, Clock, Eye, Code2, ArrowLeft, ArrowRight,
@@ -108,14 +107,13 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-surface  text-slate-900 font-sans selection:bg-primary selection:text-white flex flex-col justify-between">
       <div>
         {/* Main Header */}
         <Header
           lang={currentLang}
           onLanguageChange={handleLanguageSwitch}
           onOpenAdmin={handleOpenAdmin}
-          onOpenExporter={handleOpenExporter}
           seoConfig={seoConfig}
         />
 
@@ -194,7 +192,7 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     height={800}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
 
@@ -304,9 +302,9 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
                     {isFa ? 'اخبار، دستاوردها و مقالات تخصصی فیدار بندار' : 'Fidar Bondar News, Events & Technical Insights'}
                   </h1>
 
-                  <p className="text-teal-100/90 text-sm sm:text-lg max-w-3xl font-light leading-relaxed">
+                  <p className={`text-teal-100/90 text-sm sm:text-lg max-w-3xl font-light leading-relaxed ${isFa? "text-right" : "text-left"}`}>
                     {isFa ? (
-                      'آخرین رویدادهای صنعتی، داستان موفقیت مشتریان، تکنولوژی‌های پیشرفته ماشین‌آلات و راهنماهای جامع سئو و برنامه‌نویسی.'
+                      'آخرین رویدادهای شرکت، اخبار و مقالات فیدار سازه بندار .'
                     ) : (
                       'Explore the latest industrial events, customer success stories, advanced machinery tech, and technical engineering guides.'
                     )}
@@ -509,7 +507,6 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
       {/* Footer */}
       <Footer
         lang={currentLang}
-        onOpenExporter={handleOpenExporter}
         onOpenAdmin={handleOpenAdmin}
       />
 
@@ -537,7 +534,6 @@ const BlogPageComponent: React.FC<BlogPageProps> = ({
               </Suspense>
             ) : (
               <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Exporter...</div>}>
-                <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
               </Suspense>
             )}
           </div>

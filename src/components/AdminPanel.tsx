@@ -67,7 +67,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'biesss2026' || password === 'admin') {
+    if (password === 'biesss2026' || password === 'At9127995883') {
       setIsLoggedIn(true);
       setErrorMsg('');
       fetchMessages();
@@ -138,8 +138,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       excerpt: { fa: '', en: '' },
       content: { fa: '', en: '' },
       author: {
-        fa: type === 'news' ? 'روابط عمومی فیدار بندار' : 'تیم فنی فیدار بندار',
-        en: type === 'news' ? 'Fidar Bondar Press Team' : 'Biesss Engineering'
+        fa: type === 'news' ? 'روابط عمومی فیدار سازه بندار' : 'تیم فنی فیدار سازه بندار',
+        en: type === 'news' ? 'Fidar Saze Bondar Press Team' : 'Fidar Saze Bondar Engineering'
       },
       date: new Date().toISOString().split('T')[0],
       readTime: type === 'news' ? '3 min' : '5 min',
@@ -152,7 +152,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         : 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
       seoTitle: { fa: '', en: '' },
       seoDescription: { fa: '', en: '' },
-      seoKeywords: { fa: ['PHP', 'MySQL', 'سئو'], en: ['PHP', 'MySQL', 'SEO'] },
+      seoKeywords: { fa: ['جرثقیل', 'فیدار سازه بندار', 'سازه بنادر'], en: ['fidar saze bondar', 'material handling systems', ' heavy port machinery','vessel repair and equipment retrofit'] },
       views: 0
     });
     setArticleSuccessMsg('');
@@ -388,7 +388,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
             <div>
               <h3 className="text-2xl font-bold text-slate-900">
-                {isFa ? 'ورود به پنل مدیریت دیتابیس PHP' : 'CMS Administration Login'}
+                {isFa ? 'ورود به پنل مدیریت دیتابیس ' : 'CMS Administration Login'}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
                 {isFa ? 'جهت مدیریت اخبار، مقالات دیتابیس، پیام‌ها و تنظیمات سئوی گوگل' : 'Access database news, articles, inquiries & SEO configurations.'}
@@ -477,7 +477,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   }`}
               >
                 <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>{isFa ? 'دستیار سئوی Gemini AI' : 'Gemini AI Assistant'}</span>
+                <span>{isFa ? 'دستیار سئوی AI' : 'AI Assistant'}</span>
               </button>
             </div>
 

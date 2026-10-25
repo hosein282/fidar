@@ -3,13 +3,16 @@ import { url } from 'node:inspector';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  typedRoutes: true,
+  typedRoutes: false,
   images: {
-    domains: ['images.ctfassets.net'],
+    remotePatterns: [{ protocol: "https", hostname: "images.ctfassets.net", }, {
+      protocol: "https", hostname: 'images.unsplash.com'
+    },],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+
   // Tree-shake heavy icon libraries for smaller bundles
   experimental: {
     optimizePackageImports: ['lucide-react', 'date-fns', 'date-fns-jalali'],

@@ -8,7 +8,7 @@ interface ContactSectionProps {
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
   const isFa = lang === 'fa';
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -57,7 +57,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
   return (
     <section id="contact" className="py-20 bg-white text-slate-900 border-b border-slate-100 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-primary text-xs font-bold uppercase tracking-widest block mb-3">
@@ -67,17 +67,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
             {isFa ? 'با مشاوران و متخصصان ما در ارتباط باشید' : 'Request Consultation & Technical Audit'}
           </h2>
           <p className="text-slate-500 text-base sm:text-lg">
-            {isFa 
-              ? 'برای ما پیام بگذارید تا مشاوران ما در اطرع وقت با شما تماس بگیرند'
+            {isFa
+              ? 'برای ما پیام بگذارید تا مشاوران ما در اسرع وقت با شما تماس بگیرند'
               : 'Our engineering specialists are ready to analyze your web requirements and deliver customized solutions.'}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
+
           {/* Contact Details (Left/Right) */}
           <div className="lg:col-span-5 space-y-6">
-            
+
             <div className="p-6 sm:p-8 rounded-xl bg-white border border-slate-200 shadow-sm space-y-6">
               <h3 className="text-xl font-bold text-slate-900 mb-2">
                 {isFa ? 'اطلاعات تماس گروه فیدار سازه بندار:' : 'Biesss Digital Contact Details:'}
@@ -90,7 +90,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'ایمیل پشتیبانی:' : 'Support Email:'}</span>
-                    <a href="mailto:info@fidarbondar.com" className="text-sm font-semibold text-primary text-black font-mono">
+                    <a href="mailto:info@fidarbondar.com" className="text-sm font-semibold text-primary text-black font-mono" aria-label='Send Email to Fidar Saze Bondar Information Team'>
                       info@fidarbondar.com
                     </a>
                   </div>
@@ -102,8 +102,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'تلفن مشاوره مستقیم:' : 'Direct Phone Line:'}</span>
-                    <a href="tel:02166129310" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono">
-                      02166129310
+                    <a href="tel:02166129310" className="text-sm font-semibold text-slate-900 hover:text-blue-800 font-mono "
+                    aria-label='Call Fidar Saze Bondar Phone'
+                    >
+                     {isFa? <p className='tracking-widest'>021-66129310</p> : " +98-21-66129310"}
                     </a>
                   </div>
                 </div>
@@ -114,7 +116,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </div>
                   <div>
                     <span className="text-xs text-slate-500 block">{isFa ? 'دفتر مرکزی:' : 'HQ Address:'}</span>
-                    <span className="text-sm font-semibold text-slate-900">
+                    <span className={`text-sm font-semibold text-slate-900 ${isFa? "" : "font-sans"}`}>
                       {isFa ? 'تهران، خیابان اسکندری، پلاک 432 ساختمان پردیس' : 'No. 432, Pardis Building, Eskandari Street, Tehran, Iran'}
                     </span>
                   </div>
@@ -123,28 +125,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
 
             </div>
 
-            <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
+            {/* <div className="p-6 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
               <span className="font-bold text-primary block">{isFa ? 'تضمین کیفیت کدهای PHP:' : 'Quality & Security Guarantee:'}</span>
               <p>
                 {isFa ? 'تمامی سورس‌کدهای PHP ارائه شده دارای مستندات کامل، کئوری‌های ایمن PDO و سازگاری ۱۰۰٪ با موتورهای جستجوی گوگل هستند.' : 'All generated PHP scripts include full documentation, PDO parameterization, and search engine compliance.'}
               </p>
-            </div>
+            </div> */}
 
           </div>
 
           {/* Form (Right/Left) */}
           <div className="lg:col-span-7">
             <form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-xl bg-white border border-slate-200 shadow-sm space-y-5">
-              
+
               <h3 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <span>{isFa ? 'فرم ارسال پیام مستند:' : 'Send Your Direct Message:'}</span>
               </h3>
 
               {status && (
-                <div className={`p-4 rounded-xl text-xs sm:text-sm flex items-start gap-2 ${
-                  status.success ? 'bg-blue-50 text-blue-900 border border-blue-200' : 'bg-red-50 text-red-900 border border-red-200'
-                }`}>
+                <div className={`p-4 rounded-xl text-xs sm:text-sm flex items-start gap-2 ${status.success ? 'bg-blue-50 text-blue-900 border border-blue-200' : 'bg-red-50 text-red-900 border border-red-200'
+                  }`}>
                   {status.success ? <CheckCircle2 className="w-5 h-5 shrink-0 text-blue-600" /> : <AlertCircle className="w-5 h-5 shrink-0 text-red-600" />}
                   <span>{status.message}</span>
                 </div>
@@ -189,8 +190,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white"
-                    placeholder="0912..."
+                    className={`w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white ${isFa ? "" : "font-sans"}`}
+                    placeholder={`${isFa ? "09..." : "+1..."}`}
                   />
                 </div>
 
@@ -200,13 +201,16 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   </label>
                   <select
                     value={formData.service}
+                    aria-label='contacts options'
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white"
                   >
-                    <option value="tous-web-php">{isFa ? 'توسعه وب‌سایت PHP و دیتابیس MySQL' : 'PHP & MySQL Custom Web Dev'}</option>
-                    <option value="seo-audit">{isFa ? 'سئوی پیشرفته و آنالیز گوگل' : 'Technical SEO Audit & Growth'}</option>
+                    <option 
+                  aria-label={`${isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}`}
+                    value="tous-web-php">{isFa ? 'درخواست مشاوره و ارتباط با کارشناسان' : 'Consultation Request & Expert Contact'}</option>
+                    {/* <option value="seo-audit">{isFa ? 'سئوی پیشرفته و آنالیز گوگل' : 'Technical SEO Audit & Growth'}</option>
                     <option value="bilingual-system">{isFa ? 'سیستم دو زبانه (فارسی / انگلیسی)' : 'Bilingual RTL/LTR Architecture'}</option>
-                    <option value="custom-cms">{isFa ? 'پنل مدیریت اختصاصی CMS' : 'Custom Admin CMS'}</option>
+                    <option value="custom-cms">{isFa ? 'پنل مدیریت اختصاصی CMS' : 'Custom Admin CMS'}</option> */}
                   </select>
                 </div>
               </div>
@@ -221,13 +225,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang }) => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white"
-                  placeholder={isFa ? 'شرح خلاصه‌ای از پروژه و زمان تحویل مد نظر...' : 'Describe your project scope...'}
+                  placeholder={isFa ? 'متن پیام شما...' : 'Describe your project scope...'}
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={submitting}
+                aria-label={`${isFa ? "ارسال فرم مشاوره" : "Submit Support Form"}`}
                 className="w-full py-3.5 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-sm disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />

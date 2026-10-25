@@ -14,6 +14,9 @@ const ALLOWED_MIME: Record<string, string> = {
 
 export const runtime = 'nodejs';
 
+// Max accepted upload size (matches the admin hint): 2 MB
+const MAX_SIZE = 2 * 1024 * 1024;
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -33,6 +36,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (file.size > MAX_SIZE) {
+      return NextResponse.json(
+        { success: false, error: 'Image is larger than 2 MB.' },
+        { status: 413 }
+      );
+    }
+
     const ext = ALLOWED_MIME[file.type];
     // Never trust the client filename; generate a safe unique name.
     const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
@@ -42,9 +52,12 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(path.join(uploadDir, filename), buffer);
 
+    // Return the dynamic API url (not /uploads/...) so the file is served
+    // immediately in production — static /public files are only picked up
+    // once the server restarts.
     return NextResponse.json({
       success: true,
-      url: `/uploads/${filename}`,
+      url: `/api/uploads/${filename}`,
       name: filename,
     });
   } catch (error) {

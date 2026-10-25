@@ -1,157 +1,249 @@
-import React, { useState } from 'react';
-import { Language } from '../types';
-import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2 } from 'lucide-react';
-
+import React, { useEffect, useState } from 'react';
+import { Language, MaterialData } from '../types';
+import { ChevronDown, ArrowDown, Play, Sparkles, CheckCircle2, MoveRight, MoveLeft } from 'lucide-react';
+import Image from "next/image"
+import { MATERIALS } from '../data/mockData';
+import Link from 'next/link';
 interface HeroProps {
   lang: Language;
-  onOpenExporter: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ lang, onOpenExporter }) => {
-  const isFa = lang === 'fa';
-  const [activeMaterial, setActiveMaterial] = useState<'wood' | 'glass' | 'stone' | 'materia' | 'metal'>('wood');
+// Fixed rotation order + typing so the auto-carousel can advance predictably.
+// const MATERIAL_IDS = ['wood', 'glass', 'stone', 'materia'] as const;
+// type MaterialId = typeof MATERIAL_IDS[number];
 
-  const materials = [
-    { id: 'wood', title: { fa: 'چوب (Wood)', en: 'Wood' }, color: 'var(--color-wood)', sub: 'PHP 8 Engine & Core Logic' },
-    { id: 'glass', title: { fa: 'شیشه (Glass)', en: 'Glass' }, color: 'var(--color-glass)', sub: 'MySQL PDO Database' },
-    { id: 'stone', title: { fa: 'سنگ (Stone)', en: 'Stone' }, color: 'var(--color-stone)', sub: 'Google SEO & Hreflang' },
-    { id: 'materia', title: { fa: 'متریال (Materia)', en: 'Materia' }, color: 'var(--color-materia)', sub: 'CMS Control Panel' },
-    { id: 'metal', title: { fa: 'فلز (Metal)', en: 'Metal' }, color: 'var(--color-metal)', sub: 'High Security & Anti-SQLi' },
-  ];
+export const Hero: React.FC<HeroProps> = ({ lang }) => {
+  const slideDuration = 3800;
+  const fadeDuration = 700;
+  const isFa = lang === 'fa';
+  const [activeMaterial, setActiveMaterial] = useState<number>(0);
+  const [loadedMaterialIds, setLoadedMaterialIds] = useState<Set<number>>(new Set());
+
+  const productHref = (item: MaterialData) =>
+    `/${lang}/products/${isFa ? item.slugFa : item.slugEn}`;
+  const productLabel = (item: MaterialData) => (isFa ? item.nameFa : item.nameEn);
+
+  // Every image is created only once and requested immediately. The browser
+  // cache handles reuse; switching slides changes opacity only.
+  useEffect(() => {
+    const nextMaterialId = (activeMaterial + 1) % MATERIALS.length;
+    if (!loadedMaterialIds.has(nextMaterialId)) return;
+
+    const timer = window.setTimeout(() => {
+      setActiveMaterial(nextMaterialId);
+    }, slideDuration);
+
+    return () => window.clearTimeout(timer);
+  }, [activeMaterial, loadedMaterialIds, slideDuration]);
+
+
+  const active = MATERIALS.find(m => m.id === activeMaterial);
 
   return (
-    <section className="relative w-full  min-h-[90vh] lg:min-h-vh bg-surface text-white overflow-hidden flex flex-col justify-between">
-      
+
+    <section className="relative w-full  min-h-[110vh] lg:min-h-[90vh] lg:min-h-vh bg-primary-dark  text-white overflow-hidden flex flex-col justify-between ">
+
       {/* Hero Background Video & Media Container */}
-      <div className="absolute inset-0 z-0 flex flex-col lg:flex-row">
-        
+      <div className="absolute inset-0 z-0 flex flex-col lg:flex-row  ">
+
         {/* Left Side Video / Hero Visual */}
-        <div className="relative h-1/2 lg:h-full w-full lg:w-[60%] overflow-hidden bg-black">
+        <div className="relative  h-full lg:h-full w-full lg:w-[60%] overflow-hidden bg-black ">
+          <div key={active?.nameFa} className={`hidden lg:flex   absolute top-8 ${isFa ? "slidex left-8" : "slidex-ltr right-8"}  lg:top-[50%] z-100`}>
+            {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
+
+            <h1 className=" text-4xl font-black sm:text-4xl lg:text-4xl drop-shadow-2xl  z-110 tracking-tight leading-tight text-white">
+              {isFa ?
+                active?.nameFa
+                :
+                active?.nameEn
+              }
+            </h1>
+            {/* </Link> */}
+            <div className={`z-10 mt-2 mr-8 ${isFa ? "mr-8" : "ml-8"}`}> {isFa ? <MoveLeft size={32} /> : <MoveRight size={32} />}</div>
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
+          <h1 className={`lg:hidden absolute  bottom-8 ${isFa ? "right-8" : "left-8"} text-3xl sm:text-4xl lg:text-4xl font-medium z-10 tracking-tight leading-tight text-white drop-shadow-2xl`}>
+            {isFa ? (
+              <>
+                تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
+              </>
+            ) : (
+              <>
+                Advanced Technology, Engineering Precision <br /><span className="">Future-Oriented Design</span>
+              </>
+            )}
+          </h1>
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover object-center opacity-80"
-            src="https://videos.ctfassets.net/bdj0rlksezwc/CCGyT8oUYqXWT6BpX3lIv/c963fce731aaa0cf086eee849f9b0e6f/Clip_-1.mp4"
+            className="w-full h-full object-cover object-center opacity-90"
+            poster='/assets/videos/hero_placeholder.webp'
+            src="/assets/videos/CNC_V1.mp4"
           />
+
         </div>
 
         {/* Right Side Material Model Image */}
-        <div className="relative h-1/2 lg:h-full w-full lg:w-[40%] bg-slate-900 overflow-hidden flex items-center justify-center">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10" />
-          <img
-            src={
-              activeMaterial === 'wood'
-                ? "/assets/images/WOOD-singolo-2.png?w=613&h=906&q=50&fm=png"
-                : activeMaterial === 'glass'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/1Zf5PLBjCtV8N3qa37DSXW/823afea9546810ed75f7aeaf71abced3/test-GLASS-icon-2.png?w=755&h=1114&q=50&fm=png"
-                : activeMaterial === 'stone'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/5cReCtVRkYfgs8oEjG07DX/dcf3d34fffd150803f95d51a5d1c9d33/STONE_singolo-2.png?w=2370&h=3500&q=50&fm=png"
-                : activeMaterial === 'materia'
-                ? "https://images.ctfassets.net/bdj0rlksezwc/6pjxB7QmujUujmiFNbmR7H/8f6522b3bd6acfd961940efc1f559891/MATERIA-singolo-2.png?w=2370&h=3500&q=50&fm=png"
-                : "https://images.ctfassets.net/bdj0rlksezwc/4XcQgGguNlL4P9DamLvITc/6985bffeadc3e564669328ce2965d3a3/icona_metal.png?w=2370&h=3500&q=50&fm=png"
-            }
-            alt="Fidar Bondar Machine Model"
-            width={613}
-            height={906}
-            loading="eager"
-            decoding="async"
-            className="max-h-[80%] max-w-[80%] object-contain relative z-10 transition-all duration-700 ease-out transform hover:scale-105"
-          />
+
+        <div className="relative h-4/10 min-h-4/10 lg:h-full rounded-b-4xl lg:rounded-b-none  w-full lg:w-[45%]  bg-slate-900 overflow-hidden flex items-center justify-start ">
+
+          <div
+            key={active?.nameFa}
+            className={`lg:hidden absolute top-4 ${isFa ? "mr-8 pl-4" : "ml-4 pr-2"
+              } lg:top-[50%] z-100`}
+          >
+            {/* <Link href={`/${lang}/products/${isFa?active?.slugFa : active?.slugEn}`} aria-label='Show Product Details'> */}
+            <h1 className="w-fit text-2xl font-black  [text-shadow:0_2px_8px_rgba(0,0,0,0.8)] lg:text-4xl  leading-loose text-white">
+              {isFa ? active?.nameFa : active?.nameEn}
+              {isFa ? <MoveLeft
+                size={28}
+                className="inline-block align-middle ms-3"
+              /> : <MoveRight
+                size={28}
+                className="inline-block align-middle ms-3"
+              />}
+            </h1>
+            {/* </Link> */}
+          </div>
+        
+
+            <div className="relative inset-0 h-full w-full bg-linear-to-b from-black/60 via-transparent to-black/80 z-10">
+
+              {MATERIALS.map((material) => {
+                const isActive = material.id === activeMaterial;
+                return (
+                  <Image
+                    key={material.id}
+                    src={material.imgUrl}
+                    alt={isActive ? `Fidar Saze Bondar ${isFa ? material.nameFa : material.nameEn}` : ''}
+                    aria-hidden={!isActive}
+                    width={1200}
+                    height={1400}
+                    priority
+                    fetchPriority="high"
+                    unoptimized
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    onLoad={() => setLoadedMaterialIds((loaded) => {
+                      if (loaded.has(material.id)) return loaded;
+                      const nextLoaded = new Set(loaded);
+                      nextLoaded.add(material.id);
+                      return nextLoaded;
+                    })}
+                    className={`absolute inset-0 size-full object-cover transition-opacity ease-out ${isActive ? 'z-10 opacity-100 slow-zoom' : 'z-0 opacity-0'}`}
+                    style={{
+                      '--slide-duration': `${slideDuration + fadeDuration}ms`,
+                      transitionDuration: `${fadeDuration}ms`,
+                    } as React.CSSProperties}
+                  />
+                );
+              })}
+            </div>
+
+         
         </div>
+
+        <ul className={`absolute flex justify-center items-center gap-3 bottom-16 lg:bottom-16 ${isFa ? "left-8" : "right-8"}`}>
+          {MATERIALS.map(((m) => (
+            <li key={m.id} className={`h-2 w-2 border-amber-50 border  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
+          )))}
+        </ul>
+
 
       </div>
 
       {/* Floating Hero Overlay Headline */}
-      <div className="relative z-20 max-w-[1440px] mx-auto px-6 sm:px-12 pt-20 lg:pt-32 pb-12 w-full flex-1 flex flex-col justify-between">
-        
+      <div className="hidden relative z-20 max-w-[1440px] mx-auto px-6 sm:px-12 pt-20 lg:pt-32 pb-12 w-full flex-1 lg:flex flex-col justify-between">
+
         {/* Overlapping Typography */}
         <div className="space-y-6 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/80 border border-teal-300/30 text-white text-xs font-mono">
+          {/* <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/80 border border-teal-300/30 text-white text-xs font-mono">
             <Sparkles className="w-3.5 h-3.5 text-teal-300" />
             <span>{isFa ? 'صنعت دیجیتال و توسعه وب‌سایت دوزبانه' : 'Industrial Digital Solutions & Dual Web Systems'}</span>
-          </div>
+          </div> */}
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-white drop-shadow-md">
+          <h1 className="hidden lg:block text-3xl sm:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-white drop-shadow-md">
             {isFa ? (
               <>
-                خطوط تولید، دستگاه‌ها و کامپوننت‌ها برای پردازش <span className="underline decoration-primary font-bold">صنعتی و دیجیتال</span>
+                تکنولوژی پیشرفته، دقت مهندسی، طراحی آینده گرا
+
+                {/* خطوط تولید و دستگاه‌ها برای پردازش <span className="underline decoration-primary font-bold">صنعتی و دیجیتال</span> */}
               </>
             ) : (
               <>
-                Lines, machines and components for machining <span className="underline decoration-primary font-bold">digital systems</span>
+                Advanced Technology, Engineering Precision<br /><span className="decoration-primary font-bold">Future-Oriented Design</span>
+
+
               </>
             )}
           </h1>
 
-          <p className="text-slate-200 text-lg sm:text-2xl font-light max-w-2xl leading-relaxed">
+          {/* <p className="hidden lg:flex text-slate-200 text-lg sm:text-2xl font-light max-w-2xl leading-relaxed">
             {isFa ? (
-              'ارائه معمار‌ی‌های پیشرفته PHP 8، اتصال مستقیم به دیتابیس MySQL PDO، پشتیبانی کامل از زبان‌های فارسی و انگلیسی و سئوی برتر گوگل.'
+              "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم"
             ) : (
               'Empowering wood, glass, stone, and software materials into high-performance enterprise applications.'
             )}
-          </p>
+          </p> */}
 
-          <div className="pt-4 flex flex-wrap gap-4">
+          {/* <div className="hidden lg:flex pt-4 flex flex-wrap gap-4">
             <button
               onClick={onOpenExporter}
               className="px-8 py-3.5 rounded-lg bg-primary hover:bg-black text-white font-bold text-sm transition shadow-lg flex items-center gap-2 hover:rounded-[30px]"
             >
               <span>{isFa ? 'دریافت کدهای PHP و MySQL' : 'Export PHP & MySQL Source'}</span>
             </button>
-            
+
             <a
               href="#materials"
               className="px-8 py-3.5 rounded-lg bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white hover:text-black text-white font-bold text-sm transition"
             >
               <span>{isFa ? 'بررسی متریال‌ها و خدمات' : 'Discover Materials'}</span>
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom Carousel / Material Tab Selectors & Scroll Bounce */}
-        <div className="pt-12 flex flex-col sm:flex-row items-center justify-between gap-6">
-          
+        <div className="hidden lg:flex pt-12  flex-col sm:flex-row items-center justify-between gap-6 px-4">
+
           {/* Material Interactive Pills */}
-          <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto max-w-full pb-2 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {materials.map((mat) => {
+          <div className="hidden lg:flex  items-center gap-2 sm:gap-4 overflow-x-visible max-w-full pb-2 no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {MATERIALS.map((mat) => {
               const isActive = activeMaterial === mat.id;
               return (
                 <button
                   key={mat.id}
-                  onClick={() => setActiveMaterial(mat.id as any)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${
-                    isActive
-                      ? 'bg-white text-black shadow-lg scale-105'
-                      : 'bg-black/50 text-white hover:bg-black/80 border border-white/20'
-                  }`}
+                  onClick={() => {
+                    if (loadedMaterialIds.has(mat.id)) setActiveMaterial(mat.id);
+                  }}
+                  aria-label={`${isFa ? mat.nameFa : mat.nameEn}`}
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-2 ${isActive
+                    ? 'bg-white text-black shadow-lg scale-105'
+                    : 'bg-black/50 text-white hover:bg-black/80 border border-white/20'
+                    }`}
                 >
                   <span
                     className="w-2.5 h-2.5 rounded-full"
                     style={{ backgroundColor: mat.color }}
                   />
-                  <span>{isFa ? mat.title.fa : mat.title.en}</span>
+                  <span>{isFa ? mat.nameFa : mat.nameEn}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Bounce Scroll Down Indicator */}
 
-          <a
-            href="#about"
-            className="flex items-center gap-2 text-white/80 hover:text-white text-xs font-bold transition animate-bounce"
-          >
-            {/* <span>{isFa ? 'اسکرول به پایین' : 'Scroll down'}</span> */}
-            <ArrowDown className="w-5 h-5 text-primary" />
-          </a>
+
 
         </div>
 
-      </div>
 
+      </div>
+      {/* Bounce Scroll Down Indicator */}
+
+
+      <ArrowDown className={`absolute ${isFa ? "right-4" : "left-4"} bottom-15 w-5 h-5 text-surface transition animate-bounce`} />
     </section>
   );
 };

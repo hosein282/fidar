@@ -89,7 +89,7 @@ VALUES (
   'Biesss Digital | Custom Bilingual PHP & MySQL Web Engineering & SEO',
   'توسعه سیستم‌های وب اختصاصی با PHP 8 و MySQL، معماری دوزبانه (فارسی/انگلیسی)، سئوی پیشرفته، سرعت فوق‌العاده و پنل مدیریت کامل.',
   'Enterprise bilingual PHP 8 & MySQL web development studio with organic search SEO optimization, dark tech styling & exportable code.',
-  'https://biesss.example.com',
+  'https://fidarbondar.com',
   'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
   '@BiesssDigital'
 );

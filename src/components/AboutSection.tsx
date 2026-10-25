@@ -19,6 +19,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
           backgroundImage:
             'url("/assets/images/scroll-bg.webp")',
           backgroundAttachment: 'fixed',
+          backgroundSize: '120% 100%',
           backgroundPositionX: '0'
         }}
       >
@@ -33,7 +34,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               1. Statement Block with Custom Teal SVG Backdrop
              ========================================================= */}
           <div
-            className={`relative w-[92%] mb-40 sm:w-[90%] 3xl:w-[80%] my-8 ${isFa ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
+            className={`relative w-[92%] mb-40 sm:w-[90%] 3xl:w-[80%] ${isFa ? 'mr-0 ml-auto' : 'ml-0 mr-auto'
               }`}
           >
             {/* Desktop SVG */}
@@ -70,13 +71,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
 
             {/* Statement Text overlay */}
             <div
-              className={`absolute top-0 left-0 z-10 flex h-full  sm:p-10 lg:p-16 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
+              className={`absolute top-0 left-0 z-10 flex h-full  sm:p-10 lg:p-12 3xl:pl-24 w-full items-center ${isFa ? 'text-right' : 'text-left'
                 }`}
             >
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light max-w-[85%] px-10 lg:w-[75%] leading-relaxed 2xl:leading-snug text-surface">
+              <h3 className="text-base  text-justify  sm:text-lg md:text-3xl lg:text-xl xl:text-5xl 2xl:text-4xl  lg:leading-18 font-light max-w-[90%] px-6 lg:w-[85%]  text-surface">
                 {isFa
-                  ? 'ما فرآیندهای تولید را ساده می‌کنیم تا پتانسیل هر متریال را ارتقا دهیم'
-                  : 'We simplify production processes to enhance the potential of each material'}
+                  ?
+                  "ما عملیات ترمینال های بندری را با استفاده از تکنولوژی پیشرفته و طراحی نسل جدید تجهیزات انتقال مواد بندگارهی بهینه می کنیم"
+
+                  : 'We optimize port terminal operations using advanced technology and next generation design of port material handling equipment.'}
               </h3>
             </div>
           </div>
@@ -90,7 +93,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 1142 557"
-              className={`hidden md:block absolute top-0 ${isFa ? 'left-0' : '-right-8'} w-dvw h-2vh text-surface transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
+              className={`hidden md:block absolute top-0 ${isFa ? 'left-0' : '-right-8'} w-dvw h- text-surface transition-transform duration-300 ${isFa ? 'scale-x-[-1]' : ''
                 }`}
             >
               <path
@@ -119,24 +122,27 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ lang }) => {
                 <div className={`flex-[1_0_auto]  ${isFa ? '-ml-px' : '-mr-px'}`} />
               </div>
 
-              <div className={`${isFa ? 'xl:ml-[8%] md:mr-8' : 'ml-[30%]'} lg:w-8/10 w-full md:w-[55%] xl:w-[60%] mr-24 mt-[15%] sm:mt-[15%] md:mt-[1%] xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none`}>
-                <h3 className="shrink-0 text-3xl sm:text-4xl xl:text-5xl font-extrabold text-primary-dark">
+              <div className={`${isFa ? 'xl:ml-[8%] md:mr-8' : 'ml-[20%]'} lg:w-8/10 w-full md:w-[55%] xl:w-[60%] mr-24 mt-[15%] sm:mt-[15%] md:mt-[1%] xl:mt-16 p-6 sm:p-10 lg:p-14 pt-0 md:pt-8  rounded-b-2xl md:rounded-none`}>
+                <h3 className="shrink-0 text-2xl sm:text-3xl xl:text-5xl  text-primary-dark">
                   {isFa ? 'درباره فیدار سازه بندار' : 'About Fidar Bondar'}
                 </h3>
 
-                <div className="mt-4 xl:mt-8 text-base text-sm sm:text-sm xl:text-2xl  font-light text-slate-800 leading-relaxed text-justify">
+                <div className={`mt-4 xl:mt-8 ${isFa ? "text-justify" : ""} text-base sm:text-sm lg:text-xl  font-light text-slate-800 leading-relaxed `}>
                   {isFa
-                    ? 'شرکت فیدار سازه بندار  با همت جمعی از مدیران و مهندسین با تجربه در زمینه تجهیزات و ماشین آلات بندری و انتقال مواد و با هدف ارتقاء سطح دانش تعمیرات و نگهداری تجهیزات در کشور و انجام صحیح آن و تکیه بر دانش بروز و تواناییهای بالای مدیران و متخصصان خود و تجارب ارزنده ایشان در زمینه ساخت، نصب، تعمیرات و نگهداری گام در  این عرصه نهاده است .'
-                    : 'We are an international company, manufacturing lines, machines and components for transforming materials into products'}
+                    ?
+                    'فیدارسازه بندار یک مجموعه دانش بنیان مهندسی و ساخت تخصصی در حوزه تجهیزات انتقال مواد و ماشین آلات سنگین بندرگاهی است که با تکیه بر دانش مهندسی، تجربه اجرایی و رویکردی مبتنی بر دقت، کیفیت و نوآوری فعالیت میکند.'
+
+                    : 'Fidar Sazeh Bandar is a knowledge based engineering and manufacturing group specializing in material handling equipment and heavy port machinery, operating with a foundation of engineering expertise, executive experience, and an approach centered on precision, quality, and innovation.'}
                 </div>
 
                 <div className="shrink-0 mt-8 xl:mt-12">
-                  <a href="#contact">
+                  <a href={`/${lang}/about`} aria-label='About Fidar Saze Bondar Corporation'>
                     <button
+                      aria-label={`${isFa? "درباره فیدار سازه بندار" : "About Fidar Saze Bondar"}`}
                       className="inline-flex items-center gap-3 rounded-lg transition-all whitespace-nowrap bg-primary-dark text-white hover:bg-black px-8 py-3.5 sm:px-10 sm:h-14 sm:text-lg font-medium hover:rounded-[30px] shadow-lg cursor-pointer"
                       type="button"
                     >
-                      <span>{isFa ? 'کشف فیدار بندار' : 'Discover Fidar Bondar'}</span>
+                      <span>{isFa ? 'درباره فیدار سازه بندار' : 'Discover Fidar Bondar'}</span>
                       <ArrowIcon className="w-5 h-5" />
                     </button>
                   </a>

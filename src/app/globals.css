@@ -1,24 +1,24 @@
 @import 'tailwindcss';
 
-@font-face {
+/* @font-face {
   font-family: 'IRANSansX';
   src: url('/assets/fonts/IRANSansXFaNum-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 @font-face {
   font-family: 'vazirmatn';
-  src: url('/assets/fonts/vazirmatn-arabic-wght-normal.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
+  src: url('/assets/fonts/Estedad-Medium.woff2') format('woff2');
+  font-weight: 600;
+  font-style: bold;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'vazirmatn-latin';
-  src: url('/assets/fonts/vazirmatn-latin-wght-normal.woff2') format('woff2');
+  src: url('/assets/fonts/Estedad-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -26,12 +26,13 @@
 
 @layer base {
   * {
-    font-family: 'Vazirmatn','IRANSansX', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Vazirmatn',  system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
 }
 
-.font-iransans, .font-vazir {
-  font-family:'Vazirmatn', 'IRANSansX',  sans-serif;
+.font-iransans,
+.font-vazir {
+  font-family: 'Vazirmatn',  sans-serif;
 }
 
 /* ========================================================
@@ -40,7 +41,7 @@
    ======================================================== */
 @theme {
   /* Brand Colors */
-  --color-primary: #006063;
+  --color-primary: #2a3470;
   --color-primary-dark: #005254;
   --color-primary-darker: #00383a;
   --color-surface: #e6e6e6;
@@ -88,11 +89,26 @@
   line-height: 1.3;
   color: inherit;
 }
-.article-content h1 { font-size: 2em; }
-.article-content h2 { font-size: 1.6em; }
-.article-content h3 { font-size: 1.3em; }
-.article-content h4 { font-size: 1.1em; }
-.article-content h5 { font-size: 1em; }
+
+.article-content h1 {
+  font-size: 2em;
+}
+
+.article-content h2 {
+  font-size: 1.6em;
+}
+
+.article-content h3 {
+  font-size: 1.3em;
+}
+
+.article-content h4 {
+  font-size: 1.1em;
+}
+
+.article-content h5 {
+  font-size: 1em;
+}
 
 .article-content p {
   margin: 0.9em 0;
@@ -103,6 +119,7 @@
   color: #005f86;
   text-decoration: underline;
 }
+
 .article-content a:hover {
   color: #003d5c;
 }
@@ -112,14 +129,23 @@
   margin: 0.8em 0;
   padding-left: 1.6em;
 }
-.article-content ul { list-style: disc; }
-.article-content ol { list-style: decimal; }
-.article-content li { margin: 0.25em 0; }
+
+.article-content ul {
+  list-style: disc;
+}
+
+.article-content ol {
+  list-style: decimal;
+}
+
+.article-content li {
+  margin: 0.25em 0;
+}
 
 .article-content blockquote {
   margin: 1em 0;
   padding: 0.8em 1.1em;
-  border-left: 4px solid #006063;
+  border-left: 4px solid #2a3470;
   background: rgba(0, 96, 99, 0.06);
   font-style: italic;
   color: #334155;
@@ -135,6 +161,7 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   font-size: 0.875em;
 }
+
 .article-content code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   background: rgba(15, 23, 42, 0.08);
@@ -142,6 +169,7 @@
   border-radius: 4px;
   font-size: 0.875em;
 }
+
 .article-content pre code {
   background: transparent;
   padding: 0;
@@ -160,12 +188,14 @@
   border-collapse: collapse;
   margin: 1em 0;
 }
+
 .article-content th,
 .article-content td {
   border: 1px solid #cbd5e1;
   padding: 0.5em 0.75em;
   text-align: start;
 }
+
 .article-content th {
   background: #f1f5f9;
   font-weight: 700;
@@ -177,9 +207,20 @@
   margin: 1.5em 0;
 }
 
-.article-content .alignleft { float: left; margin-right: 1em; }
-.article-content .alignright { float: right; margin-left: 1em; }
-.article-content .aligncenter { display: block; margin: 1em auto; }
+.article-content .alignleft {
+  float: left;
+  margin-right: 1em;
+}
+
+.article-content .alignright {
+  float: right;
+  margin-left: 1em;
+}
+
+.article-content .aligncenter {
+  display: block;
+  margin: 1em auto;
+}
 
 /* Placeholder shown in the empty HTML editor */
 .article-editor[contenteditable='true']:empty::before {
@@ -193,14 +234,89 @@
   overflow-x: auto;
   max-width: 100%;
 }
+
 .article-editor img,
 .article-content img {
   max-width: 100%;
   height: auto;
 }
+
 .article-editor table,
 .article-content table {
   max-width: 100%;
   table-layout: fixed;
   word-break: break-word;
+}
+
+/* ========================================================
+   Hero material auto-slideshow — slow zoom-in effect
+   Restarts when the active slide receives the `.slow-zoom` class.
+   ======================================================== */
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.slow-zoom {
+  transform-origin: center;
+  animation: slow-zoom var(--slide-duration, 3.8s) ease-out forwards;
+  will-change: transform;
+}
+
+/* ========================================================
+   Materials mobile/tablet tabs — content switch animation
+   ======================================================== */
+@keyframes material-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.material-in {
+  animation: material-in 0.55s ease-out both;
+}
+
+@keyframes slidex {
+  from {
+    transform: translate(100px, 0px);
+  }
+
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+.slidex {
+  transform-origin: center;
+  animation: slidex 0.5s ease-out forwards;
+  will-change: transform;
+}
+
+.slidex-ltr {
+  transform-origin: center;
+
+  animation: slidexltr 0.5s ease-out forwards;
+  will-change: transform;
+
+}
+
+@keyframes slidexltr {
+  from {
+    transform: translate(-100px, 0px);
+  }
+
+  to {
+    transform: translate(0px, 0px);
+  }
 }

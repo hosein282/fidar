@@ -75,7 +75,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ lang }) => {
             </div>
 
             {/* Branch List Scrollable */}
-            <div className="space-y-3 max-h-80 overflow-y-auto pr-2 light-scrollbar">
+            <div className="space-y-3 max-h-80 overflow-y-auto pr-2 scrollbar-none">
               {branches[activeRegion].map((b, idx) => (
                 <div
                   key={idx}

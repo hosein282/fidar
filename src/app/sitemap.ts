@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getPublishedPosts } from './api/lib/store';
+import { MATERIALS, SERVICES } from '@/src/data/mockData';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseRoutes: MetadataRoute.Sitemap = [
@@ -50,6 +51,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch {
     // If DB is unavailable, just return base routes
+  }
+
+  // Add static product pages for both locales (SSG/ISR routes)
+  for (const item of MATERIALS) {
+    baseRoutes.push({
+      url: `${siteUrl}/fa/products/${encodeURIComponent(item.slugFa)}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
+    baseRoutes.push({
+      url: `${siteUrl}/en/products/${encodeURIComponent(item.slugEn)}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
+  }
+
+   for (const item of SERVICES) {
+    baseRoutes.push({
+      url: `${siteUrl}/fa/services/${encodeURIComponent(item.slugFa)}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
+    baseRoutes.push({
+      url: `${siteUrl}/en/services/${encodeURIComponent(item.slugEn)}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    });
   }
 
   return baseRoutes;

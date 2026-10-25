@@ -1,8 +1,9 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { INITIAL_SEO_META } from '@/src/data/mockData';
 import { getCanonicalUrl } from '@/src/lib/seo';
+import { NavigationLoader } from '@/src/components/NavigationLoader';
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'}/assets/images/logo.png`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.webp`,
         width: 1200,
         height: 630,
         alt: 'Fidar Bondar Sazeh فیدار سازه بندار',
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: INITIAL_SEO_META.siteTitle.fa,
     description: INITIAL_SEO_META.metaDescription.fa,
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'}/assets/images/logo.png`],
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'}/assets/images/logo.webp`],
   },
   robots: {
     index: true,
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com'),
   category: 'industrial',
 };
 
@@ -59,18 +60,18 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#0f766e',
+  themeColor: '#2a3470',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://fidarbondar.com';
 
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'فیدار سازه بندار | Fidar Bondar Sazeh',
     url: siteUrl,
-    logo: `${siteUrl}/assets/images/logo.png`,
+    logo: `${siteUrl}/assets/images/logo.webp`,
     description: INITIAL_SEO_META.metaDescription.fa,
     address: {
       '@type': 'PostalAddress',
@@ -93,14 +94,34 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var isEnglish = window.location.pathname === '/en' || window.location.pathname.indexOf('/en/') === 0;
+                document.documentElement.lang = isEnglish ? 'en' : 'fa';
+                document.documentElement.dir = isEnglish ? 'ltr' : 'rtl';
+              })();
+            `,
+          }}
+        />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
+        <link rel="manifest" href="/site.webmanifest"></link>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={null}>
+          <NavigationLoader />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

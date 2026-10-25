@@ -2,21 +2,20 @@
 
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../types';
-import { Header } from '../components/Header';
-import { Hero } from '../components/Hero';
-import { AboutSection } from '../components/AboutSection';
-import { MaterialsShowcase } from '../components/MaterialsShowcase';
-import { BlogSection } from '../components/BlogSection';
-import { LocationsSection } from '../components/LocationsSection';
-import { SustainabilitySection } from '../components/SustainabilitySection';
-import { ContactSection } from '../components/ContactSection';
-import { Footer } from '../components/Footer';
-import OurConsumers from '../components/OurConsumers';
+import { Language, ServiceItem, PortfolioProject, BlogPost, SEOMetaConfig } from '../../types';
+import { Header } from '../Header';
+import { Hero } from '../Hero';
+import { AboutSection } from '../AboutSection';
+import { MaterialsShowcase } from '../MaterialsShowcase';
+import { BlogSection } from '../BlogSection';
+import { LocationsSection } from '../LocationsSection';
+import { SustainabilitySection } from '../SustainabilitySection';
+import { ContactSection } from '../ContactSection';
+import { Footer } from '../Footer';
+import OurConsumers from '../OurConsumers';
 
 // Lazy-load heavy admin/exporter components — they only load when the modal opens
-const AdminPanel = lazy(() => import('../components/AdminPanel').then(m => ({ default: m.AdminPanel })));
-const PhpExporter = lazy(() => import('../components/PhpExporter').then(m => ({ default: m.PhpExporter })));
+const AdminPanel = lazy(() => import('../AdminPanel').then(m => ({ default: m.AdminPanel })));
 
 interface HomePageProps {
   services: ServiceItem[];
@@ -24,7 +23,6 @@ interface HomePageProps {
   posts: BlogPost[];
   seoConfig: SEOMetaConfig;
   onOpenAdmin?: () => void;
-  onOpenExporter?: () => void;
   lang?: Language;
 }
 
@@ -34,7 +32,6 @@ const HomePageComponent: React.FC<HomePageProps> = ({
   posts,
   seoConfig,
   onOpenAdmin = () => {},
-  onOpenExporter = () => {},
   lang = 'fa',
 }) => {
   const router = useRouter();
@@ -62,20 +59,16 @@ const HomePageComponent: React.FC<HomePageProps> = ({
     onOpenAdmin?.();
   };
 
-  const handleOpenExporter = () => {
-    setActiveModal('exporter');
-    onOpenExporter?.();
-  };
+
 
   return (
-    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-surface text-slate-900 font-sans selection:bg-primary selection:text-white snap-proximity">
       
       {/* 1. Sticky Fidar Bondar Header */}
       <Header
         lang={currentLang}
         onLanguageChange={handleLanguageSwitch}
         onOpenAdmin={handleOpenAdmin}
-        onOpenExporter={handleOpenExporter}
         seoConfig={seoConfig}
       />
 
@@ -84,7 +77,6 @@ const HomePageComponent: React.FC<HomePageProps> = ({
         {/* 2. Fidar Bondar Hero Banner & Video */}
         <Hero
           lang={currentLang}
-          onOpenExporter={handleOpenExporter}
         />
 
         {/* 3. About Section */}
@@ -107,9 +99,9 @@ const HomePageComponent: React.FC<HomePageProps> = ({
         />
 
         {/* 6. Global Locations & Branches */}
-        <LocationsSection
+        {/* <LocationsSection
           lang={currentLang}
-        />
+        /> */}
 
         {/* 7. Sustainability & Co.T.A.N.E.C. */}
         <SustainabilitySection
@@ -125,7 +117,6 @@ const HomePageComponent: React.FC<HomePageProps> = ({
       {/* 9. Fidar Bondar Footer */}
       <Footer
         lang={currentLang}
-        onOpenExporter={handleOpenExporter}
         onOpenAdmin={handleOpenAdmin}
       />
 
@@ -153,7 +144,6 @@ const HomePageComponent: React.FC<HomePageProps> = ({
               </Suspense>
             ) : (
               <Suspense fallback={<div className="p-8 text-center text-slate-500">Loading Exporter...</div>}>
-                <PhpExporter lang={currentLang} onClose={() => setActiveModal(null)} />
               </Suspense>
             )}
           </div>
