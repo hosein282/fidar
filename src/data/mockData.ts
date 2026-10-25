@@ -759,12 +759,12 @@ export const SERVICES: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/خدمات پشتیبانی 24 ساعته.webp',
+        imgUrl: '/assets/images/services.webp',
       }
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/خدمات پشتیبانی 24 ساعته.webp',
+    imgUrl: '/assets/images/services.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 
@@ -908,7 +908,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/خدمات پشتیبانی 24 ساعته.webp',
+    imgUrl: '/assets/images/services.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 
