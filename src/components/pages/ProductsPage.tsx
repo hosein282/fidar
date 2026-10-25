@@ -119,7 +119,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
         window.scrollTo({ top: 0, behavior: 'smooth' });
         const interval = setInterval(() => {
             setActive((prev) => (prev + 1) % MATERIALS.length);
-        }, 3800);
+        }, 5000);
         return () => clearInterval(interval);
 
     }, [currentLang, isFa]);

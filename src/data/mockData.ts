@@ -759,7 +759,7 @@ export const SERVICES: MaterialData[] = [
         nameFa: '',
         descEn: '',
         descFa: '',
-        imgUrl: '/assets/images/icona_metal.png',
+        imgUrl: '/assets/images/خدمات پشتیبانی 24 ساعته.webp',
       }
     ],
     btnEn: 'Read More',
@@ -908,7 +908,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
     ],
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
-    imgUrl: '/assets/images/test-GLASS-icon-2.png',
+    imgUrl: '/assets/images/خدمات پشتیبانی 24 ساعته.webp',
     videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
   },
 

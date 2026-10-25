@@ -62,7 +62,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
         const interval = setInterval(() => {
             setActive((prev) => (prev + 1) % SERVICES.length);
-        }, 3000);
+        }, 5000);
         return () => clearInterval(interval);
 
     }, [currentLang, isFa]);
