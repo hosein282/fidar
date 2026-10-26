@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Language, BlogPost } from '../types';
@@ -9,7 +9,6 @@ import { sanitizeBlogPost } from '../utils/sanitize';
 import { format } from 'date-fns-jalali';
 import { format as fr } from 'date-fns';
 import Image from 'next/image';
-
 
 interface BlogSectionProps {
   lang: Language;
@@ -25,26 +24,42 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
   const isFa = lang === 'fa';
   const ArrowIcon = isFa ? ArrowLeft : ArrowRight;
 
-  const safePosts = (Array.isArray(posts) ? posts : []).map(sanitizeBlogPost);
+  const safePosts = useMemo(() => (Array.isArray(posts) ? posts : []).map(sanitizeBlogPost), [posts]);
 
-  const [showNav, setShowNav] = useState<boolean>(false);
+  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+  const [canScrollRight, setCanScrollRight] = useState<boolean>(false);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     const update = () => {
-      setShowNav(container.scrollWidth > container.clientWidth + 1);
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+      const hasScrollableSpace = maxScrollLeft > 1;
+      const atStart = container.scrollLeft <= 1;
+      const atEnd = container.scrollLeft >= maxScrollLeft - 1;
+
+      setCanScrollLeft(hasScrollableSpace && !atStart);
+      setCanScrollRight(hasScrollableSpace && !atEnd);
     };
 
-    // Check on mount
+    const raf = requestAnimationFrame(update);
+    const t = window.setTimeout(update, 300);
+
     update();
 
-    // Check on scroll and resize
     container.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
 
-    // Re-check when lazy-loaded images finish loading (critical!)
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        window.scrollBy({ top: e.deltaY, behavior: 'auto' });
+        e.preventDefault();
+      }
+    };
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
     const images = container.querySelectorAll('img');
     const onImgLoad = () => update();
     images.forEach((img) => {
@@ -52,12 +67,14 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
       img.addEventListener('error', onImgLoad);
     });
 
-    // Re-check on any size change (images, fonts, etc.)
     const observer = new ResizeObserver(update);
     observer.observe(container);
 
     return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(t);
       container.removeEventListener('scroll', update);
+      container.removeEventListener('wheel', handleWheel);
       window.removeEventListener('resize', update);
       images.forEach((img) => {
         img.removeEventListener('load', onImgLoad);
@@ -92,6 +109,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
       0,
       Math.min(items.length - 1, direction === 'next' ? currentIndex + 1 : currentIndex - 1)
     );
+
     const target = items[targetIndex];
     const rect = target.getBoundingClientRect();
     const targetCenter = rect.left - containerRect.left + rect.width / 2;
@@ -103,45 +121,34 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
   }, []);
 
   return (
-    <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden flex flex-col items-center justify-center ">
+    <section id="blog" className="h-dvh py-20 bg-primary-dark text-white relative overflow-hidden flex flex-col items-center justify-center">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-        {/* Section Top Header: Title + "See all" Button */}
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white px-4">
             {isFa ? 'مقالات، رویدادها و اخبار' : 'What\'s Next'}
           </h2>
-
-
         </div>
 
-        {/* Carousel Wrapper */}
         <div className="relative group">
-
-          {/* Scroll Container */}
           <div
             ref={scrollContainerRef}
-            className="flex w-full  gap-6 sm:gap-8 overflow-x-auto  touch-pan-x justify-start items-center scrollbar-none pb-8 px-8 pt-2"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            className="scroll-container flex w-screen gap-6 sm:gap-8 overflow-x-auto scrollbar-none justify-start items-center pb-8 px-8 pt-2"
           >
             {safePosts.map((post) => {
               const titleStr = (isFa ? post.title?.fa : post.title?.en) || post.title?.fa || 'بدون عنوان';
               const catStr = (isFa ? post.category?.fa : post.category?.en) || (post.postType === 'news' ? 'CUSTOMER STORY' : 'EVENTS');
               const dateStr = post.date || '03/25/2025';
 
-
               return (
                 <article
                   key={post.id}
                   onClick={() => router.push(`/${lang}/blog/${post.id}`)}
-                  className="w-70 sm:w-[320px] shrink-0 flex flex-col items-center  cursor-pointer text-center"
+                  className="w-70 sm:w-[320px] shrink-0 flex flex-col items-center cursor-pointer text-center"
                 >
-                  {/* Card Image with Fidar Bondar rounded-3xl corners */}
                   <div className="w-full h-75 sm:h-[340px] rounded-[32px] overflow-hidden group bg-emerald-950/40 shadow-xl border border-white/10 relative">
                     <Image
-                      src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80' } 
+                      src={post.coverImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'}
                       alt={titleStr}
-                      overrideSrc="/assets/images/slides/METAL_Image_shape_A1.jpg"
                       width={600}
                       height={600}
                       loading="lazy"
@@ -150,58 +157,56 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                     />
                   </div>
 
-                  {/* Outlined Pill Tag under Image */}
                   <div className="mt-5">
-                    <span className="inline-block px-5 py-1.5 rounded-full border border-white/70 text-white text-[10px] sm:text-[11px]  font-thin tracking-widest uppercase hover:bg-white hover:text-primary-dark transition-colors">
+                    <span className="inline-block px-5 py-1.5 rounded-full border border-white/70 text-white text-[10px] sm:text-[11px] font-thin tracking-widest uppercase hover:bg-white hover:text-primary-dark transition-colors">
                       {catStr}
                     </span>
                   </div>
 
-                  {/* Title */}
                   <h3 className="text-white font-bold text-base sm:text-lg leading-snug mt-3 line-clamp-2 px-2 hover:underline decoration-white/60">
                     {titleStr}
                   </h3>
 
-                  {/* Date */}
-                  <p className={`${isFa ? "" : "font-mono"} text-white/80 text-xs mt-2`}>
-                    {isFa ? format(Date.parse(dateStr), 'dd MMMM yyyy') : fr(Date.parse(dateStr), 'MMMM d, yyyy')}
+                  <p className={`${isFa ? '' : 'font-mono'} text-white/80 text-xs mt-2`}>
+                    {(() => {
+                      const parsed = Date.parse(dateStr);
+                      return Number.isNaN(parsed)
+                        ? dateStr
+                        : isFa
+                          ? format(parsed, 'dd MMMM yyyy')
+                          : fr(parsed, 'MMMM d, yyyy');
+                    })()}
                   </p>
                 </article>
               );
             })}
           </div>
 
-         
-
-        </div>
-         {/* Floating Circle Arrow Nav Buttons */}
-          {showNav && (
-            <>
-              <button
-                onClick={() => scrollToCenteredItem(isFa ? 'next' : 'prev')}
-                className="absolute left-0 lg:left-8 lg:top-1/2 top-2/3 -translate-y-1/2 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
-                aria-label={isFa ? 'مقاله بعدی' : 'Previous article'}
-              >
-                <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
-              </button>
-
-              <button
-                onClick={() => scrollToCenteredItem(isFa ? 'prev' : 'next')}
-                className="absolute right-0 lg:right-8 lg:top-1/2 top-2/3 -translate-y-1/2 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-10 border border-slate-200"
-                aria-label={isFa ? 'مقاله قبلی' : 'Next article'}
-              >
-                <ChevronRight className="w-6 h-6 stroke-[2.5]" />
-              </button>
-            </>
+          {canScrollLeft && (
+            <button
+              onClick={() => scrollToCenteredItem('prev')}
+              className="absolute top-1/2 -translate-y-1/2 left-0 lg:left-8 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-30 border border-slate-200"
+              aria-label={isFa ? 'مقاله قبلی' : 'Previous article'}
+            >
+              <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
+            </button>
           )}
 
+          {canScrollRight && (
+            <button
+              onClick={() => scrollToCenteredItem('next')}
+              className="absolute top-1/2 -translate-y-1/2 right-0 lg:right-8 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-30 border border-slate-200"
+              aria-label={isFa ? 'مقاله بعدی' : 'Next article'}
+            >
+              <ChevronRight className="w-6 h-6 stroke-[2.5]" />
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Article Detail & Schema Reader Modal */}
       {selectedPost && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fade-in text-slate-900">
           <div className="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl dir-rtl">
-
             <button
               onClick={() => { setSelectedPost(null); setShowSchemaModal(false); }}
               aria-label='Show Blog'
@@ -211,7 +216,6 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             </button>
 
             {showSchemaModal ? (
-              /* JSON-LD Schema Viewer */
               <div className="space-y-4">
                 <div className="flex items-center gap-2 text-primary-dark font-bold text-lg">
                   <Code2 className="w-5 h-5" />
@@ -249,9 +253,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                 </button>
               </div>
             ) : (
-              /* Full Article Reader */
               <div className="space-y-6">
-
                 <div className="space-y-2">
                   <div className="flex items-center gap-3 text-xs text-slate-500">
                     <span className="text-primary-dark font-bold px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
@@ -303,15 +305,13 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
                     <span>{isFa ? 'مشاهده اسکیما سئو' : 'View Schema.org'}</span>
                   </button>
                 </div>
-
               </div>
             )}
-
           </div>
         </div>
       )}
 
-      <div className='flex items-center justify-center'>
+      <div className="flex items-center justify-center">
         <Link
           href={`/${lang}/blog`}
           className="px-6 py-2.5 text-center rounded-lg border border-white/80 text-white hover:bg-white hover:text-primary-dark transition-all font-semibold text-xs sm:text-sm tracking-wide inline-flex items-center gap-2"
@@ -321,7 +321,22 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
         </Link>
       </div>
 
-
+      <style jsx>{`
+        .scroll-container::-webkit-scrollbar {
+          height: 6px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.06);
+          border-radius: 3px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.25);
+          border-radius: 3px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.4);
+        }
+      `}</style>
     </section>
   );
 };
