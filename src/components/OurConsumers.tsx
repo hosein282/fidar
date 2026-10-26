@@ -18,7 +18,7 @@ const industries = [
             fa: 'جرثقیل‌های ترانستینر هیبرید',
             en: 'Hybrid Transtainer Cranes',
         },
-        imageUrl: '/assets/images/products/p7.webp',
+        imageUrl: '/assets/images/products/RTG/RTG-Fidar-sazeh-bondar.webp',
         alt: 'Automotive',
         width: 400,
         height: 600,
