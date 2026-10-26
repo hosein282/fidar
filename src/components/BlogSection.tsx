@@ -26,63 +26,48 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
 
   const safePosts = useMemo(() => (Array.isArray(posts) ? posts : []).map(sanitizeBlogPost), [posts]);
 
-  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
-  const [canScrollRight, setCanScrollRight] = useState<boolean>(false);
+  const [scrollLeft, setScrollLeft] = useState(false);
+  const [scrollRight, setScrollRight] = useState(false);
+
+  const checkScrollability = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollLeft: left, scrollWidth, clientWidth, offsetWidth } = el;
+
+    if (isFa) {
+      setScrollLeft((-left + clientWidth) < (scrollWidth - 50));
+      setScrollRight(left > 16 || left < -30);
+    } else {
+      setScrollRight((left + offsetWidth) < (scrollWidth - 50));
+      setScrollLeft(left > 16 || left < -30);
+    }
+  }, [isFa]);
 
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
+    checkScrollability();
 
-    const update = () => {
-      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+    const el = scrollContainerRef.current;
+    if (!el) return;
 
-      const hasScrollableSpace = maxScrollLeft > 1;
-      const atStart = container.scrollLeft <= 1;
-      const atEnd = container.scrollLeft >= maxScrollLeft - 1;
-
-      setCanScrollLeft(hasScrollableSpace && !atStart);
-      setCanScrollRight(hasScrollableSpace && !atEnd);
-    };
-
-    const raf = requestAnimationFrame(update);
-    const t = window.setTimeout(update, 300);
-
-    update();
-
-    container.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-
-    const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        window.scrollBy({ top: e.deltaY, behavior: 'auto' });
-        e.preventDefault();
-      }
-    };
-    container.addEventListener('wheel', handleWheel, { passive: false });
-
-    const images = container.querySelectorAll('img');
-    const onImgLoad = () => update();
-    images.forEach((img) => {
-      img.addEventListener('load', onImgLoad);
-      img.addEventListener('error', onImgLoad);
-    });
-
-    const observer = new ResizeObserver(update);
-    observer.observe(container);
+    el.addEventListener('scroll', checkScrollability);
+    window.addEventListener('resize', checkScrollability);
 
     return () => {
-      cancelAnimationFrame(raf);
-      window.clearTimeout(t);
-      container.removeEventListener('scroll', update);
-      container.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('resize', update);
-      images.forEach((img) => {
-        img.removeEventListener('load', onImgLoad);
-        img.removeEventListener('error', onImgLoad);
-      });
-      observer.disconnect();
+      el.removeEventListener('scroll', checkScrollability);
+      window.removeEventListener('resize', checkScrollability);
     };
-  }, [safePosts]);
+  }, [checkScrollability, safePosts]);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+
+    const scrollAmount = 200;
+    scrollContainerRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
 
   const scrollToCenteredItem = useCallback((direction: 'prev' | 'next') => {
     const container = scrollContainerRef.current;
@@ -111,6 +96,8 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
     );
 
     const target = items[targetIndex];
+    if (!target) return;
+
     const rect = target.getBoundingClientRect();
     const targetCenter = rect.left - containerRect.left + rect.width / 2;
 
@@ -132,6 +119,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
         <div className="relative group">
           <div
             ref={scrollContainerRef}
+            dir={isFa ? 'rtl' : 'ltr'}
             className="scroll-container flex w-screen gap-6 sm:gap-8 overflow-x-auto scrollbar-none justify-start items-center pb-8 px-8 pt-2"
           >
             {safePosts.map((post) => {
@@ -182,25 +170,21 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
             })}
           </div>
 
-          {canScrollLeft && (
-            <button
-              onClick={() => scrollToCenteredItem('prev')}
-              className="absolute top-1/2 -translate-y-1/2 left-0 lg:left-8 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-30 border border-slate-200"
-              aria-label={isFa ? 'مقاله قبلی' : 'Previous article'}
-            >
-              <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
-            </button>
-          )}
+          <button
+            onClick={() => scroll(isFa ? 'left' : 'left')}
+            className={`absolute top-1/2 -translate-y-1/2 left-0 lg:left-8 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-30 border border-slate-200 ${scrollLeft ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+            aria-label={isFa ? 'مقاله قبلی' : 'Previous article'}
+          >
+            <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
+          </button>
 
-          {canScrollRight && (
-            <button
-              onClick={() => scrollToCenteredItem('next')}
-              className="absolute top-1/2 -translate-y-1/2 right-0 lg:right-8 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-30 border border-slate-200"
-              aria-label={isFa ? 'مقاله بعدی' : 'Next article'}
-            >
-              <ChevronRight className="w-6 h-6 stroke-[2.5]" />
-            </button>
-          )}
+          <button
+            onClick={() => scroll(isFa ? 'right' : 'right')}
+            className={`absolute top-1/2 -translate-y-1/2 right-0 lg:right-8 w-12 h-12 rounded-full bg-surface text-primary-dark flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-30 border border-slate-200 ${scrollRight ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+            aria-label={isFa ? 'مقاله بعدی' : 'Next article'}
+          >
+            <ChevronRight className="w-6 h-6 stroke-[2.5]" />
+          </button>
         </div>
       </div>
 
