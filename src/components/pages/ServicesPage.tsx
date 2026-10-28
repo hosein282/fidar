@@ -540,7 +540,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                                         src={item.imgUrl}
                                                         alt={isFa ? item.nameFa : item.nameEn}
                                                         fill
-                                                        className="object-contain object-center"
+                                                        className="object-cover object-center"
                                                     />
                                                 </div>
 
