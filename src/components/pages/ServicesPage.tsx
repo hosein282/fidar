@@ -268,7 +268,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
 
                 {/* 4. Genuine Mastery — full-width parallax band */}
-                <section className="relative h-[60vh]  overflow-hidden lg:block bg-surface ">
+                <section className="relative lg:h-[70vh] h-[85vh] overflow-hidden lg:block bg-surface ">
                     <div className="absolute inset-0">
                         {SERVICES.map((slide, index) => (<div key={slide.nameEn}
                             className={`absolute inset-0 transition-all duration-800 delay-50 ease-in-out ${index === active ? "translate-y-0 opacity-100" : index < active ? "-translate-y-full " : "translate-y-full "}`}
@@ -290,7 +290,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                 <div key={index}
                                     className="h-full w-full shrink-0 items-center  hidden lg:flex " >
                                     <div className=" w-full items-center pl-4 pr-4 ">
-                                        <h2 className="text-4xl font-normal leading-tight text-white lg:text-5xl"> {isFa ? slide.nameFa : slide.nameEn} </h2>
+                                        <h2 className="text-4xl font-black leading-tight text-white lg:text-5xl"> {isFa ? slide.nameFa : slide.nameEn} </h2>
                                     </div>
                                     <div className="flex h-full w-screen flex-col justify-end ">
 
@@ -353,7 +353,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
                                         <div className={`flex h-2/4 w-full ${isFa ? "justify-end" : "justify-start"} `} >
                                             <div
-                                                className="relative z-10 h-6 w-6 bg-surface self-end"
+                                                className="relative z-10 h-6 w-6 bg-surface opacity-75 self-end"
                                                 style={{
                                                     WebkitMaskImage:
                                                         "radial-gradient(circle at 100% 0%, transparent 0 24px, black 24px)",
@@ -364,14 +364,14 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
 
                                         </div>
 
-                                        <div className="flex h-1/4  items-center rounded-r-3xl -mt-px -mb-px py-9 pl-14 pr-24 bg-surface">
+                                        <div className="flex h-3/8 lg:h-2/4  items-center rounded-r-3xl -mt-px -mb-px py-9 pl-14 pr-14 lg:pr-24 bg-surface opacity-75">
 
                                             <p className="text-xl font-normal  leading-tight text-slate-900 lg:text-4xl"> {isFa ? slide.descFa : slide.descEn} </p>
                                         </div>
 
                                         <div className={`flex h-1/4 w-full  ${isFa ? "justify-end" : "justify-start"} `}>
                                             <div
-                                                className="relative z-10 h-6 w-6 bg-surface"
+                                                className="relative z-10 h-6 w-6 bg-surface opacity-75"
                                                 style={{
                                                     WebkitMaskImage:
                                                         "radial-gradient(circle at 100% 100%, transparent 0 24px, black 24px)",
