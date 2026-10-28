@@ -668,7 +668,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'Where speed, precision, and operational space must be managed simultaneously. Fidar Sazeh Bandar RTG cranes, with an engineered design for the new generation of container terminals, offer a combination of productivity, flexibility, and precise load control.',
         descFa:
           'جایی که سرعت، دقت و فضای عملیاتی باید همزمان مدیریت شوند. جرثقیل‌های RTG فیدار سازه بندار با طراحی مهندسی‌شده برای نسل جدید پایانه‌های کانتینری، ترکیبی از بهره‌وری، انعطاف‌پذیری و کنترل دقیق بار را ارائه می‌دهد.',
-        imgUrl: '/assets/images/products/RTG/1743152406275.jfif',
+        imgUrl: '/assets/images/products/RTG/RTG-Fidar-sazeh-bondar.webp',
       },
       {
         nameEn: 'Mobile and Shore Rail Cranes',
@@ -678,7 +678,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
           'A combination of mobility, capacity, and precise load control for heavy operations at the dock and port areas. Fidar Sazeh Bandar shore and rail cranes, designed according to operating conditions, provide extensive coverage of the working area and fast, reliable cargo movement; a flexible solution for ports and industries with diverse operational needs.',
         descFa:
           'ترکیبی از تحرک، ظرفیت و کنترل دقیق بار برای عملیات سنگین در اسکله و محوطه‌های بندری. جرثقیل‌های ساحلی و ریلی فیدار سازه بندار با طراحی متناسب با شرایط بهره‌برداری، امکان پوشش گسترده محدوده کاری و جابه‌جایی سریع و مطمئن بار را فراهم می‌کنند؛ راهکاری منعطف برای بنادر و صنایع با نیازهای متنوع عملیاتی.',
-        imgUrl: '/assets/images/products/موبایل صاحلی.webp',
+        imgUrl: '/assets/images/products/mobile-shore.webp',
       },
       {
         nameEn: 'Bulk Material Loading and Unloading Equipment',
