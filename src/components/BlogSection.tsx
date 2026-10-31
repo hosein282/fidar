@@ -120,7 +120,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ lang, posts = [] }) =>
           <div
             ref={scrollContainerRef}
             dir={isFa ? 'rtl' : 'ltr'}
-            className="scroll-container flex w-screen gap-6 sm:gap-8 overflow-x-auto scrollbar-none justify-start items-center pb-8 px-8 pt-2"
+            className="scroll-container flex w-full gap-6 sm:gap-8 overflow-x-auto scrollbar-none justify-start items-center pb-8 px-8 pt-2"
           >
             {safePosts.map((post) => {
               const titleStr = (isFa ? post.title?.fa : post.title?.en) || post.title?.fa || 'بدون عنوان';

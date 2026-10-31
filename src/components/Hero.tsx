@@ -144,7 +144,7 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
          
         </div>
 
-        <ul className={`absolute flex justify-center items-center gap-3 bottom-16 lg:bottom-16 ${isFa ? "left-8" : "right-8"}`}>
+        <ul className={`absolute flex justify-center items-center gap-3 bottom-8 lg:bottom-16 ${isFa ? "left-8" : "right-8"}`}>
           {MATERIALS.map(((m) => (
             <li key={m.id} className={`h-2 w-2 border-amber-50 border  z-40 rounded-full ${m.id === active?.id ? "bg-sky-100" : ""} `}></li>
           )))}
@@ -243,7 +243,7 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
       {/* Bounce Scroll Down Indicator */}
 
 
-      <ArrowDown className={`absolute ${isFa ? "right-4" : "left-4"} bottom-15 w-5 h-5 text-surface transition animate-bounce`} />
+      <ArrowDown className={`absolute ${isFa ? "right-4" : "left-4"} bottom-8 w-5 h-5 text-surface transition animate-bounce`} />
     </section>
   );
 };
