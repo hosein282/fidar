@@ -230,7 +230,7 @@ const ProductsPageComponent: React.FC<ProductsPageProps> = ({
                             <div className="absolute inset-0 z-0">
                                 <video
                                     className="w-full h-full object-cover object-center"
-                                    src="/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v"
+                                    src="/assets/videos/fidar_produtcs.mp4"
                                     autoPlay
                                     muted
                                     loop

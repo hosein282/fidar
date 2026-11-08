@@ -196,7 +196,7 @@ const ServicesPageComponent: React.FC<ServicesPageProps> = ({
                                 <video
                                     ref={videoRef}
                                     className={`w-full h-full object-cover object-center transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
-                                    src="/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v"
+                                    src="/assets/videos/fidar_Services.mp4"
                                     autoPlay
                                     muted
                                     loop

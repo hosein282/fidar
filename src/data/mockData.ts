@@ -577,7 +577,7 @@ export const MATERIALS: MaterialData[] = [
     shortNameEn: 'Port Equipment',
 
     slides: [],
-    videoUrl: ",",
+    videoUrl: "/assets/videos/fidar_produtcs.mp4",
 
     color: 'var(--color-glass)',
     descEn: 'Design and manufacturing of various port material handling equipment with a focus on reliability, operational precision, safety, and efficiency; from conventional solutions to modern and energy-efficient technologies.',
@@ -596,7 +596,7 @@ export const MATERIALS: MaterialData[] = [
     nameEn: 'Industrial Cranes',
     nameFa: 'جرثقیل های صنعتی',
     slides: [],
-    videoUrl: ",",
+    videoUrl: "/assets/videos/fidar_produtcs.mp4",
 
     color: 'var(--color-stone)',
     descEn: 'Design and manufacturing of various gantry and overhead industrial cranes with an engineering approach, manufacturing precision, and a focus on safety and stable performance. Fidar Sazeh Bandar offers specialized material handling solutions tailored to the needs of various industries.',
@@ -614,7 +614,7 @@ export const MATERIALS: MaterialData[] = [
     nameEn: 'Process Equipment and Power Transmission',
     nameFa: 'تجهیزات فرایندی و انتقال توان',
     slides: [],
-    videoUrl: ",",
+    videoUrl: "/assets/videos/fidar_Fan.mp4",
     shortNameFa: 'فن و گیربکس',
     shortNameEn: 'Fans & Gearboxes',
 
@@ -649,7 +649,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+    videoUrl: '/assets/videos/fidar_RTG.mp4'
   },
   {
     id: 1,
@@ -697,7 +697,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
+    videoUrl: '/assets/videos/fidar_RTG.mp4',
   },
   {
     id: 2,
@@ -716,7 +716,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
+    videoUrl: '/assets/videos/fidar_produtcs.mp4',
   },
   {
     id: 3,
@@ -736,7 +736,7 @@ export const MATERIALS_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v',
+    videoUrl: '/assets/videos/fidar_Fan.mp4',
   },
 ];
 
@@ -805,7 +805,7 @@ export const SERVICES: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/Picture7.webp',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+    videoUrl: '/assets/videos/fidar_REPAIR.mp4'
   },
 
   {
@@ -831,7 +831,7 @@ export const SERVICES: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/Picture2.webp',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+    videoUrl: '/assets/videos/fidar_325.mp4'
   }
 ];
 
@@ -909,7 +909,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/services.webp',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+    videoUrl: '/assets/videos/fidar_325.mp4'
   },
 
   {
@@ -949,7 +949,7 @@ export const SERVICES_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+    videoUrl: '/assets/videos/fidar_REPAIR.mp4'
   },
 
   {
@@ -975,6 +975,6 @@ export const SERVICES_DETAILS: MaterialData[] = [
     btnEn: 'Read More',
     btnFa: 'اطلاعات بیشتر',
     imgUrl: '/assets/images/test-GLASS-icon-2.png',
-    videoUrl: '/assets/videos/Sito_-_Banner_Wood_-_Strip.m4v'
+    videoUrl: '/assets/videos/fidar_325.mp4'
   }
 ];
