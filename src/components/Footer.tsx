@@ -53,7 +53,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenAdmin }) => {
             >
               <Instagram className="w-5 h-5" />
             </a>
-            <a href="https://www.linkedin.com/company/Fidar Bondar" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
+            <a href="https://www.linkedin.com/company/fidar-sazeh-bondar/" target="_blank" rel="noreferrer" className="w-11 h-11 rounded-full border border-white flex items-center justify-center text-white hover:bg-white hover:text-black transition"
             aria-label='Linkdin Proifle'
             >
               <Linkedin className="w-5 h-5" />
